@@ -20,12 +20,10 @@ public class Troncon {
        private Intersection m_intersectionOrigin;
        private Intersection m_intersectionDestination;
        public Troncon(Distribution distribution,
-            Temps tempsTransitPieton,
-            Intersection intersectionOirgin,
+            Intersection intersectionOrigin,
            Intersection intersectionDestination){
            m_distribution = distribution;
-           m_tempsTransitPieton = tempsTransitPieton;
-           m_intersectionOrigin = intersectionOirgin;
+           m_intersectionOrigin = intersectionOrigin;
            m_intersectionDestination =  intersectionDestination;
        }
        public Boolean estAdjacent(Troncon troncon){
@@ -40,7 +38,7 @@ public class Troncon {
        }
        public void setTempsTransit(){
            m_tempsTransitAutobus = m_distribution.pigerTemps();
-           m_tempsTransitPieton = new Temps(longueurTroncon()/4);
+           m_tempsTransitPieton = new Temps(longueurTroncon()/4); //On révise ca la !!
        }
        public Temps getTempsTransitAutobus(){
            return m_tempsTransitAutobus;

@@ -22,8 +22,7 @@ public class EmplacementTest extends TestCase {
      */
     public void testCalculPosition() {
         Position position1 = new Position(5,10);
-        Position position2 = new Position(5,10);
-        
-        
+        Position position2 = new Position(10,15);
+        //Emplacement emplacement = Emplacement(true, position1,position2, )
     }
 }
