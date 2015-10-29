@@ -11,7 +11,7 @@ package Utilitaire;
  */
 public class Temps {
     private double m_temps;
-    Temps(double p_temps)
+    public Temps(double p_temps)
     {
         m_temps = p_temps;
     }

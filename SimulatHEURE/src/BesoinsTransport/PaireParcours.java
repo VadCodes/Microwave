@@ -11,10 +11,10 @@ import java.util.LinkedList;
  *
  * @author vadimcote
  */
-public class paireParcours {
+public class PaireParcours {
     private final ParcoursPieton m_parcoursPieton;
     private final ParcoursBus m_parcoursBus;
-    public paireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
+    public PaireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
         this.m_parcoursPieton = m_parcoursPieton;
         this.m_parcoursBus = m_parcoursBus;
     }

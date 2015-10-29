@@ -21,10 +21,10 @@ public class Emplacement {
         m_intersection = intersection;
     }
     public Position calculPosition(){
-        double positionDepartX = m_troncon.getIntersectionDistination().getPosition().getPositionX();
-        double positionDepartY = m_troncon.getIntersectionDistination().getPosition().getPositionY();
-        double positionFinX = m_troncon.getIntersectionDistination().getPosition().getPositionX();
-        double positionFinY = m_troncon.getIntersectionDistination().getPosition().getPositionY();
+        double positionDepartX = m_troncon.getIntersectionDestination().getPosition().getPositionX();
+        double positionDepartY = m_troncon.getIntersectionDestination().getPosition().getPositionY();
+        double positionFinX = m_troncon.getIntersectionDestination().getPosition().getPositionX();
+        double positionFinY = m_troncon.getIntersectionDestination().getPosition().getPositionY();
         double X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
         double Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
         return new Position(X, Y);

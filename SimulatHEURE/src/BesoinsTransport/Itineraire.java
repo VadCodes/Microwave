@@ -12,10 +12,13 @@ package BesoinsTransport;
 import java.util.List;
 import java.util.ArrayList;
 public class Itineraire {
-    private final List<paireParcours> list;
+    private final List<PaireParcours> m_list;
     
     public Itineraire(){
-        this.list = new ArrayList<paireParcours>();
+        m_list = new ArrayList<PaireParcours>();
+    }
+    public void ajouterPaireParcours(PaireParcours paireParcours){
+        m_list.add(paireParcours);
     }
 }
   

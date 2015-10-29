@@ -48,7 +48,7 @@ public class Distribution {
         m_aireDroite = m_hauteur * (tMax - tFreq) / 2;
     }
     
-    Temps pigerTemps(double p_nombre)
+    publicTemps pigerTemps(double p_nombre)
     {
         if (p_nombre < 0 || p_nombre > 1)
         {
