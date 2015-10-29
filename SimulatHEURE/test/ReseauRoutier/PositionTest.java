@@ -5,49 +5,38 @@
  */
 package ReseauRoutier;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 /**
  *
  * @author Nathaniel
  */
-public class PositionTest {
+public class PositionTest extends TestCase {
     
-    public PositionTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
+    public PositionTest(String testName) {
+        super(testName);
     }
 
     /**
      * Test of getPositionX method, of class Position.
      */
-    @org.junit.Test
     public void testGetPositionX() {
         System.out.println("getPositionX");
-        Position instance = null;
-        double expResult = 0.0;
+        double expResult = 4.5;
+        Position instance = new Position(expResult, 6.7);
         double result = instance.getPositionX();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);
     }
 
     /**
      * Test of getPositionY method, of class Position.
      */
-    @org.junit.Test
     public void testGetPositionY() {
         System.out.println("getPositionY");
-        Position instance = null;
-        double expResult = 0.0;
+        double expResult = 4.5;
+        Position instance = new Position(6.7, expResult);
         double result = instance.getPositionY();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result);
     }
     
 }
