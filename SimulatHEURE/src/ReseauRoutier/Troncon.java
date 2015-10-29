@@ -10,5 +10,5 @@ package ReseauRoutier;
  * @author Nathaniel
  */
 public class Troncon {
-    
+       
 }

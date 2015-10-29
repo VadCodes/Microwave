@@ -10,5 +10,16 @@ package ReseauRoutier;
  * @author Nathaniel
  */
 public class Position {
-    
+        private final  double m_x;
+        private final  double m_y;
+        public Position(double x, double y){
+            m_x = x;
+            m_y = y;
+        }
+        public double getPositionX(){
+            return m_x;
+    }
+         public double getPositionY(){
+            return m_y;
+    }
 }
