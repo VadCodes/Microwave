@@ -48,7 +48,11 @@ public class Distribution {
         //m_aireDroite = m_hauteur * (tMax - tFreq) / 2;
     }
     
+<<<<<<< HEAD
     public void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
+=======
+    publicTemps pigerTemps(double p_nombre)
+>>>>>>> eaeb13f3af39f4a45dec3889ca3610c73897ee1a
     {
         double tMin = p_tempsMinimum.getTemps();
         double tFreq = p_tempsPlusFrequent.getTemps();

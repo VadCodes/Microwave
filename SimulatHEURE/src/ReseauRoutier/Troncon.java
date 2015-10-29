@@ -17,7 +17,7 @@ public class Troncon {
        private Temps m_tempsTransitAutobus;
        private Distribution m_distribution;
        private Temps m_tempsTransitPieton;
-       private Intersection m_intersectionOirgin;
+       private Intersection m_intersectionOrigin;
        private Intersection m_intersectionDestination;
        public Troncon(Distribution distribution,
             Temps tempsTransitPieton,
@@ -25,8 +25,18 @@ public class Troncon {
            Intersection intersectionDestination){
            m_distribution = distribution;
            m_tempsTransitPieton = tempsTransitPieton;
-           m_intersectionOirgin = intersectionOirgin;
+           m_intersectionOrigin = intersectionOirgin;
            m_intersectionDestination =  intersectionDestination;
+       }
+       public Boolean estAdjacent(Troncon troncon){
+           Boolean tmp1 = m_intersectionOrigin.equals(troncon.getIntersectionDestination());
+           Boolean tmp2 = m_intersectionDestination.equals(troncon.getIntersectionOrigin());
+           if(tmp1 || tmp2){
+               return true;
+           }
+           else{
+               return false;
+           }
        }
        public void setTempsTransit(){
            m_tempsTransitAutobus = m_distribution.pigerTemps();
@@ -42,12 +52,12 @@ public class Troncon {
            m_distribution = distribution;
        }
        public Intersection getIntersectionOrigin(){
-           return m_intersectionOirgin;
+           return m_intersectionOrigin;
        }
-       public Intersection getIntersectionDistination(){
+       public Intersection getIntersectionDestination(){
            return m_intersectionDestination;
        }
        public double longueurTroncon(){
-        return m_intersectionOirgin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());
+        return m_intersectionOrigin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());
     }
 }
