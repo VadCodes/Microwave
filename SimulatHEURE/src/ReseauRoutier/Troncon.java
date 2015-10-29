@@ -30,7 +30,7 @@ public class Troncon {
        }
        public void setTempsTransit(){
            m_tempsTransitAutobus = m_distribution.pigerTemps();
-           m_tempsTransitPietion 
+           m_tempsTransitPieton = new Temps(longueurTroncon()/4);
        }
        public Temps getTempsTransitAutobus(){
            return m_tempsTransitAutobus;
@@ -48,7 +48,6 @@ public class Troncon {
            return m_intersectionDestination;
        }
        public double longueurTroncon(){
-        return m_intersectionOirgin.getPosition() -  m_intersectionDestination.getPosition();
+        return m_intersectionOirgin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());
     }
-       
 }

@@ -39,4 +39,12 @@ public class PositionTest extends TestCase {
         assertEquals(expResult, result);
     }
     
+    public void testDistanceEntrePositions(){
+        System.out.println("distanceEntrePositions");
+        Position position1 = new Position(5, 10);
+        Position position2 = new Position(10, 20);
+       double distance =  position1.distanceEntrePositions(position2);
+       double distanceVoulu = Math.sqrt(125);
+        assertEquals(distance,  distanceVoulu);
+    }
 }

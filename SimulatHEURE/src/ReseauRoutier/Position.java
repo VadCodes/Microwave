@@ -23,6 +23,7 @@ public class Position {
             return m_y;
     }
          public double distanceEntrePositions(Position position){
-             
+             double tmp = Math.pow(m_x - position.getPositionX(), 2) + Math.pow(m_y - position.getPositionY(), 2);
+             return Math.sqrt(tmp);
          }
 }
