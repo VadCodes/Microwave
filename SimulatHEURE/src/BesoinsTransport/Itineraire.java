@@ -12,12 +12,6 @@ package BesoinsTransport;
 import java.util.List;
 import java.util.ArrayList;
 public class Itineraire {
-<<<<<<< HEAD
-    private final List<PaireParcours> list;
-    
-    public Itineraire(){
-        this.list = new ArrayList<PaireParcours>();
-=======
     private final List<PaireParcours> m_list;
     
     public Itineraire(){
@@ -25,7 +19,6 @@ public class Itineraire {
     }
     public void ajouterPaireParcours(PaireParcours paireParcours){
         m_list.add(paireParcours);
->>>>>>> 2a0a125a83729047c769f97abe846458589eb1d9
     }
 }
   

@@ -11,17 +11,10 @@ import java.util.LinkedList;
  *
  * @author vadimcote
  */
-<<<<<<< HEAD:SimulatHEURE/src/BesoinsTransport/PaireParcours.java
 public class PaireParcours {
-    private final ParcoursPieton m_parcoursPieton;
-    private final ParcoursBus m_parcoursBus;
-    public PaireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
-=======
-public class paireParcours {
     private ParcoursPieton m_parcoursPieton;
     private ParcoursBus m_parcoursBus;
-    public paireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
->>>>>>> Vadim:SimulatHEURE/src/BesoinsTransport/paireParcours.java
+    public PaireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
         this.m_parcoursPieton = m_parcoursPieton;
         this.m_parcoursBus = m_parcoursBus;
     }
