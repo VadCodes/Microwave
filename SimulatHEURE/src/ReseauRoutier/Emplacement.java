@@ -20,4 +20,37 @@ public class Emplacement {
         m_troncon = troncon;
         m_intersection = intersection;
     }
+    public Position calculPosition(){
+        double positionDepartX = m_troncon.getIntersectionDistination().getPosition().getPositionX();
+        double positionDepartY = m_troncon.getIntersectionDistination().getPosition().getPositionY();
+        double positionFinX = m_troncon.getIntersectionDistination().getPosition().getPositionX();
+        double positionFinY = m_troncon.getIntersectionDistination().getPosition().getPositionY();
+        double X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
+        double Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
+        return new Position(X, Y);
+    }
+    public Boolean getEstSurTroncon(){
+        return m_estSurTroncon;
+    }
+    public  double getPourcentageParcouru(){
+        return m_pourcentageParcouru;
+    }
+    public  Troncon getTroncon(){
+        return m_troncon;
+    }
+    public  Intersection getIntersection(){
+        return m_intersection;
+    }
+     public  void setEstSurTroncon(Boolean estSurTroncon){
+        m_estSurTroncon = estSurTroncon;
+    }
+    public   void getPourcentageParcouru(double pourcentageParcouru){
+        m_pourcentageParcouru = pourcentageParcouru;
+    }
+    public  void  getTroncon(Troncon troncon){
+        m_troncon = troncon;
+    }
+    public  void  getIntersection(Intersection intersection){
+        m_intersection = intersection;
+    }
 }
