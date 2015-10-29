@@ -26,4 +26,8 @@ public class Circuit {
     public void ajouterAutobus(SourceAutobus source){
         listeSources.add(source);
     }
+    
+    public void calculCirculationGlobal(){
+        
+    }
 }
