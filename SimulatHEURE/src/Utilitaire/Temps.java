@@ -10,5 +10,14 @@ package Utilitaire;
  * @author Nathaniel
  */
 public class Temps {
+    private double m_temps;
+    Temps(double p_temps)
+    {
+        m_temps = p_temps;
+    }
     
+    public double getTemps()
+    {
+        return m_temps;
+    }
 }
