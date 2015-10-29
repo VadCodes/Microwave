@@ -31,4 +31,9 @@ public class Arret {
     {
         m_fileAutobus.offer(new TempsArriveeAutobus(tempsArrivee, autobus));
     }
+    
+    public int nbAutobus()
+    {
+        return m_fileAutobus.size();
+    }
 }
