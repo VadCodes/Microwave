@@ -9,6 +9,13 @@ package BesoinsTransport;
  *
  * @author vadimcote
  */
+import java.util.List;
+import java.util.ArrayList;
 public class Itineraire {
+    private final List<paireParcours> list;
     
+    public Itineraire(){
+        this.list = new ArrayList<paireParcours>();
+    }
 }
+  
