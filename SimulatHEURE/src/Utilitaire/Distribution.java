@@ -22,7 +22,7 @@ public class Distribution {
     
     //private Temps m_tempsPige = new Temps(0);
 
-    Distribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
+    public Distribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
         double tMin = p_tempsMinimum.getTemps();
         double tFreq = p_tempsPlusFrequent.getTemps();
