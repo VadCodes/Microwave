@@ -44,13 +44,13 @@ public class Emplacement {
      public  void setEstSurTroncon(Boolean estSurTroncon){
         m_estSurTroncon = estSurTroncon;
     }
-    public   void getPourcentageParcouru(double pourcentageParcouru){
+    public   void setPourcentageParcouru(double pourcentageParcouru){
         m_pourcentageParcouru = pourcentageParcouru;
     }
-    public  void  getTroncon(Troncon troncon){
+    public  void  setTroncon(Troncon troncon){
         m_troncon = troncon;
     }
-    public  void  getIntersection(Intersection intersection){
+    public  void  setIntersection(Intersection intersection){
         m_intersection = intersection;
     }
 }
