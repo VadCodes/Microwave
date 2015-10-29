@@ -22,4 +22,7 @@ public class Position {
          public double getPositionY(){
             return m_y;
     }
+         public double distanceEntrePositions(Position position){
+             
+         }
 }
