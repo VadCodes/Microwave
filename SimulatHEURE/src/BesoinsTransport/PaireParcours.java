@@ -14,9 +14,9 @@ import java.util.LinkedList;
 public class PaireParcours {
     private ParcoursPieton m_parcoursPieton;
     private ParcoursBus m_parcoursBus;
-    public PaireParcours(ParcoursPieton m_parcoursPieton, ParcoursBus m_parcoursBus){
-        this.m_parcoursPieton = m_parcoursPieton;
-        this.m_parcoursBus = m_parcoursBus;
+    public PaireParcours(ParcoursPieton p_parcoursPieton, ParcoursBus p_parcoursBus){
+        m_parcoursPieton = p_parcoursPieton;
+        m_parcoursBus = p_parcoursBus;
     }
     public ParcoursPieton getParcoursPieton(){
         return m_parcoursPieton;

@@ -10,15 +10,22 @@ package BesoinsTransport;
  * @author vadimcote
  */
 import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 public class Itineraire {
-    private final List<PaireParcours> m_list;
+    private LinkedList<PaireParcours> m_list;
     
     public Itineraire(){
-        m_list = new ArrayList<PaireParcours>();
+        m_list = new LinkedList<PaireParcours>();
     }
     public void ajouterPaireParcours(PaireParcours paireParcours){
         m_list.add(paireParcours);
     }
+    public LinkedList<PaireParcours> getListPaireParcours(){
+        return m_list;
+    }
+   public void setListPaireParcours(LinkedList<PaireParcours> p_list){
+       m_list = p_list;
+   }
+
 }
   
