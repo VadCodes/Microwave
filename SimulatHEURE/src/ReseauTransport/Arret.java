@@ -36,4 +36,20 @@ public class Arret {
     {
         return m_fileAutobus.size();
     }
+    
+    public String getNom(){
+        return m_nom;
+    }
+    
+    public void setNom(String nom){
+        m_nom = nom;
+    }
+    
+    public Emplacement getEmplacement(){
+        return m_emplacement;
+    }
+    
+    public void setEmplacement(Emplacement empl){
+        m_emplacement = empl;
+    }
 }
