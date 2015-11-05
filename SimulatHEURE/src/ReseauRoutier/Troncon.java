@@ -42,6 +42,12 @@ public class Troncon {
        public Intersection getIntersectionDestination(){
            return m_intersectionDestination;
        }
+       public String getNom(){
+           return m_nom;
+       }
+       public void serNom(String p_nom){
+           m_nom = p_nom;
+       }
        /*
        public double longueurTroncon(){
         return m_intersectionOrigin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());
