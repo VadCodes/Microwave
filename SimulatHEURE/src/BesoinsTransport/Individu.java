@@ -31,9 +31,6 @@ public class Individu {
         m_paireActuelle = m_iterateurItineraire.next();
     }
     
-    
-    
-    
             
     
 }
