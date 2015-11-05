@@ -16,16 +16,10 @@ import java.util.LinkedList;
  * @author vinny
  */
 public class Simulatheure {
-    private ReseauRoutier m_reseauRoutier;
-    private ReseauTransport m_reseauTransport;
-    private LinkedList<BesoinTransport> m_listBesoins;
+    private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
+    private ReseauTransport m_reseauTransport = new ReseauTransport();
+    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
-    public Simulatheure() {
-        
-    }
-    
-    public Simulatheure() {
-        
-    }
-    
+    public Simulatheure() { }
+
 }
