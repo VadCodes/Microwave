@@ -39,11 +39,8 @@ public class BesoinTransport {
     public void setSourceIndividus(SourceIndividus p_source){
         m_source = p_source; 
     }
-    public ajouterSourceIndividus(SourceIndividus p_source){
-        
-    }
     public void initBesoinTransport(){
-        m_source.pigerTempsAleatoire();      
+        m_source.initSourceIndividu();      
     }
             
 }
