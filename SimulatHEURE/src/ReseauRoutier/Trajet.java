@@ -21,6 +21,8 @@ public class Trajet {
         m_emplacementFinal = emplacementFinal;
         m_listTroncons = listTroncons;
     }
+    
+    /*
     public Boolean estValid(){
         Boolean tmp1;
         Boolean tmp2;
@@ -38,5 +40,5 @@ public class Trajet {
              }
         }
         return true;
-    }
+    }*/
 }

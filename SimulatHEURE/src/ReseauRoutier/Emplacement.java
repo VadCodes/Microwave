@@ -14,7 +14,12 @@ public class Emplacement {
     private double m_pourcentageParcouru;
     private Troncon m_troncon;
     private Intersection m_intersection;
+    private Position m_position;
     public Emplacement(Boolean estSurTroncon, double pourcentageParcouru, Troncon troncon, Intersection intersection){
+ 
+        if(!intersection.getListTroncons().contains(troncon)){
+            throw new Error("Mauvais troncon ou intersection");
+        }
         m_estSurTroncon = estSurTroncon;
         m_pourcentageParcouru = pourcentageParcouru;
         m_troncon = troncon;
@@ -27,7 +32,7 @@ public class Emplacement {
         double positionFinY = m_troncon.getIntersectionDestination().getPosition().getPositionY();
         double X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
         double Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
-        return new Position(X, Y);
+        return new Position(X, Y); // Criss un new;
     }
     public Boolean getEstSurTroncon(){
         return m_estSurTroncon;

@@ -5,6 +5,8 @@
  */
 package ReseauRoutier;
 
+import Utilitaire.Distribution;
+import Utilitaire.Temps;
 import junit.framework.TestCase;
 
 /**
@@ -21,8 +23,12 @@ public class EmplacementTest extends TestCase {
      * Test of calculPosition method, of class Emplacement.
      */
     public void testCalculPosition() {
-        Position position1 = new Position(5,10);
-        Position position2 = new Position(10,15);
-        //Emplacement emplacement = Emplacement(true, position1,position2, )
+        Distribution distribution = new Distribution(new Temps(5), new Temps(8), new Temps(10));
+        Intersection intersectionDestination = new Intersection(new Position(5,10));
+         Intersection intersectionOrigin = new Intersection(new Position(6,11));
+        Troncon troncon = new Troncon(distribution,  intersectionDestination, new Temps(4));
+       intersectionOrigin.ajouterTroncons(troncon);
+        Emplacement emplacement = new Emplacement(true, 0.55, troncon, intersectionOrigin);
+        Position posi = emplacement.calculPosition();
     }
 }
