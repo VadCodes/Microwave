@@ -11,12 +11,12 @@ package ReseauTransport;
  */
 import ReseauRoutier.Emplacement;
 import Utilitaire.Temps;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 public class Arret {
     private Emplacement m_emplacement;
     private String m_nom = "";
-    private Queue<TempsArriveeAutobus> m_fileAutobus;
+    private PriorityQueue<TempsArriveeAutobus> m_fileAutobus = new PriorityQueue();
     
     public Arret(Emplacement emplacement, String nom){
         m_emplacement = emplacement;

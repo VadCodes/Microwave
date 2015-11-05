@@ -58,4 +58,11 @@ public class Emplacement {
     public  void  setIntersection(Intersection intersection){
         m_intersection = intersection;
     }
+    public Boolean equals(Emplacement autreEmpl){
+        return (m_estSurTroncon.equals(autreEmpl.m_estSurTroncon) &&
+                (Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
+                m_troncon.equals(autreEmpl.m_troncon) &&
+                m_intersection.equals(autreEmpl.m_intersection) &&
+                m_position.equals(autreEmpl.m_intersection));
+    }
 }
