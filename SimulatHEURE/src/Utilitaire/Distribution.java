@@ -24,31 +24,10 @@ public class Distribution {
 
     public Distribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
-        double tMin = p_tempsMinimum.getTemps();
-        double tFreq = p_tempsPlusFrequent.getTemps();
-        double tMax = p_tempsMaximum.getTemps();
-        
-        if (tMax < tMin)
-        {
-            // throw tabarnak
-        }        
-        else if (tFreq < tMin || tFreq > tMax)
-        {
-            // throw tabarnak
-        }        
-        
-        m_tempsMinimum = p_tempsMinimum;
-        //m_tempsPlusFrequent = p_tempsPlusFrequent;
-        m_tempsMaximum = p_tempsMaximum;
-        
-        m_hauteur = 2 / (tMax - tMin);
-        m_penteGauche = m_hauteur / (tFreq - tMin);
-        m_aireGauche = m_hauteur * (tFreq - tMin) / 2;
-        m_penteDroite = m_hauteur / (tMax - tFreq);
-        //m_aireDroite = m_hauteur * (tMax - tFreq) / 2;
+        setDistribution(p_tempsMinimum, p_tempsPlusFrequent, p_tempsMaximum);
     }
     
-    public void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
+    public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
         double tMin = p_tempsMinimum.getTemps();
         double tFreq = p_tempsPlusFrequent.getTemps();
