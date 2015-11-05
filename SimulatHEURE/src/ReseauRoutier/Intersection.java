@@ -5,6 +5,10 @@
  */
 package ReseauRoutier;
 
+import Utilitaire.Distribution;
+import java.util.LinkedList;
+import Utilitaire.Temps;
+
 /**
  *
  * @author Nathaniel
@@ -12,6 +16,7 @@ package ReseauRoutier;
 public class Intersection {
     private String m_name = "";
     private Position m_position;
+     private LinkedList<Troncon> m_listTroncons = new LinkedList();
     public Intersection(Position position){
         m_position = position;
     }
@@ -24,5 +29,11 @@ public class Intersection {
      public Position getPosition(){
         return m_position;
     }
+     public  LinkedList<Troncon> getListTroncons(){
+         return m_listTroncons;
+     }
+     public void ajouterTroncons(Troncon troncon ){
+         m_listTroncons.add( troncon);
+     }
     
 }
