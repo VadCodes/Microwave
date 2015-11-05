@@ -10,5 +10,5 @@ package ReseauRoutier;
  * @author NASIM80
  */
 public class ReseauRoutier {
-    private ReseauRoutierFactory m_reseauRoutier;
+    private ReseauRoutierFactory m_factory;
 }
