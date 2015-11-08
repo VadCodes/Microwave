@@ -48,6 +48,10 @@ public class Troncon {
        public void serNom(String p_nom){
            m_nom = p_nom;
        }
+       public void initTroncon(){
+           m_tempsTransitPieton = m_distribution.pigerTemps();
+       }
+       
        /*
        public double longueurTroncon(){
         return m_intersectionOrigin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());

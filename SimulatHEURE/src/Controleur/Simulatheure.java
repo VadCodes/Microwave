@@ -7,8 +7,10 @@ package Controleur;
 import ReseauRoutier.ReseauRoutier;
 import ReseauTransport.ReseauTransport;
 import BesoinsTransport.BesoinTransport;
+import ReseauTransport.PaireArretTrajet;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 
 /**
@@ -16,9 +18,29 @@ import java.util.LinkedList;
  * @author vinny
  */
 public class Simulatheure {
+<<<<<<< HEAD
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private ReseauTransport m_reseauTransport = new ReseauTransport();
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
+=======
+    private ReseauRoutier m_reseauRoutier;
+    private ReseauTransport m_reseauTransport;
+    private LinkedList<BesoinTransport> m_listBesoins;
+    
+    public Simulatheure() {
+        
+    }
+    
+    public void demarrerSimulation(){
+        m_reseauRoutier.initReseauRoutier();
+        m_reseauTransport.initReseauTransport();
+        ListIterator<BesoinTransport> BesoinTransportItr = m_listBesoins.listIterator();
+        while (BesoinTransportItr.hasNext()) {
+            BesoinTransportItr.next().initBesoinTransport();
+        }
+        
+    }
+>>>>>>> Vadim
     
     public Simulatheure() { }
 

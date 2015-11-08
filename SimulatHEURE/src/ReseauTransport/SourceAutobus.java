@@ -7,6 +7,10 @@ package ReseauTransport;
 import ReseauRoutier.Emplacement;
 import Utilitaire.Temps;
 
+import ReseauRoutier.Emplacement;
+import Utilitaire.Distribution;
+import Utilitaire.Temps;
+
 /**
  *
  * @author louis
@@ -16,6 +20,8 @@ public class SourceAutobus {
     private int m_nbAutobusGeneres = 0;
     private Circuit m_circuit;
     private Emplacement m_emplacement;
+    private int m_capaciteMax = 50;
+    private Distribution m_distibutionFrequence;
     private Temps m_frequence;
     private Temps m_tempsAttenteinitial;
     private Temps m_tempsAvantApparition;
@@ -37,13 +43,17 @@ public class SourceAutobus {
             m_nbAutobusGeneres++;
             Temps tempsApparition = tempsApparition();
             Autobus nouvelAutobus = new Autobus(m_emplacement, p_capaciteMax, genererBusID(),tempsApparition ,estSurArret() );
+            m_circuit.ajouterAutobus(nouvelAutobus);
             m_circuit.assignerTrajetAutobus(nouvelAutobus);
+            
             double tmp = m_tempsAvantApparition.getTemps() + m_frequence.getTemps();
             m_tempsAvantApparition = new Temps(tmp);
         }
     }
     
+    
     public String genererBusID(){
+        m_nbAutobusGeneres++;
         return m_nomSource + Integer.toString(m_nbAutobusGeneres);
     }
         
@@ -55,5 +65,13 @@ public class SourceAutobus {
        double tmp =  m_tempsAttenteinitial.getTemps()+ (m_frequence.getTemps() * m_nbAutobusGeneres);
         Temps tmo = new Temps(tmp);
         return tmo;
+    }
+    
+    public void setCapaciteMax(int capacite){
+        m_capaciteMax = capacite;
+    }
+    
+    public void initSourceAutobus(){
+        m_frequence = m_distibutionFrequence.pigerTemps();
     }
 }

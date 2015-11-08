@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package ReseauTransport;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  *
@@ -11,4 +14,21 @@ package ReseauTransport;
  */
 public class ReseauTransport {
     
+    private LinkedList<Circuit> m_listeCircuits;
+    public ReseauTransport(LinkedList<Circuit> listeCircuits){
+        m_listeCircuits = listeCircuits;
+    }
+    public LinkedList<Circuit> getListeCircuits(){
+        return m_listeCircuits;
+    }
+    public void setListeCircuits(LinkedList<Circuit> listeCircuits){
+        m_listeCircuits = listeCircuits;
+    }
+            
+    public void initReseauTransport(){
+        ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();
+        while (circuitItr.hasNext()) {
+            circuitItr.next().initCircuit();
+        }
+    };
 }

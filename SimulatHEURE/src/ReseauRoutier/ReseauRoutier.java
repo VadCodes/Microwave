@@ -37,7 +37,7 @@ public class ReseauRoutier {
         while (intersection_it.hasNext()) {
             ListIterator<Troncon> troncon_it = intersection_it.next().getListTroncons().listIterator();
              while (troncon_it.hasNext()) {
-                if(troncon_it.next().getNom() == p_nom){
+                if(troncon_it.next().getNom().equals(p_nom)){
                     throw new Error("Le nom existe déjà");
                 }
              }
@@ -46,6 +46,16 @@ public class ReseauRoutier {
     */
     public void setNameTroncon(Troncon p_troncon, String p_nom){
         p_troncon.serNom(p_nom);
+    }
+    
+    public void initReseauRoutier(){
+        ListIterator<Intersection> intersection_it= m_listIntersections.listIterator();
+        while (intersection_it.hasNext()) {
+            ListIterator<Troncon> troncon_it = intersection_it.next().getListTroncons().listIterator();
+            while (troncon_it.hasNext()) {
+                troncon_it.next().initTroncon();
+            }
+          }
     }
 }
 

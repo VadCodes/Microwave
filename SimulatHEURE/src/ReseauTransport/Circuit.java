@@ -25,8 +25,8 @@ public class Circuit {
         listeSources.add(source);
     }
     
-    public void ajouterAutobus(SourceAutobus source){
-        listeSources.add(source);
+    public void ajouterAutobus(Autobus autobus){
+        listeAutobus.add(autobus);
     }
     
     public void calculCirculationGlobal(){
@@ -69,5 +69,12 @@ public class Circuit {
     
     public void assignerTrajetAutobus(Autobus bus){
         bus.assignerTrajet(listeArretTrajet);
+    }
+    
+    public void initCircuit(){
+        ListIterator<SourceAutobus> sourceAutobusItr = listeSources.listIterator();
+        while (sourceAutobusItr.hasNext()) {
+            sourceAutobusItr.next().initSourceAutobus();
+        }
     }
 }
