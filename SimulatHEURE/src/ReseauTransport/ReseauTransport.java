@@ -14,9 +14,8 @@ import java.util.ListIterator;
  */
 public class ReseauTransport {
     
-    private LinkedList<Circuit> m_listeCircuits;
-    public ReseauTransport(LinkedList<Circuit> listeCircuits){
-        m_listeCircuits = listeCircuits;
+    private LinkedList<Circuit> m_listeCircuits = new LinkedList();
+    public ReseauTransport(){
     }
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;

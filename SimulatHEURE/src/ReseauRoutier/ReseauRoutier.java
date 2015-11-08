@@ -19,16 +19,18 @@ public class ReseauRoutier {
     private ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     public ReseauRoutier(){}
     
-    public void  ajouterIntersection(Double x, Double y){
+    public Intersection  ajouterIntersection(Double x, Double y){
         Position position = m_factory.creerPosition(x, y);
         Intersection intersection = m_factory.creerIntersection(position);
         m_listIntersections.add(intersection);
+        return intersection;
     }
     
-    public void ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution,
+    public Troncon ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution,
               Temps tempsTransitPieton){
         Troncon troncon = m_factory.creerTroncon(distribution, intersectionDestination, tempsTransitPieton);
         intersectionOrigin.ajouterTroncons(troncon);
+        return troncon;
     }
     
     /*
