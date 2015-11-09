@@ -23,6 +23,8 @@ public class Simulatheure {
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
     public Simulatheure() {
+        m_reseauRoutier = new ReseauRoutier();
+        m_reseauTransport = new ReseauTransport();
         
     }
     
