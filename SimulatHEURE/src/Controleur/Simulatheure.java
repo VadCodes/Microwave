@@ -18,10 +18,9 @@ import java.util.ListIterator;
  * @author vinny
  */
 public class Simulatheure {
-    private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
-    private ReseauTransport m_reseauTransport = new ReseauTransport();
+    private ReseauRoutier m_reseauRoutier ;
+    private ReseauTransport m_reseauTransport ;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
-    
     public Simulatheure() {
         m_reseauRoutier = new ReseauRoutier();
         m_reseauTransport = new ReseauTransport();
@@ -37,5 +36,5 @@ public class Simulatheure {
         }
         
     }
-    
+
 }
