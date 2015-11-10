@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package GUI;
-import Domaine.ReseauRoutier.Intersection;
-import Domaine.Utilitaire.Temps;
-import Domaine.Utilitaire.Distribution;
+
+import Domaine.ReseauRoutier.*;
+import Domaine.Utilitaire.*;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
-import Domaine.Utilitaire.*;
-import Domaine.ReseauRoutier.*;
+
+import java.awt.Dimension;
+import java.awt.Point;
 
 /**
  *
@@ -28,10 +29,10 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur = new Simulatheure();
         initComponents();
         
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(100.1f,40.055f);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
         this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
         this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(2500.15f,1300);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
         Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
         Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
         this.m_controleur.m_reseauRoutier.getIntersections().getLast();
@@ -71,16 +72,24 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(500, 400));
-        jScrollPane1.setRequestFocusEnabled(false);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jScrollPane1.setWheelScrollingEnabled(false);
 
-        afficheur.setPreferredSize(new java.awt.Dimension(5000, 5000));
+        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
+        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurMouseMoved(evt);
+            }
+        });
         afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 afficheurMouseWheelMoved(evt);
             }
         });
         afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurMouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 afficheurMousePressed(evt);
             }
@@ -90,11 +99,11 @@ public class MainWindow extends javax.swing.JFrame {
         afficheur.setLayout(afficheurLayout);
         afficheurLayout.setHorizontalGroup(
             afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5000, Short.MAX_VALUE)
+            .addGap(0, 1600, Short.MAX_VALUE)
         );
         afficheurLayout.setVerticalGroup(
             afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 5000, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(afficheur);
@@ -103,7 +112,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
+        boutonModes.setPreferredSize(new java.awt.Dimension(250, 400));
         boutonModes.setRequestFocusEnabled(false);
         boutonModes.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
@@ -200,9 +209,31 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurMousePressed
 
     private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
-        afficheur.setEchelle(evt.getUnitsToScroll());
+        float echelleInit = afficheur.getEchelle();
+        afficheur.setEchelle(evt.getWheelRotation());
+
+        Dimension d = new Dimension();
+        d.setSize(1600 * afficheur.getEchelle(), 900 * afficheur.getEchelle());
+        afficheur.setPreferredSize(d);
+        
+        int x = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getX())  - 1600 / 2);
+        int y = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getY())  - 900 / 2);    
+        
+        Point vpp = new Point(x, y);
+        jScrollPane1.getViewport().setViewPosition(vpp);
+        
         afficheur.repaint();
     }//GEN-LAST:event_afficheurMouseWheelMoved
+
+    private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
+        float x = (float)evt.getPoint().getX() / afficheur.getEchelle();
+        float y = (float)evt.getPoint().getY() / afficheur.getEchelle();
+        //wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
+    }//GEN-LAST:event_afficheurMouseMoved
+
+    private void afficheurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseExited
+        //wtf.setText("");
+    }//GEN-LAST:event_afficheurMouseExited
     
     /**
      * @param args the command line arguments
@@ -252,9 +283,7 @@ public class MainWindow extends javax.swing.JFrame {
         {
             afficheur.setVisible(false);
         }
-
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.DrawingPanel afficheur;

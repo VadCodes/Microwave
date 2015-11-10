@@ -11,7 +11,7 @@ import javax.swing.border.BevelBorder;
 public class DrawingPanel extends JPanel implements Serializable {
     
     public Dimension m_dimensionInit;
-    private double m_echelle = 2;
+    private float m_echelle = 1;
     private MainWindow mainWindow;
     
     public DrawingPanel(){
@@ -19,9 +19,9 @@ public class DrawingPanel extends JPanel implements Serializable {
     
     public DrawingPanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
-        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
+//        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         int width = (int) (java.awt.Toolkit.getDefaultToolkit().getScreenSize().width);
-        setPreferredSize(new Dimension(width,1));
+//        setPreferredSize(new Dimension(width,1));
         setVisible(true);
         int height = (int)(width*0.5);
         m_dimensionInit = new Dimension(width,height);
@@ -31,8 +31,10 @@ public class DrawingPanel extends JPanel implements Serializable {
     {
         if (mainWindow != null){
             Graphics2D graphic2D = (Graphics2D)p_g;
+            
             graphic2D.scale(m_echelle, m_echelle);
-            super.paintComponent(p_g); 
+            
+            super.paintComponent(graphic2D); 
             DessinateurReseauRoutier mainDrawer = new DessinateurReseauRoutier(mainWindow.m_controleur.m_reseauRoutier, m_dimensionInit);
             mainDrawer.dessiner(graphic2D);
         }
@@ -54,14 +56,19 @@ public class DrawingPanel extends JPanel implements Serializable {
         
     }
     
-    public double getEchelle(){
+    public float getEchelle(){
         return m_echelle;
     }
     
-    public void setEchelle(int p_valeur){
-        m_echelle -= (double)p_valeur / 10;
-        if (m_echelle < 1)
-            m_echelle = 1;
+    public void setEchelle(float p_valeur){
+        if (m_echelle >= 1)
+        {
+            m_echelle -= p_valeur / 4;
+        }
+        else
+        {
+            m_echelle = m_echelle * (1 - p_valeur / 8);
+        }
     }
 }
 
