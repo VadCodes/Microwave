@@ -6,12 +6,13 @@
 package ReseauTransport;
 
 
-import ReseauRoutier.Emplacement;
-import ReseauRoutier.Intersection;
-import ReseauRoutier.ReseauRoutier;
-import ReseauRoutier.Troncon;
-import Utilitaire.Distribution;
-import Utilitaire.Temps;
+import Domaine.ReseauTransport.SourceAutobus;
+import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauRoutier.ReseauRoutier;
+import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Temps;
 import java.util.LinkedList;
 import junit.framework.TestCase;
 
@@ -26,10 +27,10 @@ public class SourceAutobusTest extends TestCase {
         super(testName);
         ReseauRoutier reseauRoutier = new ReseauRoutier();
         // Ajout des intersections
-        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0, 0.0);
-        Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0, 10.0);
-        Intersection intersection3 = reseauRoutier.ajouterIntersection(10.0, 10.0);
-        Intersection intersection4 = reseauRoutier.ajouterIntersection(20.0, 5.0);
+        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        Intersection intersection3 = reseauRoutier.ajouterIntersection(10.0f, 10.0f);
+        Intersection intersection4 = reseauRoutier.ajouterIntersection(20.0f, 5.0f);
         //Ajout des Troncons Et deux distributions
         Distribution distribution1 =new Distribution(new Temps(10), new Temps(15), new Temps(20));
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));

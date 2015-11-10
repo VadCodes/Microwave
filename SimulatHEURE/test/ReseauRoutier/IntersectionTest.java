@@ -5,9 +5,14 @@
  */
 package ReseauRoutier;
 
-import Utilitaire.Temps;
-import Utilitaire.Distribution;
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauRoutier.Position;
+import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Temps;
+import Domaine.Utilitaire.Distribution;
 import junit.framework.TestCase;
+
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -24,7 +29,7 @@ public class IntersectionTest extends TestCase {
      */
     public void testSetAndGetName() {
         String name = "Louise";
-        Position position = new Position(4,6);
+        Point2D.Float position = new Point2D.Float(4,6);
         Intersection intersection = new Intersection(position);
         intersection.setName(name);
         String nameExpected = intersection.getName();
@@ -34,14 +39,14 @@ public class IntersectionTest extends TestCase {
      * Test of getPosition method, of class Intersection.
      */
     public void testGetPosition() {
-        Position position = new Position(4,6);
+        Point2D.Float position = new Point2D.Float(4,6);
         Intersection intersection = new Intersection(position);
-        Position positionExpected = intersection.getPosition();
+        Point2D.Float positionExpected = intersection.getPosition();
         assertEquals(position, positionExpected);
     }
     public void testAjouterTroncon(){
-        Position posi= new Position(4,5);
-        Position posi2 = new Position(6,8);
+        Point2D.Float posi= new Point2D.Float(4,5);
+        Point2D.Float posi2 = new Point2D.Float(6,8);
         Intersection intersec = new Intersection(posi);
         Intersection intersec2 = new Intersection(posi2);
         Temps t1 = new  Temps(3);
@@ -50,6 +55,6 @@ public class IntersectionTest extends TestCase {
         Distribution distribution = new Distribution(t1,t2,t3);
         Troncon troncon = new Troncon(distribution, intersec2,  new Temps(4));
         intersec.ajouterTroncons(troncon);
-        assertEquals(intersec.getListTroncons().getFirst().getIntersectionDestination().getPosition(), intersec2.getPosition());
+        assertEquals(intersec.getListeTroncons().getFirst().getDestination().getPosition(), intersec2.getPosition());
     }
 }
