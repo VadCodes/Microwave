@@ -5,6 +5,7 @@
  */
 package ReseauRoutier;
 
+import Domaine.ReseauRoutier.Position;
 import junit.framework.TestCase;
 
 /**

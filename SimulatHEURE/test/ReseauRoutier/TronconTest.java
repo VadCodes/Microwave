@@ -5,9 +5,14 @@
  */
 package ReseauRoutier;
 
-import Utilitaire.Distribution;
-import Utilitaire.Temps;
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauRoutier.Position;
+import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Temps;
 import junit.framework.TestCase;
+
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -32,7 +37,7 @@ public class TronconTest extends TestCase {
      */
     public void testSetDistribution() {
         Distribution distribution = new Distribution(new Temps(5), new Temps(8), new Temps(10));
-        Intersection intersectionOrigin = new Intersection(new Position(5,10));
+        Intersection intersectionOrigin = new Intersection(new Point2D.Float(5,10));
         Troncon troncon = new Troncon(distribution,  intersectionOrigin, new Temps(4));
         troncon.setTempsTransit();
         Temps time1 =  troncon.getTempsTransitAutobus();
