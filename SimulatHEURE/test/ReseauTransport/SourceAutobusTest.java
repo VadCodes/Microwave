@@ -7,6 +7,7 @@ package ReseauTransport;
 
 
 import Domaine.ReseauTransport.SourceAutobus;
+import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauRoutier.ReseauRoutier;
@@ -78,7 +79,13 @@ public class SourceAutobusTest extends TestCase {
     /**
      * Test of estSurArret method, of class SourceAutobus.
      */
-    public void testEstSurArret() {
+    public void testEstSurArretTrue() {
+        Emplacement empl = new Emplacement(true, 80.0, m_troncons.getFirst(), m_troncons.getFirst().getDestination());
+        Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
+        SourceAutobus srcAutobus = new SourceAutobus(empl, new Circuit(), "TestSource", dist, new Temps(0));
+    }
+    
+    public void testEstSurArretFalse() {
         
     }
 
