@@ -11,9 +11,7 @@ import java.awt.geom.Line2D;
 
 import java.util.LinkedList;
 
-import Domaine.ReseauRoutier.ReseauRoutier;
-import Domaine.ReseauRoutier.Intersection;
-import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauRoutier.*;
 
 /**
  *

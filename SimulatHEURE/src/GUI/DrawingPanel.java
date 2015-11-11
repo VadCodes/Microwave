@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import Domaine.ReseauRoutier.Intersection;
 import java.util.LinkedList;
-import java.awt.Point;
 
 public class DrawingPanel extends JPanel implements Serializable {
     
@@ -30,7 +29,6 @@ public class DrawingPanel extends JPanel implements Serializable {
         m_dimension = new Dimension();
         setDimension(false);
         setVisible(true);
-        m_fenetrePrincipale.getScrollPane().getViewport().setViewPosition(new Point(0, 0));
     }
     @Override
     protected void paintComponent(Graphics p_g)

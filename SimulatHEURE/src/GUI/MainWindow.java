@@ -5,12 +5,9 @@
  */
 package GUI;
 
-import Domaine.ReseauRoutier.*;
-import Domaine.Utilitaire.*;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
 
-import java.awt.Dimension;
 import java.awt.Point;
 
 /**
