@@ -21,7 +21,7 @@ import Domaine.ReseauRoutier.Troncon;
  */
 public class DessinateurReseauRoutier
 {
-    private Dimension m_dimensionInit;
+    private final Dimension m_dimensionInit;
     
     private final ReseauRoutier m_reseau;
     private final float m_rayonIntersection = 10;

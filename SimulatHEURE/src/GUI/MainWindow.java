@@ -29,15 +29,15 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur = new Simulatheure();
         initComponents();
         
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
-        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
-        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
-        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
-        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
-        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
+//        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
+//        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
+//        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
+//        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
+//        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
     }
 
     /**
@@ -59,6 +59,8 @@ public class MainWindow extends javax.swing.JFrame {
         transport = new javax.swing.JToggleButton();
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
+        wtf = new javax.swing.JLabel();
+        wtf2 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -69,13 +71,13 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(simulation);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1600, 900));
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 600));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1600, 900));
         jScrollPane1.setWheelScrollingEnabled(false);
 
-        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
         afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 afficheurMouseMoved(evt);
@@ -99,11 +101,11 @@ public class MainWindow extends javax.swing.JFrame {
         afficheur.setLayout(afficheurLayout);
         afficheurLayout.setHorizontalGroup(
             afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1600, Short.MAX_VALUE)
+            .addGap(0, 2400, Short.MAX_VALUE)
         );
         afficheurLayout.setVerticalGroup(
             afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGap(0, 1350, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(afficheur);
@@ -150,6 +152,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.add(boutonModes, java.awt.BorderLayout.PAGE_START);
 
+        wtf.setText("jLabel1");
+        jPanel1.add(wtf, java.awt.BorderLayout.CENTER);
+
+        wtf2.setText("jLabel1");
+        jPanel1.add(wtf2, java.awt.BorderLayout.PAGE_END);
+
         mainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
 
         fichier.setText("Fichier");
@@ -170,11 +178,11 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
 
         pack();
@@ -204,35 +212,39 @@ public class MainWindow extends javax.swing.JFrame {
         float x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
         float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
         this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
-        
+        boolean changement = true;
+        afficheur.setGrandeur(changement);
+                
         afficheur.repaint();
     }//GEN-LAST:event_afficheurMousePressed
 
     private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
-        float echelleInit = afficheur.getEchelle();
+        
+        float echelleInitiale = afficheur.getEchelle();
         afficheur.setEchelle(evt.getWheelRotation());
-
-        Dimension d = new Dimension();
-        d.setSize(1600 * afficheur.getEchelle(), 900 * afficheur.getEchelle());
-        afficheur.setPreferredSize(d);
+        float rapportEchelles = afficheur.getEchelle() / echelleInitiale;
         
-        int x = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getX())  - 1600 / 2);
-        int y = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getY())  - 900 / 2);    
+        int x = jScrollPane1.getViewport().getViewPosition().x;
+        x = (int)(evt.getPoint().getX() * (rapportEchelles  - 1) + x);
         
-        Point vpp = new Point(x, y);
-        jScrollPane1.getViewport().setViewPosition(vpp);
+        int y = jScrollPane1.getViewport().getViewPosition().y;
+        y = (int)(evt.getPoint().getY() * (rapportEchelles  - 1) + y);
         
+        wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
+        
+        jScrollPane1.getViewport().setViewPosition(new Point(x, y));
         afficheur.repaint();
     }//GEN-LAST:event_afficheurMouseWheelMoved
 
     private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
+        
         float x = (float)evt.getPoint().getX() / afficheur.getEchelle();
         float y = (float)evt.getPoint().getY() / afficheur.getEchelle();
-        //wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
+        wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
     }//GEN-LAST:event_afficheurMouseMoved
 
     private void afficheurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseExited
-        //wtf.setText("");
+        wtf.setText("");
     }//GEN-LAST:event_afficheurMouseExited
     
     /**
@@ -267,9 +279,7 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
                 new MainWindow().setVisible(true);
             }
-        });
-        
-        
+        });        
     }
     
     public void setMode(Modes p_mode) 
@@ -283,6 +293,11 @@ public class MainWindow extends javax.swing.JFrame {
         {
             afficheur.setVisible(false);
         }
+    }
+    
+    public javax.swing.JScrollPane getScrollPane() 
+    {
+        return jScrollPane1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -299,5 +314,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton simulation;
     private javax.swing.JToggleButton transport;
+    private javax.swing.JLabel wtf;
+    private javax.swing.JLabel wtf2;
     // End of variables declaration//GEN-END:variables
 }
