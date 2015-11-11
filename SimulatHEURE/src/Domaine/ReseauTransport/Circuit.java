@@ -21,6 +21,10 @@ public class Circuit {
     private LinkedList<Autobus> listeAutobus;
     private LinkedList<PaireArretTrajet> listeArretTrajet;
     
+    private Circuit(){
+        //TODO
+    }
+    
     public void ajouterSource(SourceAutobus source){
         listeSources.add(source);
     }
