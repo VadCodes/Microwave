@@ -47,7 +47,7 @@ public class DessinateurReseauRoutier
         }
     }
 
-    private void dessinerIntersections(Graphics2D p_g, float p_e)
+    private void dessinerIntersections(Graphics2D p_g, float p_echelle)
     {
         p_g.setColor(Color.CYAN);
 
@@ -55,17 +55,17 @@ public class DessinateurReseauRoutier
         for (Intersection intersection: intersections)
         {
             Point2D.Float position = intersection.getPosition();
-            float x = (float)position.getX() - m_rayonIntersection / p_e;
-            float y = (float)position.getY() - m_rayonIntersection / p_e;
-            float diametre = 2 * m_rayonIntersection / p_e;
+            float x = (float)position.getX() - m_rayonIntersection / p_echelle;
+            float y = (float)position.getY() - m_rayonIntersection / p_echelle;
+            float diametre = 2 * m_rayonIntersection / p_echelle;
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
 
-    private void dessinerTroncons(Graphics2D p_g, float p_e)
+    private void dessinerTroncons(Graphics2D p_g, float p_echelle)
     {
         p_g.setColor(Color.PINK);
-        p_g.setStroke(new BasicStroke(m_largeurTroncon / p_e));
+        p_g.setStroke(new BasicStroke(m_largeurTroncon / p_echelle));
 
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)

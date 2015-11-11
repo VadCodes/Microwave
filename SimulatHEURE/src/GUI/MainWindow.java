@@ -213,7 +213,7 @@ public class MainWindow extends javax.swing.JFrame {
         float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
         this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
         boolean changement = true;
-        afficheur.setGrandeur(changement);
+        afficheur.setDimension(changement);
                 
         afficheur.repaint();
     }//GEN-LAST:event_afficheurMousePressed
