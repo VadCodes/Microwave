@@ -15,8 +15,8 @@ import java.awt.Point;
 public class DrawingPanel extends JPanel implements Serializable {
     
     public Dimension m_dimension;
-    public int m_xMax = 0;  // Coordonnée x de l'intersection la plus
-    public int m_yMax = 0; 
+    public int m_xMax = 0;  // Coordonnée x de l'intersection la plus loin
+    public int m_yMax = 0;  // Coordonnée y de l'intersection la plus loin
     private MainWindow m_fenetrePrincipale;
     private float m_echelle = 1;
     
@@ -28,7 +28,7 @@ public class DrawingPanel extends JPanel implements Serializable {
 //        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         
         m_dimension = new Dimension();
-        setGrandeur(false);
+        setDimension(false);
         setVisible(true);
         m_fenetrePrincipale.getScrollPane().getViewport().setViewPosition(new Point(0, 0));
     }
@@ -48,7 +48,7 @@ public class DrawingPanel extends JPanel implements Serializable {
         }
     }
     
-    public MainWindow getMainWindow(){
+    public MainWindow getFenetrePrincipale(){
         return m_fenetrePrincipale;
     }
     
@@ -69,13 +69,14 @@ public class DrawingPanel extends JPanel implements Serializable {
     }
     
     public void setEchelle(float p_valeur){
-        m_echelle = m_echelle * (1 - p_valeur / 16);
+        
+        m_echelle *= (1 - p_valeur / 16);
         
         boolean changement = false;
-        setGrandeur(changement);
+        setDimension(changement);
     }
     
-    public final void setGrandeur(boolean p_nouvelleIntersection){
+    public final void setDimension(boolean p_nouvelleIntersection){
 
         int l = m_fenetrePrincipale.getScrollPane().getWidth();
         int h = m_fenetrePrincipale.getScrollPane().getHeight();
