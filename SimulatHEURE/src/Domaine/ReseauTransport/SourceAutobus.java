@@ -9,6 +9,7 @@ import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
+import java.util.ListIterator;
 
 /**
  *
@@ -22,7 +23,7 @@ public class SourceAutobus {
     private int m_capaciteMax = 50;
     private Distribution m_distibutionFrequence;
     private Temps m_frequence;
-    private Temps m_tempsAttenteinitial;
+    private Temps m_tempsApparition;
     private Temps m_tempsAvantApparition;
     
     public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
@@ -30,8 +31,8 @@ public class SourceAutobus {
         m_circuit = p_circuit;
         m_nomSource = p_nomSource;
         m_distibutionFrequence = p_distribution;
-        m_tempsAttenteinitial = p_tempsAttenteinitial;
-        m_tempsAvantApparition = m_tempsAttenteinitial;
+        m_tempsApparition = p_tempsAttenteinitial;
+        m_tempsAvantApparition = m_tempsApparition;
     }
     
     public void miseAjoutTempsRestant(Temps p_deltatT){
@@ -61,13 +62,22 @@ public class SourceAutobus {
     }
         
     public Boolean estSurArret(){
-        return m_emplacement.equals(m_circuit.getListeArretTrajet().getFirst().getArret().getEmplacement()); 
+        Boolean estSurArret = false;
+        ListIterator<PaireArretTrajet> arretTrajetItr = m_circuit.getListeArretTrajet().listIterator();
+        while (arretTrajetItr.hasNext()) {
+            estSurArret = m_emplacement.equals(arretTrajetItr.next().getArret().getEmplacement());
+            if(estSurArret){
+                return true;
+            }
+        }
+        return false;
     }
     
     private Temps tempsApparition(){
-       double tmp =  m_tempsAttenteinitial.getTemps()+ (m_frequence.getTemps() * m_nbAutobusGeneres);
-        Temps tmo = new Temps(tmp);
-        return tmo;
+       double tmp =  m_tempsApparition.getTemps()+ m_frequence.getTemps();
+       Temps tmo = new Temps(tmp);
+       m_tempsApparition = tmo;
+       return m_tempsApparition;
     }
     
     public void setCapaciteMax(int capacite){

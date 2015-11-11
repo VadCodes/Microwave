@@ -14,11 +14,11 @@ public class Emplacement {
     private double m_pourcentageParcouru;
     private Troncon m_troncon;
     private Intersection m_intersection;
-    private Position m_position;
+    
     public Emplacement(Boolean estSurTroncon, double pourcentageParcouru, Troncon troncon, Intersection intersection){
  
         if(!intersection.getListeTroncons().contains(troncon)){
-            throw new Error("Mauvais troncon ou intersection");
+           throw new Error("Mauvais troncon ou intersection");
         }
         m_estSurTroncon = estSurTroncon;
         m_pourcentageParcouru = pourcentageParcouru;
@@ -62,7 +62,6 @@ public class Emplacement {
         return (m_estSurTroncon.equals(autreEmpl.m_estSurTroncon) &&
                 (Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
                 m_troncon.equals(autreEmpl.m_troncon) &&
-                m_intersection.equals(autreEmpl.m_intersection) &&
-                m_position.equals(autreEmpl.m_intersection));
+                m_intersection.equals(autreEmpl.m_intersection));
     }
 }
