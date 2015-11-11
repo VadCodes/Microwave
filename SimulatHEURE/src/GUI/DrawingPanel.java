@@ -14,8 +14,8 @@ import java.util.LinkedList;
 public class DrawingPanel extends JPanel implements Serializable {
     
     public Dimension m_dimension;
-    public int m_xMax = 0;  // Coordonnée x de l'intersection la plus loin
-    public int m_yMax = 0;  // Coordonnée y de l'intersection la plus loin
+    public int m_xMax;  // Coordonnée x de l'intersection la plus loin
+    public int m_yMax;  // Coordonnée y de l'intersection la plus loin
     private MainWindow m_fenetrePrincipale;
     private float m_echelle = 1;
     
@@ -27,7 +27,8 @@ public class DrawingPanel extends JPanel implements Serializable {
 //        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         
         m_dimension = new Dimension();
-        setDimension(false);
+        m_xMax = 1600;
+        m_yMax = 900;
         setVisible(true);
     }
     @Override
@@ -37,7 +38,7 @@ public class DrawingPanel extends JPanel implements Serializable {
             
             Graphics2D graphic2D = (Graphics2D)p_g;
             
-            graphic2D.scale(m_echelle, m_echelle);
+            graphic2D.scale(100 * m_echelle, 100 * m_echelle);
             
             super.paintComponent(graphic2D);
             
@@ -63,7 +64,7 @@ public class DrawingPanel extends JPanel implements Serializable {
     }
     
     public float getEchelle(){
-        return m_echelle;
+        return (m_echelle);
     }
     
     public void setEchelle(float p_valeur){
@@ -78,11 +79,11 @@ public class DrawingPanel extends JPanel implements Serializable {
 
         int l = m_fenetrePrincipale.getScrollPane().getWidth();
         int h = m_fenetrePrincipale.getScrollPane().getHeight();
-        
+
         if (p_nouvelleIntersection)
         {
-            m_xMax = 0;
-            m_yMax= 0;
+            m_xMax = l;
+            m_yMax = h;
             LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
             for (Intersection intersection: intersections)
             {
@@ -91,10 +92,10 @@ public class DrawingPanel extends JPanel implements Serializable {
             }
         }
 
-        l = (int)(m_echelle * m_xMax + 0.95 * l);
-        h = (int)(m_echelle * m_yMax + 0.95 * h);
-//        l = java.lang.Math.max((int)(m_echelle * xMax + 0.95 * l), (int)(1.5 * l));
-//        h = java.lang.Math.max((int)(m_echelle * yMax + 0.95 * h), (int)(1.5 * h));
+        l = (int)((m_echelle) * m_xMax + l);
+        h = (int)((m_echelle) * m_yMax + h);
+//        l = java.lang.Math.max((int)((m_echelle) * xMax + 0.95 * l), (int)(1.5 * l));
+//        h = java.lang.Math.max((int)((m_echelle) * yMax + 0.95 * h), (int)(1.5 * h));
         m_dimension.setSize(l, h);
         setPreferredSize(m_dimension);
     }

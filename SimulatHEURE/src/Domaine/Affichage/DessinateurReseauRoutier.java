@@ -33,7 +33,7 @@ public class DessinateurReseauRoutier
 
     public void dessiner(Graphics2D p_g)
     {
-        float echelle = (float)p_g.getTransform().getScaleX();
+        float echelle = (float)p_g.getTransform().getScaleX() / 100;
         if (echelle > 1){
             dessinerTroncons(p_g, echelle);
             dessinerIntersections(p_g, echelle);
@@ -56,7 +56,7 @@ public class DessinateurReseauRoutier
             float x = (float)position.getX() - m_rayonIntersection / p_echelle;
             float y = (float)position.getY() - m_rayonIntersection / p_echelle;
             float diametre = 2 * m_rayonIntersection / p_echelle;
-            p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+            p_g.fill(new Ellipse2D.Float(x / 100, y / 100, diametre /100, diametre / 100));
         }
     }
 

@@ -25,6 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         m_controleur = new Simulatheure();
         initComponents();
+        this.afficheur.setDimension(false);
         
 //        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
 //        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
@@ -72,7 +73,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(1600, 900));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
         jScrollPane1.setWheelScrollingEnabled(false);
 
         afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -111,7 +112,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(250, 400));
+        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
         boutonModes.setRequestFocusEnabled(false);
         boutonModes.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
@@ -210,9 +211,8 @@ public class MainWindow extends javax.swing.JFrame {
         float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
         this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
         boolean changement = true;
-        afficheur.setDimension(changement);
-                
-        afficheur.repaint();
+        afficheur.setDimension(changement);                
+        jScrollPane1.getViewport().setView(afficheur);
     }//GEN-LAST:event_afficheurMousePressed
 
     private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
