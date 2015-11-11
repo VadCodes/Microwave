@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ReseauTransport;
+package Domaine.ReseauTransport;
 
 
 import Domaine.ReseauTransport.SourceAutobus;
@@ -27,6 +27,7 @@ public class SourceAutobusTest extends TestCase {
         super(testName);
         ReseauRoutier reseauRoutier = new ReseauRoutier();
         // Ajout des intersections
+        //Papier de toilet man
         Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
         Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0f, 10.0f);
         Intersection intersection3 = reseauRoutier.ajouterIntersection(10.0f, 10.0f);
