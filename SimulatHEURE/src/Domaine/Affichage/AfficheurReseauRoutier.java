@@ -16,7 +16,7 @@ import Domaine.ReseauRoutier.*;
  *
  * @author Vinny
  */
-public class DessinateurReseauRoutier
+public class AfficheurReseauRoutier
 {
     private final Dimension m_dimensionInitiale;
     
@@ -24,7 +24,7 @@ public class DessinateurReseauRoutier
     private final float m_rayonIntersection = 10;
     private final float m_largeurTroncon = 5;
 
-    public DessinateurReseauRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
+    public AfficheurReseauRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
     {
         this.m_reseau = p_reseau;
         this.m_dimensionInitiale = p_dimensionInitiale;

@@ -52,7 +52,6 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        afficheur = new GUI.DrawingPanel(this);
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
         routier = new javax.swing.JToggleButton();
@@ -77,39 +76,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
         jScrollPane1.setWheelScrollingEnabled(false);
-
-        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurMouseMoved(evt);
-            }
-        });
-        afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurMouseWheelMoved(evt);
-            }
-        });
-        afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout afficheurLayout = new javax.swing.GroupLayout(afficheur);
-        afficheur.setLayout(afficheurLayout);
-        afficheurLayout.setHorizontalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2400, Short.MAX_VALUE)
-        );
-        afficheurLayout.setVerticalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1350, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(afficheur);
-
         mainPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -178,11 +144,11 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
         );
 
         pack();
@@ -300,7 +266,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.DrawingPanel afficheur;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JMenu fichier;

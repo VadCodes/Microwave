@@ -1,6 +1,6 @@
 package GUI;
 
-import Domaine.Affichage.DessinateurReseauRoutier;
+import Domaine.Affichage.AfficheurReseauRoutier;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
 
-public class DrawingPanel extends JPanel implements Serializable {
+public class PanneauAfficheur extends JPanel implements Serializable {
     
     public Dimension m_dimension;
     public int m_xMax;  // Coordonnée x de l'intersection la plus loin
@@ -19,10 +19,10 @@ public class DrawingPanel extends JPanel implements Serializable {
     private MainWindow m_fenetrePrincipale;
     private float m_echelle = 1;
     
-    public DrawingPanel(){
+    public PanneauAfficheur(){
     }
     
-    public DrawingPanel(MainWindow mainWindow) {
+    public PanneauAfficheur(MainWindow mainWindow) {
         this.m_fenetrePrincipale = mainWindow;
 //        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         
@@ -42,7 +42,7 @@ public class DrawingPanel extends JPanel implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            DessinateurReseauRoutier mainDrawer = new DessinateurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
+            AfficheurReseauRoutier mainDrawer = new AfficheurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
             mainDrawer.dessiner(graphic2D);
         }
     }
