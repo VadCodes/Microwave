@@ -27,9 +27,10 @@ public class ReseauRoutier {
         return intersection;
     }
     
-    public Troncon ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution,
-              Temps tempsTransitPieton){
-        Troncon troncon = m_factory.creerTroncon(distribution, intersectionDestination, tempsTransitPieton);
+    public Troncon ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
+        double distance = intersectionOrigin.getPosition().distance(intersectionDestination.getPosition());
+        Temps tempsTransit = new Temps(distance*1/4);
+        Troncon troncon = m_factory.creerTroncon(distribution, intersectionDestination, tempsTransit);
         intersectionOrigin.ajouterTroncons(troncon);
         return troncon;
     }

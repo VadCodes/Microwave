@@ -43,9 +43,7 @@ public class Troncon {
            m_nom = p_nom;
        }
        public void initTroncon(){
-           
            m_tempsTransitAutobus = m_distribution.pigerTemps(); //nope !
-           
        }
        
        

@@ -45,8 +45,7 @@ public class Simulatheure {
         m_reseauRoutier.ajouterIntersection(poin.x, poin.y);
     }
     
-    public void ajoutITroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution,
-              Temps tempsTransitPieton){
-        m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution, tempsTransitPieton);
+    public void ajoutITroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
+        m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution);
     }
 }

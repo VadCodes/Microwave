@@ -43,11 +43,11 @@ public class AutobusTest extends TestCase {
         //Ajout des Troncons Et deux distributions
         Distribution distribution1 =new Distribution(new Temps(15), new Temps(15), new Temps(15));
         Distribution distribution2 =new Distribution(new Temps(10), new Temps(10), new Temps(10));
-        Troncon troncon1 = reseauRoutier.ajouterTroncon(intersection1, intersection4, distribution1, new Temps(4));
-        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2, new Temps(4));
-        Troncon troncon3 = reseauRoutier.ajouterTroncon(intersection2, intersection3, distribution2, new Temps(4));
-        Troncon troncon4 = reseauRoutier.ajouterTroncon(intersection3, intersection1, distribution2, new Temps(4));
-        Troncon troncon5 = reseauRoutier.ajouterTroncon(intersection3, intersection4, distribution2, new Temps(4));
+        Troncon troncon1 = reseauRoutier.ajouterTroncon(intersection1, intersection4, distribution1);
+        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
+        Troncon troncon3 = reseauRoutier.ajouterTroncon(intersection2, intersection3, distribution2);
+        Troncon troncon4 = reseauRoutier.ajouterTroncon(intersection3, intersection1, distribution2);
+        Troncon troncon5 = reseauRoutier.ajouterTroncon(intersection3, intersection4, distribution2);
          reseauRoutier.initReseauRoutier();
         //push dans les lists
         m_intersection1 = intersection1;
@@ -73,8 +73,8 @@ public class AutobusTest extends TestCase {
          
        
          Emplacement emplacementInitiale = new Emplacement(true, 0.25f, m_troncon2, m_intersection1);
-         Emplacement emplacementMilieu = new Emplacement(true, 0.5f, m_troncon3, m_intersection3);
-         Emplacement emplacementFinal = new Emplacement(true, 0.75f, m_troncon5, m_intersection4);
+         Emplacement emplacementMilieu = new Emplacement(true, 0.5f, m_troncon3, m_intersection2);
+         Emplacement emplacementFinal = new Emplacement(true, 0.75f, m_troncon5, m_intersection3);
          
         Trajet trajet1 = new Trajet(emplacementInitiale , emplacementMilieu, listTroncon1);
         Trajet trajet2 = new Trajet(emplacementMilieu, emplacementFinal, listTroncon2);
