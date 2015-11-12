@@ -37,7 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
 //        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
 //        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
-        this.afficheur.setDimension(false);
+        this.panneau.setDimension(false);
     }
 
     /**
@@ -52,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        afficheur = new GUI.PanneauAfficheur(this);
+        panneau = new GUI.PanneauAfficheur(this);
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
         routier = new javax.swing.JToggleButton();
@@ -78,26 +78,26 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
         jScrollPane1.setWheelScrollingEnabled(false);
 
-        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
-        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        panneau.setPreferredSize(new java.awt.Dimension(1600, 900));
+        panneau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurMouseMoved(evt);
+                panneauMouseMoved(evt);
             }
         });
-        afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+        panneau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurMouseWheelMoved(evt);
+                panneauMouseWheelMoved(evt);
             }
         });
-        afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
+        panneau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurMouseExited(evt);
+                panneauMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurMousePressed(evt);
+                panneauMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(afficheur);
+        jScrollPane1.setViewportView(panneau);
 
         mainPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -197,20 +197,20 @@ public class MainWindow extends javax.swing.JFrame {
         this.setMode(Modes.SIMULATION);
     }//GEN-LAST:event_simulationActionPerformed
 
-    private void afficheurMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMousePressed
-        float x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
-        float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
+    private void panneauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauMousePressed
+        float x = (float)(evt.getPoint().getX() / panneau.getEchelle());
+        float y = (float)(evt.getPoint().getY() / panneau.getEchelle());        
         this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
         boolean changement = true;
-        afficheur.setDimension(changement);                
-        jScrollPane1.setViewportView(afficheur);
-    }//GEN-LAST:event_afficheurMousePressed
+        panneau.setDimension(changement);                
+        jScrollPane1.setViewportView(panneau);
+    }//GEN-LAST:event_panneauMousePressed
 
-    private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
+    private void panneauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_panneauMouseWheelMoved
         
-        float echelleInitiale = afficheur.getEchelle();
-        afficheur.setEchelle(evt.getWheelRotation());
-        float rapportEchelles = afficheur.getEchelle() / echelleInitiale;
+        float echelleInitiale = panneau.getEchelle();
+        panneau.setEchelle(evt.getWheelRotation());
+        float rapportEchelles = panneau.getEchelle() / echelleInitiale;
         
         int x = jScrollPane1.getViewport().getViewPosition().x;
         x = (int)(evt.getPoint().getX() * (rapportEchelles  - 1) + x);
@@ -218,22 +218,22 @@ public class MainWindow extends javax.swing.JFrame {
         int y = jScrollPane1.getViewport().getViewPosition().y;
         y = (int)(evt.getPoint().getY() * (rapportEchelles  - 1) + y);
         
-        wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
+        wtf2.setText(Integer.toString((int)(panneau.getEchelle() * 100)) + "%");
         
         jScrollPane1.getViewport().setViewPosition(new Point(x, y));
         //afficheur.repaint();
-    }//GEN-LAST:event_afficheurMouseWheelMoved
+    }//GEN-LAST:event_panneauMouseWheelMoved
 
-    private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
+    private void panneauMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauMouseMoved
         
-        float x = (float)evt.getPoint().getX() / afficheur.getEchelle();
-        float y = (float)evt.getPoint().getY() / afficheur.getEchelle();
+        float x = (float)evt.getPoint().getX() / panneau.getEchelle();
+        float y = (float)evt.getPoint().getY() / panneau.getEchelle();
         wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
-    }//GEN-LAST:event_afficheurMouseMoved
+    }//GEN-LAST:event_panneauMouseMoved
 
-    private void afficheurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseExited
+    private void panneauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panneauMouseExited
         wtf.setText("");
-    }//GEN-LAST:event_afficheurMouseExited
+    }//GEN-LAST:event_panneauMouseExited
     
     /**
      * @param args the command line arguments
@@ -275,11 +275,11 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_mode_courant = p_mode;
         if (m_mode_courant == Modes.ROUTIER)
         {
-            afficheur.setVisible(true);
+            panneau.setVisible(true);
         }
         else
         {
-            afficheur.setVisible(false);
+            panneau.setVisible(false);
         }
     }
     
@@ -289,7 +289,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.PanneauAfficheur afficheur;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JMenu fichier;
@@ -298,6 +297,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private GUI.PanneauAfficheur panneau;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton simulation;
