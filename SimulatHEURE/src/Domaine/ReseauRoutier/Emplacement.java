@@ -5,6 +5,8 @@
  */
 package Domaine.ReseauRoutier;
 
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author Nathaniel
@@ -25,14 +27,14 @@ public class Emplacement {
         m_troncon = troncon;
         m_intersection = intersection;
     }
-    public Position calculPosition(){
+    public Point2D.Float calculPosition(){
         double positionDepartX = m_troncon.getDestination().getPosition().getX();
         double positionDepartY = m_troncon.getDestination().getPosition().getY();
         double positionFinX = m_troncon.getDestination().getPosition().getX();
         double positionFinY = m_troncon.getDestination().getPosition().getY();
         double X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
         double Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
-        return new Position(X, Y); // Criss un new;
+        return new Point2D.Float(X, Y); // Criss un new;
     }
     public Boolean getEstSurTroncon(){
         return m_estSurTroncon;
