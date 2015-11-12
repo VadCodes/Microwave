@@ -17,6 +17,7 @@ import java.util.ListIterator;
 import Domaine.ReseauRoutier.Position;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
+import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
 
 public class Circuit {
@@ -41,46 +42,11 @@ public class Circuit {
         m_listeAutobus.add(autobus);
     }
     
-    public void ajouterArret(Arret nouvArr){
+    private void ajouterPaire(Arret arr, Trajet traj){
+        assert(m_listeArretTrajet.getLast().getArret().getEmplacement().equals(traj.getEmplacementInitial()));
+        assert(arr.getEmplacement().equals(traj.getEmplacementFinal()));
         
-        Emplacement precEmpl = m_listeArretTrajet.getLast().getArret().getEmplacement();
-        Emplacement nouvEmpl = nouvArr.getEmplacement();
-        
-        Trajet nouvTrajet = dijkstra(precEmpl, nouvEmpl);
-        
-        //faire une paire
-        //ajouterPaire()
-    }
-    
-    private void ajouterPaire(PaireArretTrajet paire){
-        m_listeArretTrajet.add(paire);
-    }
-    
-    private Trajet dijkstra(Emplacement origine, Emplacement Destination){
-        LinkedList<Intersection> listeSommets = new LinkedList();
-        ListIterator<Intersection> interItr = m_reseauRoutier.getIntersections().listIterator();
-        while (interItr.hasNext()) {
-            listeSommets.addLast(interItr.next());
-        }
-        
-        Boolean nouvSommetOrig = !origine.getEstSurTroncon();
-        Boolean nouvSommetDest = !Destination.getEstSurTroncon();
-        if (nouvSommetOrig){
-            Intersection inter = new Intersection(origine.calculPosition());
-            
-            listeSommets.addFirst(Intersection);
-        }
-        
-        int nb_sommets = listeSommets.size();
-
-        if (nouvSommetOrig){
-            nb_sommets++;
-        }
-        if (nouvSommetDest){
-            nb_sommets++;
-        }
-        
-        
+        m_listeArretTrajet.add(new PaireArretTrajet(arr, traj));
     }
     
     public void calculCirculationGlobal(){

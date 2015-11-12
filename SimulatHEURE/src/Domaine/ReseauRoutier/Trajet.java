@@ -22,6 +22,14 @@ public class Trajet {
         m_listTroncons = listTroncons;
     }
     
+    public Emplacement getEmplacementInitial(){
+        return m_emplacementInitial;
+    }
+    
+    public Emplacement getEmplacementFinal(){
+        return m_emplacementFinal;
+    }
+    
     /*
     public Boolean estValid(){
         Boolean tmp1;
