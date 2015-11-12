@@ -13,12 +13,14 @@ package Domaine.ReseauTransport;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.ReseauRoutier.Position;
+import Domaine.Utilitaire.Temps;
 
 public class Circuit {
     private String m_nom = "";
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList();
     private LinkedList<Autobus> m_listeAutobus = new LinkedList();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
+    private Temps m_deltaT;
     
     public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj){
         //assert listeArrTraj doit avoir les 2 premiers
@@ -38,7 +40,7 @@ public class Circuit {
         m_listeArretTrajet.add(paire);
     }
     
-    public void calculCirculationGlobal(){
+    public void calculCirculationGlobal(Temps m_deltaT){
         
         //on vide toutes les files d'arrets
         ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
@@ -49,11 +51,11 @@ public class Circuit {
         //pour chaque autobus on calcule la circulation
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
-            calculCirculation(autobusItr.next());
+            calculCirculation(m_deltaT, autobusItr.next());
         }
     }
     
-    public void calculCirculation(Autobus bus){
+    public void calculCirculation(Temps m_deltaT, Autobus bus){
         
     }
     
