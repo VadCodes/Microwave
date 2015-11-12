@@ -36,7 +36,7 @@ public class ReseauRoutierFactory {
            return intersection;
        }
        
-       public Emplacement creerEmplacement(Boolean estSurTroncon, double pourcentageParcouru, Troncon troncon, Intersection intersection){
+       public Emplacement creerEmplacement(Boolean estSurTroncon, float  pourcentageParcouru, Troncon troncon, Intersection intersection){
            Emplacement emplacement = new Emplacement(estSurTroncon, pourcentageParcouru, troncon, intersection);
           // m_listEmplacement .add(emplacement);
            return emplacement;

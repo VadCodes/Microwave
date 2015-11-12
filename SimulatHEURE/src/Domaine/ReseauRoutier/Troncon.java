@@ -47,17 +47,6 @@ public class Troncon {
            m_tempsTransitAutobus = m_distribution.pigerTemps(); //nope !
            
        }
-       public PaireTronconsPartiels splitTroncon(Intersection intersectionMilieu, Emplacement empl){
-           //assert emplacement estsurtroncon, .gettroncon = this
-           
-           double pourcentage = empl.getPourcentageParcouru();
-           m_tempsTransitAutobus
-           
-           Troncon tronconAvant = new Troncon();
-           Troncon tronconApres = new Troncon();
-           
-           return new paireTronconsPartiels(tronconAvant, tronconApres);
-       }
        
        
        /*

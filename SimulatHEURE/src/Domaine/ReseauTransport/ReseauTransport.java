@@ -16,7 +16,7 @@ import Domaine.Utilitaire.Temps;
 public class ReseauTransport {
     
     private LinkedList<Circuit> m_listeCircuits = new LinkedList();
-    private Temps m_deltaT;
+    private Temps tempsDebut;
     public ReseauTransport(){
     }
     public LinkedList<Circuit> getListeCircuits(){
@@ -32,10 +32,10 @@ public class ReseauTransport {
             circuitItr.next().initCircuit();
         }
     };
-    public void calculEtatReseauTransport(Temps m_deltaT){
+    public void calculEtatReseauTransport(Temps deltaT){
         ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();
         while (circuitItr.hasNext()) {
-            circuitItr.next().calculCirculationGlobal(m_deltaT);
+            circuitItr.next().calculCirculationGlobal(deltaT);
         }
     }
 }

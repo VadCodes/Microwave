@@ -13,11 +13,11 @@ import java.awt.geom.Point2D;
  */
 public class Emplacement {
     private Boolean m_estSurTroncon;
-    private double m_pourcentageParcouru;
+    private float m_pourcentageParcouru;
     private Troncon m_troncon;
     private Intersection m_intersection;
     
-    public Emplacement(Boolean estSurTroncon, double pourcentageParcouru, Troncon troncon, Intersection intersection){
+    public Emplacement(Boolean estSurTroncon, float pourcentageParcouru, Troncon troncon, Intersection intersection){
  
         if(!intersection.getListeTroncons().contains(troncon)){
            throw new Error("Mauvais troncon ou intersection");
@@ -28,18 +28,18 @@ public class Emplacement {
         m_intersection = intersection;
     }
     public Point2D.Float calculPosition(){
-        double positionDepartX = m_troncon.getDestination().getPosition().getX();
-        double positionDepartY = m_troncon.getDestination().getPosition().getY();
-        double positionFinX = m_troncon.getDestination().getPosition().getX();
-        double positionFinY = m_troncon.getDestination().getPosition().getY();
-        double X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
-        double Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
+        float positionDepartX = m_troncon.getDestination().getPosition().x;
+        float positionDepartY = m_troncon.getDestination().getPosition().y;
+        float positionFinX = m_troncon.getDestination().getPosition().x;
+        float positionFinY = m_troncon.getDestination().getPosition().y;
+        float X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
+        float Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
         return new Point2D.Float(X, Y); // Criss un new;
     }
     public Boolean getEstSurTroncon(){
         return m_estSurTroncon;
     }
-    public  double getPourcentageParcouru(){
+    public  float getPourcentageParcouru(){
         return m_pourcentageParcouru;
     }
     public  Troncon getTroncon(){
@@ -51,7 +51,7 @@ public class Emplacement {
      public  void setEstSurTroncon(Boolean estSurTroncon){
         m_estSurTroncon = estSurTroncon;
     }
-    public   void setPourcentageParcouru(double pourcentageParcouru){
+    public   void setPourcentageParcouru(float pourcentageParcouru){
         m_pourcentageParcouru = pourcentageParcouru;
     }
     public  void  setTroncon(Troncon troncon){

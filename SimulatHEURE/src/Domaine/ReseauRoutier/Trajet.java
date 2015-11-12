@@ -11,6 +11,7 @@ package Domaine.ReseauRoutier;
  */
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Trajet {
     private Emplacement m_emplacementInitial;
@@ -30,23 +31,19 @@ public class Trajet {
         return m_emplacementFinal;
     }
     
-    /*
-    public Boolean estValid(){
-        Boolean tmp1;
-        Boolean tmp2;
-        tmp1 = m_listTroncons.getFirst().equals(m_emplacementInitial.getTroncon());
-        tmp2 = m_listTroncons.getLast().equals(m_emplacementFinal.getTroncon());
-        Iterator<Troncon> itr = m_listTroncons.iterator();
-        if(itr.hasNext()){
-            Troncon theLastOne = itr.next();
-            while(itr.hasNext()){
-                 Troncon tmp = itr.next();
-                 if(theLastOne.estAdjacent(tmp)){
-                     return false;
+    public Troncon getNextTroncon(Emplacement emplacement){
+        boolean trg= false;
+         ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();
+             while (troncon_it.hasNext()) {
+                 
+                 Troncon tr = troncon_it.next();
+                 if (trg){
+                     return tr;
                  }
-                 theLastOne = tmp;
+                 if(tr.equals(emplacement.getTroncon())){
+                     trg = true;
+                 }
              }
-        }
-        return true;
-    }*/
+             return null;
+    }
 }

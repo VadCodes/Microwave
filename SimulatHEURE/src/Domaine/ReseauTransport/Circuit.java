@@ -26,7 +26,7 @@ public class Circuit {
     private LinkedList<Autobus> m_listeAutobus = new LinkedList();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private ReseauRoutier m_reseauRoutier;
-    private Temps m_deltaT;
+    private Temps tempsDepart;
     
     public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
         //assert listeArrTraj doit avoir les 2 premiers
@@ -52,14 +52,14 @@ public class Circuit {
     }
     
 
-    private void ajouterPaire(Arret arr, Trajet traj){
+    public void ajouterPaire(Arret arr, Trajet traj){
         assert(m_listeArretTrajet.getLast().getArret().getEmplacement().equals(traj.getEmplacementInitial()));
         assert(arr.getEmplacement().equals(traj.getEmplacementFinal()));
         
         m_listeArretTrajet.add(new PaireArretTrajet(arr, traj));
     }
     
-    public void calculCirculationGlobal(){
+    public void calculCirculationGlobal(Temps deltatT){
         
         //on vide toutes les files d'arrets
         ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
@@ -70,12 +70,12 @@ public class Circuit {
         //pour chaque autobus on calcule la circulation
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
-            calculCirculation(m_deltaT, autobusItr.next());
+            calculCirculation(deltatT, autobusItr.next());
         }
     }
     
-    public void calculCirculation(Temps m_deltaT, Autobus bus){
-        
+    public void calculCirculation(Temps deltaT, Autobus bus){
+        bus.miseAJourEmplacement(deltaT);
     }
     
     public LinkedList<Point2D.Float> getPositionsDesAutobus(){

@@ -6,6 +6,7 @@
 package Domaine.ReseauTransport;
 
 import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
 import Domaine.ReseauRoutier.Troncon;
 import java.util.LinkedList;
@@ -22,8 +23,8 @@ public class ReseauTransportFactory {
         return new Arret(emplacement, nom);
     } 
     
-    public Circuit creerCircuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj){
-        return new Circuit(nom, listeArrTraj);
+    public Circuit creerCircuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
+        return new Circuit(nom, listeArrTraj, resRoutier);
     } 
     
     public PaireArretTrajet creerPaireArretTrajet(Arret arret, Trajet trajet){

@@ -53,10 +53,10 @@ public class SourceAutobusTest extends TestCase {
         m_troncons.add(troncon4);
         m_troncons.add(troncon5);
         reseauRoutier.initReseauRoutier();
-        Emplacement emplArr = new Emplacement(true, 0.8, troncon2, intersection1);
+        Emplacement emplArr = new Emplacement(true, 0.8f, troncon2, intersection1);
         Arret arr = new Arret(emplArr, "cristre");
         LinkedList<PaireArretTrajet> listePaires = new LinkedList();
-        Emplacement emplaFifi = new Emplacement(true, 0.66,troncon3, intersection2);
+        Emplacement emplaFifi = new Emplacement(true, 0.66f,troncon3, intersection2);
         LinkedList<Troncon> listeTroncon = new LinkedList();
         listeTroncon.add(troncon2);
         listeTroncon.add(troncon3);
@@ -65,7 +65,7 @@ public class SourceAutobusTest extends TestCase {
         Arret arr2d2 = new Arret(emplaFifi, "crissequatre");
         Trajet pasbon = new Trajet(emplArr, emplaFifi, new LinkedList());
         listePaires.add(new PaireArretTrajet(arr2d2, pasbon));
-        m_circuit = new Circuit("bitches", listePaires);
+        m_circuit = new Circuit("bitches", listePaires, new ReseauRoutier());
     }
         
 
@@ -97,25 +97,25 @@ public class SourceAutobusTest extends TestCase {
      * Test of estSurArret method, of class SourceAutobus.
      */
     public void testEstSurArretTrue() {
-        Emplacement emplSrc = new Emplacement(true, 0.8, m_troncons.getFirst(), m_intersections.getFirst());
+        Emplacement emplSrc = new Emplacement(true, 0.8f, m_troncons.getFirst(), m_intersections.getFirst());
         Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
         SourceAutobus srcAutobus = new SourceAutobus(emplSrc, m_circuit, "TestSource", dist, new Temps(0));
         
-        Emplacement emplArr = new Emplacement(true, 0.800000001, m_troncons.getFirst(), m_intersections.getFirst());
+        Emplacement emplArr = new Emplacement(true, 0.800000001f, m_troncons.getFirst(), m_intersections.getFirst());
         Arret arr = new Arret(emplArr, "cristre");
-        m_circuit.ajouterPaire(new PaireArretTrajet(arr, m_circuit.getListeArretTrajet().getFirst().getTrajet()));
+        m_circuit.ajouterPaire(arr, m_circuit.getListeArretTrajet().getFirst().getTrajet());
         
         assertTrue(srcAutobus.estSurArret());
     }
     
     public void testEstSurArretFalse() {
-        Emplacement emplSrc = new Emplacement(true, 0.8, m_troncons.getFirst(), m_intersections.getFirst());
+        Emplacement emplSrc = new Emplacement(true, 0.8f, m_troncons.getFirst(), m_intersections.getFirst());
         Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
         SourceAutobus srcAutobus = new SourceAutobus(emplSrc, m_circuit, "TestSource", dist, new Temps(0));
         
-        Emplacement emplArr = new Emplacement(true, 0.81, m_troncons.getFirst(), m_intersections.getFirst());
+        Emplacement emplArr = new Emplacement(true, 0.81f, m_troncons.getFirst(), m_intersections.getFirst());
         Arret arr = new Arret(emplArr, "cristre");
-        m_circuit.ajouterPaire(new PaireArretTrajet(arr, m_circuit.getListeArretTrajet().getFirst().getTrajet()));
+        m_circuit.ajouterPaire(arr, m_circuit.getListeArretTrajet().getFirst().getTrajet());
         
         assertFalse(srcAutobus.estSurArret());
     }
