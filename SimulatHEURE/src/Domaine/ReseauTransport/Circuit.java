@@ -15,39 +15,30 @@ import java.util.ListIterator;
 import Domaine.ReseauRoutier.Position;
 
 public class Circuit {
-    private String m_nom = "";
-    private LinkedList<SourceAutobus> m_listeSources = new LinkedList();
-    private LinkedList<Autobus> m_listeAutobus = new LinkedList();
-    private LinkedList<PaireArretTrajet> m_listeArretTrajet;
-    
-    public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj){
-        //assert listeArrTraj doit avoir les 2 premiers
-        m_nom = nom;
-        m_listeArretTrajet = listeArrTraj;
-    }
+    private String nom = "";
+    private Arret Origine;
+    private LinkedList<SourceAutobus> listeSources;
+    private LinkedList<Autobus> listeAutobus;
+    private LinkedList<PaireArretTrajet> listeArretTrajet;
     
     public void ajouterSource(SourceAutobus source){
-        m_listeSources.add(source);
+        listeSources.add(source);
     }
     
     public void ajouterAutobus(Autobus autobus){
-        m_listeAutobus.add(autobus);
-    }
-    
-    public void ajouterPaire(PaireArretTrajet paire){
-        m_listeArretTrajet.add(paire);
+        listeAutobus.add(autobus);
     }
     
     public void calculCirculationGlobal(){
         
         //on vide toutes les files d'arrets
-        ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
+        ListIterator<PaireArretTrajet> arretTrajetItr = listeArretTrajet.listIterator();
         while (arretTrajetItr.hasNext()) {
             arretTrajetItr.next().getArret().viderFile();
         }
         
         //pour chaque autobus on calcule la circulation
-        ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
+        ListIterator<Autobus> autobusItr = listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
             calculCirculation(autobusItr.next());
         }
@@ -60,7 +51,7 @@ public class Circuit {
     public LinkedList<Position> getPositionsDesAutobus(){
         
         LinkedList<Position> listePositionsAutobus = new LinkedList<Position>();
-        ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
+        ListIterator<Autobus> autobusItr = listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
             listePositionsAutobus.add(autobusItr.next().getPosition());
         }
@@ -69,7 +60,7 @@ public class Circuit {
     }
     
     public LinkedList<PaireArretTrajet> getListeArretTrajet(){
-        return m_listeArretTrajet;
+        return listeArretTrajet;
     }
     
     public void incrementerIterateurAutobus(Autobus bus){
@@ -77,11 +68,11 @@ public class Circuit {
     }
     
     public void assignerTrajetAutobus(Autobus bus){
-        bus.assignerTrajet(m_listeArretTrajet);
+        bus.assignerTrajet(listeArretTrajet);
     }
     
     public void initCircuit(){
-        ListIterator<SourceAutobus> sourceAutobusItr = m_listeSources.listIterator();
+        ListIterator<SourceAutobus> sourceAutobusItr = listeSources.listIterator();
         while (sourceAutobusItr.hasNext()) {
             sourceAutobusItr.next().initSourceAutobus();
         }

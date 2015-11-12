@@ -16,6 +16,10 @@ public class Simulatheure {
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
     
+    public enum Commandes {
+        SELECTIONNER, INTERSECTION, TRONCON, SUPPRIMER
+    }
+    
     public ReseauRoutier m_reseauRoutier ;
     private ReseauTransport m_reseauTransport ;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();

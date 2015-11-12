@@ -4,7 +4,6 @@ import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
-import java.util.ListIterator;
 //import java.util.ListIterator;
 
 /**
@@ -52,22 +51,13 @@ public class ReseauRoutier {
     }
     
     public void initReseauRoutier(){
-         ListIterator<Intersection> intersection_it= m_listeIntersections.listIterator();
-        while (intersection_it.hasNext()) {
-            ListIterator<Troncon> troncon_it = intersection_it.next().getListeTroncons().listIterator();
-             while (troncon_it.hasNext()) {
-               Troncon tr =  troncon_it.next();
-               tr.initTroncon();
-             }
-          }
-        /*
         for (Intersection intersection : m_listeIntersections)
         {
             for (Troncon troncon : intersection.getListeTroncons())
             {
                 troncon.initTroncon();
             }
-        }*/
+        }
     }
 }
 

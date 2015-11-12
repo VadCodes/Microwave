@@ -5,14 +5,17 @@
  */
 package GUI;
 
-import Domaine.ReseauRoutier.*;
-import Domaine.Utilitaire.*;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
+import Domaine.Simulatheure.Commandes;
 
-import java.awt.Dimension;
+import Domaine.ReseauRoutier.*;
+import Domaine.Utilitaire.*;
+import javax.swing.SwingUtilities;
+
+import java.util.LinkedList;
 import java.awt.Point;
-
+import java.awt.geom.Ellipse2D;
 /**
  *
  * @author Vincent Martel
@@ -21,13 +24,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     public Simulatheure m_controleur;
     public Modes m_mode_courant;
-    
+    public Commandes m_commande_courante;
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
         m_controleur = new Simulatheure();
         initComponents();
+        routier.doClick();
         
         this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
         this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
@@ -38,6 +42,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_controleur.m_reseauRoutier.getIntersections().getLast();
         Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
         this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
+        this.afficheur.setDimension(false);
     }
 
     /**
@@ -50,15 +55,24 @@ public class MainWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         groupeModes = new javax.swing.ButtonGroup();
+        groupeRoutier = new javax.swing.ButtonGroup();
         mainPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        afficheur = new GUI.DrawingPanel(this);
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
         routier = new javax.swing.JToggleButton();
         transport = new javax.swing.JToggleButton();
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
+        wtf = new javax.swing.JLabel();
+        wtf2 = new javax.swing.JLabel();
+        jLayeredPane2 = new javax.swing.JLayeredPane();
+        boutonsRoutier = new javax.swing.JPanel();
+        selectionnerRoutier = new javax.swing.JToggleButton();
+        intersection = new javax.swing.JToggleButton();
+        troncon = new javax.swing.JToggleButton();
+        supprimerRoutier = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        afficheur = new GUI.PanneauAfficheur(this);
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -68,51 +82,19 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(besoins);
         groupeModes.add(simulation);
 
+        groupeModes.add(selectionnerRoutier);
+        groupeModes.add(intersection);
+        groupeModes.add(troncon);
+        groupeModes.add(supprimerRoutier);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 600));
-        jScrollPane1.setWheelScrollingEnabled(false);
-
-        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
-        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurMouseMoved(evt);
-            }
-        });
-        afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurMouseWheelMoved(evt);
-            }
-        });
-        afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout afficheurLayout = new javax.swing.GroupLayout(afficheur);
-        afficheur.setLayout(afficheurLayout);
-        afficheurLayout.setHorizontalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1600, Short.MAX_VALUE)
-        );
-        afficheurLayout.setVerticalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-
-        jScrollPane1.setViewportView(afficheur);
-
-        mainPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(250, 400));
+        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
         boutonModes.setRequestFocusEnabled(false);
         boutonModes.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
@@ -150,7 +132,118 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.add(boutonModes, java.awt.BorderLayout.PAGE_START);
 
+        wtf.setText("jLabel1");
+        jPanel1.add(wtf, java.awt.BorderLayout.CENTER);
+
+        wtf2.setText("jLabel1");
+        jPanel1.add(wtf2, java.awt.BorderLayout.PAGE_END);
+
         mainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
+
+        boutonsRoutier.setAlignmentX(1.0F);
+        boutonsRoutier.setAlignmentY(1.0F);
+        boutonsRoutier.setOpaque(false);
+        boutonsRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 4));
+
+        selectionnerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionnerRoutier.setText("Sélectionner");
+        selectionnerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionnerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(selectionnerRoutier);
+
+        intersection.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        intersection.setText("Intersection");
+        intersection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                intersectionActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(intersection);
+
+        troncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        troncon.setText("Tronçon");
+        troncon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tronconActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(troncon);
+
+        supprimerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        supprimerRoutier.setText("Supprimer");
+        supprimerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                supprimerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(supprimerRoutier);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
+        jScrollPane1.setWheelScrollingEnabled(false);
+
+        afficheur.setEnabled(false);
+        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
+        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurMouseMoved(evt);
+            }
+        });
+        afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurMouseWheelMoved(evt);
+            }
+        });
+        afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout afficheurLayout = new javax.swing.GroupLayout(afficheur);
+        afficheur.setLayout(afficheurLayout);
+        afficheurLayout.setHorizontalGroup(
+            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1600, Short.MAX_VALUE)
+        );
+        afficheurLayout.setVerticalGroup(
+            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(afficheur);
+
+        jLayeredPane2.setLayer(boutonsRoutier, javax.swing.JLayeredPane.PALETTE_LAYER);
+        jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
+        jLayeredPane2.setLayout(jLayeredPane2Layout);
+        jLayeredPane2Layout.setHorizontalGroup(
+            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
+                .addContainerGap(631, Short.MAX_VALUE)
+                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
+        );
+        jLayeredPane2Layout.setVerticalGroup(
+            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jLayeredPane2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(359, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(jLayeredPane2, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(mainPanel);
 
         fichier.setText("Fichier");
 
@@ -166,17 +259,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         setJMenuBar(menu);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,55 +267,139 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_quitterActionPerformed
 
     private void routierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routierActionPerformed
+        
         this.setMode(Modes.ROUTIER);
+        boutonsRoutier.setVisible(true);
+        selectionnerRoutier.doClick();
+        
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
         this.setMode(Modes.TRANSPORT);
+        //boutonsTransport.setVisible(true);
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
         this.setMode(Modes.BESOINS);
+        //boutonsBesoins.setVisible(true);
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
         this.setMode(Modes.SIMULATION);
+        //boutonsSimulation.setVisible(true);
     }//GEN-LAST:event_simulationActionPerformed
 
     private void afficheurMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMousePressed
-        float x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
-        float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
-        
-        afficheur.repaint();
+        if (SwingUtilities.isLeftMouseButton(evt)) {
+            switch (m_mode_courant){
+                case ROUTIER:
+                    float x;
+                    float y;  
+                    switch (m_commande_courante){
+                        case SELECTIONNER:
+                            float echelle = afficheur.getEchelle();
+                            float diametre;
+                            if (echelle < 1)
+                            {
+                                x = (float)(evt.getPoint().getX() / echelle - Intersection.RAYON );
+                                y = (float)(evt.getPoint().getY() / echelle - Intersection.RAYON);
+                                diametre = 2 * Intersection.RAYON;
+                            }
+                            else
+                            {
+                                x = ((float)(evt.getPoint().getX() - Intersection.RAYON) / echelle);
+                                y = ((float)(evt.getPoint().getY() - Intersection.RAYON) / echelle);
+                                diametre = 2 * Intersection.RAYON / echelle;
+                            }
+
+                            Ellipse2D.Float zoneSelection = new Ellipse2D.Float(x, y, diametre, diametre);
+                            
+                            LinkedList<Intersection> intersections = m_controleur.m_reseauRoutier.getIntersections();
+                            for (Intersection intersection: intersections)
+                            {
+                                if (zoneSelection.contains(intersection.getPosition()))
+                                {
+                                    intersection.changerStatutSelectionee();
+                                    jScrollPane1.setViewportView(afficheur);
+                                    break;                                    
+                                }
+                            }
+                            
+                            break;
+                        
+                        case INTERSECTION:
+                            x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
+                            y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
+                            this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
+                            boolean changement = true;
+                            afficheur.setDimension(changement);                
+                            jScrollPane1.setViewportView(afficheur);
+
+                            break;
+                            
+                        case TRONCON:
+                            //float x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
+                            //float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
+                            //this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);          
+                            //jScrollPane1.setViewportView(afficheur);
+
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }//GEN-LAST:event_afficheurMousePressed
 
     private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
-        float echelleInit = afficheur.getEchelle();
+        
+        float echelleInitiale = afficheur.getEchelle();
         afficheur.setEchelle(evt.getWheelRotation());
-
-        Dimension d = new Dimension();
-        d.setSize(1600 * afficheur.getEchelle(), 900 * afficheur.getEchelle());
-        afficheur.setPreferredSize(d);
+        float rapportEchelles = afficheur.getEchelle() / echelleInitiale;
         
-        int x = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getX())  - 1600 / 2);
-        int y = (int)(afficheur.getEchelle() / echelleInit * (evt.getPoint().getY())  - 900 / 2);    
+        int x = jScrollPane1.getViewport().getViewPosition().x;
+        x = (int)(evt.getPoint().getX() * (rapportEchelles  - 1) + x);
         
-        Point vpp = new Point(x, y);
-        jScrollPane1.getViewport().setViewPosition(vpp);
+        int y = jScrollPane1.getViewport().getViewPosition().y;
+        y = (int)(evt.getPoint().getY() * (rapportEchelles  - 1) + y);
         
-        afficheur.repaint();
+        wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
+        
+        jScrollPane1.getViewport().setViewPosition(new Point(x, y));
+        
     }//GEN-LAST:event_afficheurMouseWheelMoved
 
     private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
+        
         float x = (float)evt.getPoint().getX() / afficheur.getEchelle();
         float y = (float)evt.getPoint().getY() / afficheur.getEchelle();
-        //wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
+        wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
     }//GEN-LAST:event_afficheurMouseMoved
 
     private void afficheurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseExited
-        //wtf.setText("");
+        wtf.setText("");
     }//GEN-LAST:event_afficheurMouseExited
+
+    private void intersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intersectionActionPerformed
+        this.setCommande(Commandes.INTERSECTION);
+    }//GEN-LAST:event_intersectionActionPerformed
+
+    private void selectionnerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionnerRoutierActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+    }//GEN-LAST:event_selectionnerRoutierActionPerformed
+
+    private void tronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tronconActionPerformed
+        this.setCommande(Commandes.TRONCON);
+    }//GEN-LAST:event_tronconActionPerformed
+
+    private void supprimerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerRoutierActionPerformed
+        this.setCommande(Commandes.SUPPRIMER);
+    }//GEN-LAST:event_supprimerRoutierActionPerformed
     
     /**
      * @param args the command line arguments
@@ -267,37 +433,50 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
                 new MainWindow().setVisible(true);
             }
-        });
-        
-        
+        });        
     }
     
     public void setMode(Modes p_mode) 
     {
         this.m_mode_courant = p_mode;
-        if (m_mode_courant == Modes.ROUTIER)
-        {
-            afficheur.setVisible(true);
-        }
-        else
-        {
-            afficheur.setVisible(false);
-        }
+        boutonsRoutier.setVisible(false);
+        //boutonsTransport.setVisible(false);
+        //boutonsBesoins.setVisible(false);
+        //boutonsSimulation.setVisible(false);
+    }
+    
+    public void setCommande(Commandes p_commande) 
+    {
+        this.m_commande_courante = p_commande;
+    }
+    
+    public javax.swing.JScrollPane getScrollPane() 
+    {
+        return jScrollPane1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.DrawingPanel afficheur;
+    private GUI.PanneauAfficheur afficheur;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
+    private javax.swing.JPanel boutonsRoutier;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
+    private javax.swing.ButtonGroup groupeRoutier;
+    private javax.swing.JToggleButton intersection;
+    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
+    private javax.swing.JToggleButton selectionnerRoutier;
     private javax.swing.JToggleButton simulation;
+    private javax.swing.JToggleButton supprimerRoutier;
     private javax.swing.JToggleButton transport;
+    private javax.swing.JToggleButton troncon;
+    private javax.swing.JLabel wtf;
+    private javax.swing.JLabel wtf2;
     // End of variables declaration//GEN-END:variables
 }

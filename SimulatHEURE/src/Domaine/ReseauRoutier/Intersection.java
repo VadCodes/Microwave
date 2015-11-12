@@ -12,6 +12,9 @@ public class Intersection {
     private Point2D.Float m_position;
     private LinkedList<Troncon> m_listeTroncons = new LinkedList();
     
+    public final static float RAYON = 20;
+    private Boolean m_estSelectionnee = false;
+    
     public Intersection(Point2D.Float p_position){
         m_position = p_position;
     }
@@ -30,6 +33,14 @@ public class Intersection {
      
      public  LinkedList<Troncon> getListeTroncons(){
          return m_listeTroncons;
+    }
+     
+    public Boolean estSelectionee(){
+        return m_estSelectionnee;
+    }
+    
+    public void changerStatutSelectionee(){
+        m_estSelectionnee = !m_estSelectionnee;
     }
      
      public void ajouterTroncons(Troncon troncon ){
