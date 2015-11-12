@@ -14,10 +14,10 @@ import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Intersection;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import Domaine.ReseauRoutier.Position;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
 import java.awt.geom.Point2D;
+import Domaine.Utilitaire.Temps;
 
 public class Circuit {
     private String m_nom = "";
@@ -25,6 +25,7 @@ public class Circuit {
     private LinkedList<Autobus> m_listeAutobus = new LinkedList();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private ReseauRoutier m_reseauRoutier;
+    private Temps m_deltaT;
     
     public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
         //assert listeArrTraj doit avoir les 2 premiers
@@ -44,10 +45,7 @@ public class Circuit {
     public void ajouterArret(Arret nouvArr){
         
         Emplacement precEmpl = m_listeArretTrajet.getLast().getArret().getEmplacement();
-        Emplacement nouvEmpl = nouvArr.getEmplacement();
-        
-        Trajet nouvTrajet = dijkstra(precEmpl, nouvEmpl);
-        
+        Emplacement nouvEmpl = nouvArr.getEmplacement();       
         //faire une paire
         //ajouterPaire()
     }
@@ -55,35 +53,8 @@ public class Circuit {
     private void ajouterPaire(PaireArretTrajet paire){
         m_listeArretTrajet.add(paire);
     }
-    
-    private Trajet dijkstra(Emplacement origine, Emplacement Destination){
-        LinkedList<Intersection> listeSommets = new LinkedList();
-        ListIterator<Intersection> interItr = m_reseauRoutier.getIntersections().listIterator();
-        while (interItr.hasNext()) {
-            listeSommets.addLast(interItr.next());
-        }
-        
-        Boolean nouvSommetOrig = !origine.getEstSurTroncon();
-        Boolean nouvSommetDest = !Destination.getEstSurTroncon();
-        if (nouvSommetOrig){
-            Intersection inter = new Intersection(origine.calculPosition());
-            
-            listeSommets.addFirst(Intersection);
-        }
-        
-        int nb_sommets = listeSommets.size();
 
-        if (nouvSommetOrig){
-            nb_sommets++;
-        }
-        if (nouvSommetDest){
-            nb_sommets++;
-        }
-        
-        
-    }
-    
-    public void calculCirculationGlobal(){
+    public void calculCirculationGlobal(Temps m_deltaT){
         
         //on vide toutes les files d'arrets
         ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
@@ -94,11 +65,11 @@ public class Circuit {
         //pour chaque autobus on calcule la circulation
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
-            calculCirculation(autobusItr.next());
+            calculCirculation(m_deltaT, autobusItr.next());
         }
     }
     
-    public void calculCirculation(Autobus bus){
+    public void calculCirculation(Temps m_deltaT, Autobus bus){
         
     }
     

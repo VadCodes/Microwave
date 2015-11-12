@@ -3,6 +3,7 @@ import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauTransport.ReseauTransport;
 import Domaine.BesoinsTransport.BesoinTransport;
 import Domaine.ReseauTransport.PaireArretTrajet;
+import Domaine.Utilitaire.Temps;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -18,6 +19,7 @@ public class Simulatheure {
     
     public ReseauRoutier m_reseauRoutier ;
     private ReseauTransport m_reseauTransport ;
+    private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     public Simulatheure() {
         m_reseauRoutier = new ReseauRoutier();
@@ -32,5 +34,9 @@ public class Simulatheure {
         while (BesoinTransportItr.hasNext()) {
             BesoinTransportItr.next().initBesoinTransport();
         }
+    }
+    public void rafraichirSimulation(Temps m_deltaT){
+        m_reseauTransport.calculEtatReseauTransport(m_deltaT);
+
     }
 }
