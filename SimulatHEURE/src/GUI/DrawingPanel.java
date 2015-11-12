@@ -8,8 +8,8 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 //import javax.swing.border.BevelBorder;
 
-import Domaine.ReseauRoutier.Intersection;
 import java.util.LinkedList;
+import Domaine.ReseauRoutier.Intersection;
 
 public class DrawingPanel extends JPanel implements Serializable {
     
@@ -38,9 +38,9 @@ public class DrawingPanel extends JPanel implements Serializable {
             
             Graphics2D graphic2D = (Graphics2D)p_g;
             
-            graphic2D.scale(100 * m_echelle, 100 * m_echelle);
-            
             super.paintComponent(graphic2D);
+            
+            graphic2D.scale(m_echelle, m_echelle);
             
             DessinateurReseauRoutier mainDrawer = new DessinateurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
             mainDrawer.dessiner(graphic2D);
@@ -70,6 +70,7 @@ public class DrawingPanel extends JPanel implements Serializable {
     public void setEchelle(float p_valeur){
         
         m_echelle *= (1 - p_valeur / 16);
+        //max : 300 000 (glitches)
         
         boolean changement = false;
         setDimension(changement);
@@ -82,8 +83,8 @@ public class DrawingPanel extends JPanel implements Serializable {
 
         if (p_nouvelleIntersection)
         {
-            m_xMax = l;
-            m_yMax = h;
+            m_xMax = 1600;
+            m_yMax = 900;
             LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
             for (Intersection intersection: intersections)
             {
@@ -91,11 +92,15 @@ public class DrawingPanel extends JPanel implements Serializable {
                 m_yMax = java.lang.Math.max(m_yMax, (int)intersection.getPosition().getY());
             }
         }
-
-        l = (int)((m_echelle) * m_xMax + l);
-        h = (int)((m_echelle) * m_yMax + h);
-//        l = java.lang.Math.max((int)((m_echelle) * xMax + 0.95 * l), (int)(1.5 * l));
-//        h = java.lang.Math.max((int)((m_echelle) * yMax + 0.95 * h), (int)(1.5 * h));
+        l = (int)(m_echelle * m_xMax + 0.90 * l);
+        h = (int)(m_echelle * m_yMax + 0.85 * h);
+        
+        // Border fix
+//        l = (int)(java.lang.Math.pow(m_echelle, 1.04) * m_xMax + 0.90 * l);
+//        h = (int)(java.lang.Math.pow(m_echelle, 1.04) * m_yMax + 0.85 * h);
+        
+//        l = java.lang.Math.max((int)(m_echelle * m_xMax + 0.95 * l), (int)(1.5 * l));
+//        h = java.lang.Math.max((int)(m_echelle * m_yMax + 0.95 * h), (int)(1.5 * h));
         m_dimension.setSize(l, h);
         setPreferredSize(m_dimension);
     }

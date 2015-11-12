@@ -10,6 +10,8 @@ import Domaine.Simulatheure.Modes;
 
 import java.awt.Point;
 
+//import Domaine.ReseauRoutier.Intersection;
+//import Domaine.Utilitaire.*;
 /**
  *
  * @author Vincent Martel
@@ -25,7 +27,6 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         m_controleur = new Simulatheure();
         initComponents();
-        this.afficheur.setDimension(false);
         
 //        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
 //        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
@@ -36,6 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
 //        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
 //        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
+        this.afficheur.setDimension(false);
     }
 
     /**
@@ -212,7 +214,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
         boolean changement = true;
         afficheur.setDimension(changement);                
-        jScrollPane1.getViewport().setView(afficheur);
+        jScrollPane1.setViewportView(afficheur);
     }//GEN-LAST:event_afficheurMousePressed
 
     private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
@@ -230,7 +232,7 @@ public class MainWindow extends javax.swing.JFrame {
         wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
         
         jScrollPane1.getViewport().setViewPosition(new Point(x, y));
-        afficheur.repaint();
+        //afficheur.repaint();
     }//GEN-LAST:event_afficheurMouseWheelMoved
 
     private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
