@@ -13,6 +13,7 @@ package Domaine.ReseauTransport;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.ReseauRoutier.Position;
+import Domaine.Utilitaire.Temps;
 
 public class Circuit {
     private String m_nom = "";
@@ -26,6 +27,14 @@ public class Circuit {
         m_listeArretTrajet = listeArrTraj;
     }
     
+    public void updateSourceAutobus(Temps deltatT){
+         ListIterator<SourceAutobus> sourceAutobusItr = m_listeSources.listIterator();
+        while (sourceAutobusItr.hasNext()) {
+            SourceAutobus src = sourceAutobusItr.next();
+            src.miseAjoutTempsRestant(deltatT);
+            src.genererAutobus();
+        }
+    }
     public void ajouterSource(SourceAutobus source){
         m_listeSources.add(source);
     }
