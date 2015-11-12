@@ -20,7 +20,7 @@ public class Emplacement {
     public Emplacement(Boolean estSurTroncon, float pourcentageParcouru, Troncon troncon, Intersection intersection){
  
         if(!intersection.getListeTroncons().contains(troncon)){
-           throw new Error("Mauvais troncon ou intersection");
+           //throw new Error("Mauvais troncon ou intersection");
         }
         m_estSurTroncon = estSurTroncon;
         m_pourcentageParcouru = pourcentageParcouru;

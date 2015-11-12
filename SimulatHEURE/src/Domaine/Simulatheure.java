@@ -2,8 +2,11 @@ package Domaine;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauTransport.ReseauTransport;
 import Domaine.BesoinsTransport.BesoinTransport;
+import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauTransport.PaireArretTrajet;
+import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
+import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -37,6 +40,13 @@ public class Simulatheure {
     }
     public void rafraichirSimulation(Temps m_deltaT){
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
-
+    }
+    public void ajouterIntersection(Point2D.Float poin){
+        m_reseauRoutier.ajouterIntersection(poin.x, poin.y);
+    }
+    
+    public void ajoutITroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution,
+              Temps tempsTransitPieton){
+        m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution, tempsTransitPieton);
     }
 }

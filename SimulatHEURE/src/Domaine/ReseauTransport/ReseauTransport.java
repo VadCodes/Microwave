@@ -35,7 +35,9 @@ public class ReseauTransport {
     public void calculEtatReseauTransport(Temps deltaT){
         ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();
         while (circuitItr.hasNext()) {
-            circuitItr.next().calculCirculationGlobal(deltaT);
+            Circuit  crc = circuitItr.next();
+            crc.updateSourceAutobus(deltaT);
+            crc.calculCirculationGlobal(deltaT);
         }
     }
 }

@@ -75,7 +75,7 @@ public class Circuit {
     }
     
     public void calculCirculation(Temps deltaT, Autobus bus){
-        bus.miseAJourEmplacement(deltaT);
+        bus.miseAJourAutobus(deltaT);
     }
     
     public LinkedList<Point2D.Float> getPositionsDesAutobus(){

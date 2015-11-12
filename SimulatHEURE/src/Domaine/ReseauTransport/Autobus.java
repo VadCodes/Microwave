@@ -28,6 +28,7 @@ public class Autobus {
     private int m_nbPassagers = 0;
     private String m_id;
     private Temps m_tempsApparition;
+    private LinkedList<PaireArretTrajet> m_list;
     private ListIterator<PaireArretTrajet> m_iterateur; //jsais pas comment l'initialiser à NULL
     private Boolean m_estSurArret;
     private PaireArretTrajet m_paireActuelle;
@@ -43,15 +44,51 @@ public class Autobus {
     }
     
     public void miseAJourEmplacement(Temps deltatT){
-         float pourcentage = m_emplacementActuel.getPourcentageParcouru();
+        /*
+        * On calcul l'avancement en pourcentage sur un troncon.
+        */
+         float pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
         Temps tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
-        pourcentage += deltatT.getTemps()/tempsTransit.getTemps();
+        float pourcentage = (float)(pourcentageInitiale  + deltatT.getTemps()/tempsTransit.getTemps());
         m_emplacementActuel.setPourcentageParcouru(pourcentage);
-        if(pourcentage > 1){
+        System.out.println("PourcentageInitial :");
+         System.out.println(pourcentageInitiale);
+         System.out.println("Pourcentage après calcul :");
+         System.out.println(pourcentage);
+        /*
+        *Si l'autobus est sur le troncon final du trajet 
+        * Et que son pourcentage parcouru est plus grand
+        *
+        * On augmente l'itérateur.
+         */
+        boolean changementiterator = false;
+        if(m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())){
+            float pourcentageFinal = m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
+            if(pourcentage > pourcentageFinal){
+                changementiterator = true;
+                System.out.println("On devrait changer la paire !!");
+                Emplacement emplacement1 = m_paireActuelle.getTrajet().getEmplacementFinal();
+                m_paireActuelle = m_iterateur.next();
+                Emplacement emplacement2 = m_paireActuelle.getTrajet().getEmplacementFinal();
+                boolean bo = emplacement1.equals(emplacement2);
+                System.out.println(bo);
+                 float tempsParcourirResteTroncon = (float)((pourcentageFinal - pourcentageInitiale)*tempsTransit.getTemps());
+                 System.out.println("tempsParcourirResteTroncon :");
+                 System.out.println(tempsParcourirResteTroncon);
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
+                m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
+                m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
+                Temps tmp = new  Temps(deltatT.getTemps() - tempsParcourirResteTroncon);
+                miseAJourEmplacement(tmp);
+            }
+        }
+        if(pourcentage > 1 && !changementiterator){
             pourcentage = 1;
             m_emplacementActuel.setPourcentageParcouru(pourcentage);
-            float pourcentage1 = m_emplacementActuel.getPourcentageParcouru();
-            float tempsParcourirResteTroncon = (float)((1 - pourcentage1)*tempsTransit.getTemps());
+            float tempsParcourirResteTroncon = (float)((1 - pourcentageInitiale)*tempsTransit.getTemps());
+            System.out.println("On change de troncon seulement");
+            System.out.println("tempsParcourirResteTroncon :");
+                 System.out.println(tempsParcourirResteTroncon);
             if(m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel) != null){
                 Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
                 m_emplacementActuel.setTroncon(troncon);
@@ -59,9 +96,7 @@ public class Autobus {
                 m_emplacementActuel.setPourcentageParcouru(pourcentage);
             }
             else{
-                m_paireActuelle = m_iterateur.next();
-                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
-                m_emplacementActuel = m_paireActuelle.getTrajet().getEmplacementInitial();
+                
             }
             Temps tmp = new  Temps(deltatT.getTemps() - tempsParcourirResteTroncon);
             miseAJourEmplacement(tmp);
@@ -83,10 +118,14 @@ public class Autobus {
 
     public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet){
         //Assigne l'iterateur a la premiere paire du trajet du circuit
-        m_iterateur = listeArretTrajet.listIterator(0);
-        m_paireActuelle = listeArretTrajet.getFirst();
+        m_list = listeArretTrajet;
+        m_iterateur = listeArretTrajet.listIterator();
+        m_paireActuelle = m_iterateur.next();
     }
     
+    public Emplacement getEmplacement(){
+        return m_emplacementActuel;
+    }
     public void setID(String id){
         m_id = id;
     }
@@ -94,6 +133,24 @@ public class Autobus {
     public String getID(){
         return m_id;
     }
-
-    
+    private boolean boucleOuPas(){
+        if(m_list.getFirst().getArret().equals(m_list.getLast().getArret())){
+      
+        }
+          return true;
+    }
+    public void miseAJourAutobus (Temps deltatT){
+        Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
+         if (tmp.getTemps() < 0){
+             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
+             miseAJourEmplacement(nouveauDeltatT);
+             m_tempsApparition = new Temps(0);
+         }
+         else{
+             m_tempsApparition = tmp;
+         }
+    }
+            
+            
 }
+    

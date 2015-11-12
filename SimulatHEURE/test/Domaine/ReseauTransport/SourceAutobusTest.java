@@ -109,6 +109,7 @@ public class SourceAutobusTest extends TestCase {
     }
     
     public void testEstSurArretFalse() {
+        // marche pas a cause que circuit est pas bon.
         Emplacement emplSrc = new Emplacement(true, 0.8f, m_troncons.getFirst(), m_intersections.getFirst());
         Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
         SourceAutobus srcAutobus = new SourceAutobus(emplSrc, m_circuit, "TestSource", dist, new Temps(0));
@@ -126,6 +127,4 @@ public class SourceAutobusTest extends TestCase {
     public void testSetCapaciteMax() {
         
     }
-
-    
 }
