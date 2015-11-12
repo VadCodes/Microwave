@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
+import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
 import Domaine.Utilitaire.Temps;
 
@@ -50,19 +51,15 @@ public class Circuit {
         m_listeAutobus.add(autobus);
     }
     
-    public void ajouterArret(Arret nouvArr){
+
+    private void ajouterPaire(Arret arr, Trajet traj){
+        assert(m_listeArretTrajet.getLast().getArret().getEmplacement().equals(traj.getEmplacementInitial()));
+        assert(arr.getEmplacement().equals(traj.getEmplacementFinal()));
         
-        Emplacement precEmpl = m_listeArretTrajet.getLast().getArret().getEmplacement();
-        Emplacement nouvEmpl = nouvArr.getEmplacement();       
-        //faire une paire
-        //ajouterPaire()
+        m_listeArretTrajet.add(new PaireArretTrajet(arr, traj));
     }
     
-    private void ajouterPaire(PaireArretTrajet paire){
-        m_listeArretTrajet.add(paire);
-    }
-
-    public void calculCirculationGlobal(Temps m_deltaT){
+    public void calculCirculationGlobal(){
         
         //on vide toutes les files d'arrets
         ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
