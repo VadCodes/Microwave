@@ -12,6 +12,7 @@ package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Position;
 import Domaine.Utilitaire.Temps;
+import java.awt.geom.Point2D;
 import java.util.ListIterator;
 import java.util.LinkedList;
 
@@ -39,7 +40,7 @@ public class Autobus {
         m_estSurArret = estSurArret;
     }
     
-    public Position getPosition(){
+    public Point2D.Float getPosition(){
         return m_emplacementActuel.calculPosition();
     }
     

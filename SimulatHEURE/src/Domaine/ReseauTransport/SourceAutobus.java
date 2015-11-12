@@ -35,7 +35,7 @@ public class SourceAutobus {
         m_tempsAvantApparition = m_tempsApparition;
     }
     
-    public void miseAjoutTempsRestant(Temps p_deltatT){
+    public void miseAJourTempsRestant(Temps p_deltatT){
         // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
         double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
         m_tempsAvantApparition = new Temps(tmp);

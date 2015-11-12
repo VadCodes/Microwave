@@ -73,7 +73,7 @@ public class SourceAutobusTest extends TestCase {
     /**
      * Test of miseAjoutTempsRestant method, of class SourceAutobus.
      */
-    public void testMiseAjoutTempsRestant() {
+    public void testMiseAJourTempsRestant() {
         /*
         Emplacement emplacement = new Emplacement(true, 0.5, m_troncons.getFirst(),m_troncons.getFirst().getDestination());
        Distribution distribution = new Distribution(new Temps(5),new Temps(5),new Temps(5));
