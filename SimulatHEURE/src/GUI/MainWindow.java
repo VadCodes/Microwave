@@ -10,8 +10,8 @@ import Domaine.Simulatheure.Modes;
 
 import java.awt.Point;
 
-//import Domaine.ReseauRoutier.Intersection;
-//import Domaine.Utilitaire.*;
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.Utilitaire.*;
 /**
  *
  * @author Vincent Martel
@@ -28,15 +28,15 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur = new Simulatheure();
         initComponents();
         
-//        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
-//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
-//        this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
-//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
-//        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
-//        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
-//        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
-//        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
-//        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
+        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
+        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
+        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
+        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
+        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
         this.panneau.setDimension(false);
     }
 

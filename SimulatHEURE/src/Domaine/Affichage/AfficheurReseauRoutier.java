@@ -71,8 +71,9 @@ public class AfficheurReseauRoutier
             {
                 Point2D.Float p1 = intersection.getPosition();
                 Point2D.Float p2 = troncon.getDestination().getPosition();
-
-                p_g.draw(new Line2D.Float(p1, p2));
+                
+                Line2D.Float segment = new Line2D.Float(p1, p2);
+                p_g.draw(segment);
             }
         }
     }
