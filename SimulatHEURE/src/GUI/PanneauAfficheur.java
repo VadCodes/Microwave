@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.Serializable;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 //import javax.swing.border.BevelBorder;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
 
-public class PanneauAfficheur extends JPanel implements Serializable {
+public class PanneauAfficheur extends JLayeredPane implements Serializable {
     
     public Dimension m_dimension;
     public int m_xMax;  // Coordonnée x de l'intersection la plus loin
