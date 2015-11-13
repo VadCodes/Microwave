@@ -78,6 +78,15 @@ public class DessinateurRoutier
             
             for (Troncon troncon: intersection.getListeTroncons())
             {   
+                if (!troncon.estSelectione())
+                {
+                    p_g.setColor(Color.PINK);
+                }
+                else 
+                {
+                    p_g.setColor(Color.BLUE);
+                }
+                
                 Point2D.Float p2 = troncon.getDestination().getPosition();
 
                 Path2D.Float fleche = new Path2D.Float();                

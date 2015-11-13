@@ -48,7 +48,7 @@ public class ReseauRoutier {
     }
     */
     public void setNameTroncon(Troncon p_troncon, String p_nom){
-        p_troncon.serNom(p_nom);
+        p_troncon.setNom(p_nom);
     }
     
     public void initReseauRoutier(){

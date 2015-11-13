@@ -11,9 +11,12 @@ import javax.swing.JPanel;
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauRoutier.Troncon;
+
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
 public class AfficheurReseau extends JPanel implements Serializable {
     
@@ -109,17 +112,17 @@ public class AfficheurReseau extends JPanel implements Serializable {
         float yReel;        
         float diametre;
         
-        if (m_echelle < 1)
-        {
-            xReel = p_x / m_echelle - Intersection.RAYON;
-            yReel = p_y / m_echelle - Intersection.RAYON;
-            diametre = 2 * Intersection.RAYON;
-        }
-        else
+        if (m_echelle > 1)
         {
             xReel = (p_x - Intersection.RAYON) / m_echelle;
             yReel = (p_y - Intersection.RAYON) / m_echelle;
             diametre = 2 * Intersection.RAYON / m_echelle;
+        }
+        else
+        {
+            xReel = p_x / m_echelle - Intersection.RAYON;
+            yReel = p_y / m_echelle - Intersection.RAYON;
+            diametre = 2 * Intersection.RAYON;
         }
 
         Ellipse2D.Float zoneSelection = new Ellipse2D.Float(xReel, yReel, diametre, diametre);
@@ -139,33 +142,41 @@ public class AfficheurReseau extends JPanel implements Serializable {
     
     public void selectionnerTroncon(Integer p_x, Integer p_y)
     {
-//        LinkedList<Intersection> intersections = m_reseau.getIntersections();
-//        for (Intersection intersection: intersections)
-//        {
-//            Point2D.Float p1 = intersection.getPosition();
-//            
-//            for (Troncon troncon: intersection.getListeTroncons())
-//            {   
-//                Point2D.Float p2 = troncon.getDestination().getPosition();
-//
-//                Path2D.Float fleche = new Path2D.Float();                
-//                fleche.moveTo(p1.x, p1.y);
-//                fleche.lineTo(p2.x, p2.y);
-//                p_g.draw(fleche);
-//                
-//                float d = (float)p2.distance(p1);
-//                float dx = p2.x - p1.x;
-//                float dy = p2.y - p1.y;
-//                
-//                fleche.moveTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / m_echelle, 
-//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / m_echelle);
-//                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / m_echelle, 
-//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / m_echelle);
-//                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / m_echelle, 
-//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / m_echelle);
-//                fleche.closePath();
-//                p_g.fill(fleche);
-//            }
-//        }
+        float xReel;
+        float yReel;        
+        float longueur;
+        
+        if (m_echelle > 1)
+        {
+            xReel = (p_x - Troncon.LARGEUR / 2) / m_echelle;
+            yReel = (p_y - Troncon.LARGEUR / 2) / m_echelle;
+            longueur = Troncon.LARGEUR / m_echelle;
+        }
+        else
+        {
+            xReel = p_x / m_echelle - Troncon.LARGEUR / 2;
+            yReel = p_y / m_echelle - Troncon.LARGEUR / 2;
+            longueur = Troncon.LARGEUR;
+        }
+        
+        Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(xReel, yReel, longueur, longueur);
+        
+        LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
+        for (Intersection intersection: intersections)
+        {
+            Point2D.Float p1 = intersection.getPosition();
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                Point2D.Float p2 = troncon.getDestination().getPosition();
+                Line2D.Float segment = new Line2D.Float(p1, p2);
+                
+                if (segment.intersects(zoneApproximative))
+                {
+                    troncon.changerStatutSelection();
+                    return;
+                }
+            }
+        }
     }
 }
