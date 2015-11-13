@@ -1,6 +1,6 @@
 package GUI;
 
-import Domaine.Affichage.AfficheurReseauRoutier;
+import Domaine.Affichage.DessinateurReseauRoutier;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,7 +42,7 @@ public class PanneauAfficheur extends JLayeredPane implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            AfficheurReseauRoutier mainDrawer = new AfficheurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
+            DessinateurReseauRoutier mainDrawer = new DessinateurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
             mainDrawer.dessiner(graphic2D);
         }
     }

@@ -74,7 +74,7 @@ public class MainWindow extends javax.swing.JFrame {
         intersection = new javax.swing.JToggleButton();
         troncon = new javax.swing.JToggleButton();
         supprimerRoutier = new javax.swing.JToggleButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        defilementAfficheur = new javax.swing.JScrollPane();
         afficheur = new GUI.PanneauAfficheur(this);
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -91,10 +91,12 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(supprimerRoutier);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1600, 900));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         mainPanel.setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(150, 400));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
@@ -143,6 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
 
+        jLayeredPane2.setPreferredSize(new java.awt.Dimension(1300, 800));
+
         boutonsRoutier.setAlignmentX(1.0F);
         boutonsRoutier.setAlignmentY(1.0F);
         boutonsRoutier.setOpaque(false);
@@ -185,8 +189,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(supprimerRoutier);
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(1300, 800));
-        jScrollPane1.setWheelScrollingEnabled(false);
+        defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
+        defilementAfficheur.setWheelScrollingEnabled(false);
 
         afficheur.setEnabled(false);
         afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
@@ -220,29 +224,28 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 900, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(afficheur);
-
-        jLayeredPane2.setLayer(boutonsRoutier, javax.swing.JLayeredPane.PALETTE_LAYER);
-        jLayeredPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        defilementAfficheur.setViewportView(afficheur);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
         jLayeredPane2Layout.setHorizontalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 1016, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap(631, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(32, 32, 32))
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jLayeredPane2.setLayer(boutonsRoutier, javax.swing.JLayeredPane.POPUP_LAYER);
+        jLayeredPane2.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         mainPanel.add(jLayeredPane2, java.awt.BorderLayout.CENTER);
 
@@ -323,7 +326,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 if (zoneSelection.contains(intersection.getPosition()))
                                 {
                                     intersection.changerStatutSelectionee();
-                                    jScrollPane1.setViewportView(afficheur);
+                                    defilementAfficheur.setViewportView(afficheur);
                                     break;                                    
                                 }
                             }
@@ -336,7 +339,7 @@ public class MainWindow extends javax.swing.JFrame {
                             this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
                             boolean changement = true;
                             afficheur.setDimension(changement);                
-                            jScrollPane1.setViewportView(afficheur);
+                            defilementAfficheur.setViewportView(afficheur);
 
                             break;
                             
@@ -365,15 +368,15 @@ public class MainWindow extends javax.swing.JFrame {
         afficheur.setEchelle(evt.getWheelRotation());
         float rapportEchelles = afficheur.getEchelle() / echelleInitiale;
         
-        int x = jScrollPane1.getViewport().getViewPosition().x;
+        int x = defilementAfficheur.getViewport().getViewPosition().x;
         x = (int)(evt.getPoint().getX() * (rapportEchelles  - 1) + x);
         
-        int y = jScrollPane1.getViewport().getViewPosition().y;
+        int y = defilementAfficheur.getViewport().getViewPosition().y;
         y = (int)(evt.getPoint().getY() * (rapportEchelles  - 1) + y);
         
         wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
         
-        jScrollPane1.getViewport().setViewPosition(new Point(x, y));
+        defilementAfficheur.getViewport().setViewPosition(new Point(x, y));
         
     }//GEN-LAST:event_afficheurMouseWheelMoved
 
@@ -455,7 +458,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     public javax.swing.JScrollPane getScrollPane() 
     {
-        return jScrollPane1;
+        return defilementAfficheur;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -463,16 +466,15 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
+    private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.JToggleButton intersection;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
-    private GUI.PanneauAfficheur panneau;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton selectionnerRoutier;

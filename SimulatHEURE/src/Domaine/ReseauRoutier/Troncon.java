@@ -8,11 +8,15 @@ import Domaine.Utilitaire.Temps;
 import Domaine.Utilitaire.Distribution;
 
 public class Troncon {
-       private String m_nom = "";
-       private Temps m_tempsTransitAutobus;
-       private Distribution m_distribution;
-       private Temps m_tempsTransitPieton;
-       private final Intersection m_intersectionDestination;
+        private String m_nom = "";
+        private Temps m_tempsTransitAutobus;
+        private Distribution m_distribution;
+        private Temps m_tempsTransitPieton;
+        private final Intersection m_intersectionDestination;
+        public final static float LARGEUR = 5;
+        public final static float GROSSEUR_FLECHE = 30;
+       
+       
        public Troncon(Distribution distribution,
            Intersection intersectionDestination,
            Temps tempsTransitPieton){

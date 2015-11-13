@@ -12,7 +12,7 @@ public class Intersection {
     private Point2D.Float m_position;
     private LinkedList<Troncon> m_listeTroncons = new LinkedList();
     
-    public final static float RAYON = 20;
+    public final static float RAYON = 10;
     private Boolean m_estSelectionnee = false;
     
     public Intersection(Point2D.Float p_position){
