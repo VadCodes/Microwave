@@ -16,6 +16,7 @@ public class Emplacement {
     private float m_pourcentageParcouru;
     private Troncon m_troncon;
     private Intersection m_intersection;
+    private Point2D.Float m_position;
     
     public Emplacement(Boolean estSurTroncon, float pourcentageParcouru, Troncon troncon, Intersection intersection){
  

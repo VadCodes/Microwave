@@ -41,7 +41,7 @@ public class MainWindow extends javax.swing.JFrame {
         Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
         this.m_controleur.m_reseauRoutier.getIntersections().getLast();
         Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
-        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d, new Temps(1));
+        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d);
         this.afficheur.setDimension(false);
     }
 

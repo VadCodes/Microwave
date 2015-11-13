@@ -44,7 +44,7 @@ public class Circuit {
         }
     }
     public void ajouterSource(SourceAutobus source){
-        listeSources.add(source);
+        m_listeSources.add(source);
     }
     
     public void ajouterAutobus(Autobus autobus){
@@ -62,13 +62,13 @@ public class Circuit {
     public void calculCirculationGlobal(Temps deltatT){
         
         //on vide toutes les files d'arrets
-        ListIterator<PaireArretTrajet> arretTrajetItr = listeArretTrajet.listIterator();
+        ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
         while (arretTrajetItr.hasNext()) {
             arretTrajetItr.next().getArret().viderFile();
         }
         
         //pour chaque autobus on calcule la circulation
-        ListIterator<Autobus> autobusItr = listeAutobus.listIterator();
+        ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
             calculCirculation(deltatT, autobusItr.next());
         }
@@ -90,7 +90,7 @@ public class Circuit {
     }
     
     public LinkedList<PaireArretTrajet> getListeArretTrajet(){
-        return listeArretTrajet;
+        return m_listeArretTrajet;
     }
     
     public void incrementerIterateurAutobus(Autobus bus){
@@ -98,11 +98,11 @@ public class Circuit {
     }
     
     public void assignerTrajetAutobus(Autobus bus){
-        bus.assignerTrajet(listeArretTrajet);
+        bus.assignerTrajet(m_listeArretTrajet);
     }
     
     public void initCircuit(){
-        ListIterator<SourceAutobus> sourceAutobusItr = listeSources.listIterator();
+        ListIterator<SourceAutobus> sourceAutobusItr = m_listeSources.listIterator();
         while (sourceAutobusItr.hasNext()) {
             sourceAutobusItr.next().initSourceAutobus();
         }
