@@ -15,7 +15,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
-public class PanneauAfficheur extends JPanel implements Serializable {
+public class AfficheurReseau extends JPanel implements Serializable {
     
     public Dimension m_dimension;
     private MainWindow m_fenetrePrincipale;
@@ -24,10 +24,10 @@ public class PanneauAfficheur extends JPanel implements Serializable {
     public int m_xMax;  // Coordonnée x de l'intersection la plus loin
     public int m_yMax;  // Coordonnée y de l'intersection la plus loin
     
-    public PanneauAfficheur(){
+    public AfficheurReseau(){
     }
     
-    public PanneauAfficheur(MainWindow mainWindow) {
+    public AfficheurReseau(MainWindow mainWindow) {
         this.m_fenetrePrincipale = mainWindow;
 //        setBorder(new javax.swing.border.BevelBorder(BevelBorder.LOWERED));
         

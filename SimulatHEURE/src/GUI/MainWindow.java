@@ -11,8 +11,8 @@ import Domaine.Simulatheure.Commandes;
 
 import javax.swing.SwingUtilities;
 
-import Domaine.Utilitaire.*;
-import Domaine.ReseauRoutier.*;
+//import Domaine.Utilitaire.*;
+//import Domaine.ReseauRoutier.*;
 
 /**
  *
@@ -31,15 +31,15 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,1300);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
-        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
-        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
-        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
-        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
-        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,1300);
+//        this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
+//        Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
+//        Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
+//        this.m_controleur.m_reseauRoutier.getIntersections().getLast();
+//        Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
+//        this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d);
         this.afficheurReseau.setDimension(false);
     }
 
@@ -70,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame {
         troncon = new javax.swing.JToggleButton();
         supprimerRoutier = new javax.swing.JToggleButton();
         defilementAfficheur = new javax.swing.JScrollPane();
-        afficheurReseau = new GUI.PanneauAfficheur(this);
+        afficheurReseau = new GUI.AfficheurReseau(this);
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -444,7 +444,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane afficheurCommandes;
-    private GUI.PanneauAfficheur afficheurReseau;
+    private GUI.AfficheurReseau afficheurReseau;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;

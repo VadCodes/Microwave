@@ -262,7 +262,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Container class="GUI.PanneauAfficheur" name="afficheurReseau">
+                <Container class="GUI.AfficheurReseau" name="afficheurReseau">
                   <Properties>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -276,7 +276,7 @@
                     <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="afficheurReseauMousePressed"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GUI.PanneauAfficheur(this)"/>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GUI.AfficheurReseau(this)"/>
                   </AuxValues>
 
                   <Layout>
