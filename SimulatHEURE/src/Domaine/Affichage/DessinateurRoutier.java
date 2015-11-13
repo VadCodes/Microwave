@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 
 import java.awt.geom.Path2D;
 
@@ -18,13 +17,13 @@ import Domaine.ReseauRoutier.*;
  *
  * @author Vinny
  */
-public class DessinateurReseauRoutier
+public class DessinateurRoutier
 {
     private final Dimension m_dimensionInitiale;
     
     private final ReseauRoutier m_reseau;
 
-    public DessinateurReseauRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
+    public DessinateurRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
     {
         this.m_reseau = p_reseau;
         this.m_dimensionInitiale = p_dimensionInitiale;
@@ -76,6 +75,7 @@ public class DessinateurReseauRoutier
         for (Intersection intersection: intersections)
         {
             Point2D.Float p1 = intersection.getPosition();
+            
             for (Troncon troncon: intersection.getListeTroncons())
             {   
                 Point2D.Float p2 = troncon.getDestination().getPosition();
@@ -88,6 +88,7 @@ public class DessinateurReseauRoutier
                 float d = (float)p2.distance(p1);
                 float dx = p2.x - p1.x;
                 float dy = p2.y - p1.y;
+                
                 fleche.moveTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 
                         p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                 fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 

@@ -9,15 +9,10 @@ import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
 import Domaine.Simulatheure.Commandes;
 
-import java.awt.Point;
-
-import Domaine.ReseauRoutier.Intersection;
-import Domaine.Utilitaire.*;
-
 import javax.swing.SwingUtilities;
 
-import java.util.LinkedList;
-import java.awt.geom.Ellipse2D;
+import Domaine.Utilitaire.*;
+import Domaine.ReseauRoutier.*;
 
 /**
  *
@@ -38,14 +33,14 @@ public class MainWindow extends javax.swing.JFrame {
         
         this.m_controleur.m_reseauRoutier.ajouterIntersection(0,0);
         this.m_controleur.m_reseauRoutier.ajouterIntersection(1233,500);
-        this.m_controleur.m_reseauRoutier.ajouterIntersection(.01f,1300);
+        this.m_controleur.m_reseauRoutier.ajouterIntersection(0,1300);
         this.m_controleur.m_reseauRoutier.ajouterIntersection(1600,900);
         Intersection a = this.m_controleur.m_reseauRoutier.getIntersections().getFirst();
         Intersection b = this.m_controleur.m_reseauRoutier.getIntersections().get(1);
         this.m_controleur.m_reseauRoutier.getIntersections().getLast();
         Distribution d = new Distribution (new Temps(10), new Temps(11), new Temps(40));
         this.m_controleur.m_reseauRoutier.ajouterTroncon(a, b, d);
-        this.afficheur.setDimension(false);
+        this.afficheurReseau.setDimension(false);
     }
 
     /**
@@ -68,14 +63,14 @@ public class MainWindow extends javax.swing.JFrame {
         simulation = new javax.swing.JToggleButton();
         wtf = new javax.swing.JLabel();
         wtf2 = new javax.swing.JLabel();
-        jLayeredPane2 = new javax.swing.JLayeredPane();
+        afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionnerRoutier = new javax.swing.JToggleButton();
         intersection = new javax.swing.JToggleButton();
         troncon = new javax.swing.JToggleButton();
         supprimerRoutier = new javax.swing.JToggleButton();
         defilementAfficheur = new javax.swing.JScrollPane();
-        afficheur = new GUI.PanneauAfficheur(this);
+        afficheurReseau = new GUI.PanneauAfficheur(this);
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -91,9 +86,9 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(supprimerRoutier);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1600, 900));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
+        mainPanel.setPreferredSize(new java.awt.Dimension(1600, 900));
         mainPanel.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setPreferredSize(new java.awt.Dimension(150, 400));
@@ -145,13 +140,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         mainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
 
-        jLayeredPane2.setPreferredSize(new java.awt.Dimension(1300, 800));
+        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
 
         boutonsRoutier.setAlignmentX(1.0F);
         boutonsRoutier.setAlignmentY(1.0F);
         boutonsRoutier.setOpaque(false);
         boutonsRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
-        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 4));
+        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         selectionnerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionnerRoutier.setText("Sélectionner");
@@ -192,62 +187,64 @@ public class MainWindow extends javax.swing.JFrame {
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
 
-        afficheur.setEnabled(false);
-        afficheur.setPreferredSize(new java.awt.Dimension(1600, 900));
-        afficheur.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        afficheurReseau.setEnabled(false);
+        afficheurReseau.setPreferredSize(new java.awt.Dimension(1600, 900));
+        afficheurReseau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurMouseMoved(evt);
+                afficheurReseauMouseMoved(evt);
             }
         });
-        afficheur.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+        afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurMouseWheelMoved(evt);
+                afficheurReseauMouseWheelMoved(evt);
             }
         });
-        afficheur.addMouseListener(new java.awt.event.MouseAdapter() {
+        afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurMouseExited(evt);
+                afficheurReseauMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurMousePressed(evt);
+                afficheurReseauMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout afficheurLayout = new javax.swing.GroupLayout(afficheur);
-        afficheur.setLayout(afficheurLayout);
-        afficheurLayout.setHorizontalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
+        afficheurReseau.setLayout(afficheurReseauLayout);
+        afficheurReseauLayout.setHorizontalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1600, Short.MAX_VALUE)
         );
-        afficheurLayout.setVerticalGroup(
-            afficheurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        afficheurReseauLayout.setVerticalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 900, Short.MAX_VALUE)
         );
 
-        defilementAfficheur.setViewportView(afficheur);
+        defilementAfficheur.setViewportView(afficheurReseau);
 
-        javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
-        jLayeredPane2.setLayout(jLayeredPane2Layout);
-        jLayeredPane2Layout.setHorizontalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 1016, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+        javax.swing.GroupLayout afficheurCommandesLayout = new javax.swing.GroupLayout(afficheurCommandes);
+        afficheurCommandes.setLayout(afficheurCommandesLayout);
+        afficheurCommandesLayout.setHorizontalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 1450, Short.MAX_VALUE)
+            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
+                    .addContainerGap(1333, Short.MAX_VALUE)
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(27, 27, 27)))
         );
-        jLayeredPane2Layout.setVerticalGroup(
-            jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        afficheurCommandesLayout.setVerticalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(afficheurCommandesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(767, Short.MAX_VALUE)))
         );
-        jLayeredPane2.setLayer(boutonsRoutier, javax.swing.JLayeredPane.POPUP_LAYER);
-        jLayeredPane2.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        mainPanel.add(jLayeredPane2, java.awt.BorderLayout.CENTER);
+        mainPanel.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(mainPanel);
 
@@ -295,52 +292,34 @@ public class MainWindow extends javax.swing.JFrame {
         //boutonsSimulation.setVisible(true);
     }//GEN-LAST:event_simulationActionPerformed
 
-    private void afficheurMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMousePressed
+    private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         if (SwingUtilities.isLeftMouseButton(evt)) {
             switch (m_mode_courant){
+                
                 case ROUTIER:
                     float x;
-                    float y;  
+                    float y;
+                    float echelle = afficheurReseau.getEchelle();                    
                     switch (m_commande_courante){
-                        case SELECTIONNER:
-                            float echelle = afficheur.getEchelle();
-                            float diametre;
-                            if (echelle < 1)
+                        
+                        case SELECTIONNER:                                    
+                            if (afficheurReseau.selectionnerIntersection(evt.getX(), evt.getY()))
                             {
-                                x = (float)(evt.getPoint().getX() / echelle - Intersection.RAYON );
-                                y = (float)(evt.getPoint().getY() / echelle - Intersection.RAYON);
-                                diametre = 2 * Intersection.RAYON;
+                                break;
                             }
                             else
                             {
-                                x = ((float)(evt.getPoint().getX() - Intersection.RAYON) / echelle);
-                                y = ((float)(evt.getPoint().getY() - Intersection.RAYON) / echelle);
-                                diametre = 2 * Intersection.RAYON / echelle;
+                                afficheurReseau.selectionnerTroncon(evt.getX(), evt.getY());
+                                break;
                             }
-
-                            Ellipse2D.Float zoneSelection = new Ellipse2D.Float(x, y, diametre, diametre);
-                            
-                            LinkedList<Intersection> intersections = m_controleur.m_reseauRoutier.getIntersections();
-                            for (Intersection intersection: intersections)
-                            {
-                                if (zoneSelection.contains(intersection.getPosition()))
-                                {
-                                    intersection.changerStatutSelectionee();
-                                    defilementAfficheur.setViewportView(afficheur);
-                                    break;                                    
-                                }
-                            }
-                            
-                            break;
                         
                         case INTERSECTION:
-                            x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
-                            y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
+                            x = evt.getX() / echelle;
+                            y = evt.getY() / echelle;
                             this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
-                            boolean changement = true;
-                            afficheur.setDimension(changement);                
-                            defilementAfficheur.setViewportView(afficheur);
-
+                            boolean ajoutIntersection = true;
+                            afficheurReseau.setDimension(ajoutIntersection);
+                            
                             break;
                             
                         case TRONCON:
@@ -360,36 +339,38 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
             }
         }
-    }//GEN-LAST:event_afficheurMousePressed
-
-    private void afficheurMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurMouseWheelMoved
         
-        float echelleInitiale = afficheur.getEchelle();
-        afficheur.setEchelle(evt.getWheelRotation());
-        float rapportEchelles = afficheur.getEchelle() / echelleInitiale;
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_afficheurReseauMousePressed
+
+    private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
+        
+        float echelleInitiale = afficheurReseau.getEchelle();
+        afficheurReseau.setEchelle(evt.getWheelRotation());
+        float rapportEchelles = afficheurReseau.getEchelle() / echelleInitiale;
         
         int x = defilementAfficheur.getViewport().getViewPosition().x;
-        x = (int)(evt.getPoint().getX() * (rapportEchelles  - 1) + x);
+        x = (int)(evt.getX() * (rapportEchelles  - 1)) + x;
         
         int y = defilementAfficheur.getViewport().getViewPosition().y;
-        y = (int)(evt.getPoint().getY() * (rapportEchelles  - 1) + y);
+        y = (int)(evt.getY() * (rapportEchelles  - 1)) + y;
         
-        wtf2.setText(Integer.toString((int)(afficheur.getEchelle() * 100)) + "%");
+        defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
+        wtf2.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
         
-        defilementAfficheur.getViewport().setViewPosition(new Point(x, y));
-        
-    }//GEN-LAST:event_afficheurMouseWheelMoved
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
-    private void afficheurMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseMoved
+    private void afficheurReseauMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseMoved
         
-        float x = (float)evt.getPoint().getX() / afficheur.getEchelle();
-        float y = (float)evt.getPoint().getY() / afficheur.getEchelle();
+        float x = evt.getX() / afficheurReseau.getEchelle();
+        float y = evt.getY() / afficheurReseau.getEchelle();
         wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
-    }//GEN-LAST:event_afficheurMouseMoved
+    }//GEN-LAST:event_afficheurReseauMouseMoved
 
-    private void afficheurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurMouseExited
+    private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
         wtf.setText("");
-    }//GEN-LAST:event_afficheurMouseExited
+    }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void intersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intersectionActionPerformed
         this.setCommande(Commandes.INTERSECTION);
@@ -456,13 +437,14 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_commande_courante = p_commande;
     }
     
-    public javax.swing.JScrollPane getScrollPane() 
+    public javax.swing.JScrollPane getDefilementAfficheur() 
     {
         return defilementAfficheur;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.PanneauAfficheur afficheur;
+    private javax.swing.JLayeredPane afficheurCommandes;
+    private GUI.PanneauAfficheur afficheurReseau;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
@@ -471,7 +453,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.JToggleButton intersection;
-    private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;

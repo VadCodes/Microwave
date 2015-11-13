@@ -39,7 +39,7 @@ public class Intersection {
         return m_estSelectionnee;
     }
     
-    public void changerStatutSelectionee(){
+    public void changerStatutSelection(){
         m_estSelectionnee = !m_estSelectionnee;
     }
      

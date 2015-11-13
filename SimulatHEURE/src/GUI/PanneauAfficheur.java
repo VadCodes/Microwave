@@ -1,23 +1,28 @@
 package GUI;
 
-import Domaine.Affichage.DessinateurReseauRoutier;
+import Domaine.Affichage.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.Serializable;
-import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 //import javax.swing.border.BevelBorder;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauRoutier.Troncon;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 
-public class PanneauAfficheur extends JLayeredPane implements Serializable {
+public class PanneauAfficheur extends JPanel implements Serializable {
     
     public Dimension m_dimension;
+    private MainWindow m_fenetrePrincipale;
+    
+    private float m_echelle = 1;
     public int m_xMax;  // Coordonnée x de l'intersection la plus loin
     public int m_yMax;  // Coordonnée y de l'intersection la plus loin
-    private MainWindow m_fenetrePrincipale;
-    private float m_echelle = 1;
     
     public PanneauAfficheur(){
     }
@@ -42,8 +47,8 @@ public class PanneauAfficheur extends JLayeredPane implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            DessinateurReseauRoutier mainDrawer = new DessinateurReseauRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
-            mainDrawer.dessiner(graphic2D);
+            DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
+            dessinateurRoutier.dessiner(graphic2D);
         }
     }
     
@@ -72,14 +77,14 @@ public class PanneauAfficheur extends JLayeredPane implements Serializable {
         m_echelle *= (1 - p_valeur / 16);
         //max : 300 000 (glitches)
         
-        boolean changement = false;
-        setDimension(changement);
+        boolean ajoutIntersection = false;
+        setDimension(ajoutIntersection);
     }
     
     public final void setDimension(boolean p_nouvelleIntersection){
 
-        int l = m_fenetrePrincipale.getScrollPane().getWidth();
-        int h = m_fenetrePrincipale.getScrollPane().getHeight();
+        int l = m_fenetrePrincipale.getDefilementAfficheur().getWidth();
+        int h = m_fenetrePrincipale.getDefilementAfficheur().getHeight();
 
         if (p_nouvelleIntersection)
         {
@@ -98,8 +103,69 @@ public class PanneauAfficheur extends JLayeredPane implements Serializable {
         setPreferredSize(m_dimension);
     }
     
-    public void selectionnerElement(boolean p_nouvelleIntersection){
+    public Boolean selectionnerIntersection(Integer p_x, Integer p_y)
+    {
+        float xReel;
+        float yReel;        
+        float diametre;
+        
+        if (m_echelle < 1)
+        {
+            xReel = p_x / m_echelle - Intersection.RAYON;
+            yReel = p_y / m_echelle - Intersection.RAYON;
+            diametre = 2 * Intersection.RAYON;
+        }
+        else
+        {
+            xReel = (p_x - Intersection.RAYON) / m_echelle;
+            yReel = (p_y - Intersection.RAYON) / m_echelle;
+            diametre = 2 * Intersection.RAYON / m_echelle;
+        }
 
+        Ellipse2D.Float zoneSelection = new Ellipse2D.Float(xReel, yReel, diametre, diametre);
+
+        LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
+        for (Intersection intersection: intersections)
+        {
+            if (zoneSelection.contains(intersection.getPosition()))
+            {
+                intersection.changerStatutSelection();
+                return true;                                    
+            }
+        }
+        
+        return false;
+    }
+    
+    public void selectionnerTroncon(Integer p_x, Integer p_y)
+    {
+//        LinkedList<Intersection> intersections = m_reseau.getIntersections();
+//        for (Intersection intersection: intersections)
+//        {
+//            Point2D.Float p1 = intersection.getPosition();
+//            
+//            for (Troncon troncon: intersection.getListeTroncons())
+//            {   
+//                Point2D.Float p2 = troncon.getDestination().getPosition();
+//
+//                Path2D.Float fleche = new Path2D.Float();                
+//                fleche.moveTo(p1.x, p1.y);
+//                fleche.lineTo(p2.x, p2.y);
+//                p_g.draw(fleche);
+//                
+//                float d = (float)p2.distance(p1);
+//                float dx = p2.x - p1.x;
+//                float dy = p2.y - p1.y;
+//                
+//                fleche.moveTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / m_echelle, 
+//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / m_echelle);
+//                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / m_echelle, 
+//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / m_echelle);
+//                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / m_echelle, 
+//                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / m_echelle);
+//                fleche.closePath();
+//                p_g.fill(fleche);
+//            }
+//        }
     }
 }
-
