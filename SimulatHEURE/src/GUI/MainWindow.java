@@ -9,13 +9,10 @@ import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
 import Domaine.Simulatheure.Commandes;
 
-import Domaine.ReseauRoutier.*;
-import Domaine.Utilitaire.*;
-import javax.swing.SwingUtilities;
-
-import java.util.LinkedList;
 import java.awt.Point;
-import java.awt.geom.Ellipse2D;
+
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.Utilitaire.*;
 /**
  *
  * @author Vincent Martel
@@ -469,6 +466,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private GUI.PanneauAfficheur panneau;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton selectionnerRoutier;

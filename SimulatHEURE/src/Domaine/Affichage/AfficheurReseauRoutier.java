@@ -7,9 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-
-import java.awt.geom.Path2D;
+import java.awt.geom.Line2D;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.*;
@@ -23,7 +21,7 @@ public class AfficheurReseauRoutier
     private final Dimension m_dimensionInitiale;
     
     private final ReseauRoutier m_reseau;
-    private final float m_grosseurFleche = 30;
+    private final float m_rayonIntersection = 10;
     private final float m_largeurTroncon = 5;
 
     public AfficheurReseauRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
@@ -48,23 +46,15 @@ public class AfficheurReseauRoutier
 
     private void dessinerIntersections(Graphics2D p_g, float p_echelle)
     {
+        p_g.setColor(Color.CYAN);
+
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
         {
-            if (!intersection.estSelectionee())
-            {
-                p_g.setColor(Color.CYAN);
-            }
-            else 
-            {
-                p_g.setColor(Color.RED);
-            }
-            
             Point2D.Float position = intersection.getPosition();
-            float x = position.x - Intersection.RAYON / p_echelle;
-            float y = position.y - Intersection.RAYON / p_echelle;
-            float diametre = 2 * Intersection.RAYON / p_echelle;
-            
+            float x = (float)position.getX() - m_rayonIntersection / p_echelle;
+            float y = (float)position.getY() - m_rayonIntersection / p_echelle;
+            float diametre = 2 * m_rayonIntersection / p_echelle;
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
@@ -77,27 +67,13 @@ public class AfficheurReseauRoutier
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
         {
-            Point2D.Float p1 = intersection.getPosition();
             for (Troncon troncon: intersection.getListeTroncons())
-            {   
+            {
+                Point2D.Float p1 = intersection.getPosition();
                 Point2D.Float p2 = troncon.getDestination().getPosition();
-
-                Path2D.Float fleche = new Path2D.Float();                
-                fleche.moveTo(p1.x, p1.y);
-                fleche.lineTo(p2.x, p2.y);
-                p_g.draw(fleche);
                 
-                float d = (float)p2.distance(p1);
-                float dx = p2.x - p1.x;
-                float dy = p2.y - p1.y;
-                fleche.moveTo(p1.x + 0.5 * dx + m_grosseurFleche * dx / d / p_echelle, 
-                        p1.y + 0.5 * dy + m_grosseurFleche * dy / d / p_echelle);
-                fleche.lineTo(p1.x + 0.5 * dx + m_grosseurFleche / 2 * -dy / d / p_echelle, 
-                        p1.y + 0.5 * dy + m_grosseurFleche / 2 * dx / d / p_echelle);
-                fleche.lineTo(p1.x + 0.5 * dx + m_grosseurFleche / 2 * dy / d / p_echelle, 
-                        p1.y + 0.5 * dy + m_grosseurFleche / 2 * -dx / d / p_echelle);
-                fleche.closePath();
-                p_g.fill(fleche);
+                Line2D.Float segment = new Line2D.Float(p1, p2);
+                p_g.draw(segment);
             }
         }
     }
