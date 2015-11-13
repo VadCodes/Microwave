@@ -43,8 +43,9 @@ public class Troncon {
            m_nom = p_nom;
        }
        public void initTroncon(){
-           m_tempsTransitPieton = m_distribution.pigerTemps(); //nope !
+           m_tempsTransitAutobus = m_distribution.pigerTemps(); //nope !
        }
+       
        
        /*
        public double longueurTroncon(){

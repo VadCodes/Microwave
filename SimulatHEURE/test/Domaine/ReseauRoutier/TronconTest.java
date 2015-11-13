@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ReseauRoutier;
+package Domaine.ReseauRoutier;
 
 import Domaine.ReseauRoutier.Intersection;
-import Domaine.ReseauRoutier.Position;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;

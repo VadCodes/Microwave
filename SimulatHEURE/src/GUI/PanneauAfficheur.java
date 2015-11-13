@@ -92,12 +92,14 @@ public class PanneauAfficheur extends JLayeredPane implements Serializable {
                 m_yMax = java.lang.Math.max(m_yMax, (int)intersection.getPosition().getY());
             }
         }
-        
         l = (int)(1.065 * m_echelle * m_xMax + 0.3 * l);
         h = (int)(1.065 * m_echelle * m_yMax + 0.4 * h);
-        
         m_dimension.setSize(l, h);
         setPreferredSize(m_dimension);
+    }
+    
+    public void selectionnerElement(boolean p_nouvelleIntersection){
+
     }
 }
 

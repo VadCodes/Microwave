@@ -7,6 +7,7 @@ package Domaine.ReseauTransport;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import Domaine.Utilitaire.Temps;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.ListIterator;
 public class ReseauTransport {
     
     private LinkedList<Circuit> m_listeCircuits = new LinkedList();
+    private Temps tempsDebut;
     public ReseauTransport(){
     }
     public LinkedList<Circuit> getListeCircuits(){
@@ -30,4 +32,12 @@ public class ReseauTransport {
             circuitItr.next().initCircuit();
         }
     };
+    public void calculEtatReseauTransport(Temps deltaT){
+        ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();
+        while (circuitItr.hasNext()) {
+            Circuit  crc = circuitItr.next();
+            crc.updateSourceAutobus(deltaT);
+            crc.calculCirculationGlobal(deltaT);
+        }
+    }
 }
