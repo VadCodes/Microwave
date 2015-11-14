@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import java.util.LinkedList;
+import javax.swing.JDialog;
 import javax.swing.JPopupMenu;
 
 /**
@@ -455,7 +456,10 @@ public class MainWindow extends javax.swing.JFrame {
             
         }
         else if (elem.getClass() == Troncon.class){
-            
+            EditerTroncon fenetre = new EditerTroncon();
+            fenetre.setTroncon((Troncon) elem);
+            fenetre.pack();
+            fenetre.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

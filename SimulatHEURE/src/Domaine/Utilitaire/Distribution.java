@@ -6,7 +6,7 @@ package Domaine.Utilitaire;
  */
 public class Distribution {
     private Temps m_tempsMinimum;
-    //private Temps m_tempsPlusFrequent;
+    private Temps m_tempsPlusFrequent;
     private Temps m_tempsMaximum;
 
     private double m_hauteur;
@@ -43,7 +43,7 @@ public class Distribution {
         }        
         
         m_tempsMinimum = p_tempsMinimum;
-        //m_tempsPlusFrequent = p_tempsPlusFrequent;
+        m_tempsPlusFrequent = p_tempsPlusFrequent;
         m_tempsMaximum = p_tempsMaximum;
         
         m_hauteur = 2 / (tMax - tMin);
@@ -68,5 +68,17 @@ public class Distribution {
         }
         
         return tempsPige;
+    }
+    
+    public Temps getTempsMin(){
+        return m_tempsMinimum;
+    }
+    
+    public Temps getTempsMax(){
+        return m_tempsMaximum;
+    }
+    
+    public Temps getTempsPlusFrequent(){
+        return m_tempsPlusFrequent;
     }
 }

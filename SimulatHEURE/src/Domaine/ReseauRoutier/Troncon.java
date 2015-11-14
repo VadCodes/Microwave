@@ -36,6 +36,9 @@ public class Troncon extends ElementRoutier{
     public void setDistribution(Distribution distribution){
         m_distribution = distribution;
     }
+    public Distribution getDistribution(){
+        return m_distribution;
+    }
     public Intersection getDestination(){
         return m_intersectionDestination;
     }
