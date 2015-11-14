@@ -131,7 +131,7 @@ public class EditerTroncon extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,11 +176,20 @@ public class EditerTroncon extends javax.swing.JFrame {
             max = Double.parseDouble(jTextField4.getText());
         }
         catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "ERREUR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if  (min > freq){
+            JOptionPane.showMessageDialog(null, "Le temps minimal doit être inférieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (freq > max){
+            JOptionPane.showMessageDialog(null, "Le temps maximal doit être supérieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
-        Distribution dist = new Distribution(new Temps(min), new Temps(freq), new Temps(max));
+        Distribution dist = new Distribution();
+        dist.setDistribution(new Temps(min), new Temps(freq), new Temps(max));
         m_troncon.setDistribution(dist);
         
         m_troncon.setNom(jTextField1.getText());

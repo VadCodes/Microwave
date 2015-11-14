@@ -415,7 +415,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_constructionTronconActionPerformed
 
-    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionRoutierActionPerformed
+    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         
         boolean intersectionSupprimee = false;
         switch (m_commande_courante)
@@ -431,7 +431,7 @@ public class MainWindow extends javax.swing.JFrame {
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
         this.afficheurCommandes.repaint();
-    }//GEN-LAST:event_supprimerRoutierActionPerformed
+    }                                                
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         LinkedList<ElementRoutier> elementsSelectionnes = m_controleur.getElementsSelectionnesRoutier();
@@ -440,7 +440,12 @@ public class MainWindow extends javax.swing.JFrame {
         
         //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
         if(elem.getClass() == Intersection.class){
-            
+            EditerIntersection fenetre = new EditerIntersection();
+            fenetre.setIntersection((Intersection) elem);
+            fenetre.setResizable(false);
+            fenetre.setLocationRelativeTo(null); //pour centrer
+            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fenetre.setVisible(true);
         }
         else if (elem.getClass() == Troncon.class){
             EditerTroncon fenetre = new EditerTroncon();
