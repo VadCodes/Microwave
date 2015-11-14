@@ -20,13 +20,14 @@ public class Emplacement {
     
     public Emplacement(Boolean estSurTroncon, float pourcentageParcouru, Troncon troncon, Intersection intersection){
  
-        if(!intersection.getListeTroncons().contains(troncon)){
+        if(!intersection.getTroncons().contains(troncon)){
             throw new Error("Mauvais troncon ou intersection");
         }
         m_estSurTroncon = estSurTroncon;
         m_pourcentageParcouru = pourcentageParcouru;
         m_troncon = troncon;
         m_intersection = intersection;
+        m_position = calculPosition();
     }
     public Point2D.Float calculPosition(){
         float positionDepartX = m_troncon.getDestination().getPosition().x;
@@ -66,6 +67,6 @@ public class Emplacement {
                 (Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
                 m_troncon.equals(autreEmpl.m_troncon) &&
                 m_intersection.equals(autreEmpl.m_intersection) &&
-                m_position.equals(autreEmpl.m_intersection));
+                m_position.equals(autreEmpl.m_position));
     }
 }

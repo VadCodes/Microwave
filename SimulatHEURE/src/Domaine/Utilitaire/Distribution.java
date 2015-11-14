@@ -22,11 +22,6 @@ public class Distribution {
         setDistribution(new Temps(5), new Temps(5), new Temps(5));
     }
     
-    public Distribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
-    {
-        setDistribution(p_tempsMinimum, p_tempsPlusFrequent, p_tempsMaximum);
-    }
-    
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
         double tMin = p_tempsMinimum.getTemps();

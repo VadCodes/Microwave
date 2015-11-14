@@ -58,7 +58,7 @@ public class ReseauRoutier {
         {
             Point2D.Float p1 = intersection.getPosition();
             
-            for (Troncon troncon: intersection.getListeTroncons())
+            for (Troncon troncon: intersection.getTroncons())
             {   
                 Point2D.Float p2 = troncon.getDestination().getPosition();
                 Line2D.Float segment = new Line2D.Float(p1, p2);
@@ -81,7 +81,7 @@ public class ReseauRoutier {
                 intersection.changerStatutSelection();
             }
             
-            for (Troncon troncon: intersection.getListeTroncons())
+            for (Troncon troncon: intersection.getTroncons())
             {   
                 if (troncon.estSelectione())
                 {
@@ -91,11 +91,9 @@ public class ReseauRoutier {
         }
     }
     
-    public Troncon ajouterTroncon(Intersection p_origine, Intersection p_destination)
+    public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
     {        
-        Troncon troncon = m_factory.creerTroncon(p_origine, p_destination);
-        p_origine.ajouterTroncon(troncon);
-        return troncon;
+        p_origine.ajouterTroncon(m_factory.creerTroncon(p_origine, p_destination));
     }
     
     public Boolean supprimerSelection()
@@ -104,11 +102,11 @@ public class ReseauRoutier {
         {
             if (intersection.estSelectionee())
             {
-                intersection.getListeTroncons().clear();
+                intersection.getTroncons().clear();
             }
             else
             {
-                for (ListIterator<Troncon> troncon = intersection.getListeTroncons().listIterator() ; troncon.hasNext() ; )
+                for (ListIterator<Troncon> troncon = intersection.getTroncons().listIterator() ; troncon.hasNext() ; )
                 {
                     if (troncon.next().estSelectione() || troncon.previous().getDestination().estSelectionee())
                     {
@@ -138,7 +136,7 @@ public class ReseauRoutier {
     public void initReseauRoutier(){
         for (Intersection intersection : m_listeIntersections)
         {
-            for (Troncon troncon : intersection.getListeTroncons())
+            for (Troncon troncon : intersection.getTroncons())
             {
                 troncon.initTroncon();
             }

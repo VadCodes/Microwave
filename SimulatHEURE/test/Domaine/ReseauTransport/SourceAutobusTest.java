@@ -39,17 +39,24 @@ public class SourceAutobusTest extends TestCase {
         reseauRoutier.ajouterIntersection(20.0f, 5.0f);
         Intersection intersection4 = reseauRoutier.getIntersections().getLast();
         //Ajout des Troncons Et deux distributions
-        Distribution distribution1 =new Distribution(new Temps(10), new Temps(15), new Temps(20));
-        Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
-        Troncon troncon1 = reseauRoutier.ajouterTroncon(intersection1, intersection4);
+        Distribution distribution1 =new Distribution();
+        distribution1.setDistribution(new Temps(15), new Temps(15), new Temps(15));
+        Distribution distribution2 =new Distribution();
+        distribution2.setDistribution(new Temps(10), new Temps(10), new Temps(10));
+        reseauRoutier.ajouterTroncon(intersection1, intersection4);
+        Troncon troncon1 = reseauRoutier.getIntersections().get(0).getTroncons().getLast();
         troncon1.setDistribution(distribution1);
-        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        Troncon troncon2 = reseauRoutier.getIntersections().get(0).getTroncons().getLast();
         troncon2.setDistribution(distribution2);
-        Troncon troncon3 = reseauRoutier.ajouterTroncon(intersection2, intersection3);
+        reseauRoutier.ajouterTroncon(intersection2, intersection3);
+        Troncon troncon3 = reseauRoutier.getIntersections().get(1).getTroncons().getLast();
         troncon3.setDistribution(distribution2);
-        Troncon troncon4 = reseauRoutier.ajouterTroncon(intersection3, intersection1);
+        reseauRoutier.ajouterTroncon(intersection3, intersection1);
+        Troncon troncon4 = reseauRoutier.getIntersections().get(2).getTroncons().getLast();
         troncon4.setDistribution(distribution2);
-        Troncon troncon5 = reseauRoutier.ajouterTroncon(intersection3, intersection4);
+        reseauRoutier.ajouterTroncon(intersection3, intersection4);
+        Troncon troncon5 = reseauRoutier.getIntersections().get(2).getTroncons().getLast();
         troncon5.setDistribution(distribution2);
         //push dans les lists
         m_intersections.add(intersection1);
@@ -107,7 +114,8 @@ public class SourceAutobusTest extends TestCase {
      */
     public void testEstSurArretTrue() {
         Emplacement emplSrc = new Emplacement(true, 0.8f, m_troncons.getFirst(), m_intersections.getFirst());
-        Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
+        Distribution dist = new Distribution();
+        dist.setDistribution(new Temps(5), new Temps(10), new Temps(15));
         SourceAutobus srcAutobus = new SourceAutobus(emplSrc, m_circuit, "TestSource", dist, new Temps(0));
         
         Emplacement emplArr = new Emplacement(true, 0.800000001f, m_troncons.getFirst(), m_intersections.getFirst());
@@ -120,7 +128,8 @@ public class SourceAutobusTest extends TestCase {
     public void testEstSurArretFalse() {
         // marche pas a cause que circuit est pas bon.
         Emplacement emplSrc = new Emplacement(true, 0.8f, m_troncons.getFirst(), m_intersections.getFirst());
-        Distribution dist = new Distribution(new Temps(5), new Temps(10), new Temps(15));
+        Distribution dist = new Distribution();
+        dist.setDistribution(new Temps(5), new Temps(10), new Temps(15));
         SourceAutobus srcAutobus = new SourceAutobus(emplSrc, m_circuit, "TestSource", dist, new Temps(0));
         
         Emplacement emplArr = new Emplacement(true, 0.81f, m_troncons.getFirst(), m_intersections.getFirst());

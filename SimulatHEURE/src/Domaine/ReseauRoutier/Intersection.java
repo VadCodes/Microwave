@@ -31,7 +31,7 @@ public class Intersection {
         return m_position;
     }
      
-     public  LinkedList<Troncon> getListeTroncons(){
+     public  LinkedList<Troncon> getTroncons(){
          return m_listeTroncons;
     }
      
