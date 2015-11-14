@@ -56,10 +56,9 @@ public class ReseauRoutierTest {
         Intersection intersection1 = reseauRoutier.getIntersections().getLast();
         reseauRoutier.ajouterIntersection(0.0f, 10.0f);
         Intersection intersection2 = reseauRoutier.getIntersections().getLast();
-        Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
-         Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
-         Troncon test = reseauRoutier.getIntersections().getFirst().getListeTroncons().getFirst();
-         assertEquals(test,troncon2);
+        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        Troncon test = reseauRoutier.getIntersections().getFirst().getListeTroncons().getFirst();
+        assertEquals(test,troncon2);
     }
 
 
@@ -73,7 +72,8 @@ public class ReseauRoutierTest {
         reseauRoutier.ajouterIntersection(0.0f, 10.0f);
         Intersection intersection2 = reseauRoutier.getIntersections().getLast();
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
-        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
+        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        troncon2.setDistribution(distribution2);
         reseauRoutier.initReseauRoutier();
         Temps time1 =  troncon2.getTempsTransitAutobus();
         Boolean db1 = time1.getTemps() >= 5 && time1.getTemps() <= 15 ;

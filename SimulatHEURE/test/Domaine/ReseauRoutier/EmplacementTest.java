@@ -41,7 +41,7 @@ public class EmplacementTest extends TestCase {
         Distribution distribution = new Distribution(new Temps(5), new Temps(8), new Temps(10));
         Intersection intersectionDestination = new Intersection(new Point2D.Float(5,10));
         Intersection intersectionOrigin = new Intersection(new Point2D.Float(6,11));
-        Troncon troncon = new Troncon(distribution,  intersectionDestination, new Temps(4));
+        Troncon troncon = new Troncon(intersectionDestination, distribution, new Temps(4));
         intersectionOrigin.ajouterTroncon(troncon);
         Emplacement emplacement1 = new Emplacement(true, 0.55f, troncon, intersectionOrigin);
         Emplacement emplacement2 = new Emplacement(true, 0.55f, troncon, intersectionOrigin);

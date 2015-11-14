@@ -52,7 +52,7 @@ public class IntersectionTest extends TestCase {
         Temps t2 = new  Temps(4);
         Temps t3= new  Temps(5);
         Distribution distribution = new Distribution(t1,t2,t3);
-        Troncon troncon = new Troncon(distribution, intersec2,  new Temps(4));
+        Troncon troncon = new Troncon(intersec2, distribution,  new Temps(4));
         intersec.ajouterTroncon(troncon);
         assertEquals(intersec.getListeTroncons().getFirst().getDestination().getPosition(), intersec2.getPosition());
     }

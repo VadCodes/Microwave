@@ -41,11 +41,16 @@ public class SourceAutobusTest extends TestCase {
         //Ajout des Troncons Et deux distributions
         Distribution distribution1 =new Distribution(new Temps(10), new Temps(15), new Temps(20));
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
-        Troncon troncon1 = reseauRoutier.ajouterTroncon(intersection1, intersection4, distribution1);
-        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
-        Troncon troncon3 = reseauRoutier.ajouterTroncon(intersection2, intersection3, distribution2);
-        Troncon troncon4 = reseauRoutier.ajouterTroncon(intersection3, intersection1, distribution2);
-        Troncon troncon5 = reseauRoutier.ajouterTroncon(intersection3, intersection4, distribution2);
+        Troncon troncon1 = reseauRoutier.ajouterTroncon(intersection1, intersection4);
+        troncon1.setDistribution(distribution1);
+        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        troncon2.setDistribution(distribution2);
+        Troncon troncon3 = reseauRoutier.ajouterTroncon(intersection2, intersection3);
+        troncon3.setDistribution(distribution2);
+        Troncon troncon4 = reseauRoutier.ajouterTroncon(intersection3, intersection1);
+        troncon4.setDistribution(distribution2);
+        Troncon troncon5 = reseauRoutier.ajouterTroncon(intersection3, intersection4);
+        troncon5.setDistribution(distribution2);
         //push dans les lists
         m_intersections.add(intersection1);
         m_intersections.add(intersection2);

@@ -120,7 +120,7 @@ public class Simulatheure {
                 Intersection origine = m_reseauRoutier.getparametresTroncons().getFirst().next();
                 Intersection destination = m_reseauRoutier.getparametresTroncons().getLast().next();
                 
-                m_reseauRoutier.ajouterTroncon(origine, destination, distribution);
+                m_reseauRoutier.ajouterTroncon(origine, destination);
             }
         }
     }

@@ -37,7 +37,7 @@ public class TronconTest extends TestCase {
     public void testSetDistribution() {
         Distribution distribution = new Distribution(new Temps(5), new Temps(8), new Temps(10));
         Intersection intersectionOrigin = new Intersection(new Point2D.Float(5,10));
-        Troncon troncon = new Troncon(distribution,  intersectionOrigin, new Temps(4));
+        Troncon troncon = new Troncon(intersectionOrigin, distribution, new Temps(4));
         troncon.setTempsTransit();
         Temps time1 =  troncon.getTempsTransitAutobus();
         Temps time2 =troncon.getTempsTransitPieton();

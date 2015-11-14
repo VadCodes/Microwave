@@ -17,6 +17,11 @@ public class Distribution {
     
     //private Temps m_tempsPige = new Temps(0);
 
+    public Distribution()
+    {
+        setDistribution(new Temps(5), new Temps(5), new Temps(5));
+    }
+    
     public Distribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
         setDistribution(p_tempsMinimum, p_tempsPlusFrequent, p_tempsMaximum);

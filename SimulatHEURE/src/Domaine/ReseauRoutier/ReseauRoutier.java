@@ -18,6 +18,7 @@ public class ReseauRoutier {
     private LinkedList<Intersection> m_listeIntersections = new LinkedList();
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     
+    public final static double VITESSE_PIETON = 4;
     private LinkedList<ListIterator<Intersection>> m_parametresTroncon;
     
     public ReseauRoutier(){}
