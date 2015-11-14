@@ -134,6 +134,10 @@ public class Simulatheure {
         }
     }
     
+    public LinkedList<ElementRoutier> getElementsSelectionnesRoutier(){
+        return m_reseauRoutier.getElementsSelectionnes();
+    }
+    
     public Boolean supprimerSelectionRoutier()
     {
         return m_reseauRoutier.supprimerSelection();

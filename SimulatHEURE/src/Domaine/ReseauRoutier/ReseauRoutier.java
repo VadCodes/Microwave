@@ -92,6 +92,29 @@ public class ReseauRoutier {
         }
     }
     
+    public LinkedList<ElementRoutier> getElementsSelectionnes(){
+        
+        LinkedList<ElementRoutier> listeRetour = new LinkedList();
+        
+        for (Intersection intersection: m_listeIntersections)
+        {
+            if (intersection.estSelectionne())
+            {
+                listeRetour.add(intersection);
+            }
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                if (troncon.estSelectionne())
+                {
+                    listeRetour.add(troncon);
+                }
+            }
+        }
+        
+        return listeRetour;
+    }
+    
     public Troncon ajouterTroncon(Intersection p_origine, Intersection p_destination)
     {        
         Troncon troncon = m_factory.creerTroncon(p_origine, p_destination);

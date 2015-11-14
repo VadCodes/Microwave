@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
+import java.util.LinkedList;
 import javax.swing.JPopupMenu;
 
 /**
@@ -89,10 +90,21 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPopupMenu1.setName(""); // NOI18N
 
-        jMenuItem1.setText("Modifier...");
+        jMenuItem1.setText("Éditer...");
+        jMenuItem1.setActionCommand("Éditer...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Supprimer");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -432,6 +444,24 @@ public class MainWindow extends javax.swing.JFrame {
         //defilementAfficheur.setViewportView(afficheurReseau);
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_supprimerRoutierActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        LinkedList<ElementRoutier> elementsSelectionnes = m_controleur.getElementsSelectionnesRoutier();
+        assert(elementsSelectionnes.size() == 1);
+        ElementRoutier elem = elementsSelectionnes.getFirst();
+        
+        //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
+        if(elem.getClass() == Intersection.class){
+            
+        }
+        else if (elem.getClass() == Troncon.class){
+            
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     /**
      * @param args the command line arguments
