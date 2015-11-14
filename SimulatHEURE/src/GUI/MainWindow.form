@@ -9,7 +9,7 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="groupeRoutier">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionnerRoutier);&#xa;groupeModes.add(intersection);&#xa;groupeModes.add(troncon);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionRoutier);&#xa;groupeModes.add(ajoutIntersection);&#xa;groupeModes.add(constructionTroncon);"/>
       </AuxValues>
     </Component>
     <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
@@ -233,7 +233,7 @@
                 <Property name="verticalGap" type="int" value="10"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JToggleButton" name="selectionnerRoutier">
+                <Component class="javax.swing.JToggleButton" name="selectionRoutier">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="10" style="0"/>
@@ -241,10 +241,10 @@
                     <Property name="text" type="java.lang.String" value="S&#xe9;lectionner"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectionnerRoutierActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectionRoutierActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="intersection">
+                <Component class="javax.swing.JToggleButton" name="ajoutIntersection">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="10" style="0"/>
@@ -252,10 +252,10 @@
                     <Property name="text" type="java.lang.String" value="Intersection"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="intersectionActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutIntersectionActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="troncon">
+                <Component class="javax.swing.JToggleButton" name="constructionTroncon">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="10" style="0"/>
@@ -263,10 +263,10 @@
                     <Property name="text" type="java.lang.String" value="Tron&#xe7;on"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tronconActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="constructionTronconActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="supprimerRoutier">
+                <Component class="javax.swing.JButton" name="suppressionRoutier">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="10" style="0"/>
@@ -274,7 +274,7 @@
                     <Property name="text" type="java.lang.String" value="Supprimer"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="supprimerRoutierActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="suppressionRoutierActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

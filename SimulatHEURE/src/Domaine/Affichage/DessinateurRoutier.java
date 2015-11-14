@@ -76,7 +76,7 @@ public class DessinateurRoutier
         {
             Point2D.Float p1 = intersection.getPosition();
             
-            for (Troncon troncon: intersection.getListeTroncons())
+            for (Troncon troncon: intersection.getTroncons())
             {   
                 if (!troncon.estSelectionne())
                 {

@@ -10,14 +10,11 @@ import javax.swing.JPanel;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
-import Domaine.ReseauRoutier.Troncon;
 
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
+/**
+ *
+ * @author Vinny
+ */
 public class AfficheurReseau extends JPanel implements Serializable {
     
     public Dimension m_dimension;
@@ -65,10 +62,6 @@ public class AfficheurReseau extends JPanel implements Serializable {
     
     public Dimension getInitialDimension(){
         return m_dimension;
-    }
-    
-    public void setInitialDimension(){
-        
     }
     
     public float getEchelle(){

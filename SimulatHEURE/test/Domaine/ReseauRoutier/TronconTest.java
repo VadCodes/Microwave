@@ -35,7 +35,8 @@ public class TronconTest extends TestCase {
      * Test of setDistribution method, of class Troncon.
      */
     public void testSetDistribution() {
-        Distribution distribution = new Distribution(new Temps(5), new Temps(8), new Temps(10));
+        Distribution distribution = new Distribution();
+        distribution.setDistribution(new Temps(5), new Temps(8), new Temps(10));
         Intersection intersectionOrigin = new Intersection(new Point2D.Float(5,10));
         Troncon troncon = new Troncon(intersectionOrigin, distribution, new Temps(4));
         troncon.setTempsTransit();
