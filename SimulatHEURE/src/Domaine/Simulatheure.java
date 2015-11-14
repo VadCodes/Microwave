@@ -45,7 +45,7 @@ public class Simulatheure {
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
     
-    public void selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
+    public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
     {
         float xReel;
         float yReel;        
@@ -80,7 +80,10 @@ public class Simulatheure {
                 largeurSelection = Troncon.LARGEUR;
             }
             
-            m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection);
+            return m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection);
+        }
+        else{
+            return intersection;
         }
     }
     

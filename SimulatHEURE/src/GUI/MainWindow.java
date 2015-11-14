@@ -54,6 +54,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         groupeModes = new javax.swing.ButtonGroup();
         groupeRoutier = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
@@ -83,6 +86,14 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(selectionnerRoutier);
         groupeModes.add(intersection);
         groupeModes.add(troncon);
+
+        jPopupMenu1.setName(""); // NOI18N
+
+        jMenuItem1.setText("Modifier...");
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Supprimer");
+        jPopupMenu1.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -301,7 +312,7 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
-                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                             break;
                         
                         case INTERSECTION:
@@ -324,7 +335,7 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
             }
         }
-        else if (SwingUtilities.isLeftMouseButton(evt))
+        else if (SwingUtilities.isRightMouseButton(evt))
         {
             switch (m_mode_courant)
             {                
@@ -333,6 +344,11 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
+                            m_controleur.deselectionnerRoutier();
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            if (elemRoutier!=null){
+                                jPopupMenu1.show(this,evt.getX(),evt.getY()); //echelle
+                            }
                             break;
                             
                         case INTERSECTION:
@@ -482,7 +498,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.JToggleButton intersection;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;

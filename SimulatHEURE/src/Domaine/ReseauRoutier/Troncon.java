@@ -6,7 +6,7 @@ package Domaine.ReseauRoutier;
  */
 import Domaine.Utilitaire.*;
 
-public class Troncon {
+public class Troncon extends ElementRoutier{
     private String m_nom = "";
     private Temps m_tempsTransitAutobus;
     private Distribution m_distribution;
@@ -15,7 +15,6 @@ public class Troncon {
     
     public final static float LARGEUR = 5;
     public final static float GROSSEUR_FLECHE = 30;
-    private Boolean m_estSelectionne = false;
 
 
     public Troncon(Intersection p_destination, Distribution distribution, Temps p_tempsTransitPieton)
@@ -47,14 +46,6 @@ public class Troncon {
         m_nom = p_nom;
     }
 
-    public Boolean estSelectione(){
-        return m_estSelectionne;
-    }
-
-    public void changerStatutSelection(){
-     m_estSelectionne = !m_estSelectionne;
-    }
-    
     public void initTroncon(){
         m_tempsTransitAutobus = m_distribution.pigerTemps(); //nope !
     }

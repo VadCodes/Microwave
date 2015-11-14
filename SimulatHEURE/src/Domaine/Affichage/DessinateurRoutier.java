@@ -48,7 +48,7 @@ public class DessinateurRoutier
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
         {
-            if (!intersection.estSelectionee())
+            if (!intersection.estSelectionne())
             {
                 p_g.setColor(Color.CYAN);
             }
@@ -78,7 +78,7 @@ public class DessinateurRoutier
             
             for (Troncon troncon: intersection.getListeTroncons())
             {   
-                if (!troncon.estSelectione())
+                if (!troncon.estSelectionne())
                 {
                     p_g.setColor(Color.PINK);
                 }

@@ -12,6 +12,27 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionnerRoutier);&#xa;groupeModes.add(intersection);&#xa;groupeModes.add(troncon);"/>
       </AuxValues>
     </Component>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+      <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Modifier..."/>
+          </Properties>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Supprimer"/>
+          </Properties>
+        </MenuItem>
+      </SubComponents>
+    </Container>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fichier">

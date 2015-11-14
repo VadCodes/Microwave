@@ -77,14 +77,14 @@ public class ReseauRoutier {
     {
         for (Intersection intersection: m_listeIntersections)
         {
-            if (intersection.estSelectionee())
+            if (intersection.estSelectionne())
             {
                 intersection.changerStatutSelection();
             }
             
             for (Troncon troncon: intersection.getListeTroncons())
             {   
-                if (troncon.estSelectione())
+                if (troncon.estSelectionne())
                 {
                     troncon.changerStatutSelection();
                 }
@@ -103,7 +103,7 @@ public class ReseauRoutier {
     {
         for (Intersection intersection: m_listeIntersections)
         {
-            if (intersection.estSelectionee())
+            if (intersection.estSelectionne())
             {
                 intersection.getListeTroncons().clear();
             }
@@ -111,7 +111,7 @@ public class ReseauRoutier {
             {
                 for (ListIterator<Troncon> troncon = intersection.getListeTroncons().listIterator() ; troncon.hasNext() ; )
                 {
-                    if (troncon.next().estSelectione() || troncon.previous().getDestination().estSelectionee())
+                    if (troncon.next().estSelectionne() || troncon.previous().getDestination().estSelectionne())
                     {
                         troncon.remove();
                     }
@@ -126,7 +126,7 @@ public class ReseauRoutier {
         boolean intersectionSupprimee = false;
         for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
         {
-            if (intersection.next().estSelectionee())
+            if (intersection.next().estSelectionne())
             {
                 intersection.remove();
                 intersectionSupprimee = true;
