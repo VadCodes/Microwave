@@ -103,7 +103,7 @@ public class ReseauRoutier {
                 listeRetour.add(intersection);
             }
             
-            for (Troncon troncon: intersection.getListeTroncons())
+            for (Troncon troncon: intersection.getTroncons())
             {   
                 if (troncon.estSelectionne())
                 {

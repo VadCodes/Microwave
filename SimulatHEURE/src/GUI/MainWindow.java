@@ -71,9 +71,9 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(besoins);
         groupeModes.add(simulation);
 
-        groupeModes.add(selectionnerRoutier);
+        groupeModes.add(selectionRoutier);
         groupeModes.add(intersection);
-        groupeModes.add(troncon);
+        groupeModes.add(constructionTroncon);
 
         jPopupMenu1.setName(""); // NOI18N
 
