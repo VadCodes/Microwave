@@ -43,7 +43,7 @@ public class Intersection {
         m_estSelectionnee = !m_estSelectionnee;
     }
      
-     public void ajouterTroncons(Troncon troncon ){
+     public void ajouterTroncon(Troncon troncon ){
          m_listeTroncons.add(troncon);
     }
 }

@@ -50,7 +50,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.m_reseauRoutier, m_dimension);
+            DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier(), m_dimension);
             dessinateurRoutier.dessiner(graphic2D);
         }
     }
@@ -93,7 +93,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
         {
             m_xMax = 1600;
             m_yMax = 900;
-            LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
+            LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.getRoutier().getIntersections();
             for (Intersection intersection: intersections)
             {
                 m_xMax = java.lang.Math.max(m_xMax, (int)intersection.getPosition().getX());

@@ -6,8 +6,8 @@
 package Domaine.ReseauRoutier;
 
 import Domaine.Utilitaire.*;
-import java.util.LinkedList;
 
+import java.util.LinkedList;
 import java.awt.geom.Point2D;
 
 /**
@@ -23,10 +23,11 @@ public class ReseauRoutierFactory {
        public ReseauRoutierFactory(){}
        
        
-       public Troncon creerTroncon(Distribution distribution,
-           Intersection intersectionDestination, Temps tempsTransitPieton){
+       public Troncon creerTroncon(Intersection p_origine, Intersection p_destination)
+       {
+           double longueur = p_origine.getPosition().distance(p_destination.getPosition());
+           
            Troncon troncon = new Troncon(distribution, intersectionDestination, tempsTransitPieton);
-           //m_listTroncons.add(troncon);
            return troncon;
        }
        

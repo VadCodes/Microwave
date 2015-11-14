@@ -32,7 +32,7 @@ public class EmplacementTest extends TestCase {
         Intersection intersectionDestination = new Intersection(new Point2D.Float(5,10));
          Intersection intersectionOrigin = new Intersection(new Point2D.Float(6,11));
         Troncon troncon = new Troncon(distribution,  intersectionDestination, new Temps(4));
-       intersectionOrigin.ajouterTroncons(troncon);
+       intersectionOrigin.ajouterTroncon(troncon);
         Emplacement emplacement = new Emplacement(true, 0.55, troncon, intersectionOrigin);
         Position posi = emplacement.calculPosition();
     }*/
@@ -42,7 +42,7 @@ public class EmplacementTest extends TestCase {
         Intersection intersectionDestination = new Intersection(new Point2D.Float(5,10));
         Intersection intersectionOrigin = new Intersection(new Point2D.Float(6,11));
         Troncon troncon = new Troncon(distribution,  intersectionDestination, new Temps(4));
-        intersectionOrigin.ajouterTroncons(troncon);
+        intersectionOrigin.ajouterTroncon(troncon);
         Emplacement emplacement1 = new Emplacement(true, 0.55f, troncon, intersectionOrigin);
         Emplacement emplacement2 = new Emplacement(true, 0.55f, troncon, intersectionOrigin);
         assertTrue(emplacement1.equals(emplacement2));

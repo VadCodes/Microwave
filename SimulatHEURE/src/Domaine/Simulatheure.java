@@ -20,15 +20,16 @@ public class Simulatheure {
         SELECTIONNER, INTERSECTION, TRONCON
     }
     
-    public ReseauRoutier m_reseauRoutier ;
-    private ReseauTransport m_reseauTransport ;
+    private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
+    private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
-    public Simulatheure() {
-        m_reseauRoutier = new ReseauRoutier();
-        m_reseauTransport = new ReseauTransport();
-        
+    public Simulatheure() {}  
+    
+    public ReseauRoutier getRoutier()
+    {
+        return m_reseauRoutier;
     }
     
     public void demarrerSimulation(){
@@ -42,18 +43,7 @@ public class Simulatheure {
     public void rafraichirSimulation(Temps m_deltaT){
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
-    public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
-    {
-        float xReel = p_x / p_echelle;
-        float yReel = p_y / p_echelle;  
-        m_reseauRoutier.ajouterIntersection(xReel, yReel);
-    }
     
-    public void ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution)
-    {
-        m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution);
-    }
-
     public void selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
     {
         float xReel;
@@ -97,6 +87,13 @@ public class Simulatheure {
         m_reseauRoutier.deselectionnerTout();
     }
     
+    public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
+    {
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+        m_reseauRoutier.ajouterIntersection(xReel, yReel);
+    }
+    
     public void construireTroncon(Integer p_x, Integer p_y, Float p_echelle)
     {
         float xReel;
@@ -118,7 +115,18 @@ public class Simulatheure {
         
         if (m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection))
         {
-            
+            if (m_reseauRoutier.getparametresTroncons().size() == 2)
+            {
+                Intersection origine = m_reseauRoutier.getparametresTroncons().getFirst().next();
+                Intersection destination = m_reseauRoutier.getparametresTroncons().getLast().next();
+                
+                m_reseauRoutier.ajouterTroncon(origine, destination, distribution);
+            }
         }
+    }
+    
+    public Boolean supprimerSelectionRoutier()
+    {
+        return m_reseauRoutier.supprimerSelection();
     }
 }

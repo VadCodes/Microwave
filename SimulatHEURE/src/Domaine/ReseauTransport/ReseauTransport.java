@@ -17,8 +17,8 @@ public class ReseauTransport {
     
     private LinkedList<Circuit> m_listeCircuits = new LinkedList();
     private Temps tempsDebut;
-    public ReseauTransport(){
-    }
+    public ReseauTransport(){}
+    
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;
     }

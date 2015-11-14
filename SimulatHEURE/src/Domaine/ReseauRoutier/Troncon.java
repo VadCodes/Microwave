@@ -4,8 +4,7 @@ package Domaine.ReseauRoutier;
  *
  * @author Nathaniel
  */
-import Domaine.Utilitaire.Temps;
-import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.*;
 
 public class Troncon {
     private String m_nom = "";
@@ -19,12 +18,11 @@ public class Troncon {
     private Boolean m_estSelectionne = false;
 
 
-    public Troncon(Distribution distribution,
-        Intersection intersectionDestination,
-        Temps tempsTransitPieton){
+    public Troncon(Intersection p_destination, Distribution distribution, Temps p_tempsTransitPieton)
+    {
+        m_intersectionDestination =  p_destination;
         m_distribution = distribution;
-        m_intersectionDestination =  intersectionDestination;
-        m_tempsTransitPieton = tempsTransitPieton;
+        m_tempsTransitPieton = p_tempsTransitPieton;
     }
     public void setTempsTransit(){
         m_tempsTransitAutobus = m_distribution.pigerTemps();
