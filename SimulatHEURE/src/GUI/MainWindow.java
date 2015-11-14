@@ -6,6 +6,12 @@ import Domaine.Simulatheure.Commandes;
 
 import javax.swing.SwingUtilities;
 
+import Domaine.Utilitaire.*;
+import Domaine.ReseauRoutier.*;
+import java.util.LinkedList;
+import javax.swing.JDialog;
+import javax.swing.JPopupMenu;
+
 /**
  *
  * @author Vinny
@@ -36,6 +42,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         groupeModes = new javax.swing.ButtonGroup();
         groupeRoutier = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
@@ -62,9 +71,28 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(besoins);
         groupeModes.add(simulation);
 
-        groupeModes.add(selectionRoutier);
-        groupeModes.add(ajoutIntersection);
-        groupeModes.add(constructionTroncon);
+        groupeModes.add(selectionnerRoutier);
+        groupeModes.add(intersection);
+        groupeModes.add(troncon);
+
+        jPopupMenu1.setName(""); // NOI18N
+
+        jMenuItem1.setText("Éditer...");
+        jMenuItem1.setActionCommand("Éditer...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Supprimer");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -283,7 +311,7 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
-                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                             break;
                         
                         case INTERSECTION:
@@ -296,7 +324,7 @@ public class MainWindow extends javax.swing.JFrame {
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                             break;
-
+                            
                         default:
                             break;
                     }
@@ -304,6 +332,33 @@ public class MainWindow extends javax.swing.JFrame {
 
                 default:
                     break;
+            }
+        }
+        else if (SwingUtilities.isRightMouseButton(evt))
+        {
+            switch (m_mode_courant)
+            {                
+                case ROUTIER:
+                    float echelle = afficheurReseau.getEchelle();                    
+                    switch (m_commande_courante)
+                    {                        
+                        case SELECTIONNER:
+                            m_controleur.deselectionnerRoutier();
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            if (elemRoutier!=null){
+                                jPopupMenu1.show(this,evt.getX(),evt.getY()); //echelle
+                            }
+                            break;
+                            
+                        case INTERSECTION:
+                            break;
+                            
+                        case TRONCON:
+                            break;
+                            
+                        default:
+                            break;
+                    }
             }
         }
         
@@ -375,7 +430,28 @@ public class MainWindow extends javax.swing.JFrame {
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
         this.afficheurCommandes.repaint();
-    }//GEN-LAST:event_suppressionRoutierActionPerformed
+    }//GEN-LAST:event_supprimerRoutierActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        LinkedList<ElementRoutier> elementsSelectionnes = m_controleur.getElementsSelectionnesRoutier();
+        assert(elementsSelectionnes.size() == 1);
+        ElementRoutier elem = elementsSelectionnes.getFirst();
+        
+        //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
+        if(elem.getClass() == Intersection.class){
+            
+        }
+        else if (elem.getClass() == Troncon.class){
+            EditerTroncon fenetre = new EditerTroncon();
+            fenetre.setTroncon((Troncon) elem);
+            fenetre.pack();
+            fenetre.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -443,7 +519,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
+    private javax.swing.JToggleButton intersection;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;

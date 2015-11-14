@@ -34,7 +34,7 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public ListIterator selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
+    public Intersection selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
     {
         Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
@@ -43,14 +43,14 @@ public class ReseauRoutier {
             if (zoneSelection.contains(intersection.next().getPosition()))
             {
                 intersection.previous().changerStatutSelection();
-                return intersection;
+                return intersection.next();
             }
         }
         
         return null;
     }
     
-    public void selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
+    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
     {
         Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(p_x, p_y, p_largeur, p_largeur);
         
@@ -66,29 +66,53 @@ public class ReseauRoutier {
                 if (segment.intersects(zoneApproximative))
                 {
                     troncon.changerStatutSelection();
-                    return;
+                    return troncon;
                 }
             }
         }
+        return null;
     }
     
     public void deselectionnerTout()
     {
         for (Intersection intersection: m_listeIntersections)
         {
-            if (intersection.estSelectionee())
+            if (intersection.estSelectionne())
             {
                 intersection.changerStatutSelection();
             }
             
             for (Troncon troncon: intersection.getTroncons())
             {   
-                if (troncon.estSelectione())
+                if (troncon.estSelectionne())
                 {
                     troncon.changerStatutSelection();
                 }
             }
         }
+    }
+    
+    public LinkedList<ElementRoutier> getElementsSelectionnes(){
+        
+        LinkedList<ElementRoutier> listeRetour = new LinkedList();
+        
+        for (Intersection intersection: m_listeIntersections)
+        {
+            if (intersection.estSelectionne())
+            {
+                listeRetour.add(intersection);
+            }
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                if (troncon.estSelectionne())
+                {
+                    listeRetour.add(troncon);
+                }
+            }
+        }
+        
+        return listeRetour;
     }
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
@@ -100,7 +124,7 @@ public class ReseauRoutier {
     {
         for (Intersection intersection: m_listeIntersections)
         {
-            if (intersection.estSelectionee())
+            if (intersection.estSelectionne())
             {
                 intersection.getTroncons().clear();
             }
@@ -108,7 +132,7 @@ public class ReseauRoutier {
             {
                 for (ListIterator<Troncon> troncon = intersection.getTroncons().listIterator() ; troncon.hasNext() ; )
                 {
-                    if (troncon.next().estSelectione() || troncon.previous().getDestination().estSelectionee())
+                    if (troncon.next().estSelectionne() || troncon.previous().getDestination().estSelectionne())
                     {
                         troncon.remove();
                     }
@@ -123,7 +147,7 @@ public class ReseauRoutier {
         boolean intersectionSupprimee = false;
         for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
         {
-            if (intersection.next().estSelectionee())
+            if (intersection.next().estSelectionne())
             {
                 intersection.remove();
                 intersectionSupprimee = true;
