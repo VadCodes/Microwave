@@ -133,6 +133,15 @@ public class AfficheurReseau extends JPanel implements Serializable {
             if (zoneSelection.contains(intersection.getPosition()))
             {
                 intersection.changerStatutSelection();
+                if (intersection.estSelectionee())
+                {
+                    m_fenetrePrincipale.m_controleur.m_reseauRoutier.incrementerIntersectionsSelectionnees();
+                }
+                else
+                {
+                    m_fenetrePrincipale.m_controleur.m_reseauRoutier.decrementerIntersectionsSelectionnees();
+                }
+                
                 return true;                                    
             }
         }
@@ -178,5 +187,26 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 }
             }
         }
+    }
+    public void deselectionnerRoutier()
+    {
+        LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.m_reseauRoutier.getIntersections();
+        for (Intersection intersection: intersections)
+        {
+            if (intersection.estSelectionee())
+            {
+                intersection.changerStatutSelection();
+            }
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                if (troncon.estSelectione())
+                {
+                    troncon.changerStatutSelection();
+                }
+            }
+        }
+        
+        m_fenetrePrincipale.m_controleur.m_reseauRoutier.setIntersectionsSelectionnees(0);
     }
 }

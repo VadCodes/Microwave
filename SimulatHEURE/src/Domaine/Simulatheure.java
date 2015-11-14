@@ -21,7 +21,7 @@ public class Simulatheure {
     }
     
     public enum Commandes {
-        SELECTIONNER, INTERSECTION, TRONCON, SUPPRIMER
+        SELECTIONNER, INTERSECTION, TRONCON
     }
     
     public ReseauRoutier m_reseauRoutier ;
@@ -49,7 +49,7 @@ public class Simulatheure {
         m_reseauRoutier.ajouterIntersection(poin.x, poin.y);
     }
     
-    public void ajoutITroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
+    public void ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
         m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution);
     }
 }

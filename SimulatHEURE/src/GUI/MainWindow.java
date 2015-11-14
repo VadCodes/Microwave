@@ -68,7 +68,7 @@ public class MainWindow extends javax.swing.JFrame {
         selectionnerRoutier = new javax.swing.JToggleButton();
         intersection = new javax.swing.JToggleButton();
         troncon = new javax.swing.JToggleButton();
-        supprimerRoutier = new javax.swing.JToggleButton();
+        supprimerRoutier = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         menu = new javax.swing.JMenuBar();
@@ -83,7 +83,6 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(selectionnerRoutier);
         groupeModes.add(intersection);
         groupeModes.add(troncon);
-        groupeModes.add(supprimerRoutier);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -293,15 +292,17 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_simulationActionPerformed
 
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
-        if (SwingUtilities.isLeftMouseButton(evt)) {
-            switch (m_mode_courant){
-                
+
+        if (SwingUtilities.isLeftMouseButton(evt))
+        {
+            switch (m_mode_courant)
+            {                
                 case ROUTIER:
                     float x;
                     float y;
                     float echelle = afficheurReseau.getEchelle();                    
-                    switch (m_commande_courante){
-                        
+                    switch (m_commande_courante)
+                    {                        
                         case SELECTIONNER:                                    
                             if (afficheurReseau.selectionnerIntersection(evt.getX(), evt.getY()))
                             {
@@ -319,14 +320,18 @@ public class MainWindow extends javax.swing.JFrame {
                             this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
                             boolean ajoutIntersection = true;
                             afficheurReseau.setDimension(ajoutIntersection);
+                            defilementAfficheur.setViewportView(afficheurReseau);
                             
                             break;
                             
                         case TRONCON:
-                            //float x = (float)(evt.getPoint().getX() / afficheur.getEchelle());
-                            //float y = (float)(evt.getPoint().getY() / afficheur.getEchelle());        
-                            //this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);          
-                            //jScrollPane1.setViewportView(afficheur);
+                            if (afficheurReseau.selectionnerIntersection(evt.getX(), evt.getY()))
+                            {
+                                if (m_controleur.m_reseauRoutier.getIntersectionsSelectionnees() == 2)
+                                {
+                                    this.m_controleur.ajouterTroncon(null, null, null);
+                                }
+                            }
 
                             break;
 
@@ -372,20 +377,70 @@ public class MainWindow extends javax.swing.JFrame {
         wtf.setText("");
     }//GEN-LAST:event_afficheurReseauMouseExited
 
-    private void intersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intersectionActionPerformed
-        this.setCommande(Commandes.INTERSECTION);
-    }//GEN-LAST:event_intersectionActionPerformed
-
     private void selectionnerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionnerRoutierActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
     }//GEN-LAST:event_selectionnerRoutierActionPerformed
 
+    private void intersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intersectionActionPerformed
+        
+        this.setCommande(Commandes.INTERSECTION);
+        afficheurReseau.deselectionnerRoutier();
+        
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_intersectionActionPerformed
+
     private void tronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tronconActionPerformed
+        
         this.setCommande(Commandes.TRONCON);
+        afficheurReseau.deselectionnerRoutier();
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_tronconActionPerformed
 
     private void supprimerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerRoutierActionPerformed
-        this.setCommande(Commandes.SUPPRIMER);
+        //boolean suppremissionIntersection = false;
+        switch (m_commande_courante)
+        {
+            case SELECTIONNER:
+                for (Intersection intersection: this.m_controleur.m_reseauRoutier.getIntersections())
+                {
+                    if (intersection.estSelectionee())
+                    {
+                        intersection.getListeTroncons().clear();
+                    }
+                    else
+                    {
+                        for (java.util.ListIterator<Troncon> troncon = intersection.getListeTroncons().listIterator() ; troncon.hasNext() ; )
+                        {
+                            if (troncon.next().estSelectione() || troncon.previous().getDestination().estSelectionee())
+                            {
+                                troncon.remove();
+                            }
+                            else
+                            {
+                                troncon.next();
+                            }
+                        }
+                    }
+                }
+                
+                for (java.util.ListIterator<Intersection> intersection = this.m_controleur.m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; )
+                {
+                    if (intersection.next().estSelectionee())
+                    {
+                        //suppremissionIntersection = true;
+                        intersection.remove();
+                    }
+                }
+                break;
+                
+            default:
+                break;
+        }
+        
+        //afficheurReseau.setDimension(suppremissionIntersection);
+        //defilementAfficheur.setViewportView(afficheurReseau);
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_supprimerRoutierActionPerformed
     
     /**
@@ -460,7 +515,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton selectionnerRoutier;
     private javax.swing.JToggleButton simulation;
-    private javax.swing.JToggleButton supprimerRoutier;
+    private javax.swing.JButton supprimerRoutier;
     private javax.swing.JToggleButton transport;
     private javax.swing.JToggleButton troncon;
     private javax.swing.JLabel wtf;

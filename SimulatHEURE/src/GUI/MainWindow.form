@@ -9,7 +9,7 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="groupeRoutier">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionnerRoutier);&#xa;groupeModes.add(intersection);&#xa;groupeModes.add(troncon);&#xa;groupeModes.add(supprimerRoutier);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionnerRoutier);&#xa;groupeModes.add(intersection);&#xa;groupeModes.add(troncon);"/>
       </AuxValues>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menu">
@@ -239,7 +239,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tronconActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="supprimerRoutier">
+                <Component class="javax.swing.JButton" name="supprimerRoutier">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="10" style="0"/>

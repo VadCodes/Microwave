@@ -12,7 +12,10 @@ import java.util.LinkedList;
  */
 public class ReseauRoutier {
     private LinkedList<Intersection> m_listeIntersections = new LinkedList();
-    public ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
+    public ReseauRoutierFactory m_factory = new ReseauRoutierFactory(); // why pubblic !?
+    
+    private int m_nombreIntersectionsSelectionnees = 0;
+    
     public ReseauRoutier(){}
     
     public LinkedList<Intersection> getIntersections(){
@@ -49,6 +52,26 @@ public class ReseauRoutier {
     */
     public void setNameTroncon(Troncon p_troncon, String p_nom){
         p_troncon.setNom(p_nom);
+    }
+    
+    public Integer getIntersectionsSelectionnees()
+    {
+        return m_nombreIntersectionsSelectionnees;
+    }
+    
+    public void setIntersectionsSelectionnees(Integer p_nombre)
+    {
+        m_nombreIntersectionsSelectionnees = p_nombre;
+    }
+    
+    public void incrementerIntersectionsSelectionnees()
+    {
+        m_nombreIntersectionsSelectionnees += 1;
+    }
+    
+    public void decrementerIntersectionsSelectionnees()
+    {
+        m_nombreIntersectionsSelectionnees -= 1;
     }
     
     public void initReseauRoutier(){
