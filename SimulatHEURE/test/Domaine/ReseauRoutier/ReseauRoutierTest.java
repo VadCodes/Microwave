@@ -72,7 +72,7 @@ public class ReseauRoutierTest {
         reseauRoutier.ajouterIntersection(0.0f, 10.0f);
         Intersection intersection2 = reseauRoutier.getIntersections().getLast();
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
-        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2);
+        Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection2, intersection2);
         troncon2.setDistribution(distribution2);
         reseauRoutier.initReseauRoutier();
         Temps time1 =  troncon2.getTempsTransitAutobus();

@@ -1,7 +1,5 @@
 package Domaine.ReseauRoutier;
 
-import Domaine.Utilitaire.*;
-
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -19,18 +17,12 @@ public class ReseauRoutier {
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     
     public final static double VITESSE_PIETON = 4;
-    private LinkedList<ListIterator<Intersection>> m_parametresTroncon;
     
     public ReseauRoutier(){}
     
     public LinkedList<Intersection> getIntersections()
     {
         return m_listeIntersections;
-    }
-    
-    public LinkedList<ListIterator<Intersection>> getparametresTroncons()
-    {
-        return m_parametresTroncon;
     }
     
     public void ajouterIntersection(float p_x, float p_y)
@@ -42,7 +34,7 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public Boolean selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
+    public ListIterator selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
     {
         Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
@@ -50,13 +42,12 @@ public class ReseauRoutier {
         {
             if (zoneSelection.contains(intersection.next().getPosition()))
             {
-                intersection.previous().changerStatutSelection();  
-                this.m_parametresTroncon.add(intersection);
-                return true;                                    
+                intersection.previous().changerStatutSelection();
+                return intersection;
             }
         }
         
-        return false;
+        return null;
     }
     
     public void selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
@@ -98,8 +89,6 @@ public class ReseauRoutier {
                 }
             }
         }
-        
-        m_parametresTroncon.clear();
     }
     
     public Troncon ajouterTroncon(Intersection p_origine, Intersection p_destination)
@@ -143,7 +132,6 @@ public class ReseauRoutier {
             }
         }
         
-        m_parametresTroncon.clear();
         return intersectionSupprimee;
     }
     

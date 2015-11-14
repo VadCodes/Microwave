@@ -21,6 +21,7 @@ public class Simulatheure {
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
+    private LinkedList<ListIterator<Intersection>> m_parametresTroncon = new LinkedList();
     private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
@@ -63,7 +64,7 @@ public class Simulatheure {
             largeurSelection = 2 * Intersection.RAYON;
         }        
         
-        if (!m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection))
+        if (m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection) == null)
         {
             if (p_echelle > 1)
             {
@@ -84,6 +85,7 @@ public class Simulatheure {
     
     public void deselectionnerRoutier()
     {
+        m_parametresTroncon.clear();
         m_reseauRoutier.deselectionnerTout();
     }
     
@@ -113,14 +115,17 @@ public class Simulatheure {
             largeurSelection = 2 * Intersection.RAYON;
         }        
         
-        if (m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection))
+        ListIterator intersection = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
+        if (intersection != null)
         {
-            if (m_reseauRoutier.getparametresTroncons().size() == 2)
+            m_parametresTroncon.add(intersection);
+            if (m_parametresTroncon.size() == 2)
             {
-                Intersection origine = m_reseauRoutier.getparametresTroncons().getFirst().next();
-                Intersection destination = m_reseauRoutier.getparametresTroncons().getLast().next();
+                Intersection origine = m_parametresTroncon.getFirst().next();
+                Intersection destination = m_parametresTroncon.getLast().next();
                 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
+                deselectionnerRoutier();
             }
         }
     }
