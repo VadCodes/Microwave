@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -313,7 +314,7 @@ public class MainWindow extends javax.swing.JFrame {
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                             break;
-
+                            
                         default:
                             break;
                     }
@@ -321,6 +322,28 @@ public class MainWindow extends javax.swing.JFrame {
 
                 default:
                     break;
+            }
+        }
+        else if (SwingUtilities.isLeftMouseButton(evt))
+        {
+            switch (m_mode_courant)
+            {                
+                case ROUTIER:
+                    float echelle = afficheurReseau.getEchelle();                    
+                    switch (m_commande_courante)
+                    {                        
+                        case SELECTIONNER:
+                            break;
+                            
+                        case INTERSECTION:
+                            break;
+                            
+                        case TRONCON:
+                            break;
+                            
+                        default:
+                            break;
+                    }
             }
         }
         

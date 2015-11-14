@@ -34,7 +34,7 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public ListIterator selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
+    public Intersection selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
     {
         Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
@@ -43,14 +43,14 @@ public class ReseauRoutier {
             if (zoneSelection.contains(intersection.next().getPosition()))
             {
                 intersection.previous().changerStatutSelection();
-                return intersection;
+                return intersection.next();
             }
         }
         
         return null;
     }
     
-    public void selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
+    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
     {
         Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(p_x, p_y, p_largeur, p_largeur);
         
@@ -66,10 +66,11 @@ public class ReseauRoutier {
                 if (segment.intersects(zoneApproximative))
                 {
                     troncon.changerStatutSelection();
-                    return;
+                    return troncon;
                 }
             }
         }
+        return null;
     }
     
     public void deselectionnerTout()
