@@ -12,6 +12,7 @@ public class Troncon extends ElementRoutier{
     private Distribution m_distribution;
     private Temps m_tempsTransitPieton;
     private final Intersection m_intersectionDestination;
+    private Boolean m_doubleSens = false;
     
     public final static float LARGEUR = 5;
     public final static float GROSSEUR_FLECHE = 30;
@@ -25,8 +26,23 @@ public class Troncon extends ElementRoutier{
     }
     public void setTempsTransit(){
         m_tempsTransitAutobus = m_distribution.pigerTemps();
-
     }
+    public void setDoubleSens(){
+        Boolean doubleSens = false;
+        for (Troncon trcDest: this.getDestination().getTroncons()){
+            for (Troncon trcOrig: trcDest.getDestination().getTroncons()){
+                if (trcOrig == this){
+                    doubleSens = true;
+                    break;
+                }
+            }
+        }       
+        m_doubleSens = doubleSens;
+    }
+    public Boolean getDoubleSens(){
+        return m_doubleSens;
+    }
+    
     public Temps getTempsTransitAutobus(){
         return m_tempsTransitAutobus;
     }

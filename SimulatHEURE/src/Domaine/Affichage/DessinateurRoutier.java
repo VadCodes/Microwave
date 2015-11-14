@@ -85,27 +85,40 @@ public class DessinateurRoutier
                 else 
                 {
                     p_g.setColor(Color.BLUE);
-                }
-                
+                }   
+                    
                 Point2D.Float p2 = troncon.getDestination().getPosition();
 
-                Path2D.Float fleche = new Path2D.Float();                
-                fleche.moveTo(p1.x, p1.y);
-                fleche.lineTo(p2.x, p2.y);
+                Path2D.Float fleche = new Path2D.Float();  
+                
+                float p1x = p1.x;
+                float p1y = p1.y;
+                float p2x = p2.x;
+                float p2y = p2.y;
+
+                if (troncon.getDoubleSens()){
+                    p1x -= 30;
+                    p1y -= 30;
+                    p2x -= 30;
+                    p2y -= 30;
+                }
+                
+                fleche.moveTo(p1x, p1y);
+                fleche.lineTo(p2x, p2y);
                 p_g.draw(fleche);
-                
+
                 float d = (float)p2.distance(p1);
-                float dx = p2.x - p1.x;
-                float dy = p2.y - p1.y;
-                
-                fleche.moveTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 
-                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
-                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
-                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                fleche.lineTo(p1.x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / p_echelle, 
-                        p1.y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / p_echelle);
+                float dx = p2x - p1x;
+                float dy = p2y - p1y;
+
+                fleche.moveTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 
+                        p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
+                fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
+                        p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
+                fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / p_echelle, 
+                        p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / p_echelle);
                 fleche.closePath();
-                p_g.fill(fleche);
+                p_g.fill(fleche);              
             }
         }
     }

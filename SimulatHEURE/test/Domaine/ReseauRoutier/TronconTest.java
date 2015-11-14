@@ -47,4 +47,17 @@ public class TronconTest extends TestCase {
         assertTrue(db1);
         assertTrue(db2);
     }
+    
+    public void testSetDoubleSens(){
+        Intersection intersectionA = new Intersection(new Point2D.Float(5,10));
+        Intersection intersectionB = new Intersection(new Point2D.Float(10,20));
+        Troncon tronconAB = new Troncon(intersectionB, new Distribution(), new Temps(4));
+        intersectionA.ajouterTroncon(tronconAB);
+        Troncon tronconBA = new Troncon(intersectionA, new Distribution(), new Temps(4));
+        intersectionB.ajouterTroncon(tronconBA);
+        tronconAB.setDoubleSens();
+        tronconBA.setDoubleSens();
+        assertTrue(tronconAB.getDoubleSens());
+        assertTrue(tronconBA.getDoubleSens());
+    }
 }

@@ -129,6 +129,7 @@ public class Simulatheure {
                 Intersection destination = m_parametresTroncon.getLast();
                 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
+                ajusterDoubleSens();
                 deselectionnerRoutier();
             }
         }
@@ -141,5 +142,13 @@ public class Simulatheure {
     public Boolean supprimerSelectionRoutier()
     {
         return m_reseauRoutier.supprimerSelection();
+    }
+    
+    public void ajusterDoubleSens(){
+        for (Intersection intrsct : m_reseauRoutier.getIntersections()){
+            for (Troncon trc : intrsct.getTroncons()){
+                trc.setDoubleSens();
+            }
+        }
     }
 }
