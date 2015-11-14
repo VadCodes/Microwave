@@ -6,6 +6,9 @@
 package GUI;
 
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Temps;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,9 +55,20 @@ public class EditerTroncon extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Éditer un tronçon");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Nom :");
 
         jButton1.setText("Annuler");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("OK");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -154,8 +168,34 @@ public class EditerTroncon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // bouton OK
+        double min,freq,max;
+        try{
+            min = Double.parseDouble(jTextField2.getText());
+            freq = Double.parseDouble(jTextField3.getText());
+            max = Double.parseDouble(jTextField4.getText());
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "ERREUR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Distribution dist = new Distribution(new Temps(min), new Temps(freq), new Temps(max));
+        m_troncon.setDistribution(dist);
+        
+        m_troncon.setNom(jTextField1.getText());
+        
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // bouton annuler
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
