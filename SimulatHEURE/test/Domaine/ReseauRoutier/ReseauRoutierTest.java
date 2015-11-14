@@ -34,7 +34,8 @@ public class ReseauRoutierTest {
      */
     @Test
     public void testGetIntersections() {
-        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        Intersection intersection1 = reseauRoutier.getIntersections().getLast();
         assertEquals(reseauRoutier.getIntersections().getFirst(), intersection1);
     }
 
@@ -51,8 +52,10 @@ public class ReseauRoutierTest {
      */
     @Test
     public void testAjouterTroncon() {
-        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
-        Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        Intersection intersection1 = reseauRoutier.getIntersections().getLast();
+        reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        Intersection intersection2 = reseauRoutier.getIntersections().getLast();
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
          Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
          Troncon test = reseauRoutier.getIntersections().getFirst().getListeTroncons().getFirst();
@@ -65,8 +68,10 @@ public class ReseauRoutierTest {
      */
     @Test
     public void testInitReseauRoutier() {
-        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
-        Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        Intersection intersection1 = reseauRoutier.getIntersections().getLast();
+        reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        Intersection intersection2 = reseauRoutier.getIntersections().getLast();
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
         Troncon troncon2 = reseauRoutier.ajouterTroncon(intersection1, intersection2, distribution2);
         reseauRoutier.initReseauRoutier();

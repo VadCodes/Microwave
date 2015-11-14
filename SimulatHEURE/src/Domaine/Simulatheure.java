@@ -1,16 +1,12 @@
 package Domaine;
-import Domaine.ReseauRoutier.ReseauRoutier;
-import Domaine.ReseauTransport.ReseauTransport;
-import Domaine.BesoinsTransport.BesoinTransport;
-import Domaine.ReseauRoutier.Intersection;
-import Domaine.ReseauTransport.PaireArretTrajet;
-import Domaine.Utilitaire.Distribution;
-import Domaine.Utilitaire.Temps;
-import java.awt.geom.Point2D;
+
+import Domaine.ReseauRoutier.*;
+import Domaine.ReseauTransport.*;
+import Domaine.BesoinsTransport.*;
+import Domaine.Utilitaire.*;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-
 /**
  *
  * @author vinny
@@ -28,6 +24,7 @@ public class Simulatheure {
     private ReseauTransport m_reseauTransport ;
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
+    
     public Simulatheure() {
         m_reseauRoutier = new ReseauRoutier();
         m_reseauTransport = new ReseauTransport();
@@ -45,11 +42,83 @@ public class Simulatheure {
     public void rafraichirSimulation(Temps m_deltaT){
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
-    public void ajouterIntersection(Point2D.Float poin){
-        m_reseauRoutier.ajouterIntersection(poin.x, poin.y);
+    public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
+    {
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+        m_reseauRoutier.ajouterIntersection(xReel, yReel);
     }
     
-    public void ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
+    public void ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution)
+    {
         m_reseauRoutier.ajouterTroncon(intersectionOrigin, intersectionDestination, distribution);
+    }
+
+    public void selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
+    {
+        float xReel;
+        float yReel;        
+        float largeurSelection;        
+        
+        if (p_echelle > 1)
+        {
+            xReel = (p_x - Intersection.RAYON) / p_echelle;
+            yReel = (p_y - Intersection.RAYON) / p_echelle;
+            largeurSelection = 2 * Intersection.RAYON / p_echelle;
+        }
+        else
+        {
+            xReel = p_x / p_echelle - Intersection.RAYON;
+            yReel = p_y / p_echelle - Intersection.RAYON;
+            largeurSelection = 2 * Intersection.RAYON;
+        }        
+        
+        if (!m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection))
+        {
+            if (p_echelle > 1)
+            {
+                xReel = (p_x - Troncon.LARGEUR / 2) / p_echelle;
+                yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
+                largeurSelection = Troncon.LARGEUR / p_echelle;
+            }
+            else
+            {
+                xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
+                yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
+                largeurSelection = Troncon.LARGEUR;
+            }
+            
+            m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection);
+        }
+    }
+    
+    public void deselectionnerRoutier()
+    {
+        m_reseauRoutier.deselectionnerTout();
+    }
+    
+    public void construireTroncon(Integer p_x, Integer p_y, Float p_echelle)
+    {
+        float xReel;
+        float yReel;        
+        float largeurSelection;        
+        
+        if (p_echelle > 1)
+        {
+            xReel = (p_x - Intersection.RAYON) / p_echelle;
+            yReel = (p_y - Intersection.RAYON) / p_echelle;
+            largeurSelection = 2 * Intersection.RAYON / p_echelle;
+        }
+        else
+        {
+            xReel = p_x / p_echelle - Intersection.RAYON;
+            yReel = p_y / p_echelle - Intersection.RAYON;
+            largeurSelection = 2 * Intersection.RAYON;
+        }        
+        
+        if (m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection))
+        {
+            
+        }
     }
 }

@@ -272,8 +272,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
-        selectionnerRoutier.doClick();
-        
+        selectionnerRoutier.doClick();        
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
@@ -298,41 +297,22 @@ public class MainWindow extends javax.swing.JFrame {
             switch (m_mode_courant)
             {                
                 case ROUTIER:
-                    float x;
-                    float y;
                     float echelle = afficheurReseau.getEchelle();                    
                     switch (m_commande_courante)
                     {                        
-                        case SELECTIONNER:                                    
-                            if (afficheurReseau.selectionnerIntersection(evt.getX(), evt.getY()))
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                afficheurReseau.selectionnerTroncon(evt.getX(), evt.getY());
-                                break;
-                            }
+                        case SELECTIONNER:
+                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            break;
                         
                         case INTERSECTION:
-                            x = evt.getX() / echelle;
-                            y = evt.getY() / echelle;
-                            this.m_controleur.m_reseauRoutier.ajouterIntersection(x, y);
+                            m_controleur.ajouterIntersection(evt.getX(), evt.getY(), echelle);
                             boolean ajoutIntersection = true;
                             afficheurReseau.setDimension(ajoutIntersection);
-                            defilementAfficheur.setViewportView(afficheurReseau);
-                            
+                            defilementAfficheur.setViewportView(afficheurReseau);                            
                             break;
                             
                         case TRONCON:
-                            if (afficheurReseau.selectionnerIntersection(evt.getX(), evt.getY()))
-                            {
-                                if (m_controleur.m_reseauRoutier.getIntersectionsSelectionnees() == 2)
-                                {
-                                    this.m_controleur.ajouterTroncon(null, null, null);
-                                }
-                            }
-
+                            m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                             break;
 
                         default:
@@ -384,7 +364,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void intersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intersectionActionPerformed
         
         this.setCommande(Commandes.INTERSECTION);
-        afficheurReseau.deselectionnerRoutier();
+        m_controleur.deselectionnerRoutier();
         
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_intersectionActionPerformed
@@ -392,7 +372,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void tronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tronconActionPerformed
         
         this.setCommande(Commandes.TRONCON);
-        afficheurReseau.deselectionnerRoutier();
+        m_controleur.deselectionnerRoutier();
         
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_tronconActionPerformed

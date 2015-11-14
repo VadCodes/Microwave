@@ -1,10 +1,14 @@
 package Domaine.ReseauRoutier;
 
-import Domaine.Utilitaire.Distribution;
-import Domaine.Utilitaire.Temps;
-import java.awt.geom.Point2D;
+import Domaine.Utilitaire.*;
+
 import java.util.LinkedList;
 //import java.util.ListIterator;
+
+import java.awt.geom.Point2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -12,9 +16,9 @@ import java.util.LinkedList;
  */
 public class ReseauRoutier {
     private LinkedList<Intersection> m_listeIntersections = new LinkedList();
-    public ReseauRoutierFactory m_factory = new ReseauRoutierFactory(); // why pubblic !?
+    private final ReseauRoutierFactory m_factory = new ReseauRoutierFactory(); // why pubblic !?
     
-    private int m_nombreIntersectionsSelectionnees = 0;
+    
     
     public ReseauRoutier(){}
     
@@ -22,11 +26,9 @@ public class ReseauRoutier {
         return m_listeIntersections;
     }
     
-    public Intersection  ajouterIntersection(float x, float y){
-        Point2D.Float position = m_factory.creerPosition(x, y);
-        Intersection intersection = m_factory.creerIntersection(position);
-        m_listeIntersections.add(intersection);
-        return intersection;
+    public void ajouterIntersection(float p_x, float p_y)
+    {
+        m_listeIntersections.add(m_factory.intersection(new Point2D.Float(p_x, p_y)));
     }
     
     public Troncon ajouterTroncon(Intersection intersectionOrigin, Intersection intersectionDestination, Distribution distribution){
@@ -54,24 +56,63 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public Integer getIntersectionsSelectionnees()
+    public Boolean selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
     {
-        return m_nombreIntersectionsSelectionnees;
+        Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
+
+        for (Intersection intersection: m_listeIntersections)
+        {
+            if (zoneSelection.contains(intersection.getPosition()))
+            {
+                intersection.changerStatutSelection();                
+                return true;                                    
+            }
+        }
+        
+        return false;
     }
     
-    public void setIntersectionsSelectionnees(Integer p_nombre)
+    public void selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
     {
-        m_nombreIntersectionsSelectionnees = p_nombre;
+        Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(p_x, p_y, p_largeur, p_largeur);
+        
+        for (Intersection intersection: m_listeIntersections)
+        {
+            Point2D.Float p1 = intersection.getPosition();
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                Point2D.Float p2 = troncon.getDestination().getPosition();
+                Line2D.Float segment = new Line2D.Float(p1, p2);
+                
+                if (segment.intersects(zoneApproximative))
+                {
+                    troncon.changerStatutSelection();
+                    return;
+                }
+            }
+        }
     }
     
-    public void incrementerIntersectionsSelectionnees()
+    public void deselectionnerTout()
     {
-        m_nombreIntersectionsSelectionnees += 1;
-    }
-    
-    public void decrementerIntersectionsSelectionnees()
-    {
-        m_nombreIntersectionsSelectionnees -= 1;
+        for (Intersection intersection: m_listeIntersections)
+        {
+            if (intersection.estSelectionee())
+            {
+                intersection.changerStatutSelection();
+            }
+            
+            for (Troncon troncon: intersection.getListeTroncons())
+            {   
+                if (troncon.estSelectione())
+                {
+                    troncon.changerStatutSelection();
+                }
+            }
+        }
+        
+        //m_fenetrePrincipale.m_controleur.m_reseauRoutier.setIntersectionsSelectionnees(0);
     }
     
     public void initReseauRoutier(){
@@ -84,4 +125,3 @@ public class ReseauRoutier {
         }
     }
 }
-

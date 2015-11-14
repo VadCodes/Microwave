@@ -5,10 +5,10 @@
  */
 package Domaine.ReseauRoutier;
 
-import Domaine.Utilitaire.Distribution;
-import Domaine.Utilitaire.Temps;
-import java.awt.geom.Point2D;
+import Domaine.Utilitaire.*;
 import java.util.LinkedList;
+
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -30,10 +30,9 @@ public class ReseauRoutierFactory {
            return troncon;
        }
        
-       public Intersection creerIntersection(Point2D.Float p_position){
-           Intersection intersection = new Intersection(p_position);
-          // m_listIntersections .add(intersection);
-           return intersection;
+       public Intersection intersection(Point2D.Float pt)
+       {
+           return new Intersection(pt);
        }
        
        public Emplacement creerEmplacement(Boolean estSurTroncon, float  pourcentageParcouru, Troncon troncon, Intersection intersection){
@@ -46,11 +45,5 @@ public class ReseauRoutierFactory {
            Trajet trajet = new Trajet(emplacementInitial, emplacementFinal, listTroncons);
           // m_listTrajet.add(trajet);
            return trajet;
-       }
-       
-       public Point2D.Float creerPosition(float x, float y){
-           Point2D.Float position = new Point2D.Float(x,y);
-          // m_listPosition.add(position);
-           return position;
        }
 }

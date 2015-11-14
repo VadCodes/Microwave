@@ -30,10 +30,14 @@ public class SourceAutobusTest extends TestCase {
         super(testName);
         ReseauRoutier reseauRoutier = new ReseauRoutier();
         // Ajout des intersections
-        Intersection intersection1 = reseauRoutier.ajouterIntersection(0.0f, 0.0f);
-        Intersection intersection2 = reseauRoutier.ajouterIntersection(0.0f, 10.0f);
-        Intersection intersection3 = reseauRoutier.ajouterIntersection(10.0f, 10.0f);
-        Intersection intersection4 = reseauRoutier.ajouterIntersection(20.0f, 5.0f);
+        reseauRoutier.ajouterIntersection(0.0f, 0.0f);
+        Intersection intersection1 = reseauRoutier.getIntersections().getLast();
+        reseauRoutier.ajouterIntersection(0.0f, 10.0f);
+        Intersection intersection2 = reseauRoutier.getIntersections().getLast();
+        reseauRoutier.ajouterIntersection(10.0f, 10.0f);
+        Intersection intersection3 = reseauRoutier.getIntersections().getLast();
+        reseauRoutier.ajouterIntersection(20.0f, 5.0f);
+        Intersection intersection4 = reseauRoutier.getIntersections().getLast();
         //Ajout des Troncons Et deux distributions
         Distribution distribution1 =new Distribution(new Temps(10), new Temps(15), new Temps(20));
         Distribution distribution2 =new Distribution(new Temps(5), new Temps(10), new Temps(15));
