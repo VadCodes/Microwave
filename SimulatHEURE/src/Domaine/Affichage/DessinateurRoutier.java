@@ -95,12 +95,24 @@ public class DessinateurRoutier
                 float p1y = p1.y;
                 float p2x = p2.x;
                 float p2y = p2.y;
-
+                float n = 5;
                 if (troncon.getDoubleSens()){
-                    p1x -= 30;
-                    p1y -= 30;
-                    p2x -= 30;
-                    p2y -= 30;
+                    if(p2y-p1y>0){
+                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    }
+                    else{
+                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));   
+                    }
+                    if(p2x-p1x>0){
+                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    }
+                    else{
+                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    }
                 }
                 
                 fleche.moveTo(p1x, p1y);
