@@ -61,6 +61,12 @@ public class MainWindow extends javax.swing.JFrame {
         ajoutIntersection = new javax.swing.JToggleButton();
         constructionTroncon = new javax.swing.JToggleButton();
         suppressionRoutier = new javax.swing.JButton();
+        boutonsTransport = new javax.swing.JPanel();
+        selectionTransport = new javax.swing.JToggleButton();
+        ajoutTrajet = new javax.swing.JToggleButton();
+        ajoutArret = new javax.swing.JToggleButton();
+        ajoutTroncon = new javax.swing.JToggleButton();
+        suppressionTransport = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         menu = new javax.swing.JMenuBar();
@@ -73,13 +79,12 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(simulation);
 
         groupeModes.add(selectionRoutier);
-        groupeModes.add(intersection);
+        groupeModes.add(ajoutIntersection);
         groupeModes.add(constructionTroncon);
 
         jPopupMenu1.setName(""); // NOI18N
 
         jMenuItem1.setText("Éditer...");
-        jMenuItem1.setActionCommand("Éditer...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -194,6 +199,52 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(suppressionRoutier);
 
+        boutonsTransport.setAlignmentX(1.0F);
+        boutonsTransport.setAlignmentY(1.0F);
+        boutonsTransport.setOpaque(false);
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionTransport.setText("Sélectionner");
+        selectionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(selectionTransport);
+
+        ajoutTrajet.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutTrajet.setText("Trajet");
+        boutonsTransport.add(ajoutTrajet);
+
+        ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutArret.setText("Arret");
+        ajoutArret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutArretActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutArret);
+
+        ajoutTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutTroncon.setText("Troncon");
+        ajoutTroncon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutTronconActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutTroncon);
+
+        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        suppressionTransport.setText("Supprimer");
+        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(suppressionTransport);
+
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
 
@@ -241,6 +292,11 @@ public class MainWindow extends javax.swing.JFrame {
                     .addContainerGap(1333, Short.MAX_VALUE)
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
+            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
+                    .addContainerGap(1334, Short.MAX_VALUE)
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(26, 26, 26)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,9 +305,15 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(767, Short.MAX_VALUE)))
+                    .addContainerGap(768, Short.MAX_VALUE)))
+            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(afficheurCommandesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(738, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         mainPanel.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
@@ -288,7 +350,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
         this.setMode(Modes.TRANSPORT);
-        //boutonsTransport.setVisible(true);
+        boutonsTransport.setVisible(true);
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -302,9 +364,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_simulationActionPerformed
 
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
-
+        
         if (SwingUtilities.isLeftMouseButton(evt))
         {
+            
             switch (m_mode_courant)
             {                
                 case ROUTIER:
@@ -329,8 +392,32 @@ public class MainWindow extends javax.swing.JFrame {
                         default:
                             break;
                     }
+                break;
+                case TRANSPORT:               
+                     float echelle1 = afficheurReseau.getEchelle();     
+                    switch (m_commande_courante)
+                    {                        
+                        
+                        case SELECTIONNER:
+                            //ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle1);
+                            break;
+                        
+                        case TRONCON:
+                            
+                        case TRAJET:
+                                                    
+                            break;
+                            
+                        case ARRET:
+                            //m_controleur.
+                            break;
+                            
+                        default:
+                            break;
+                    }
                     break;
-
+                    
+                    
                 default:
                     break;
             }
@@ -465,6 +552,25 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur.supprimerSelectionRoutier();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void selectionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionTransportActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+    }//GEN-LAST:event_selectionTransportActionPerformed
+
+    private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
+        this.setCommande(Commandes.ARRET);
+        m_controleur.deselectionnerRoutier();
+        
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_ajoutArretActionPerformed
+
+    private void ajoutTronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutTronconActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ajoutTronconActionPerformed
+
+    private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suppressionTransportActionPerformed
     
     /**
      * @param args the command line arguments
@@ -505,7 +611,7 @@ public class MainWindow extends javax.swing.JFrame {
     {
         this.m_mode_courant = p_mode;
         boutonsRoutier.setVisible(false);
-        //boutonsTransport.setVisible(false);
+        boutonsTransport.setVisible(false);
         //boutonsBesoins.setVisible(false);
         //boutonsSimulation.setVisible(false);
     }
@@ -523,16 +629,19 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane afficheurCommandes;
     private GUI.AfficheurReseau afficheurReseau;
+    private javax.swing.JToggleButton ajoutArret;
     private javax.swing.JToggleButton ajoutIntersection;
+    private javax.swing.JToggleButton ajoutTrajet;
+    private javax.swing.JToggleButton ajoutTroncon;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
+    private javax.swing.JPanel boutonsTransport;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
-    private javax.swing.JToggleButton intersection;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
@@ -542,8 +651,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
     private javax.swing.JToggleButton selectionRoutier;
+    private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;
     private javax.swing.JButton suppressionRoutier;
+    private javax.swing.JButton suppressionTransport;
     private javax.swing.JToggleButton transport;
     private javax.swing.JLabel wtf;
     private javax.swing.JLabel wtf2;

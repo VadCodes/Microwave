@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;
+import java.awt.geom.Ellipse2D;
 
 /**
  *
@@ -40,4 +41,18 @@ public class ReseauTransport {
             crc.calculCirculationGlobal(deltaT);
         }
     }
+   public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre){
+       Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
+
+       for (ListIterator<Circuit> circuit = m_listeCircuits.listIterator() ; circuit.hasNext() ; )
+            for (ListIterator<PaireArretTrajet> paire = circuit.next().getListeArretTrajet().listIterator() ; paire.hasNext() ; )
+            {
+                if (zoneSelection.contains(paire.next().getArret().getEmplacement().calculPosition()))
+                {
+                    paire.previous().getArret().changerStatutSelection();
+                    return paire.next().getArret();
+                }
+            }
+            return null;
+        }
 }

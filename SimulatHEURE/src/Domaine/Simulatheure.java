@@ -1,5 +1,6 @@
 package Domaine;
 
+import Domaine.ReseauTransport.ElementTransport;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
@@ -17,7 +18,7 @@ public class Simulatheure {
     }
     
     public enum Commandes {
-        SELECTIONNER, INTERSECTION, TRONCON
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, TRAJET
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
@@ -91,6 +92,49 @@ public class Simulatheure {
     {
         m_parametresTroncon.clear();
         m_reseauRoutier.deselectionnerTout();
+    }
+    
+    public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle){
+        float xReel;
+        float yReel;        
+        float largeurSelection;        
+        
+          if (p_echelle > 1)
+        {
+            xReel = (p_x - Arret.RAYON) / p_echelle;
+            yReel = (p_y - Arret.RAYON) / p_echelle;
+            largeurSelection = 2 * Arret.RAYON / p_echelle;
+        }
+        else
+        {
+            xReel = p_x / p_echelle - Arret.RAYON;
+            yReel = p_y / p_echelle - Arret.RAYON;
+            largeurSelection = 2 * Arret.RAYON;
+        }        
+        
+        Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection);
+        /*
+        if (arret == null)
+        {
+            if (p_echelle > 1)
+            {
+                xReel = (p_x - Trajet.LARGEUR / 2) / p_echelle;
+                yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
+                largeurSelection = Troncon.LARGEUR / p_echelle;
+            }
+            else
+            {
+                xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
+                yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
+                largeurSelection = Troncon.LARGEUR;
+            }
+            
+            return m_reseauTransport.selectionnerTroncon(xReel, yReel, largeurSelection);
+        }
+        else{
+            return intersection;
+        }*/
+        return arret;
     }
     
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
