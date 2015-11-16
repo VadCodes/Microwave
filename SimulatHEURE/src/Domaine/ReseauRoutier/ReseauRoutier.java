@@ -50,7 +50,7 @@ public class ReseauRoutier {
         return null;
     }
     
-    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur)
+    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
     {
         Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(p_x, p_y, p_largeur, p_largeur);
         
@@ -68,16 +68,16 @@ public class ReseauRoutier {
                 float n = 3;
                 if (troncon.getDoubleSens()){
                     if(p2y-p1y>0){
-                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                     }
                     else{
-                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));   
-                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
+                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                     }
                 }
                 Line2D.Float segment = new Line2D.Float(new Point2D.Float(p1x, p1y), new Point2D.Float(p2x, p2y));
@@ -136,6 +136,13 @@ public class ReseauRoutier {
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
     {        
+        //on s'assure qu'il n'y a pas deux tronçons de origine à destination
+        for(Troncon trc : p_origine.getTroncons()){
+            if (trc.getDestination()==p_destination){
+                return; 
+            }
+        }
+        
         p_origine.ajouterTroncon(m_factory.creerTroncon(p_origine, p_destination));
     }
     

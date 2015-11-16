@@ -81,7 +81,7 @@ public class Simulatheure {
                 largeurSelection = Troncon.LARGEUR;
             }
             
-            return m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection);
+            return m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection, p_echelle);
         }
         else{
             return intersection;
@@ -129,7 +129,7 @@ public class Simulatheure {
                 largeurSelection = Troncon.LARGEUR;
             }
             
-            return m_reseauTransport.selectionnerTroncon(xReel, yReel, largeurSelection);
+            return m_reseauTransport.selectionnerTroncon(xReel, yReel, largeurSelection, p_echelle);
         }
         else{
             return intersection;
@@ -185,7 +185,9 @@ public class Simulatheure {
     
     public Boolean supprimerSelectionRoutier()
     {
-        return m_reseauRoutier.supprimerSelection();
+        Boolean supprimee = m_reseauRoutier.supprimerSelection();
+        ajusterDoubleSens();
+        return supprimee;
     }
     
     public void ajusterDoubleSens(){

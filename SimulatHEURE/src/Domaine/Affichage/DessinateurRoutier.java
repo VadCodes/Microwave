@@ -91,7 +91,6 @@ public class DessinateurRoutier
 
                 Path2D.Float fleche = new Path2D.Float();  
                 
-                //me reste à crisser l'échelle là dedans
                 float p1x = p1.x;
                 float p1y = p1.y;
                 float p2x = p2.x;
@@ -99,16 +98,16 @@ public class DessinateurRoutier
                 float n = 3;
                 if (troncon.getDoubleSens()){
                     if(p2y-p1y>0){
-                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                     }
                     else{
-                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));   
-                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
+                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                     }
                 }
                 
