@@ -409,7 +409,7 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                             
                         case ARRET:
-                            //m_controleur.
+                            m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle1);
                             break;
                             
                         default:
@@ -559,8 +559,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
         this.setCommande(Commandes.ARRET);
-        m_controleur.deselectionnerRoutier();
-        
+        m_controleur.deselectionnerTransport();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 

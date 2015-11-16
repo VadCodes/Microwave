@@ -5,6 +5,8 @@ import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
 import Domaine.Utilitaire.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Line2D;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -23,6 +25,8 @@ public class Simulatheure {
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList();
+    private Intersection m_intersectionOriginArret;
+    private Troncon m_tronconArrret;
     private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
@@ -93,6 +97,9 @@ public class Simulatheure {
         m_parametresTroncon.clear();
         m_reseauRoutier.deselectionnerTout();
     }
+    public void deselectionnerTransport(){
+        //A faire
+    }
     
     public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle){
         float xReel;
@@ -136,7 +143,30 @@ public class Simulatheure {
         }*/
         return arret;
     }
-    
+    public Arret ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+         for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
+             Intersection intersectionOrigin = intersection.next();
+            for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator() ; troncons.hasNext() ; ){
+                Troncon troncon = troncons.next();
+                if(troncon.estSelectionne()){
+                    Point2D.Float p1 = new Point2D.Float(xReel,yReel);
+                    double distance1 = intersectionOrigin.getPosition().distance(p1);
+                    double distance2 = troncon.longueurTroncon();
+                    float pourcentage = (float) (distance1/distance2);
+                     Emplacement em = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
+                     return new Arret(em, "default");
+                }
+                }
+            }
+         return null;
+        }
+    public void construirePaireArretTrajet(){
+        // TODO    }
+
+    }
+  
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
     {
         float xReel = p_x / p_echelle;

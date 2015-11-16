@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Domaine.ReseauTransport;
+import Domaine.ReseauRoutier.Emplacement;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -55,4 +56,8 @@ public class ReseauTransport {
             }
             return null;
         }
+   
+   public Arret creerArret(Emplacement emplacement, String nom){
+       return new Arret(emplacement, nom);
+   }
 }

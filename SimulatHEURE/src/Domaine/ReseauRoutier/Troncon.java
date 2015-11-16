@@ -13,6 +13,7 @@ public class Troncon extends ElementRoutier{
     private Temps m_tempsTransitPieton;
     private final Intersection m_intersectionDestination;
     private Boolean m_doubleSens = false;
+    private float m_longeur;
     
     public final static float LARGEUR = 5;
     public final static float GROSSEUR_FLECHE = 30;
@@ -23,6 +24,10 @@ public class Troncon extends ElementRoutier{
         m_intersectionDestination =  p_destination;
         m_distribution = distribution;
         m_tempsTransitPieton = p_tempsTransitPieton;
+       
+    }
+    public void setLongueur(float p_longueur){
+        p_longueur = m_longeur;
     }
     public void setTempsTransit(){
         m_tempsTransitAutobus = m_distribution.pigerTemps();
@@ -70,9 +75,7 @@ public class Troncon extends ElementRoutier{
     }
 
 
-    /*
-    public double longueurTroncon(){
-     return m_intersectionOrigin.getPosition().distanceEntrePositions(m_intersectionDestination.getPosition());
+    public float longueurTroncon(){
+     return m_longeur;
  }
-    */
 }
