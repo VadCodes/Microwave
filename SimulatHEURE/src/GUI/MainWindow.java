@@ -364,14 +364,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_simulationActionPerformed
 
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
-        
+        float echelle = afficheurReseau.getEchelle();
         if (SwingUtilities.isLeftMouseButton(evt))
         {
             
             switch (m_mode_courant)
             {                
                 case ROUTIER:
-                    float echelle = afficheurReseau.getEchelle();                    
+                                        
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
@@ -393,8 +393,7 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                     }
                 break;
-                case TRANSPORT:               
-                     float echelle1 = afficheurReseau.getEchelle();     
+                case TRANSPORT:                   
                     switch (m_commande_courante)
                     {                        
                         
@@ -426,27 +425,17 @@ public class MainWindow extends javax.swing.JFrame {
         {
             switch (m_mode_courant)
             {                
-                case ROUTIER:
-                    float echelle = afficheurReseau.getEchelle();                    
-                    switch (m_commande_courante)
-                    {                        
-                        case SELECTIONNER:
-                            m_controleur.deselectionnerRoutier();
-                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutier!=null){
-                                jPopupMenu1.show(this,evt.getX(),evt.getY()); //echelle
-                            }
-                            break;
-                            
-                        case INTERSECTION:
-                            break;
-                            
-                        case TRONCON:
-                            break;
-                            
-                        default:
-                            break;
+                case ROUTIER:                  
+                    m_controleur.deselectionnerRoutier();
+                    ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                    if (elemRoutier!=null){
+                        System.out.println(evt.getX());
+                        System.out.println(echelle);
+                        System.out.println(evt.getX()/echelle);
+                        System.out.println("###");
+                        jPopupMenu1.show(this,evt.getX(),evt.getY());
                     }
+                    break;
             }
         }
         
