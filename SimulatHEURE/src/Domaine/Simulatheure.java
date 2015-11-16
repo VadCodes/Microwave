@@ -147,7 +147,7 @@ public class Simulatheure {
         }*/
         return arret;
     }
-    public Arret ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
+    private  void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;  
          for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
@@ -159,15 +159,27 @@ public class Simulatheure {
                     double distance1 = intersectionOrigin.getPosition().distance(p1);
                     double distance2 = troncon.longueurTroncon();
                     float pourcentage = (float) (distance1/distance2);
-                     Emplacement em = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
-                     return new Arret(em, "default");
+                     Emplacement emplacementOrigin = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
+                     LinkedList<Troncon> tr = new LinkedList();
+                     construireTrajet(intersectionOrigin.getTroncons(), tr);
+                     
+                     
                 }
                 }
             }
-         return null;
         }
+    private void construireTrajet(LinkedList<Troncon> p_listTroncon, LinkedList<Troncon> p_listAConstruire){
+        for (ListIterator<Troncon> troncons2 = p_listTroncon.listIterator() ; troncons2.hasNext() ; ){
+                 Troncon troncon = troncons2.next();
+                      if(troncon.estSelectionne()){
+                               p_listAConstruire.add(troncon);
+                               construireTrajet(troncon.getDestination().getTroncons(), p_listAConstruire);
+                               return;
+                      }
+            }
+    }
     public void construirePaireArretTrajet(){
-        // TODO    }
+        
 
     }
   
@@ -230,5 +242,9 @@ public class Simulatheure {
                 trc.setDoubleSens();
             }
         }
+    }
+    
+    public void ajouterCircuit(){
+        
     }
 }
