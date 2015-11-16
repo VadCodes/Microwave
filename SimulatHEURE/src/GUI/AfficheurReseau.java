@@ -48,7 +48,9 @@ public class AfficheurReseau extends JPanel implements Serializable {
             graphic2D.scale(m_echelle, m_echelle);
             
             DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier(), m_dimension);
+            DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport(), m_dimension);
             dessinateurRoutier.dessiner(graphic2D);
+            dessinateurTransport.dessiner(graphic2D);
         }
     }
     

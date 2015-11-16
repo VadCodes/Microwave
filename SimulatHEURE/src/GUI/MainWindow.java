@@ -408,7 +408,7 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                             
                         case ARRET:
-                            m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle1);
+                            m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                             break;
                             
                         default:

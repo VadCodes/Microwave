@@ -29,7 +29,20 @@ public class DessinateurTransport {
         m_reseau = p_reseau;
         m_dimensionInitiale = p_dimensionInitiale;
     }
-      private void dessinerIArrets(Graphics2D p_g, float p_echelle)
+    
+    public void dessiner(Graphics2D p_g)
+    {
+        float echelle = (float)p_g.getTransform().getScaleX();
+        if (echelle > 1){
+            dessinerArrets(p_g, echelle);
+        }
+        else
+        {
+            dessinerArrets(p_g, 1);
+        }
+    }
+    
+      private void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
         LinkedList<Circuit> circuits = m_reseau.getListeCircuits();
         for (Circuit circuit : circuits){

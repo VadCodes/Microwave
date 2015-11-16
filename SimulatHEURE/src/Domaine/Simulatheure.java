@@ -38,6 +38,10 @@ public class Simulatheure {
         return m_reseauRoutier;
     }
     
+    public ReseauTransport getTransport(){
+        return m_reseauTransport;
+    }
+    
     public void demarrerSimulation(){
         m_reseauRoutier.initReseauRoutier();
         m_reseauTransport.initReseauTransport();
