@@ -21,7 +21,7 @@ public class Simulatheure {
     }
     
     public enum Commandes {
-        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, CIRCUIT
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
@@ -32,7 +32,7 @@ public class Simulatheure {
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
-    private Circuit m_circuit_temp;
+    private Circuit m_circuit_temp = new Circuit();
     private Trajet m_trajet_temp;
     private Boolean m_modeNouvelArret = true;
     
@@ -173,15 +173,18 @@ public class Simulatheure {
          }
     }
 
-    private void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){        
+    public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){        
         if (m_modeNouvelArret){
-            Boolean auMoinsUnArret = (m_circuit_temp.getListeArretTrajet().getFirst() != null);
+            Boolean auMoinsUnArret = !(m_circuit_temp.getListeArretTrajet().isEmpty());
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
-            if (nouvET.getClass() != Arret.class){
+            if (nouvET == null || nouvET.getClass() != Arret.class){
                 return;
             }
             Arret nouvArret = (Arret) nouvET;
+            
             if(auMoinsUnArret){
+                //TODO verifier pas meme arret que precedent
+                
                 //selectionner un arret
                 if (!m_circuit_temp.getBoucle()){
                     if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){

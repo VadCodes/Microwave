@@ -64,8 +64,6 @@ public class DessinateurTransport {
                 Emplacement em = source.getEmplacement();
                 
                 Point2D.Float position = em.calculPosition();
-                System.out.println("Pourcentage");
-                System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   source.LONGUEUR / p_echelle;
                 float y = position.y -   source.LARGUEUR/ p_echelle;
                 p_g.fill(new Rectangle2D.Float(x,y, source.LONGUEUR,source.LARGUEUR ));
