@@ -27,7 +27,7 @@ public class Troncon extends ElementRoutier{
        
     }
     public void setLongueur(float p_longueur){
-        p_longueur = m_longeur;
+         m_longeur = p_longueur;
     }
     public void setTempsTransit(){
         m_tempsTransitAutobus = m_distribution.pigerTemps();

@@ -18,11 +18,18 @@ import java.awt.geom.Ellipse2D;
 public class ReseauTransport {
     
     private LinkedList<Circuit> m_listeCircuits = new LinkedList();
+    private LinkedList<Arret> m_listeArrets = new LinkedList();
     private Temps tempsDebut;
     public ReseauTransport(){}
     
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;
+    }
+    public LinkedList<Arret> getListArrets (){
+        return m_listeArrets;
+    }
+    public void ajouterArret(Arret p_arret){
+        m_listeArrets.add(p_arret);
     }
     public void setListeCircuits(LinkedList<Circuit> listeCircuits){
         m_listeCircuits = listeCircuits;

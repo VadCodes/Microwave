@@ -44,12 +44,9 @@ public class DessinateurTransport {
     
       private void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
-        LinkedList<Circuit> circuits = m_reseau.getListeCircuits();
-        for (Circuit circuit : circuits){
-            LinkedList<PaireArretTrajet> paires = circuit.getListeArretTrajet();
-            for (PaireArretTrajet paire:paires)
-            {
-                if (!paire.getArret().estSelectionne())
+         LinkedList<Arret> arrets = m_reseau.getListArrets();
+        for (Arret arret :arrets){
+                if (!arret.estSelectionne())
                 {
                     p_g.setColor(Color.GREEN);
                 }
@@ -57,14 +54,15 @@ public class DessinateurTransport {
                 {
                     p_g.setColor(Color.ORANGE);
                 }
-
-                Point2D.Float position = paire.getArret().getEmplacement().calculPosition();
-                float x = position.x -  paire.getArret().RAYON / p_echelle;
-                float y = position.y -  paire.getArret().RAYON / p_echelle;
-                float diametre = 2 *  paire.getArret().RAYON / p_echelle;
+                Point2D.Float position = arret.getEmplacement().calculPosition();
+                System.out.println();
+                float x = position.x -   arret.RAYON / p_echelle;
+                float y = position.y -   arret.RAYON / p_echelle;
+                float diametre = 2 *   arret.RAYON / p_echelle;
+                System.out.println(x);
+                System.out.println(y);
 
                 p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
             }
         }
     }
-}

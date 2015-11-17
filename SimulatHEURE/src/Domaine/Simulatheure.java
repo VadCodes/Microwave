@@ -7,6 +7,7 @@ import Domaine.BesoinsTransport.*;
 import Domaine.Utilitaire.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;
+import java.util.Iterator;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -147,6 +148,29 @@ public class Simulatheure {
         }*/
         return arret;
     }
+    
+    public void ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+         for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
+             Intersection intersectionOrigin = intersection.next();
+            for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator() ; troncons.hasNext() ; ){
+                Troncon troncon = troncons.next();
+                if(troncon.estSelectionne()){
+                    Point2D.Float p1 = new Point2D.Float(xReel,yReel);
+                    double distance1 = intersectionOrigin.getPosition().distance(p1);
+                    double distance2 = troncon.longueurTroncon();
+                    float pourcentage = (float) (distance1/distance2);
+                    System.out.println(distance1);
+                    System.out.println(distance2);
+                    System.out.println(pourcentage);
+                     Emplacement emplacement = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
+                     m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
+                }
+            }
+         }
+    }
+    /*
     private  void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;  
@@ -161,13 +185,15 @@ public class Simulatheure {
                     float pourcentage = (float) (distance1/distance2);
                      Emplacement emplacementOrigin = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
                      LinkedList<Troncon> tr = new LinkedList();
-                     construireTrajet(intersectionOrigin.getTroncons(), tr);
-                     
-                     
+                     tr.add(troncon);
+                     construireTrajet(troncon.getDestination().getTroncons(), tr);
+                     Iterator x = tr.descendingIterator();
+                    // Emplacement emplacementDestination = new Emplacement(true, 0.0 ,tr.getLast(),);
+                     //Trajet trajet = new Trajet(emplacementOrigin, tr.getLast(,tr);
                 }
                 }
             }
-        }
+        }*/
     private void construireTrajet(LinkedList<Troncon> p_listTroncon, LinkedList<Troncon> p_listAConstruire){
         for (ListIterator<Troncon> troncons2 = p_listTroncon.listIterator() ; troncons2.hasNext() ; ){
                  Troncon troncon = troncons2.next();
@@ -244,7 +270,4 @@ public class Simulatheure {
         }
     }
     
-    public void ajouterCircuit(){
-        
-    }
 }
