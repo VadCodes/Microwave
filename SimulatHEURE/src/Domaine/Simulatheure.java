@@ -33,6 +33,7 @@ public class Simulatheure {
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
     private Circuit m_circuit_temp;
+    private Trajet m_trajet_temp;
     
     public Simulatheure() {}  
     
@@ -171,36 +172,60 @@ public class Simulatheure {
     }
 
     private void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){
-        //while veut construire arret
-        Boolean auMoinsUnArret = (m_circuit_temp.getListeArretTrajet().getFirst() != null);
-        if(auMoinsUnArret){
-            //selectionner un arret
+        Boolean modeNouvelArret = true; //pour l'instant
+        
+        if (modeNouvelArret){
+            Boolean auMoinsUnArret = (m_circuit_temp.getListeArretTrajet().getFirst() != null);
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
             if (nouvET.getClass() != Arret.class){
                 return;
             }
             Arret nouvArret = (Arret) nouvET;
-            
-            if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){
-                
+            if(auMoinsUnArret){
+                //selectionner un arret
+                if (!m_circuit_temp.getBoucle()){
+                    if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){
+                        if(m_circuit_temp.getVeutBoucler()){
+                            m_circuit_temp.setBoucle(true);
+                        }
+                    }
+                }
+
+                //mettre en couleur le troncon partiel apres l'arret precedent
+                if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
+                    Troncon trc = m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
+                    //et apres?
+                }
+
+                //mettre en couleur le troncon partiel avant le nouvel arret
+                if(nouvArret.getEmplacement().getEstSurTroncon()){
+                    Troncon trc = nouvArret.getEmplacement().getTroncon();
+                    //et apres?
+                }
+
             }
-            //si arret est le meme que le premier
-                //proposer boucle
-                //si boucle
-                    //mettre l'attribut du circuit en consequence
-        
-            //mettre en couleur le reste du troncon A apres
-
-            //selectionner un deuxieme arret
-
-            //mettre en couleur le reste du troncon Z avant
-
+            //si premier arret, rien a faire?
+            
+            m_circuit_temp.ajouterPaire(nouvArret, null);
+        }
+        else{ //mode trajet           
+            ElementRoutier nouvER = selectionnerElementRoutier(p_x, p_y, p_echelle);
+            if (nouvER.getClass() != Troncon.class){
+                return;
+            }
+            Troncon nouvTroncon = (Troncon) nouvER;
+            
+            
+            if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getOrigine()) {
+                m_circuit_temp.getListeArretTrajet().getLast().setTrajet(nouvTrajet);
+            }
+        }
             //attendre la sélection d'un troncon contigu au troncon A, empecher tout le reste
 
             //meme chose pour B C D...
 
             //attendre la sélection d'un troncon contigu au troncon Z
-        }
+        
     }
         
     private void construireTrajet(LinkedList<Troncon> p_listTroncon, LinkedList<Troncon> p_listAConstruire){
