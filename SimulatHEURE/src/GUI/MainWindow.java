@@ -63,7 +63,7 @@ public class MainWindow extends javax.swing.JFrame {
         suppressionRoutier = new javax.swing.JButton();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
-        ajoutTrajet = new javax.swing.JToggleButton();
+        ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutTroncon = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
@@ -214,14 +214,14 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(selectionTransport);
 
-        ajoutTrajet.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutTrajet.setText("Trajet");
-        ajoutTrajet.addActionListener(new java.awt.event.ActionListener() {
+        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutSource.setText("Source");
+        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutTrajetActionPerformed(evt);
+                ajoutSourceActionPerformed(evt);
             }
         });
-        boutonsTransport.add(ajoutTrajet);
+        boutonsTransport.add(ajoutSource);
 
         ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutArret.setText("Arret");
@@ -566,9 +566,9 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
-    private void ajoutTrajetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutTrajetActionPerformed
+    private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ajoutTrajetActionPerformed
+    }//GEN-LAST:event_ajoutSourceActionPerformed
     
     /**
      * @param args the command line arguments
@@ -629,7 +629,7 @@ public class MainWindow extends javax.swing.JFrame {
     private GUI.AfficheurReseau afficheurReseau;
     private javax.swing.JToggleButton ajoutArret;
     private javax.swing.JToggleButton ajoutIntersection;
-    private javax.swing.JToggleButton ajoutTrajet;
+    private javax.swing.JToggleButton ajoutSource;
     private javax.swing.JToggleButton ajoutTroncon;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
