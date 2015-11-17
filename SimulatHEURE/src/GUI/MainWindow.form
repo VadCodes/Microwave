@@ -327,6 +327,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Trajet"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutTrajetActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JToggleButton" name="ajoutArret">
                   <Properties>

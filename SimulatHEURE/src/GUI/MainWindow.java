@@ -216,6 +216,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         ajoutTrajet.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutTrajet.setText("Trajet");
+        ajoutTrajet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutTrajetActionPerformed(evt);
+            }
+        });
         boutonsTransport.add(ajoutTrajet);
 
         ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -560,6 +565,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_suppressionTransportActionPerformed
+
+    private void ajoutTrajetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutTrajetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ajoutTrajetActionPerformed
     
     /**
      * @param args the command line arguments
