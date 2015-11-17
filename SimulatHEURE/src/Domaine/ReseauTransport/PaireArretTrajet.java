@@ -26,4 +26,12 @@ public class PaireArretTrajet {
     public Trajet getTrajet(){
         return m_trajet;
     }
+    
+    public void setArret(Arret arr){
+        m_arret = arr;
+    }
+    
+    public void setTrajet(Trajet traj){
+        m_trajet = traj;
+    }
 }

@@ -27,7 +27,8 @@ public class Circuit extends ElementTransport{
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private ReseauRoutier m_reseauRoutier;
     private Temps tempsDepart;
-    private Boolean utilisateurVeutBoucler = false;
+    private Boolean m_boucle = false;
+    private Boolean m_veutBoucler = false;
     
     public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
         //assert listeArrTraj doit avoir les 2 premiers
@@ -110,5 +111,18 @@ public class Circuit extends ElementTransport{
         while (sourceAutobusItr.hasNext()) {
             sourceAutobusItr.next().initSourceAutobus();
         }
+    }
+    
+    public void setBoucle(Boolean boucle){
+        m_boucle = boucle;
+    }
+    public Boolean getBoucle(){
+        return m_boucle;
+    }
+    public void setVeutBoucler(Boolean veutBoucler){
+        m_veutBoucler = veutBoucler;
+    }
+    public Boolean getVeutBoucler(){
+        return m_veutBoucler;
     }
 }
