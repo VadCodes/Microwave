@@ -26,10 +26,12 @@ public class Simulatheure {
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList();
     private Intersection m_intersectionOriginArret;
-    private Troncon m_tronconArrret;
+    private Troncon m_tronconArret;
     private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
+    
+    private Circuit m_circuit_temp;
     
     public Simulatheure() {}  
     
@@ -147,27 +149,39 @@ public class Simulatheure {
         }*/
         return arret;
     }
-    private  void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){
-        float xReel = p_x / p_echelle;
-        float yReel = p_y / p_echelle;  
-         for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
-             Intersection intersectionOrigin = intersection.next();
-            for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator() ; troncons.hasNext() ; ){
-                Troncon troncon = troncons.next();
-                if(troncon.estSelectionne()){
-                    Point2D.Float p1 = new Point2D.Float(xReel,yReel);
-                    double distance1 = intersectionOrigin.getPosition().distance(p1);
-                    double distance2 = troncon.longueurTroncon();
-                    float pourcentage = (float) (distance1/distance2);
-                     Emplacement emplacementOrigin = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
-                     LinkedList<Troncon> tr = new LinkedList();
-                     construireTrajet(intersectionOrigin.getTroncons(), tr);
-                     
-                     
-                }
-                }
+    private void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){
+        //while veut construire arret
+        Boolean auMoinsUnArret = (m_circuit_temp.getListeArretTrajet().getFirst() != null);
+        if(auMoinsUnArret){
+            //selectionner un arret
+            ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
+            if (nouvET.getClass() != Arret.class){
+                return;
             }
+            Arret nouvArret = (Arret) nouvET;
+            
+            if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){
+                
+            }
+            //si arret est le meme que le premier
+                //proposer boucle
+                //si boucle
+                    //mettre l'attribut du circuit en consequence
+        
+            //mettre en couleur le reste du troncon A apres
+
+            //selectionner un deuxieme arret
+
+            //mettre en couleur le reste du troncon Z avant
+
+            //attendre la sélection d'un troncon contigu au troncon A, empecher tout le reste
+
+            //meme chose pour B C D...
+
+            //attendre la sélection d'un troncon contigu au troncon Z
         }
+    }
+        
     private void construireTrajet(LinkedList<Troncon> p_listTroncon, LinkedList<Troncon> p_listAConstruire){
         for (ListIterator<Troncon> troncons2 = p_listTroncon.listIterator() ; troncons2.hasNext() ; ){
                  Troncon troncon = troncons2.next();
@@ -244,7 +258,4 @@ public class Simulatheure {
         }
     }
     
-    public void ajouterCircuit(){
-        
-    }
 }

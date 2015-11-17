@@ -408,7 +408,7 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                             
                         case ARRET:
-                            m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                            //m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                             break;
                             
                         default:
@@ -429,10 +429,6 @@ public class MainWindow extends javax.swing.JFrame {
                     m_controleur.deselectionnerRoutier();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                     if (elemRoutier!=null){
-                        System.out.println(evt.getX());
-                        System.out.println(echelle);
-                        System.out.println(evt.getX()/echelle);
-                        System.out.println("###");
                         jPopupMenu1.show(this,evt.getX(),evt.getY());
                     }
                     break;

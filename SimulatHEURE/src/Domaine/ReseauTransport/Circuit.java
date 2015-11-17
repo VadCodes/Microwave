@@ -27,6 +27,7 @@ public class Circuit {
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private ReseauRoutier m_reseauRoutier;
     private Temps tempsDepart;
+    private Boolean utilisateurVeutBoucler = false;
     
     public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
         //assert listeArrTraj doit avoir les 2 premiers
