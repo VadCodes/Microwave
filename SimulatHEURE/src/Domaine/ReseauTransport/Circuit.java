@@ -20,7 +20,7 @@ import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
 import Domaine.Utilitaire.Temps;
 
-public class Circuit {
+public class Circuit extends ElementTransport{
     private String m_nom = "";
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList();
     private LinkedList<Autobus> m_listeAutobus = new LinkedList();
@@ -36,6 +36,9 @@ public class Circuit {
         m_reseauRoutier = resRoutier;
     }
     
+    public LinkedList<SourceAutobus> getListeSourceAutobus(){
+        return m_listeSources;
+    }
     public void updateSourceAutobus(Temps deltatT){
          ListIterator<SourceAutobus> sourceAutobusItr = m_listeSources.listIterator();
         while (sourceAutobusItr.hasNext()) {

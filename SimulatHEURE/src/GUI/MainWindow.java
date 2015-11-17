@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
+import Domaine.ReseauTransport.ElementTransport;
 import java.util.LinkedList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -63,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
         suppressionRoutier = new javax.swing.JButton();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
-        ajoutTrajet = new javax.swing.JToggleButton();
+        ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutTroncon = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
@@ -214,9 +215,14 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(selectionTransport);
 
-        ajoutTrajet.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutTrajet.setText("Trajet");
-        boutonsTransport.add(ajoutTrajet);
+        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutSource.setText("Source");
+        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutSourceActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutSource);
 
         ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutArret.setText("Arret");
@@ -398,15 +404,19 @@ public class MainWindow extends javax.swing.JFrame {
                     {                        
                         
                         case SELECTIONNER:
-                            //ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle1);
+                            m_controleur.deselectionnerRoutier();
+                            ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                             break;
                         
                         case TRONCON:
                             
-                        case TRAJET:
-                                                    
-                            break;
-                            
+                        case SOURCE:
+                            ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            if (elemRoutie.getClass() == Troncon.class){
+                                m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
+                                m_controleur.deselectionnerRoutier();
+                            }
+                            break;                  
                         case ARRET:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                             if (elemRoutier.getClass() == Troncon.class){
@@ -560,6 +570,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_suppressionTransportActionPerformed
+
+    private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
+         this.setCommande(Commandes.SOURCE);
+    }//GEN-LAST:event_ajoutSourceActionPerformed
     
     /**
      * @param args the command line arguments
@@ -620,7 +634,7 @@ public class MainWindow extends javax.swing.JFrame {
     private GUI.AfficheurReseau afficheurReseau;
     private javax.swing.JToggleButton ajoutArret;
     private javax.swing.JToggleButton ajoutIntersection;
-    private javax.swing.JToggleButton ajoutTrajet;
+    private javax.swing.JToggleButton ajoutSource;
     private javax.swing.JToggleButton ajoutTroncon;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;

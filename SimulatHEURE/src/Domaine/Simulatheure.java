@@ -21,7 +21,7 @@ public class Simulatheure {
     }
     
     public enum Commandes {
-        SELECTIONNER, INTERSECTION, TRONCON, ARRET, TRAJET
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
@@ -111,8 +111,7 @@ public class Simulatheure {
     public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle){
         float xReel;
         float yReel;        
-        float largeurSelection;        
-        
+        float largeurSelection;         
           if (p_echelle > 1)
         {
             xReel = (p_x - Arret.RAYON) / p_echelle;
@@ -127,30 +126,32 @@ public class Simulatheure {
         }        
         
         Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection);
-        /*
-        if (arret == null)
-        {
-            if (p_echelle > 1)
-            {
-                xReel = (p_x - Trajet.LARGEUR / 2) / p_echelle;
-                yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
-                largeurSelection = Troncon.LARGEUR / p_echelle;
-            }
-            else
-            {
-                xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
-                yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
-                largeurSelection = Troncon.LARGEUR;
-            }
-            
-            return m_reseauTransport.selectionnerTroncon(xReel, yReel, largeurSelection, p_echelle);
-        }
-        else{
-            return intersection;
-        }*/
         return arret;
     }
-    
+    public void ajouterSource(Integer p_x, Integer p_y, Float p_echelle){
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+        for (ListIterator<Circuit> circuits =m_reseauTransport.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            if(circuit.estSelectionne()){
+                for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator() ; paires.hasNext() ; ){
+                    PaireArretTrajet paire = paires.next();
+                   for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator() ; troncons.hasNext() ; ){
+                       Troncon troncon = troncons.next();
+                       if(troncon.estSelectionne()){
+                           Point2D.Float p1 = new Point2D.Float(xReel,yReel);
+                            double distance1 = troncon.getIntersectionOrigin().getPosition().distance(p1);
+                            double distance2 = troncon.longueurTroncon();
+                            float pourcentage = (float) (distance1/distance2);
+                             Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getIntersectionOrigin());
+                             Distribution distributionDefault = new Distribution();
+                             m_reseauTransport.ajoutSource(emplacement, circuit, null, distributionDefault, new Temps(0));
+                       }
+                   }
+                }
+            }
+        }
+    }
     public void ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;  

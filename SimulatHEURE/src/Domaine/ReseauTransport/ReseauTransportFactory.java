@@ -9,6 +9,8 @@ import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Temps;
 import java.util.LinkedList;
 
 /**
@@ -34,7 +36,9 @@ public class ReseauTransportFactory {
     public Trajet creerTrajet(Emplacement emplacementInitial, Emplacement emplacementFinal, LinkedList<Troncon> listTroncons){
         return new Trajet (emplacementInitial, emplacementFinal, listTroncons);
     } 
-    
+    public SourceAutobus creerSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
+        return new SourceAutobus(p_emplacement, p_circuit,p_nomSource,p_distribution,p_tempsAttenteinitial);
+    }
     
     
 }

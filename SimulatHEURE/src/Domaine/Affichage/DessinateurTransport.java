@@ -6,16 +6,20 @@
 package Domaine.Affichage;
 
 import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Arret;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.PaireArretTrajet;
 import Domaine.ReseauTransport.ReseauTransport;
+import Domaine.ReseauTransport.SourceAutobus;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  *
@@ -43,6 +47,31 @@ public class DessinateurTransport {
         }
     }
     
+      private void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)
+    {
+          for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+                for (ListIterator<SourceAutobus> sources =circuit.getListeSourceAutobus().listIterator(); sources.hasNext() ; ){
+                    SourceAutobus source  = sources.next();
+                    if (!source.estSelectionne())
+                    {
+                        p_g.setColor(Color.CYAN);
+                    }
+                    else 
+                    {
+                        p_g.setColor(Color.BLUE);
+                    }
+                Emplacement em = source.getEmplacement();
+                
+                Point2D.Float position = em.calculPosition();
+                System.out.println("Pourcentage");
+                System.out.println(em.getPourcentageParcouru());
+                float x = position.x -   source.LONGUEUR / p_echelle;
+                float y = position.y -   source.LARGUEUR/ p_echelle;
+                p_g.fill(new Rectangle2D.Float(x,y, source.LONGUEUR,source.LARGUEUR ));
+            }
+        }
+    }
       private void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
          LinkedList<Arret> arrets = m_reseau.getListArrets();
@@ -53,11 +82,11 @@ public class DessinateurTransport {
                 }
                 else 
                 {
-                    p_g.setColor(Color.ORANGE);
+                    p_g.setColor(Color.BLUE);
                 }
                 Emplacement em = arret.getEmplacement();
                 
-                Point2D.Float position = arret.getEmplacement().calculPosition();
+                Point2D.Float position = em.calculPosition();
                 System.out.println("Pourcentage");
                 System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   arret.RAYON / p_echelle;
@@ -68,3 +97,5 @@ public class DessinateurTransport {
             }
         }
     }
+
+

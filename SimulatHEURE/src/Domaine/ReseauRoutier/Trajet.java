@@ -46,4 +46,7 @@ public class Trajet {
              }
              return null;
     }
+    public LinkedList<Troncon> getListeTroncon(){
+        return m_listTroncons;
+    }
 }

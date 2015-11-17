@@ -14,7 +14,7 @@ import Domaine.Utilitaire.Temps;
  *
  * @author louis
  */
-public class SourceAutobus {
+public class SourceAutobus extends ElementTransport{
     private String m_nomSource;
     private int m_nbAutobusGeneres = 0;
     private Circuit m_circuit;
@@ -24,6 +24,8 @@ public class SourceAutobus {
     private Temps m_frequence;
     private Temps m_tempsAttenteinitial;
     private Temps m_tempsAvantApparition;
+    public final static float LONGUEUR = 10;
+    public final static float LARGUEUR = 10;
     
     public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
         m_emplacement = p_emplacement;
@@ -81,5 +83,8 @@ public class SourceAutobus {
         //met à jour le nombre d'autobus et on pige un nouveau temps de distribution
        // m_frequence  = m_distibutionFrequence.pigerTemps();
         m_nbAutobusGeneres++;
+    }
+    public Emplacement getEmplacement(){
+        return m_emplacement ;
     }
 }
