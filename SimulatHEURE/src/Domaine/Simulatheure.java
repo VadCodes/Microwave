@@ -161,9 +161,6 @@ public class Simulatheure {
                     double distance1 = intersectionOrigin.getPosition().distance(p1);
                     double distance2 = troncon.longueurTroncon();
                     float pourcentage = (float) (distance1/distance2);
-                    System.out.println(distance1);
-                    System.out.println(distance2);
-                    System.out.println(pourcentage);
                      Emplacement emplacement = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
                      m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
                 }

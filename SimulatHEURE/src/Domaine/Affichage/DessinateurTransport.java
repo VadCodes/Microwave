@@ -5,6 +5,7 @@
  */
 package Domaine.Affichage;
 
+import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauTransport.Arret;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.PaireArretTrajet;
@@ -54,13 +55,14 @@ public class DessinateurTransport {
                 {
                     p_g.setColor(Color.ORANGE);
                 }
+                Emplacement em = arret.getEmplacement();
+                
                 Point2D.Float position = arret.getEmplacement().calculPosition();
-                System.out.println();
+                System.out.println("Pourcentage");
+                System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   arret.RAYON / p_echelle;
                 float y = position.y -   arret.RAYON / p_echelle;
                 float diametre = 2 *   arret.RAYON / p_echelle;
-                System.out.println(x);
-                System.out.println(y);
 
                 p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
             }

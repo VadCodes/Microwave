@@ -14,6 +14,7 @@ public class Troncon extends ElementRoutier{
     private final Intersection m_intersectionDestination;
     private Boolean m_doubleSens = false;
     private float m_longeur;
+    private Intersection m_intersectionOrigin;
     
     public final static float LARGEUR = 5;
     public final static float GROSSEUR_FLECHE = 30;
@@ -74,7 +75,13 @@ public class Troncon extends ElementRoutier{
         m_tempsTransitAutobus = m_distribution.pigerTemps(); //nope !
     }
 
-
+    public void setIntersectionOrigin(Intersection p_intersectionOrigin){
+         m_intersectionOrigin =  p_intersectionOrigin;
+    }
+    
+    public Intersection getIntersectionOrigin(){
+        return  m_intersectionOrigin;
+    }
     public float longueurTroncon(){
      return m_longeur;
  }

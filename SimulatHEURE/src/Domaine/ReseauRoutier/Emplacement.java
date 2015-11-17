@@ -30,12 +30,12 @@ public class Emplacement {
         m_position = calculPosition();
     }
     public Point2D.Float calculPosition(){
-        float positionDepartX = m_troncon.getDestination().getPosition().x;
-        float positionDepartY = m_troncon.getDestination().getPosition().y;
+        float positionDepartX = m_troncon.getIntersectionOrigin().getPosition().x;
+        float positionDepartY = m_troncon.getIntersectionOrigin().getPosition().y;
         float positionFinX = m_troncon.getDestination().getPosition().x;
         float positionFinY = m_troncon.getDestination().getPosition().y;
-        float X = positionDepartX + Math.abs(positionFinX - positionDepartX )*m_pourcentageParcouru;
-        float Y = positionDepartX + Math.abs(positionFinY - positionDepartY )*m_pourcentageParcouru;
+        float X = positionDepartX +(positionFinX - positionDepartX )*m_pourcentageParcouru;
+        float Y = positionDepartY +(positionFinY - positionDepartY )*m_pourcentageParcouru;
         return new Point2D.Float(X, Y); // Criss un new;
     }
     public Boolean getEstSurTroncon(){

@@ -408,7 +408,11 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                             
                         case ARRET:
-                            m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            if (elemRoutier.getClass() == Troncon.class){
+                                m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                                m_controleur.deselectionnerRoutier();
+                            }
                             break;
                             
                         default:
@@ -429,10 +433,6 @@ public class MainWindow extends javax.swing.JFrame {
                     m_controleur.deselectionnerRoutier();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                     if (elemRoutier!=null){
-                        System.out.println(evt.getX());
-                        System.out.println(echelle);
-                        System.out.println(evt.getX()/echelle);
-                        System.out.println("###");
                         jPopupMenu1.show(this,evt.getX(),evt.getY());
                     }
                     break;
@@ -549,6 +549,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
         this.setCommande(Commandes.ARRET);
         m_controleur.deselectionnerTransport();
+        m_controleur.deselectionnerRoutier();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 
