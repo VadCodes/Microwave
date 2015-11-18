@@ -59,7 +59,15 @@ public class Simulatheure {
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
     
-    public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
+    public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
+        ElementRoutier er = obtenirElementRoutier(p_x, p_y, p_echelle);
+        if (er != null){
+            er.changerStatutSelection();
+        }
+        return er;
+    }
+    
+    public ElementRoutier obtenirElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
     {
         float xReel;
         float yReel;        
@@ -78,7 +86,7 @@ public class Simulatheure {
             largeurSelection = 2 * Intersection.RAYON;
         }        
         
-        Intersection intersection = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
+        Intersection intersection = m_reseauRoutier.obtenirIntersection(xReel, yReel, largeurSelection);
         if (intersection == null)
         {
             if (p_echelle > 1)
@@ -94,7 +102,7 @@ public class Simulatheure {
                 largeurSelection = Troncon.LARGEUR;
             }
             
-            return m_reseauRoutier.selectionnerTroncon(xReel, yReel, largeurSelection, p_echelle);
+            return m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
         }
         else{
             return intersection;

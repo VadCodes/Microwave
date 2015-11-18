@@ -34,23 +34,46 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public Intersection selectionnerIntersection(Float p_x, Float p_y, Float p_diametre)
+    public Intersection selectionnerIntersection(Float p_x, Float p_y, Float p_diametre){
+        Intersection inter = obtenirIntersection(p_x, p_y, p_diametre);
+        if (inter != null){
+            inter.changerStatutSelection();
+        }
+        return inter;
+    }
+    
+    public Intersection obtenirIntersection(Float p_x, Float p_y, Float p_diametre)
     {
         Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
-        for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
-        {
-            if (zoneSelection.contains(intersection.next().getPosition()))
-            {
-                intersection.previous().changerStatutSelection();
-                return intersection.next();
+        for (Intersection inter : m_listeIntersections){
+            if (zoneSelection.contains(inter.getPosition())){
+                //inter.changerStatutSelection();
+                return inter;
             }
         }
-        
         return null;
+//        for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
+//        {
+//            if (zoneSelection.contains(intersection.next().getPosition()))
+//            {
+//                intersection.previous().changerStatutSelection();
+//                return intersection.next();
+//            }
+//        }
+//        
+//        return null;
     }
     
-    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
+    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
+        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
+        if (trc != null){
+            trc.changerStatutSelection();
+        }
+        return trc;
+    }
+    
+    public Troncon obtenirTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
     {
         Rectangle2D.Float zoneApproximative = new Rectangle2D.Float(p_x, p_y, p_largeur, p_largeur);
         
@@ -84,7 +107,6 @@ public class ReseauRoutier {
                 
                 if (segment.intersects(zoneApproximative))
                 {
-                    troncon.changerStatutSelection();
                     return troncon;
                 }
             }
