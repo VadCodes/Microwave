@@ -50,11 +50,11 @@ public class DessinateurRoutier
         {
             if (!intersection.estSelectionne())
             {
-                p_g.setColor(Color.CYAN);
+                p_g.setColor(Color.BLACK);
             }
             else 
             {
-                p_g.setColor(Color.RED);
+                p_g.setColor(Color.BLUE);
             }
             
             Point2D.Float position = intersection.getPosition();
@@ -68,7 +68,7 @@ public class DessinateurRoutier
 
     private void dessinerTroncons(Graphics2D p_g, float p_echelle)
     {
-        p_g.setColor(Color.PINK);
+        p_g.setColor(Color.LIGHT_GRAY);
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
 
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
@@ -80,7 +80,7 @@ public class DessinateurRoutier
             {   
                 if (!troncon.estSelectionne())
                 {
-                    p_g.setColor(Color.PINK);
+                    p_g.setColor(Color.LIGHT_GRAY);
                 }
                 else 
                 {

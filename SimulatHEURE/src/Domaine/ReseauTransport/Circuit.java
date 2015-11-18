@@ -37,6 +37,10 @@ public class Circuit extends ElementTransport{
         m_reseauRoutier = resRoutier;
     }
     
+    public Circuit(){
+        m_listeArretTrajet = new LinkedList();
+    }
+    
     public LinkedList<SourceAutobus> getListeSourceAutobus(){
         return m_listeSources;
     }

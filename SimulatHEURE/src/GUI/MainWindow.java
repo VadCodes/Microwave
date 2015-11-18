@@ -66,7 +66,7 @@ public class MainWindow extends javax.swing.JFrame {
         selectionTransport = new javax.swing.JToggleButton();
         ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
-        ajoutTroncon = new javax.swing.JToggleButton();
+        ajoutCircuit = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
@@ -233,14 +233,14 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutArret);
 
-        ajoutTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutTroncon.setText("Troncon");
-        ajoutTroncon.addActionListener(new java.awt.event.ActionListener() {
+        ajoutCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutCircuit.setText("Circuit");
+        ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutTronconActionPerformed(evt);
+                ajoutCircuitActionPerformed(evt);
             }
         });
-        boutonsTransport.add(ajoutTroncon);
+        boutonsTransport.add(ajoutCircuit);
 
         suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionTransport.setText("Supprimer");
@@ -408,7 +408,9 @@ public class MainWindow extends javax.swing.JFrame {
                             ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                             break;
                         
-                        case TRONCON:
+                        case CIRCUIT:
+                            m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
+                            break;
                             
                         case SOURCE:
                             ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
@@ -419,7 +421,16 @@ public class MainWindow extends javax.swing.JFrame {
                             break;                  
                         case ARRET:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutier.getClass() == Troncon.class){
+                            if (elemRoutier != null){
+                                if (elemRoutier.getClass() == Troncon.class){
+                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                                    m_controleur.deselectionnerRoutier();
+                                }
+                                else if (elemRoutier.getClass() == Intersection.class){
+                                    //TODO
+                                }   
+                            }
+                            if (elemRoutier.getClass() == Intersection.class){
                                 m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                 m_controleur.deselectionnerRoutier();
                             }
@@ -563,9 +574,9 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 
-    private void ajoutTronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutTronconActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ajoutTronconActionPerformed
+    private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
+        this.setCommande(Commandes.CIRCUIT);
+    }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
         // TODO add your handling code here:
@@ -633,9 +644,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLayeredPane afficheurCommandes;
     private GUI.AfficheurReseau afficheurReseau;
     private javax.swing.JToggleButton ajoutArret;
+    private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
     private javax.swing.JToggleButton ajoutSource;
-    private javax.swing.JToggleButton ajoutTroncon;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
