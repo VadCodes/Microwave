@@ -159,7 +159,13 @@ public class Simulatheure {
         float yReel = p_y / p_echelle;  
          for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
              Intersection intersectionOrigin = intersection.next();
-
+              if(intersectionOrigin.estSelectionne()){
+                Point2D.Float p2 = new Point2D.Float(xReel,yReel);
+                intersectionOrigin.getPosition();
+                Emplacement arretSurIntersection = new Emplacement(false, 0, intersectionOrigin.getTroncons().getFirst(),intersectionOrigin);
+                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));         
+                return;
+             }
             for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator() ; troncons.hasNext() ; ){
                 Troncon troncon = troncons.next();
                 if(troncon.estSelectionne()){
@@ -171,13 +177,7 @@ public class Simulatheure {
                      m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
                      return;
                 }
-                if(intersectionOrigin.estSelectionne()){
-                Point2D.Float p2 = new Point2D.Float(xReel,yReel);
-                intersectionOrigin.getPosition();
-                Emplacement arretSurIntersection = new Emplacement(false, 0, troncon,intersectionOrigin);
-                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));         
-                return;
-             }
+               
             }
          }
     }
