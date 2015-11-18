@@ -12,10 +12,12 @@ import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.PaireArretTrajet;
 import Domaine.ReseauTransport.ReseauTransport;
 import Domaine.ReseauTransport.SourceAutobus;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
@@ -47,6 +49,41 @@ public class DessinateurTransport {
         }
     }
     
+    private void dessinerCircuit(Graphics2D p_g, float p_echelle){
+        p_g.setColor(Color.PINK);
+        p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
+        for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            Arret arretDebut  =  circuit.getListeArretTrajet().getFirst().getArret();
+            Troncon tronconFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getTrajet().getListeTroncon().getLast();//p-e -2 ou pas
+            Arret arretFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getArret();
+            Point2D.Float pd = arretDebut.getEmplacement().calculPosition();
+            Point2D.Float pf = arretFin.getEmplacement().calculPosition();
+            Path2D.Float ligne= new Path2D.Float();  
+            ligne.moveTo(pd.x, pd.y);
+            for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator(); paires.hasNext() ; ){
+                PaireArretTrajet paire = paires.next();
+                for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator(); troncons.hasNext() ; ){
+                    Troncon troncon = troncons.next();
+                  
+                    if(!circuit.estSelectionne()){
+                         p_g.setColor(Color.MAGENTA);
+                    }
+                    else{
+                        p_g.setColor(Color.BLUE);
+                    }
+                    if(troncon == tronconFin){
+                        ligne.lineTo(pf.x, pf.y);
+                    }
+                    else{
+                        Point2D.Float p = troncon.getDestination().getPosition();
+                        ligne.lineTo(p.x,p.y);
+                    }
+                }
+            }
+            p_g.fill(ligne);   
+        }
+    }
       private void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)
     {
           for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
