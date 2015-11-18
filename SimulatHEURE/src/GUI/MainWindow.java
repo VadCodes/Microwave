@@ -422,18 +422,11 @@ public class MainWindow extends javax.swing.JFrame {
                         case ARRET:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                             if (elemRoutier != null){
-                                if (elemRoutier.getClass() == Troncon.class){
+                                if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class){
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                 }
-                                else if (elemRoutier.getClass() == Intersection.class){
-                                    //TODO
-                                }   
-                            }
-                            if (elemRoutier.getClass() == Intersection.class){
-                                m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                m_controleur.deselectionnerRoutier();
-                            }
+                           }
                             break;
                             
                         default:
