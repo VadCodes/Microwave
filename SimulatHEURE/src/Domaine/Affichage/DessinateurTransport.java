@@ -56,25 +56,22 @@ public class DessinateurTransport {
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
         for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
+            if(circuit.estSelectionne()){
+                p_g.setColor(Color.BLUE);
+            }
+            else{
+                p_g.setColor(Color.MAGENTA);
+            }
             Arret arretDebut  =  circuit.getListeArretTrajet().getFirst().getArret();
             Troncon tronconFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getTrajet().getListeTroncon().getLast();//p-e -2 ou pas
-            Arret arretFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getArret();
+            Arret arretFin = circuit.getListeArretTrajet().getLast().getArret();
             Point2D.Float pd = arretDebut.getEmplacement().calculPosition();
             Point2D.Float pf = arretFin.getEmplacement().calculPosition();
             Path2D.Float ligne= new Path2D.Float();  
             ligne.moveTo(pd.x, pd.y);
-            for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator(); paires.hasNext() ; ){
-                PaireArretTrajet paire = paires.next();
+            for (PaireArretTrajet paire : circuit.getListeArretTrajet()){
                 if (paire.getTrajet()!=null){
-                    for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator(); troncons.hasNext() ; ){
-                        Troncon troncon = troncons.next();
-
-                        if(!circuit.estSelectionne()){
-                             p_g.setColor(Color.MAGENTA);
-                        }
-                        else{
-                            p_g.setColor(Color.BLUE);
-                        }
+                    for(Troncon troncon : paire.getTrajet().getListeTroncon()){
                         if(troncon == tronconFin){
                             ligne.lineTo(pf.x, pf.y);
                         }
@@ -85,7 +82,7 @@ public class DessinateurTransport {
                     }
                 }
             }
-            p_g.fill(ligne);   
+            p_g.draw(ligne); 
         }
     }
       private void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)

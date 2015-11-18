@@ -35,6 +35,14 @@ public class Trajet {
         return m_emplacementFinal;
     }
     
+    public void setEmplacementInitial(Emplacement empl){
+        m_emplacementInitial = empl;
+    }
+    
+    public void setEmplacementFinal(Emplacement empl){
+        m_emplacementFinal = empl;
+    }
+    
     public Troncon getNextTroncon(Emplacement emplacement){
         boolean trg= false;
          ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();

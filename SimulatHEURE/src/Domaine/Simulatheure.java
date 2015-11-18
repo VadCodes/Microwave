@@ -210,29 +210,24 @@ public class Simulatheure {
                     }
                 }
                 
-                //selectionner un arret
-                if (!m_circuit_temp.getBoucle()){
-                    if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){
-                        if(m_circuit_temp.getVeutBoucler()){
-                            m_circuit_temp.setBoucle(true);
-                        }
-                    }
-                }
-
                 //mettre en couleur le troncon partiel apres l'arret precedent
-                if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
-                    Troncon trc = m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
-                    trc.changerStatutSelection();
-                }
-
                 //mettre en couleur le troncon partiel avant le nouvel arret
-                if(nouvArret.getEmplacement().getEstSurTroncon()){
-                    Troncon trc = nouvArret.getEmplacement().getTroncon();
-                    trc.changerStatutSelection();
+                if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
+                    m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().changerStatutSelection();
                 }
+                if(nouvArret.getEmplacement().getEstSurTroncon()){
+                    nouvArret.getEmplacement().getTroncon().changerStatutSelection();
+                }
+                        
                 m_modeNouvelArret = false;
+                m_trajet_temp.setEmplacementFinal(nouvArret.getEmplacement());
             }
-            //si premier arret, rien a faire prealablement
+            else{
+                m_trajet_temp.setEmplacementInitial(nouvArret.getEmplacement());
+                if(nouvArret.getEmplacement().getEstSurTroncon()){
+                    m_trajet_temp.getListeTroncon().addFirst(nouvArret.getEmplacement().getTroncon());
+                }
+            }
             
             m_circuit_temp.ajouterPaire(nouvArret, null);
         }
@@ -264,34 +259,124 @@ public class Simulatheure {
                     return;
                 }
             }
-            
+
             nouvTroncon.changerStatutSelection();
             m_trajet_temp.getListeTroncon().add(nouvTroncon);
             
             //si dernier troncon avant l'arret on push le trajet
             if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
                 if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getIntersectionOrigin()) {
+                    m_trajet_temp.getListeTroncon().addLast(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon());
                     m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
-                    m_modeNouvelArret = true;
-                    
-                    //pour l'instant (car il faut ajouter plusieurs arrets)
-                    deselectionnerTout();
                     m_reseauTransport.ajouterCircuit(m_circuit_temp); 
+                    cancellerCircuit();
                 }
             }
             else{ //arret sur intersection
                 if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getIntersection()) {
                     m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
-                    m_modeNouvelArret = true;
-                    
-                    //pour l'instant
-                    deselectionnerTout();
+                   
                     m_reseauTransport.ajouterCircuit(m_circuit_temp);
+                    cancellerCircuit();
                 }
             }
         }
-        
     }
+    
+    //a retravailler
+//    public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle){
+//        Arret arretPrecedent = circuit.getListeArretTrajet().getLast().getArret();
+//        
+//        if (m_modeNouvelArret){
+//
+//            ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
+//            if (nouvET == null || nouvET.getClass() != Arret.class){
+//                return;
+//            }
+//            Arret nouvArret = (Arret) nouvET;
+//
+//            //verifier que l'arret n'est pas deja dans le circuit
+//            for(PaireArretTrajet pat : m_circuit_temp.getListeArretTrajet()){
+//                if (pat.getArret() == nouvArret){
+//                    return;
+//                }
+//            }
+//
+//            //si boucle
+//            if (!m_circuit_temp.getBoucle()){
+//                if (nouvArret == m_circuit_temp.getListeArretTrajet().getFirst().getArret()){
+//                    if(m_circuit_temp.getVeutBoucler()){
+//                        m_circuit_temp.setBoucle(true);
+//                    }
+//                }
+//            }
+//
+//            //mettre en couleur le troncon partiel apres l'arret precedent
+//            if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
+//                Troncon trc = m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
+//
+//            //mettre en couleur le troncon partiel avant le nouvel arret
+//            if(nouvArret.getEmplacement().getEstSurTroncon()){
+//                Troncon trc = nouvArret.getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
+//            m_modeNouvelArret = false;
+//
+//            m_circuit_temp.ajouterPaire(nouvArret, null);
+//        }
+//        else{ //mode trajet           
+//            ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
+//            if (nouvER == null || nouvER.getClass() != Troncon.class){
+//                return;
+//            }
+//            Troncon nouvTroncon = (Troncon) nouvER;
+//            
+//            if (m_trajet_temp.getListeTroncon().isEmpty()) { //trajet pas encore créé
+//                if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+//                        .getArret().getEmplacement().getEstSurTroncon()) { //il faut vérifier que c'est après le premier arret
+//                    if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+//                            .getArret().getEmplacement().getTroncon().getDestination() != nouvTroncon.getIntersectionOrigin()) { 
+//                        return;
+//                    }
+//                }
+//                else{
+//                    if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+//                            .getArret().getEmplacement().getIntersection() != nouvTroncon.getIntersectionOrigin()){
+//                        return;
+//                    }
+//                }
+//            }
+//            else{
+//                if (!nouvTroncon.getIntersectionOrigin().equals(m_trajet_temp.getListeTroncon().getLast().getDestination())) {
+//                    //il faut que ça soit contigu
+//                    return;
+//                }
+//            }
+//            
+//            nouvTroncon.changerStatutSelection();
+//            m_trajet_temp.getListeTroncon().add(nouvTroncon);
+//            
+//            //si dernier troncon avant l'arret on push le trajet
+//            if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
+//                if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getIntersectionOrigin()) {
+//                    m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
+//                    
+//                    cancellerCircuit();
+//                    m_reseauTransport.ajouterCircuit(m_circuit_temp); 
+//                }
+//            }
+//            else{ //arret sur intersection
+//                if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getIntersection()) {
+//                    m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
+//                    
+//                    cancellerCircuit();
+//                    m_reseauTransport.ajouterCircuit(m_circuit_temp);
+//                }
+//            }
+//        }
+//    }
     
     public void cancellerCircuit(){
         deselectionnerTout();
