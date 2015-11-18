@@ -217,8 +217,8 @@ public class Simulatheure {
             Troncon nouvTroncon = (Troncon) nouvER;
             
             
-            if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getOrigine()) {
-                m_circuit_temp.getListeArretTrajet().getLast().setTrajet(nouvTrajet);
+            if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getIntersectionOrigin()) {
+               // m_circuit_temp.getListeArretTrajet().getLast().setTrajet(nouvTrajet);
             }
         }
             //attendre la sélection d'un troncon contigu au troncon A, empecher tout le reste
