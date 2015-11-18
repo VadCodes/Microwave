@@ -456,6 +456,10 @@ public class MainWindow extends javax.swing.JFrame {
                         jPopupMenu1.show(this,evt.getX(),evt.getY());
                     }
                     break;
+                    
+                case TRANSPORT:
+                    m_controleur.cancellerCircuit();
+                    break;
             }
         }
         

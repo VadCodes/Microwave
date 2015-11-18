@@ -203,11 +203,11 @@ public class Simulatheure {
             Arret nouvArret = (Arret) nouvET;
 
             if(auMoinsUnArret){
-                Arret arretPrecedent = m_circuit_temp.getListeArretTrajet().getLast().getArret();
-
-                //verifier pas meme arret que precedent
-                if (nouvArret == arretPrecedent){
-                    return;
+                //verifier que l'arret n'est pas deja dans le circuit
+                for(PaireArretTrajet pat : m_circuit_temp.getListeArretTrajet()){
+                    if (pat.getArret() == nouvArret){
+                        return;
+                    }
                 }
                 
                 //selectionner un arret
@@ -292,20 +292,12 @@ public class Simulatheure {
         }
         
     }
-        
-    private void construireTrajet(LinkedList<Troncon> p_listTroncon, LinkedList<Troncon> p_listAConstruire){
-        for (ListIterator<Troncon> troncons2 = p_listTroncon.listIterator() ; troncons2.hasNext() ; ){
-                 Troncon troncon = troncons2.next();
-                      if(troncon.estSelectionne()){
-                               p_listAConstruire.add(troncon);
-                               construireTrajet(troncon.getDestination().getTroncons(), p_listAConstruire);
-                               return;
-                      }
-            }
-    }
-    public void construirePaireArretTrajet(){
-        
-
+    
+    public void cancellerCircuit(){
+        deselectionnerTout();
+        m_circuit_temp = new Circuit();
+        m_trajet_temp = new Trajet();
+        m_modeNouvelArret = true;
     }
   
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
