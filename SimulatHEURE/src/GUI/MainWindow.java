@@ -267,11 +267,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 afficheurReseauMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 afficheurReseauMousePressed(evt);
+            }
+        });
+        afficheurReseau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                afficheurReseauKeyPressed(evt);
             }
         });
 
@@ -578,12 +586,35 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
          this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
+
+    private void afficheurReseauKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_afficheurReseauKeyPressed
+        if (KeyEvent.VK_CONTROL(evt))
+        {
+            
+            switch (m_mode_courant)
+            {                
+                case ROUTIER:
+                                        
+                    switch (m_commande_courante)
+                    {                        
+                        case SELECTIONNER:
+                            ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            break;    // TODO add your handling code here:
+                    }
+            }
+        }
+    
+    }//GEN-LAST:event_afficheurReseauKeyPressed
+
+    private void afficheurReseauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_afficheurReseauMouseClicked
     
     /**
      * @param args the command line arguments
