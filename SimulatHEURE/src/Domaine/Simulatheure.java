@@ -27,6 +27,7 @@ public class Simulatheure {
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList();
     private Intersection m_intersectionOriginArret;
+    private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList();
     private Troncon m_tronconArret;
     private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
@@ -62,10 +63,28 @@ public class Simulatheure {
     public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
         ElementRoutier er = obtenirElementRoutier(p_x, p_y, p_echelle);
         if (er != null){
-            er.changerStatutSelection();
+            er.changerStatutSelection(); 
+            m_parametresElementRoutier.add(er); 
+            if (m_parametresElementRoutier.size() == 2)
+            {
+                ElementRoutier premierElement = m_parametresElementRoutier.getFirst();
+                ElementRoutier deuxiemeElement = m_parametresElementRoutier.getLast();
+                deselectionnerRoutier();
+                selectionnerElementRoutier(p_x, p_y, p_echelle);
+            }
         }
+        
         return er;
     }
+    public ElementRoutier selectionnerPlusieursElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
+        ElementRoutier plusieursEr = obtenirElementRoutier(p_x, p_y, p_echelle);
+        if (plusieursEr != null){
+            plusieursEr.changerStatutSelection(); 
+                   
+        }
+        return plusieursEr;
+    }
+    
     
     public ElementRoutier obtenirElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
     {
@@ -117,6 +136,7 @@ public class Simulatheure {
     public void deselectionnerRoutier()
     {
         m_parametresTroncon.clear();
+        m_parametresElementRoutier.clear();
         m_reseauRoutier.deselectionnerTout();
     }
     public void deselectionnerTransport(){

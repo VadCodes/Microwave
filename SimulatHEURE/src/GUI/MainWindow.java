@@ -5,7 +5,7 @@ import Domaine.Simulatheure.Modes;
 import Domaine.Simulatheure.Commandes;
 
 import javax.swing.SwingUtilities;
-
+import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.ElementTransport;
@@ -13,6 +13,9 @@ import java.util.LinkedList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPopupMenu;
+import java.util.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  *
@@ -23,6 +26,8 @@ public class MainWindow extends javax.swing.JFrame {
     public Simulatheure m_controleur;
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
+    private Boolean m_booleanCTRL = false;
+    
     /**
      * Creates new form MainWindow
      */
@@ -31,6 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);
+          
     }
 
     /**
@@ -287,11 +293,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 afficheurReseauMouseExited(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 afficheurReseauMousePressed(evt);
+            }
+        });
+        afficheurReseau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                afficheurReseauKeyPressed(evt);
             }
         });
 
@@ -403,7 +417,15 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
+                            if(m_booleanCTRL == true)
+                            {
+                                System.out.println("Pressed");
+                                ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
+                            }
+                            else{
                             ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            }
+                               
                             break;
                         
                         case INTERSECTION:
@@ -605,12 +627,35 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
          this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
+
+    private void afficheurReseauKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_afficheurReseauKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_CONTROL)
+        {
+            
+            switch (m_mode_courant)
+            {                
+                case ROUTIER:
+                                        
+                    switch (m_commande_courante)
+                    {                        
+                        case SELECTIONNER:
+                            m_booleanCTRL = true;
+                            break;    // TODO add your handling code here:
+                    }
+            }
+        }
+    
+    }//GEN-LAST:event_afficheurReseauKeyPressed
+
+    private void afficheurReseauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_afficheurReseauMouseClicked
     
     /**
      * @param args the command line arguments
