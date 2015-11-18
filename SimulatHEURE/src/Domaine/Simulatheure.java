@@ -171,13 +171,13 @@ public class Simulatheure {
                      m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
                      return;
                 }
-                if(intersectionOrigin.estSelectionne()){
+            }
+            if(intersectionOrigin.estSelectionne()){
                 Point2D.Float p2 = new Point2D.Float(xReel,yReel);
                 intersectionOrigin.getPosition();
-                Emplacement arretSurIntersection = new Emplacement(false, 0, troncon,intersectionOrigin);
+                Emplacement arretSurIntersection = new Emplacement(false, 0, new Troncon(intersectionOrigin, new Distribution(), new Temps(0)),intersectionOrigin);
                 m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));         
                 return;
-             }
             }
          }
     }

@@ -414,10 +414,12 @@ public class MainWindow extends javax.swing.JFrame {
                             
                         case SOURCE:
                             ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutie.getClass() == Troncon.class){
-                                m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
-                                m_controleur.deselectionnerRoutier();
-                            }
+                            if (elemRoutie != null){
+                                if (elemRoutie.getClass() == Troncon.class){
+                                    m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
+                                    m_controleur.deselectionnerRoutier();
+                                }
+                            }                                
                             break;                  
                         case ARRET:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
