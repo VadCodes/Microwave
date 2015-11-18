@@ -35,6 +35,9 @@ public class ReseauTransport {
     public void setListeCircuits(LinkedList<Circuit> listeCircuits){
         m_listeCircuits = listeCircuits;
     }
+    public void ajouterCircuit(Circuit circ){
+        m_listeCircuits.add(circ);
+    }
             
     public void initReseauTransport(){
         ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();

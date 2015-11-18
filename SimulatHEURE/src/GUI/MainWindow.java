@@ -426,7 +426,11 @@ public class MainWindow extends javax.swing.JFrame {
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                 }
-                           }
+                                else if (elemRoutier.getClass() == Intersection.class){
+                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                                m_controleur.deselectionnerRoutier();
+                                }   
+                            }
                             break;
                             
                         default:
