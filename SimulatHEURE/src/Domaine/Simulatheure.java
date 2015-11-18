@@ -190,14 +190,23 @@ public class Simulatheure {
     public void ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;  
-         for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
-             Intersection intersectionOrigin = intersection.next();
-              if(intersectionOrigin.estSelectionne()){
+        for (ListIterator<Intersection> intersection =m_reseauRoutier.getIntersections().listIterator() ; intersection.hasNext() ; ){
+            Intersection intersectionOrigin = intersection.next();
+                if(intersectionOrigin.estSelectionne()){
+                    for(Arret arret : m_reseauTransport.getListArrets()){
+                        if(!arret.getEmplacement().getEstSurTroncon()){
+                        if(arret.getEmplacement().getIntersection() == intersectionOrigin){
+                            return; 
+                        }
+                        }
+                    }
                 Point2D.Float p2 = new Point2D.Float(xReel,yReel);
                 Emplacement arretSurIntersection = new Emplacement(false, 0, null,intersectionOrigin);
-                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));         
+                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));  
                 return;
-             }
+                }                
+             
+    
             for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator() ; troncons.hasNext() ; ){
                 Troncon troncon = troncons.next();
                 if(troncon.estSelectionne()){
@@ -210,8 +219,9 @@ public class Simulatheure {
                      return;
                 }
             }
-         }
     }
+   }
+    
 
     public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){        
         if (m_modeNouvelArret){
