@@ -28,7 +28,6 @@ public class ReseauRoutierFactory {
            double longueur = p_origine.getPosition().distance(p_destination.getPosition());
            Temps tempsTransitPieton = new Temps(longueur / ReseauRoutier.VITESSE_PIETON);
            Troncon troncon = new Troncon(p_destination, new Distribution(), tempsTransitPieton);
-           troncon.setLongueur((float)longueur);
            troncon.setIntersectionOrigin(p_origine);
            return troncon;
        }

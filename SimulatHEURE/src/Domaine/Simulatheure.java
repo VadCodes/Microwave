@@ -169,13 +169,14 @@ public class Simulatheure {
                     float pourcentage = (float) (distance1/distance2);
                      Emplacement emplacement = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
                      m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
-                
+                     return;
                 }
                 if(intersectionOrigin.estSelectionne()){
                 Point2D.Float p2 = new Point2D.Float(xReel,yReel);
                 intersectionOrigin.getPosition();
                 Emplacement arretSurIntersection = new Emplacement(false, 0, troncon,intersectionOrigin);
-                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));               
+                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));         
+                return;
              }
             }
          }
