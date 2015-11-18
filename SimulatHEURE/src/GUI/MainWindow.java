@@ -54,8 +54,11 @@ public class MainWindow extends javax.swing.JFrame {
         transport = new javax.swing.JToggleButton();
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
-        wtf = new javax.swing.JLabel();
         wtf2 = new javax.swing.JLabel();
+        wtf = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
@@ -107,12 +110,12 @@ public class MainWindow extends javax.swing.JFrame {
         mainPanel.setPreferredSize(new java.awt.Dimension(1600, 900));
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(150, 400));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel1.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel1.setLayout(new java.awt.GridLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
+        boutonModes.setPreferredSize(new java.awt.Dimension(100, 50));
         boutonModes.setRequestFocusEnabled(false);
-        boutonModes.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
+        boutonModes.setLayout(new java.awt.GridLayout());
 
         routier.setText("Réseau routier");
         routier.addActionListener(new java.awt.event.ActionListener() {
@@ -146,15 +149,32 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonModes.add(simulation);
 
-        jPanel1.add(boutonModes, java.awt.BorderLayout.PAGE_START);
+        wtf2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        wtf2.setText(" Position :     ");
+        wtf2.setRequestFocusEnabled(false);
+        boutonModes.add(wtf2);
 
         wtf.setText("jLabel1");
-        jPanel1.add(wtf, java.awt.BorderLayout.CENTER);
+        boutonModes.add(wtf);
 
-        wtf2.setText("jLabel1");
-        jPanel1.add(wtf2, java.awt.BorderLayout.PAGE_END);
+        jPanel1.add(boutonModes);
 
-        mainPanel.add(jPanel1, java.awt.BorderLayout.WEST);
+        mainPanel.add(jPanel1, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setViewportView(jTree1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+        );
+
+        mainPanel.add(jPanel2, java.awt.BorderLayout.WEST);
 
         afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
 
@@ -292,37 +312,39 @@ public class MainWindow extends javax.swing.JFrame {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 1450, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
+                .addGap(0, 77, Short.MAX_VALUE)
+                .addComponent(defilementAfficheur, javax.swing.GroupLayout.PREFERRED_SIZE, 1223, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(1333, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(1334, Short.MAX_VALUE)
+                    .addContainerGap(1184, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(768, Short.MAX_VALUE)))
+                    .addContainerGap(217, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(738, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        mainPanel.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+        mainPanel.add(afficheurCommandes, java.awt.BorderLayout.EAST);
 
         getContentPane().add(mainPanel);
 
@@ -507,6 +529,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutIntersectionActionPerformed
 
+  
     private void constructionTronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructionTronconActionPerformed
         
         this.setCommande(Commandes.TRONCON);
@@ -662,7 +685,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTree jTree1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
