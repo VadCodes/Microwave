@@ -265,7 +265,7 @@ public class Simulatheure {
                     m_modeNouvelArret = true;
                     
                     //pour l'instant
-                    m_reseauTransport.ajouterCircuit(m_circuit_temp);
+                    m_reseauTransport.ajouterCircuit(m_circuit_temp); 
                 }
             }
             else{ //arret sur intersection
