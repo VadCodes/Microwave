@@ -189,8 +189,10 @@ public class Simulatheure {
                 return;
             }
             Arret nouvArret = (Arret) nouvET;
-            
+            deselectionnerTransport();
             if(auMoinsUnArret){
+                Arret arretPrecedent = m_circuit_temp.getListeArretTrajet().getLast().getArret();
+                arretPrecedent.changerStatutSelection();
                 //verifier pas meme arret que precedent
                 if (nouvArret == m_circuit_temp.getListeArretTrajet().getLast().getArret()){
                     return;
@@ -261,15 +263,20 @@ public class Simulatheure {
                 if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getIntersectionOrigin()) {
                     m_circuit_temp.getListeArretTrajet().getLast().setTrajet(m_trajet_temp);
                     m_modeNouvelArret = true;
+                    
+                    //pour l'instant
+                    m_reseauTransport.ajouterCircuit(m_circuit_temp);
                 }
             }
             else{ //arret sur intersection
                 if (nouvTroncon.getDestination() == m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getIntersection()) {
                     m_circuit_temp.getListeArretTrajet().getLast().setTrajet(m_trajet_temp);
                     m_modeNouvelArret = true;
+                    
+                    //pour l'instant
+                    m_reseauTransport.ajouterCircuit(m_circuit_temp);
                 }
             }
-            
         }
         
     }
