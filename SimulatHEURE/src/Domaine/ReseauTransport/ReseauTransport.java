@@ -73,4 +73,13 @@ public class ReseauTransport {
    public Arret creerArret(Emplacement emplacement, String nom){
        return new Arret(emplacement, nom);
    }
+   
+   public void deselectionnerTout(){
+       for(Arret arr : m_listeArrets){
+           if (arr.estSelectionne())
+            {
+                arr.changerStatutSelection();
+            }
+       }
+   }
 }
