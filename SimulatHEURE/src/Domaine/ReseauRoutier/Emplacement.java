@@ -16,27 +16,33 @@ public class Emplacement {
     private float m_pourcentageParcouru;
     private Troncon m_troncon;
     private Intersection m_intersection;
-    private Point2D.Float m_position;
     
     public Emplacement(Boolean estSurTroncon, float pourcentageParcouru, Troncon troncon, Intersection intersection){
  
-        if(!intersection.getTroncons().contains(troncon)){
-            throw new Error("Mauvais troncon ou intersection");
+        if(estSurTroncon){
+            if(!intersection.getTroncons().contains(troncon)){
+                throw new Error("Mauvais troncon ou intersection");
+            }
+            m_troncon = troncon;
+            m_pourcentageParcouru = pourcentageParcouru;
         }
         m_estSurTroncon = estSurTroncon;
-        m_pourcentageParcouru = pourcentageParcouru;
-        m_troncon = troncon;
+        
         m_intersection = intersection;
-        m_position = calculPosition();
     }
     public Point2D.Float calculPosition(){
-        float positionDepartX = m_troncon.getIntersectionOrigin().getPosition().x;
-        float positionDepartY = m_troncon.getIntersectionOrigin().getPosition().y;
-        float positionFinX = m_troncon.getDestination().getPosition().x;
-        float positionFinY = m_troncon.getDestination().getPosition().y;
-        float X = positionDepartX +(positionFinX - positionDepartX )*m_pourcentageParcouru;
-        float Y = positionDepartY +(positionFinY - positionDepartY )*m_pourcentageParcouru;
-        return new Point2D.Float(X, Y); // Criss un new;
+        if(m_estSurTroncon){
+            float positionDepartX = m_troncon.getIntersectionOrigin().getPosition().x;
+            float positionDepartY = m_troncon.getIntersectionOrigin().getPosition().y;
+            float positionFinX = m_troncon.getDestination().getPosition().x;
+            float positionFinY = m_troncon.getDestination().getPosition().y;
+            float X = positionDepartX +(positionFinX - positionDepartX )*m_pourcentageParcouru;
+            float Y = positionDepartY +(positionFinY - positionDepartY )*m_pourcentageParcouru;
+            return new Point2D.Float(X, Y); // Criss un new;
+        }
+        else{
+            return m_intersection.getPosition();
+        }
     }
     public Boolean getEstSurTroncon(){
         return m_estSurTroncon;
@@ -67,6 +73,6 @@ public class Emplacement {
                 (Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
                 m_troncon.equals(autreEmpl.m_troncon) &&
                 m_intersection.equals(autreEmpl.m_intersection) &&
-                m_position.equals(autreEmpl.m_position));
+                this.calculPosition().equals(autreEmpl.calculPosition()));
     }
 }
