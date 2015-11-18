@@ -33,7 +33,7 @@ public class Simulatheure {
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
     
     private Circuit m_circuit_temp = new Circuit();
-    private Trajet m_trajet_temp;
+    private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
     
     public Simulatheure() {}  
@@ -192,7 +192,10 @@ public class Simulatheure {
             Arret nouvArret = (Arret) nouvET;
             
             if(auMoinsUnArret){
-                //TODO verifier pas meme arret que precedent
+                //verifier pas meme arret que precedent
+                if (nouvArret == m_circuit_temp.getListeArretTrajet().getLast().getArret()){
+                    return;
+                }
                 
                 //selectionner un arret
                 if (!m_circuit_temp.getBoucle()){
@@ -222,14 +225,27 @@ public class Simulatheure {
         }
         else{ //mode trajet           
             ElementRoutier nouvER = selectionnerElementRoutier(p_x, p_y, p_echelle);
-            if (nouvER.getClass() != Troncon.class){
+            if (nouvER == null || nouvER.getClass() != Troncon.class){
+                deselectionnerRoutier();
                 return;
             }
             Troncon nouvTroncon = (Troncon) nouvER;
             
-            if (m_trajet_temp == null) { //trajet pas encore créé
-                if (false) { //il faut vérifier que c'est après le premier arret
-                    return;
+            if (m_trajet_temp.getListeTroncon().isEmpty()) { //trajet pas encore créé
+                if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+                        .getArret().getEmplacement().getEstSurTroncon()) { //il faut vérifier que c'est après le premier arret
+                    if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+                            .getArret().getEmplacement().getTroncon().getDestination() != nouvTroncon.getIntersectionOrigin()) { 
+                        deselectionnerRoutier();
+                        return;
+                    }
+                }
+                else{
+                    if (m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2)
+                            .getArret().getEmplacement().getIntersection() != nouvTroncon.getIntersectionOrigin()){
+                        deselectionnerRoutier();
+                        return;
+                    }
                 }
             }
             else{
@@ -238,6 +254,8 @@ public class Simulatheure {
                     return;
                 }
             }
+            
+            m_trajet_temp.getListeTroncon().add(nouvTroncon);
             
             //si dernier troncon avant l'arret on push le trajet
             if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
