@@ -42,10 +42,12 @@ public class DessinateurTransport {
         float echelle = (float)p_g.getTransform().getScaleX();
         if (echelle > 1){
             dessinerArrets(p_g, echelle);
+            dessinerCircuit(p_g, echelle);
         }
         else
         {
             dessinerArrets(p_g, 1);
+            dessinerCircuit(p_g, 1);
         }
     }
     
@@ -63,21 +65,23 @@ public class DessinateurTransport {
             ligne.moveTo(pd.x, pd.y);
             for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator(); paires.hasNext() ; ){
                 PaireArretTrajet paire = paires.next();
-                for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator(); troncons.hasNext() ; ){
-                    Troncon troncon = troncons.next();
-                  
-                    if(!circuit.estSelectionne()){
-                         p_g.setColor(Color.MAGENTA);
-                    }
-                    else{
-                        p_g.setColor(Color.BLUE);
-                    }
-                    if(troncon == tronconFin){
-                        ligne.lineTo(pf.x, pf.y);
-                    }
-                    else{
-                        Point2D.Float p = troncon.getDestination().getPosition();
-                        ligne.lineTo(p.x,p.y);
+                if (paire.getTrajet()!=null){
+                    for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator(); troncons.hasNext() ; ){
+                        Troncon troncon = troncons.next();
+
+                        if(!circuit.estSelectionne()){
+                             p_g.setColor(Color.MAGENTA);
+                        }
+                        else{
+                            p_g.setColor(Color.BLUE);
+                        }
+                        if(troncon == tronconFin){
+                            ligne.lineTo(pf.x, pf.y);
+                        }
+                        else{
+                            Point2D.Float p = troncon.getDestination().getPosition();
+                            ligne.lineTo(p.x,p.y);
+                        }
                     }
                 }
             }

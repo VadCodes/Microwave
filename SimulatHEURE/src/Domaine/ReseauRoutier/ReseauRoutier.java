@@ -48,21 +48,10 @@ public class ReseauRoutier {
 
         for (Intersection inter : m_listeIntersections){
             if (zoneSelection.contains(inter.getPosition())){
-                //inter.changerStatutSelection();
                 return inter;
             }
         }
         return null;
-//        for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
-//        {
-//            if (zoneSelection.contains(intersection.next().getPosition()))
-//            {
-//                intersection.previous().changerStatutSelection();
-//                return intersection.next();
-//            }
-//        }
-//        
-//        return null;
     }
     
     public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
