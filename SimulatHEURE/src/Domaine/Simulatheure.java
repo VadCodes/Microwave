@@ -76,6 +76,14 @@ public class Simulatheure {
         
         return er;
     }
+    public ElementRoutier selectionnerPlusieursElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
+        ElementRoutier plusieursEr = obtenirElementRoutier(p_x, p_y, p_echelle);
+        if (plusieursEr != null){
+            plusieursEr.changerStatutSelection(); 
+                   
+        }
+        return plusieursEr;
+    }
     
     
     public ElementRoutier obtenirElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
