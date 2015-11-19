@@ -226,7 +226,6 @@ public class Simulatheure {
     public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){   
         //cas qui boguent encore :  
         //    sur troncon vers sur meme troncon avant en passant par ailleurs puis revenir
-        //    sur intersection origine vers sur troncon immediat
         //    si repasse sur meme troncon alors il redevient gris mais dans le fond c'est cool
         //    sur troncon vers troncon suivant
         
@@ -253,14 +252,17 @@ public class Simulatheure {
                 
                 //si le circuit est deja valide
                 
-                //meme troncon trc vers interdest immediate
                 Boolean memeTronconBonSens = precSurTrc && nouvSurTrc && emplPrec.getTroncon() == emplNouv.getTroncon() && emplPrec.getPourcentageParcouru() < emplNouv.getPourcentageParcouru();
                 Boolean trcVersInterDestImmediate = precSurTrc && !nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getIntersection();
                 Boolean interOrigVersTrcImmediat = !precSurTrc && nouvSurTrc && emplPrec.getIntersection() == emplNouv.getTroncon().getIntersectionOrigin();
+                Boolean trcVersTrcSuivant = precSurTrc && nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getTroncon().getIntersectionOrigin();
                 
-                if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat){
+                if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
                     LinkedList<Troncon> listetmp = new LinkedList();
                     listetmp.add(emplPrec.getTroncon());
+                    if (trcVersTrcSuivant){
+                        listetmp.add(emplNouv.getTroncon());
+                    }
                     Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
                     m_circuit_temp.ajouterPaire(nouvArret, null);
                     m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(trj);
@@ -268,7 +270,6 @@ public class Simulatheure {
                     cancellerCircuit();
                     return;
                 }
-
                 
                 //si le circuit n'est pas deja valide
                 
