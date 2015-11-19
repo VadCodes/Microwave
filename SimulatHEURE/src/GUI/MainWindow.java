@@ -117,11 +117,11 @@ public class MainWindow extends javax.swing.JFrame {
         mainPanel.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 50));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         boutonModes.setPreferredSize(new java.awt.Dimension(100, 50));
         boutonModes.setRequestFocusEnabled(false);
-        boutonModes.setLayout(new java.awt.GridLayout());
+        boutonModes.setLayout(new java.awt.GridLayout(1, 0));
 
         routier.setText("Réseau routier");
         routier.addActionListener(new java.awt.event.ActionListener() {
@@ -303,11 +303,6 @@ public class MainWindow extends javax.swing.JFrame {
                 afficheurReseauMousePressed(evt);
             }
         });
-        afficheurReseau.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                afficheurReseauKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
         afficheurReseau.setLayout(afficheurReseauLayout);
@@ -417,7 +412,7 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante)
                     {                        
                         case SELECTIONNER:
-                            if(m_booleanCTRL == true)
+                            if(evt.isControlDown())
                             {
                                 System.out.println("Pressed");
                                 ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
@@ -633,25 +628,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
          this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
-
-    private void afficheurReseauKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_afficheurReseauKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_CONTROL)
-        {
-            
-            switch (m_mode_courant)
-            {                
-                case ROUTIER:
-                                        
-                    switch (m_commande_courante)
-                    {                        
-                        case SELECTIONNER:
-                            m_booleanCTRL = true;
-                            break;    // TODO add your handling code here:
-                    }
-            }
-        }
-    
-    }//GEN-LAST:event_afficheurReseauKeyPressed
 
     private void afficheurReseauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseClicked
         // TODO add your handling code here:
