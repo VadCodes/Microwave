@@ -71,14 +71,16 @@ public class DessinateurTransport {
             ligne.moveTo(pd.x, pd.y);
             for (PaireArretTrajet paire : circuit.getListeArretTrajet()){
                 if (paire.getTrajet()!=null){
+                    Boolean premier = true;
                     for(Troncon troncon : paire.getTrajet().getListeTroncon()){
-                        if(troncon == tronconFin){
+                        if(!premier && troncon == tronconFin){
                             ligne.lineTo(pf.x, pf.y);
                         }
                         else{
                             Point2D.Float p = troncon.getDestination().getPosition();
                             ligne.lineTo(p.x,p.y);
                         }
+                        premier = false;
                     }
                 }
             }

@@ -224,10 +224,6 @@ public class Simulatheure {
     
 
     public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){   
-        //cas qui boguent encore :  
-        //    sur troncon vers sur meme troncon avant en passant par ailleurs puis revenir
-        //    si repasse sur meme troncon alors il redevient gris mais dans le fond c'est cool
-        //    sur troncon vers troncon suivant
         
         if (m_modeNouvelArret){
             Boolean auMoinsUnArret = !(m_circuit_temp.getListeArretTrajet().isEmpty());
