@@ -8,8 +8,7 @@ import javax.swing.SwingUtilities;
 import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
-import Domaine.ReseauTransport.Circuit;
-import Domaine.ReseauTransport.ElementTransport;
+import Domaine.ReseauTransport.*;
 import java.util.LinkedList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -754,10 +753,15 @@ public class MainWindow extends javax.swing.JFrame {
         String name =(String) selectionCircuit.getItemAt(index);
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
+            
                 if(circuit.estSelectionne()){
                     circuit.changerStatutSelection();
                 }
               if (circuit.getNom().equals(name)){
+                  for(PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()){
+                  ElementTransport arret = ArretTrajet.getArret();
+                  arret.changerStatutSelection();
+                  }
                   circuit.changerStatutSelection();
                   if(circuit.estSelectionne()){
                       this.setCommande(Commandes.EDITERCIRCUIT);
