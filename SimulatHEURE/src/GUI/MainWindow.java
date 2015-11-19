@@ -332,10 +332,10 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel3.setText("Selection Circuit:");
         boutonsTransport.add(jLabel3);
 
-        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectionCircuitActionPerformed(evt);
@@ -581,6 +581,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
         selectionCircuit.removeAllItems();
+        selectionCircuit.addItem("0");
           for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
               selectionCircuit.addItem(circuit.getNom());
@@ -724,7 +725,18 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
-        // TODO add your handling code here:
+        int index = selectionCircuit.getSelectedIndex();
+        String name =(String) selectionCircuit.getItemAt(index);
+        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+                if(circuit.estSelectionne()){
+                    circuit.changerStatutSelection();
+                }
+              if (circuit.getNom().equals(name)){
+                  circuit.changerStatutSelection();
+              }
+          }
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_selectionCircuitActionPerformed
     
     /**
