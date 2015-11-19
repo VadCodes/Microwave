@@ -73,8 +73,12 @@ public class DessinateurTransport {
             for (PaireArretTrajet paire : circuit.getListeArretTrajet()){
                 if (paire.getTrajet()!=null){
                     Boolean premier = true;
-                    for(Troncon troncon : paire.getTrajet().getListeTroncon()){
+                    LinkedList<Troncon> listeTroncons = paire.getTrajet().getListeTroncon();
+                    for(Troncon troncon : listeTroncons){
                         if(!premier && troncon == tronconFin){
+                            ligne.lineTo(pf.x, pf.y);
+                        }
+                        else if (premier && troncon == tronconFin && listeTroncons.size()==1){
                             ligne.lineTo(pf.x, pf.y);
                         }
                         else{
