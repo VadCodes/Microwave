@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
+import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.ElementTransport;
 import java.util.LinkedList;
 import javax.swing.JDialog;
@@ -50,9 +51,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         groupeModes = new javax.swing.ButtonGroup();
         groupeRoutier = new javax.swing.ButtonGroup();
+        groupeTransport = new javax.swing.ButtonGroup();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jComboBox1 = new javax.swing.JComboBox();
         mainPanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -80,8 +83,10 @@ public class MainWindow extends javax.swing.JFrame {
         selectionTransport = new javax.swing.JToggleButton();
         ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
-        ajoutCircuit = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
+        ajoutCircuit = new javax.swing.JToggleButton();
+        jLabel3 = new javax.swing.JLabel();
+        selectionCircuit = new javax.swing.JComboBox();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -97,6 +102,12 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(selectionRoutier);
         groupeModes.add(ajoutIntersection);
         groupeModes.add(constructionTroncon);
+
+        groupeModes.add(selectionTransport);
+        groupeModes.add(ajoutSource);
+        groupeModes.add(ajoutArret);
+        groupeModes.add(ajoutCircuit);
+        groupeModes.add(suppressionTransport);
 
         jPopupMenu1.setName(""); // NOI18N
 
@@ -115,6 +126,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(jMenuItem2);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -197,7 +210,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel5.add(jLabel2);
         jPanel5.add(wtf);
 
-        jPanel1.add(jPanel5, java.awt.BorderLayout.CENTER);
+        jPanel1.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.WEST);
 
@@ -271,7 +284,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.setAlignmentX(1.0F);
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setOpaque(false);
-        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 160));
         boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -301,6 +314,15 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutArret);
 
+        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        suppressionTransport.setText("Supprimer");
+        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(suppressionTransport);
+
         ajoutCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutCircuit.setText("Circuit");
         ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
@@ -310,14 +332,16 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        suppressionTransport.setText("Supprimer");
-        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
+        jLabel3.setText("Selection Circuit:");
+        boutonsTransport.add(jLabel3);
+
+        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionTransportActionPerformed(evt);
+                selectionCircuitActionPerformed(evt);
             }
         });
-        boutonsTransport.add(suppressionTransport);
+        boutonsTransport.add(selectionCircuit);
 
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
@@ -374,17 +398,17 @@ public class MainWindow extends javax.swing.JFrame {
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(373, Short.MAX_VALUE)))
+                    .addContainerGap(341, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(343, Short.MAX_VALUE)))
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(311, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -402,7 +426,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -574,7 +598,11 @@ public class MainWindow extends javax.swing.JFrame {
         
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
         wtf2.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
-        
+        selectionCircuit.removeAllItems();
+          for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+              selectionCircuit.addItem(circuit);
+          }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
@@ -695,6 +723,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectionCircuitActionPerformed
     
     /**
      * @param args the command line arguments
@@ -766,10 +798,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
+    private javax.swing.ButtonGroup groupeTransport;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
@@ -783,6 +818,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
+    private javax.swing.JComboBox selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;

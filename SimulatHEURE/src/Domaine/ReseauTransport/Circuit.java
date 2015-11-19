@@ -52,6 +52,12 @@ public class Circuit extends ElementTransport{
             src.genererAutobus();
         }
     }
+    public void setNom(String p_nom){
+        m_nom = p_nom;
+    }
+    public String getNom(){
+        return m_nom;
+    }
     public void ajouterSource(SourceAutobus source){
         m_listeSources.add(source);
     }
