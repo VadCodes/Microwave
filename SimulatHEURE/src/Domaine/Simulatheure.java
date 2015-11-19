@@ -219,11 +219,17 @@ public class Simulatheure {
                      return;
                 }
             }
+        }
     }
-   }
     
 
-    public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){        
+    public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){   
+        //cas qui boguent encore :  
+        //    sur troncon vers sur meme troncon avant en passant par ailleurs puis revenir
+        //    sur troncon vers intersection destination immediate
+        //    sur intersection origine vers sur troncon immediat
+        //    si repasse sur meme troncon alors il redevient gris mais dans le fond c'est cool
+        
         if (m_modeNouvelArret){
             Boolean auMoinsUnArret = !(m_circuit_temp.getListeArretTrajet().isEmpty());
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
@@ -240,14 +246,35 @@ public class Simulatheure {
                     }
                 }
                 
+                Emplacement emplPrec = m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement();
+                Emplacement emplNouv = nouvArret.getEmplacement();
+                Boolean precSurTrc = emplPrec.getEstSurTroncon();
+                Boolean nouvSurTrc = emplNouv.getEstSurTroncon();
+                
+                //gere les cas ou c'est le meme troncon
+                if (precSurTrc && nouvSurTrc && emplPrec.getTroncon() == emplNouv.getTroncon()){
+                    if (emplPrec.getPourcentageParcouru() < emplNouv.getPourcentageParcouru()){
+                        LinkedList<Troncon> listetmp = new LinkedList();
+                        listetmp.add(emplPrec.getTroncon());
+                        Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
+                        m_circuit_temp.ajouterPaire(nouvArret, null);
+                        m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(trj);
+                        m_reseauTransport.ajouterCircuit(m_circuit_temp); 
+                        cancellerCircuit();
+                        return;
+                    }
+                }
+                
                 //mettre en couleur le troncon partiel apres l'arret precedent
                 //mettre en couleur le troncon partiel avant le nouvel arret
-                if(m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
+                if(precSurTrc){
                     m_circuit_temp.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().changerStatutSelection();
                 }
-                if(nouvArret.getEmplacement().getEstSurTroncon()){
+                if(nouvSurTrc){
                     nouvArret.getEmplacement().getTroncon().changerStatutSelection();
                 }
+                
+                
                         
                 m_modeNouvelArret = false;
                 m_trajet_temp.setEmplacementFinal(nouvArret.getEmplacement());
