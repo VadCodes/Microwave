@@ -226,9 +226,9 @@ public class Simulatheure {
     public void ajouterCircuit(Integer p_x, Integer p_y, Float p_echelle){   
         //cas qui boguent encore :  
         //    sur troncon vers sur meme troncon avant en passant par ailleurs puis revenir
-        //    sur troncon vers intersection destination immediate
         //    sur intersection origine vers sur troncon immediat
         //    si repasse sur meme troncon alors il redevient gris mais dans le fond c'est cool
+        //    sur troncon vers troncon suivant
         
         if (m_modeNouvelArret){
             Boolean auMoinsUnArret = !(m_circuit_temp.getListeArretTrajet().isEmpty());
@@ -251,19 +251,26 @@ public class Simulatheure {
                 Boolean precSurTrc = emplPrec.getEstSurTroncon();
                 Boolean nouvSurTrc = emplNouv.getEstSurTroncon();
                 
-                //gere les cas ou c'est le meme troncon
-                if (precSurTrc && nouvSurTrc && emplPrec.getTroncon() == emplNouv.getTroncon()){
-                    if (emplPrec.getPourcentageParcouru() < emplNouv.getPourcentageParcouru()){
-                        LinkedList<Troncon> listetmp = new LinkedList();
-                        listetmp.add(emplPrec.getTroncon());
-                        Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
-                        m_circuit_temp.ajouterPaire(nouvArret, null);
-                        m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(trj);
-                        m_reseauTransport.ajouterCircuit(m_circuit_temp); 
-                        cancellerCircuit();
-                        return;
-                    }
+                //si le circuit est deja valide
+                
+                //meme troncon trc vers interdest immediate
+                Boolean memeTronconBonSens = precSurTrc && nouvSurTrc && emplPrec.getTroncon() == emplNouv.getTroncon() && emplPrec.getPourcentageParcouru() < emplNouv.getPourcentageParcouru();
+                Boolean trcVersInterDestImmediate = precSurTrc && !nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getIntersection();
+                Boolean interOrigVersTrcImmediat = !precSurTrc && nouvSurTrc && emplPrec.getIntersection() == emplNouv.getTroncon().getIntersectionOrigin();
+                
+                if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat){
+                    LinkedList<Troncon> listetmp = new LinkedList();
+                    listetmp.add(emplPrec.getTroncon());
+                    Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
+                    m_circuit_temp.ajouterPaire(nouvArret, null);
+                    m_circuit_temp.getListeArretTrajet().get(m_circuit_temp.getListeArretTrajet().size()-2).setTrajet(trj);
+                    m_reseauTransport.ajouterCircuit(m_circuit_temp); 
+                    cancellerCircuit();
+                    return;
                 }
+
+                
+                //si le circuit n'est pas deja valide
                 
                 //mettre en couleur le troncon partiel apres l'arret precedent
                 //mettre en couleur le troncon partiel avant le nouvel arret
