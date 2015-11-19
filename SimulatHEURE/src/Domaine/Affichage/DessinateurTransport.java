@@ -132,8 +132,6 @@ public class DessinateurTransport {
                 Emplacement em = arret.getEmplacement();
                 
                 Point2D.Float position = em.calculPosition();
-                System.out.println("Pourcentage");
-                System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   arret.RAYON / p_echelle;
                 float y = position.y -   arret.RAYON / p_echelle;
                 float diametre = 2 *   arret.RAYON / p_echelle;

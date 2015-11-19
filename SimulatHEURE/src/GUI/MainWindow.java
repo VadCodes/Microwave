@@ -32,7 +32,9 @@ public class MainWindow extends javax.swing.JFrame {
     public Commandes m_commande_courante;
     private Boolean m_booleanCTRL = false;
     private Timer m_timer;
+    private Chronometre m_crono = new Chronometre();
     private MainWindow m_this = this;
+
     /**
      * Creates new form MainWindow
      */
@@ -46,11 +48,9 @@ public class MainWindow extends javax.swing.JFrame {
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
-      int delais = m_timer.getDelay();
-      float deltatT = (float)(delais);
-      System.out.println(delais);
-      m_controleur.rafraichirSimulation(new Temps(0.05));
-      System.out.println("yoyo");
+      double deltatT = m_crono.getDeltatT();
+      System.out.println(deltatT);
+      m_controleur.rafraichirSimulation(new Temps(deltatT));
       m_this.afficheurCommandes.repaint();
   }
 }
@@ -496,6 +496,7 @@ class MyTimerActionListener implements ActionListener {
         m_timer= new Timer(0, new MyTimerActionListener());     
         m_timer.setDelay(1);
         m_controleur.demarrerSimulation();
+        m_crono.start();
         m_timer.start();
         //boutonsSimulation.setVisible(true);
     }//GEN-LAST:event_simulationActionPerformed
