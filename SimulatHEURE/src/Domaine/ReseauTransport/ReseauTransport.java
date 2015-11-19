@@ -92,5 +92,16 @@ public class ReseauTransport {
                 arr.changerStatutSelection();
             }
        }
+       for(Circuit circ : m_listeCircuits){
+           if (circ.estSelectionne()){
+                for(SourceAutobus sa : circ.getListeSourceAutobus()){
+                    if(circ.estSelectionne()){
+                        sa.changerStatutSelection();
+                    }
+                }
+                circ.changerStatutSelection();
+           }
+       }
+
    }
 }

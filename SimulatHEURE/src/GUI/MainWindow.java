@@ -777,9 +777,7 @@ class MyTimerActionListener implements ActionListener {
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
             
-                if(circuit.estSelectionne()){
-                    circuit.changerStatutSelection();
-                }
+            m_controleur.deselectionnerTout();
               if (circuit.getNom().equals(name)){
                   for(PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()){
                   ElementTransport arret = ArretTrajet.getArret();
