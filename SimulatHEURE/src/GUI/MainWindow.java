@@ -580,7 +580,11 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
             }
         }
-        
+        selectionCircuit.removeAllItems();
+          for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+              selectionCircuit.addItem(circuit.getNom());
+          }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
@@ -598,11 +602,6 @@ public class MainWindow extends javax.swing.JFrame {
         
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
         wtf2.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
-        selectionCircuit.removeAllItems();
-          for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-              selectionCircuit.addItem(circuit);
-          }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
