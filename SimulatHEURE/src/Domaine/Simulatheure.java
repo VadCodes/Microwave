@@ -470,7 +470,7 @@ public class Simulatheure {
                 }
             }
             else{ //arret sur intersection
-                if (nouvTroncon.getDestination() == circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getIntersection()) {
+                if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getIntersection()) {
                     circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
 
