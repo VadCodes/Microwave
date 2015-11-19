@@ -48,6 +48,9 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         boutonModes = new javax.swing.JPanel();
         routier = new javax.swing.JToggleButton();
@@ -56,9 +59,6 @@ public class MainWindow extends javax.swing.JFrame {
         simulation = new javax.swing.JToggleButton();
         wtf2 = new javax.swing.JLabel();
         wtf = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
@@ -73,6 +73,7 @@ public class MainWindow extends javax.swing.JFrame {
         suppressionTransport = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
+        jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -110,12 +111,16 @@ public class MainWindow extends javax.swing.JFrame {
         mainPanel.setPreferredSize(new java.awt.Dimension(1600, 900));
         mainPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(100, 50));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(100, 50));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(150, 400));
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
         boutonModes.setRequestFocusEnabled(false);
-        boutonModes.setLayout(new java.awt.GridLayout());
+        boutonModes.setLayout(new java.awt.GridLayout(7, 1));
 
         routier.setText("Réseau routier");
         routier.addActionListener(new java.awt.event.ActionListener() {
@@ -157,24 +162,11 @@ public class MainWindow extends javax.swing.JFrame {
         wtf.setText("jLabel1");
         boutonModes.add(wtf);
 
-        jPanel1.add(boutonModes);
+        jPanel1.add(boutonModes, java.awt.BorderLayout.CENTER);
 
-        mainPanel.add(jPanel1, java.awt.BorderLayout.NORTH);
+        jPanel2.add(jPanel1, java.awt.BorderLayout.WEST);
 
-        jScrollPane1.setViewportView(jTree1);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-        );
-
-        mainPanel.add(jPanel2, java.awt.BorderLayout.WEST);
+        jPanel3.add(jPanel2, java.awt.BorderLayout.WEST);
 
         afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
 
@@ -328,12 +320,12 @@ public class MainWindow extends javax.swing.JFrame {
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(217, Short.MAX_VALUE)))
+                    .addContainerGap(240, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
@@ -344,7 +336,24 @@ public class MainWindow extends javax.swing.JFrame {
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        mainPanel.add(afficheurCommandes, java.awt.BorderLayout.EAST);
+        jPanel3.add(afficheurCommandes, java.awt.BorderLayout.EAST);
+
+        jTabbedPane1.addTab("tab1", jPanel3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2673, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 372, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel4);
+
+        mainPanel.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(mainPanel);
 
@@ -682,9 +691,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
