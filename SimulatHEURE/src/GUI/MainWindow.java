@@ -70,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame {
         wtf2 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         wtf = new javax.swing.JLabel();
-        afficheurCommandes = new GUI.AfficheurReseau(this);
+        afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
         ajoutIntersection = new javax.swing.JToggleButton();
@@ -374,17 +374,17 @@ public class MainWindow extends javax.swing.JFrame {
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(341, Short.MAX_VALUE)))
+                    .addContainerGap(373, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(311, Short.MAX_VALUE)))
+                    .addContainerGap(343, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -402,7 +402,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
