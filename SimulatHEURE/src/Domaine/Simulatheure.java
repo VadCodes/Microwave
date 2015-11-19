@@ -169,6 +169,8 @@ public class Simulatheure {
         for (ListIterator<Circuit> circuits =m_reseauTransport.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
             if(circuit.estSelectionne()){
+                Arret arret1 = circuit.getListeArretTrajet().getFirst().getArret();
+                Arret arret2 = circuit.getListeArretTrajet().getLast().getArret();
                 for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator() ; paires.hasNext() ; ){
                     PaireArretTrajet paire = paires.next();
                    for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncon().listIterator() ; troncons.hasNext() ; ){
@@ -178,9 +180,28 @@ public class Simulatheure {
                             double distance1 = troncon.getIntersectionOrigin().getPosition().distance(p1);
                             double distance2 = troncon.longueurTroncon();
                             float pourcentage = (float) (distance1/distance2);
+                           if(arret1 != null){
+                            if(arret1.getEmplacement().getTroncon() != null){
+                                if(troncon.equals(arret1.getEmplacement().getTroncon())){
+                                    if(pourcentage <= arret1.getEmplacement().getPourcentageParcouru()){
+                                        return;
+                                    }
+                            }
+                            }
+                            if(arret2 != null){
+                               if(arret2.getEmplacement().getTroncon() != null){
+                                 if(troncon.equals(arret2.getEmplacement().getTroncon())){
+                                    if(pourcentage >= arret2.getEmplacement().getPourcentageParcouru()){
+                                        return;
+                                    }
+                                 }
+                            }
+                            }
                              Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getIntersectionOrigin());
                              Distribution distributionDefault = new Distribution();
                              m_reseauTransport.ajoutSource(emplacement, circuit, null, distributionDefault, new Temps(0));
+                             return;
+                       }
                        }
                    }
                 }

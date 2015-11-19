@@ -44,11 +44,13 @@ public class DessinateurTransport {
         if (echelle > 1){
             dessinerArrets(p_g, echelle);
             dessinerCircuit(p_g, echelle);
+             dessinerSourceAutobus(p_g, echelle);
         }
         else
         {
             dessinerArrets(p_g, 1);
             dessinerCircuit(p_g, 1);
+             dessinerSourceAutobus(p_g, 1);
         }
     }
     
