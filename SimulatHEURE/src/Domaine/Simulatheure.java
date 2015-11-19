@@ -161,7 +161,7 @@ public class Simulatheure {
             largeurSelection = 2 * Arret.RAYON;
         }        
         
-        Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection);
+        Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
         return arret;
     }
     public void ajouterSource(Integer p_x, Integer p_y, Float p_echelle){

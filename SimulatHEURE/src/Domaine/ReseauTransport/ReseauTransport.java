@@ -5,12 +5,14 @@
  */
 package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Troncon;
 import Domaine.Utilitaire.Distribution;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 
 /**
  *
@@ -64,11 +66,42 @@ public class ReseauTransport {
             crc.calculCirculationGlobal(deltaT);
         }
     }
-   public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre){
+   public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+       
        Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
-       for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
-            if (zoneSelection.contains(arrets.next().getEmplacement().calculPosition()))
+        for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
+            Emplacement em = arrets.next().getEmplacement();
+            Point2D.Float p = em.calculPosition();
+            if(em.getEstSurTroncon()){
+                Troncon troncon = em.getTroncon();
+
+                float p1x = troncon.getIntersectionOrigin().getPosition().x;
+                float p1y = troncon.getIntersectionOrigin().getPosition().y;
+                float p2x = troncon.getDestination().getPosition().x;
+                float p2y = troncon.getDestination().getPosition().y;
+
+                float n = 3.5f; //aww yeah c'est hardcodé à souhait
+                if (troncon.getDoubleSens()){
+                    if(p2y-p1y>0){
+                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    }
+                    else{
+                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
+                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    }
+                    float X = p1x +(p2x - p1x)*em.getPourcentageParcouru();
+                    float Y = p1y +(p2y - p1y)*em.getPourcentageParcouru();
+                    p = new Point2D.Float(X, Y);
+                }
+            }
+            
+            if (zoneSelection.contains(p))
             {
                 arrets.previous().changerStatutSelection();
                 return arrets.next();
