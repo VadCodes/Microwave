@@ -36,6 +36,7 @@ public class Simulatheure {
     private Circuit m_circuit_temp = new Circuit();
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
+    private Arret m_arret_temp = new Arret();
     
     public Simulatheure() {}  
     
@@ -381,7 +382,7 @@ public class Simulatheure {
             }
             m_modeNouvelArret = false;
 
-            circuit.ajouterPaire(nouvArret, null);
+            m_arret_temp = nouvArret;
         }
         else{ //mode trajet           
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
@@ -421,7 +422,7 @@ public class Simulatheure {
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
                     
                     cancellerCircuit();
-                    m_reseauTransport.ajouterCircuit(circuit); 
+                    circuit.ajouterPaire(m_arret_temp, null);
                 }
             }
             else{ //arret sur intersection
@@ -429,7 +430,7 @@ public class Simulatheure {
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
                     
                     cancellerCircuit();
-                    m_reseauTransport.ajouterCircuit(circuit);
+                    circuit.ajouterPaire(m_arret_temp, null);
                 }
             }
         }
@@ -501,6 +502,15 @@ public class Simulatheure {
                 trc.setDoubleSens();
             }
         }
+    }
+    
+    public Circuit obtenirCircuitSelectionne(){
+        for (Circuit circ : m_reseauTransport.getListeCircuits()){
+            if (circ.estSelectionne()){
+                return circ;
+            }
+        }
+        return null;
     }
     
 }
