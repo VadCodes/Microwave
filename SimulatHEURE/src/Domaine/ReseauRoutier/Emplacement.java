@@ -21,7 +21,7 @@ public class Emplacement {
  
         if(estSurTroncon){
             if(!intersection.getTroncons().contains(troncon)){
-                throw new Error("Mauvais troncon ou intersection");
+               // throw new Error("Mauvais troncon ou intersection");
             }
             m_troncon = troncon;
             m_pourcentageParcouru = pourcentageParcouru;
