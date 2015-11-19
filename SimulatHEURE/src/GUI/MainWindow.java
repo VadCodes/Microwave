@@ -4,7 +4,11 @@ import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
 import Domaine.Simulatheure.Commandes;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
@@ -28,17 +32,29 @@ public class MainWindow extends javax.swing.JFrame {
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
     private Boolean m_booleanCTRL = false;
-    
+    private Timer m_timer;
+    private MainWindow m_this = this;
     /**
      * Creates new form MainWindow
      */
+    
     public MainWindow() {
+        
         m_controleur = new Simulatheure();
         initComponents();
         routier.doClick();
-        this.afficheurReseau.setDimension(false);
-          
+        this.afficheurReseau.setDimension(false);         
     }
+class MyTimerActionListener implements ActionListener {
+  public void actionPerformed(ActionEvent e) {
+      int delais = m_timer.getDelay();
+      float deltatT = (float)(delais);
+      System.out.println(delais);
+      m_controleur.rafraichirSimulation(new Temps(0.05));
+      System.out.println("yoyo");
+      m_this.afficheurCommandes.repaint();
+  }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -459,7 +475,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_quitterActionPerformed
 
     private void routierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routierActionPerformed
-        
+
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
         selectionRoutier.doClick();        
@@ -477,6 +493,11 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
         this.setMode(Modes.SIMULATION);
+        System.out.println("yo simulation bro");
+        m_timer= new Timer(0, new MyTimerActionListener());     
+        m_timer.setDelay(1);
+        m_controleur.demarrerSimulation();
+        m_timer.start();
         //boutonsSimulation.setVisible(true);
     }//GEN-LAST:event_simulationActionPerformed
 
@@ -578,6 +599,8 @@ public class MainWindow extends javax.swing.JFrame {
                         default:
                             break;
                     }
+                case SIMULATION:
+                    
                     break;
                     
                     
@@ -866,3 +889,4 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel wtf2;
     // End of variables declaration//GEN-END:variables
 }
+

@@ -41,6 +41,9 @@ public class Circuit extends ElementTransport{
         m_listeArretTrajet = new LinkedList();
     }
     
+    public LinkedList<Autobus> getListeAutobus(){
+        return m_listeAutobus;
+    }
     public LinkedList<SourceAutobus> getListeSourceAutobus(){
         return m_listeSources;
     }
