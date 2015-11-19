@@ -44,13 +44,13 @@ public class DessinateurTransport {
         if (echelle > 1){
             dessinerArrets(p_g, echelle);
             dessinerCircuit(p_g, echelle);
-             dessinerSourceAutobus(p_g, echelle);
+            dessinerSourceAutobus(p_g, echelle);
         }
         else
         {
             dessinerArrets(p_g, 1);
             dessinerCircuit(p_g, 1);
-             dessinerSourceAutobus(p_g, 1);
+            dessinerSourceAutobus(p_g, 1);
         }
     }
     
@@ -130,10 +130,36 @@ public class DessinateurTransport {
                     p_g.setColor(Color.BLUE);
                 }
                 Emplacement em = arret.getEmplacement();
-                
                 Point2D.Float position = em.calculPosition();
-                System.out.println("Pourcentage");
-                System.out.println(em.getPourcentageParcouru());
+                
+                if(em.getEstSurTroncon()){
+                    Troncon troncon = em.getTroncon();
+
+                    float p1x = troncon.getIntersectionOrigin().getPosition().x;
+                    float p1y = troncon.getIntersectionOrigin().getPosition().y;
+                    float p2x = troncon.getDestination().getPosition().x;
+                    float p2y = troncon.getDestination().getPosition().y;
+                    
+                    float n = 3.5f; //aww yeah c'est hardcodé à souhait
+                    if (troncon.getDoubleSens()){
+                        if(p2y-p1y>0){
+                            p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                            p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                            p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                            p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        }
+                        else{
+                            p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                            p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
+                            p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                            p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                        }
+                        float X = p1x +(p2x - p1x)*em.getPourcentageParcouru();
+                        float Y = p1y +(p2y - p1y)*em.getPourcentageParcouru();
+                        position = new Point2D.Float(X, Y);
+                    }
+                }
+                
                 float x = position.x -   arret.RAYON / p_echelle;
                 float y = position.y -   arret.RAYON / p_echelle;
                 float diametre = 2 *   arret.RAYON / p_echelle;
