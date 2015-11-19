@@ -206,11 +206,24 @@
                       <Dimension value="[1300, 800]"/>
                     </Property>
                   </Properties>
+<<<<<<< HEAD
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                       <BorderConstraints direction="East"/>
                     </Constraint>
                   </Constraints>
+=======
+                  <Events>
+                    <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="afficheurReseauMouseMoved"/>
+                    <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="afficheurReseauMouseWheelMoved"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="afficheurReseauMouseClicked"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="afficheurReseauMouseExited"/>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="afficheurReseauMousePressed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GUI.AfficheurReseau(this)"/>
+                  </AuxValues>
+>>>>>>> 5d0ebfe39a4fe271b3b40425ec77b434dbd9c3a0
 
                   <Layout>
                     <DimensionLayout dim="0">
