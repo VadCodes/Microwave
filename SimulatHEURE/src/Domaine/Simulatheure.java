@@ -368,7 +368,6 @@ public class Simulatheure {
     
     public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle){
         Arret arretPrecedent = circuit.getListeArretTrajet().getLast().getArret();
-        arretPrecedent.changerStatutSelection();
         
         if (m_modeNouvelArret){
 
@@ -390,6 +389,29 @@ public class Simulatheure {
                 }
             }
 
+            Emplacement emplPrec = arretPrecedent.getEmplacement();
+            Emplacement emplNouv = nouvArret.getEmplacement();
+            Boolean precSurTrc = emplPrec.getEstSurTroncon();
+            Boolean nouvSurTrc = emplNouv.getEstSurTroncon();
+
+            Boolean memeTronconBonSens = precSurTrc && nouvSurTrc && emplPrec.getTroncon() == emplNouv.getTroncon() && emplPrec.getPourcentageParcouru() < emplNouv.getPourcentageParcouru();
+            Boolean trcVersInterDestImmediate = precSurTrc && !nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getIntersection();
+            Boolean interOrigVersTrcImmediat = !precSurTrc && nouvSurTrc && emplPrec.getIntersection() == emplNouv.getTroncon().getIntersectionOrigin();
+            Boolean trcVersTrcSuivant = precSurTrc && nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getTroncon().getIntersectionOrigin();
+
+            if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
+                LinkedList<Troncon> listetmp = new LinkedList();
+                listetmp.add(emplPrec.getTroncon());
+                if (trcVersTrcSuivant){
+                    listetmp.add(emplNouv.getTroncon());
+                }
+                Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
+                circuit.ajouterPaire(nouvArret, null);
+                circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(trj);
+                cancellerCircuit();
+                return;
+            }
+            
             //mettre en couleur le troncon partiel apres l'arret precedent
             if(circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
                 Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
@@ -413,15 +435,15 @@ public class Simulatheure {
             Troncon nouvTroncon = (Troncon) nouvER;
             
             if (m_trajet_temp.getListeTroncon().isEmpty()) { //trajet pas encore créé
-                if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2)
-                        .getArret().getEmplacement().getEstSurTroncon()) { //il faut vérifier que c'est après le premier arret
-                    if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2)
+                if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-1)
+                        .getArret().getEmplacement().getEstSurTroncon()) { //il faut vérifier que c'est après le dernier arret
+                    if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-1)
                             .getArret().getEmplacement().getTroncon().getDestination() != nouvTroncon.getIntersectionOrigin()) { 
                         return;
                     }
                 }
                 else{
-                    if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2)
+                    if (circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-1)
                             .getArret().getEmplacement().getIntersection() != nouvTroncon.getIntersectionOrigin()){
                         return;
                     }
@@ -438,20 +460,21 @@ public class Simulatheure {
             m_trajet_temp.getListeTroncon().add(nouvTroncon);
             
             //si dernier troncon avant l'arret on push le trajet
-            if(circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getEstSurTroncon()){
-                if (nouvTroncon.getDestination() == circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon().getIntersectionOrigin()) {
+            if(m_arret_temp.getEmplacement().getEstSurTroncon()){
+                if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getTroncon().getIntersectionOrigin()) {
+                    m_trajet_temp.getListeTroncon().addLast(m_arret_temp.getEmplacement().getTroncon());
+                    circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
                     
                     cancellerCircuit();
-                    circuit.ajouterPaire(m_arret_temp, null);
                 }
             }
             else{ //arret sur intersection
                 if (nouvTroncon.getDestination() == circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getIntersection()) {
-                    circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
-                    
-                    cancellerCircuit();
                     circuit.ajouterPaire(m_arret_temp, null);
+                    circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
+
+                    cancellerCircuit();
                 }
             }
         }
@@ -461,6 +484,7 @@ public class Simulatheure {
         deselectionnerTout();
         m_circuit_temp = new Circuit();
         m_trajet_temp = new Trajet();
+        m_arret_temp = new Arret();
         m_modeNouvelArret = true;
     }
   
