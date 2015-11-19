@@ -527,7 +527,7 @@ public class MainWindow extends javax.swing.JFrame {
                             ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                             break;
                         
-                        case CIRCUIT:
+                        case AJOUTERCIRCUIT:
                             m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
                             
                                for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
@@ -545,6 +545,11 @@ public class MainWindow extends javax.swing.JFrame {
                                   }
                                }
                                 
+                            break;
+                            
+                        case EDITERCIRCUIT:
+                            //Circuit circ = obtenirLeCircuitSelectionne();
+                            //m_controleur.editerCircuit(circ,evt.getX(), evt.getY(), echelle);
                             break;
                             
                         case SOURCE:
@@ -593,8 +598,15 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
                     
                 case TRANSPORT:
-                    m_controleur.cancellerCircuit();
-                    break;
+                    switch (m_commande_courante)
+                    {                                              
+                        case AJOUTERCIRCUIT:
+                            m_controleur.cancellerCircuit();
+                            break;
+                    
+                        default:
+                            break;
+                    }
             }
         }
         this.afficheurCommandes.repaint();
@@ -712,7 +724,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutArretActionPerformed
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
-        this.setCommande(Commandes.CIRCUIT);
+        this.setCommande(Commandes.AJOUTERCIRCUIT);
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed

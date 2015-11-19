@@ -21,7 +21,7 @@ public class Simulatheure {
     }
     
     public enum Commandes {
-        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, CIRCUIT
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, AJOUTERCIRCUIT, EDITERCIRCUIT
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
