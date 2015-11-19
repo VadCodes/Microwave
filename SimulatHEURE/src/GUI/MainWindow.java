@@ -336,6 +336,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Selection Circuit:");
         boutonsTransport.add(jLabel3);
 
+        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectionCircuitActionPerformed(evt);
@@ -528,6 +529,22 @@ public class MainWindow extends javax.swing.JFrame {
                         
                         case CIRCUIT:
                             m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
+                            
+                               for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+                                 boolean add = true;
+                                 Circuit circuit = circuits.next();
+                                 String name = circuit.getNom();
+                                 for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
+                                     String tmp = (String)selectionCircuit.getItemAt(i);
+                                     if(tmp == name){
+                                      add = false;
+                                     }
+                                 }
+                                 if(add){
+                                      selectionCircuit.addItem(circuit.getNom());
+                                  }
+                               }
+                                
                             break;
                             
                         case SOURCE:
@@ -580,12 +597,6 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
             }
         }
-        selectionCircuit.removeAllItems();
-        selectionCircuit.addItem("0");
-          for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-              selectionCircuit.addItem(circuit.getNom());
-          }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
@@ -734,6 +745,9 @@ public class MainWindow extends javax.swing.JFrame {
                 }
               if (circuit.getNom().equals(name)){
                   circuit.changerStatutSelection();
+                  if(circuit.estSelectionne()){
+                      //editer circuit selectionner;
+                  }
               }
           }
         this.afficheurCommandes.repaint();
