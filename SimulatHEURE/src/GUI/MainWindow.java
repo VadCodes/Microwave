@@ -501,7 +501,7 @@ public class MainWindow extends javax.swing.JFrame {
                     m_controleur.deselectionnerRoutier();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                     if (elemRoutier!=null){
-                        jPopupMenu1.show(this,evt.getX(),evt.getY());
+                        jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
                     }
                     break;
                     

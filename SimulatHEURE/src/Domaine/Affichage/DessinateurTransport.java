@@ -16,6 +16,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
@@ -52,15 +53,15 @@ public class DessinateurTransport {
     }
     
     private void dessinerCircuit(Graphics2D p_g, float p_echelle){
-        p_g.setColor(Color.PINK);
-        p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
+        Stroke dashed = new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        p_g.setStroke(dashed);
         for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
             if(circuit.estSelectionne()){
                 p_g.setColor(Color.BLUE);
             }
             else{
-                p_g.setColor(Color.MAGENTA);
+                p_g.setColor(Color.RED);
             }
             Arret arretDebut  =  circuit.getListeArretTrajet().getFirst().getArret();
             Troncon tronconFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getTrajet().getListeTroncon().getLast();//p-e -2 ou pas
