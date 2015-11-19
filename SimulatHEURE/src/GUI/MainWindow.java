@@ -551,26 +551,28 @@ class MyTimerActionListener implements ActionListener {
                         case AJOUTERCIRCUIT:
                             m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
                             
-                               for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-                                 boolean add = true;
-                                 Circuit circuit = circuits.next();
-                                 String name = circuit.getNom();
-                                 for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
-                                     String tmp = (String)selectionCircuit.getItemAt(i);
-                                     if(tmp == name){
-                                      add = false;
-                                     }
-                                 }
-                                 if(add){
-                                      selectionCircuit.addItem(circuit.getNom());
+                            for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+                              boolean add = true;
+                              Circuit circuit = circuits.next();
+                              String name = circuit.getNom();
+                              for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
+                                  String tmp = (String)selectionCircuit.getItemAt(i);
+                                  if(tmp == name){
+                                   add = false;
                                   }
+                              }
+                              if(add){
+                                   selectionCircuit.addItem(circuit.getNom());
                                }
+                            }
                                 
                             break;
                             
                         case EDITERCIRCUIT:
-                            //Circuit circ = obtenirLeCircuitSelectionne();
-                            //m_controleur.editerCircuit(circ,evt.getX(), evt.getY(), echelle);
+                            Circuit circ = m_controleur.obtenirCircuitSelectionne();
+                            if (circ!=null){
+                                m_controleur.editerCircuit(circ,evt.getX(), evt.getY(), echelle);
+                            }
                             break;
                             
                         case SOURCE:
@@ -781,7 +783,7 @@ class MyTimerActionListener implements ActionListener {
               if (circuit.getNom().equals(name)){
                   circuit.changerStatutSelection();
                   if(circuit.estSelectionne()){
-                      //editer circuit selectionner;
+                      this.setCommande(Commandes.EDITERCIRCUIT);
                   }
               }
           }

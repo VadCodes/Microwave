@@ -24,6 +24,10 @@ public class Arret extends ElementTransport{
         m_nom = nom;
     }
     
+    public Arret(){
+        
+    }
+    
     public void viderFile(){
         m_fileAutobus.clear();
     }
