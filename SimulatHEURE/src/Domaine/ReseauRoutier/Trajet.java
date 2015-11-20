@@ -24,7 +24,7 @@ public class Trajet {
     }
     
     public Trajet(){
-        m_listTroncons = new LinkedList();
+        m_listTroncons = new LinkedList<>();
     }
     
     public Emplacement getEmplacementInitial(){

@@ -25,13 +25,13 @@ public class Simulatheure {
     }
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
-    private LinkedList<Intersection> m_parametresTroncon = new LinkedList();
+    private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
     private Intersection m_intersectionOriginArret;
-    private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList();
+    private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList<>();
     private Troncon m_tronconArret;
     private ReseauTransport m_reseauTransport = new ReseauTransport() ;
     private Temps m_deltaT;
-    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList();
+    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
     
     private Circuit m_circuit_temp = new Circuit();
     private Trajet m_trajet_temp = new Trajet();
@@ -276,7 +276,7 @@ public class Simulatheure {
                 Boolean trcVersTrcSuivant = precSurTrc && nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getTroncon().getIntersectionOrigin();
                 
                 if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
-                    LinkedList<Troncon> listetmp = new LinkedList();
+                    LinkedList<Troncon> listetmp = new LinkedList<>();
                     listetmp.add(emplPrec.getTroncon());
                     if (trcVersTrcSuivant){
                         listetmp.add(emplNouv.getTroncon());
@@ -400,7 +400,7 @@ public class Simulatheure {
             Boolean trcVersTrcSuivant = precSurTrc && nouvSurTrc && emplPrec.getTroncon().getDestination() == emplNouv.getTroncon().getIntersectionOrigin();
 
             if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
-                LinkedList<Troncon> listetmp = new LinkedList();
+                LinkedList<Troncon> listetmp = new LinkedList<>();
                 listetmp.add(emplPrec.getTroncon());
                 if (trcVersTrcSuivant){
                     listetmp.add(emplNouv.getTroncon());

@@ -22,8 +22,8 @@ import Domaine.Utilitaire.Temps;
 
 public class Circuit extends ElementTransport{
     private String m_nom = "";
-    private LinkedList<SourceAutobus> m_listeSources = new LinkedList();
-    private LinkedList<Autobus> m_listeAutobus = new LinkedList();
+    private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
+    private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private ReseauRoutier m_reseauRoutier;
     private Temps tempsDepart;
@@ -38,7 +38,7 @@ public class Circuit extends ElementTransport{
     }
     
     public Circuit(){
-        m_listeArretTrajet = new LinkedList();
+        m_listeArretTrajet = new LinkedList<>();
     }
     
     public LinkedList<Autobus> getListeAutobus(){
@@ -104,7 +104,7 @@ public class Circuit extends ElementTransport{
     
     public LinkedList<Point2D.Float> getPositionsDesAutobus(Float p_echelle){
         
-        LinkedList<Point2D.Float> listePositionsAutobus = new LinkedList<Point2D.Float>();
+        LinkedList<Point2D.Float> listePositionsAutobus = new LinkedList<>();
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
             listePositionsAutobus.add(autobusItr.next().getPosition(p_echelle));

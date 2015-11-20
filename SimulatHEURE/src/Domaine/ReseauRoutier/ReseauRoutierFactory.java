@@ -15,13 +15,8 @@ import java.awt.geom.Point2D;
  * @author Nathaniel
  */
 public class ReseauRoutierFactory {
-      // private LinkedList<Troncon> m_listTroncons = new LinkedList();
-      // private LinkedList<Intersection> m_listIntersections = new LinkedList();
-      // private LinkedList<Emplacement> m_listEmplacement = new LinkedList();
-      // private LinkedList<Trajet> m_listTrajet = new LinkedList();
-      // private LinkedList<Position> m_listPosition = new LinkedList();
-       public ReseauRoutierFactory(){}
-       
+    
+       public ReseauRoutierFactory(){}       
        
        public Troncon creerTroncon(Intersection p_origine, Intersection p_destination)
        {

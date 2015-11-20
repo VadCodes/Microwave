@@ -13,7 +13,7 @@ import java.awt.geom.Rectangle2D;
  * @author Nathaniel
  */
 public class ReseauRoutier {
-    private LinkedList<Intersection> m_listeIntersections = new LinkedList();
+    private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     
     public final static double VITESSE_PIETON = 4;
@@ -124,7 +124,7 @@ public class ReseauRoutier {
     
     public LinkedList<ElementRoutier> getElementsSelectionnes(){
         
-        LinkedList<ElementRoutier> listeRetour = new LinkedList();
+        LinkedList<ElementRoutier> listeRetour = new LinkedList<>();
         
         for (Intersection intersection: m_listeIntersections)
         {

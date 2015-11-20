@@ -20,8 +20,8 @@ import java.awt.geom.Point2D;
  */
 public class ReseauTransport {
     
-    private LinkedList<Circuit> m_listeCircuits = new LinkedList();
-    private LinkedList<Arret> m_listeArrets = new LinkedList();
+    private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
+    private LinkedList<Arret> m_listeArrets = new LinkedList<>();
     private Temps tempsDebut;
     public ReseauTransport(){}
     

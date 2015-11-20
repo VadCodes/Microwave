@@ -10,7 +10,7 @@ import java.awt.geom.Point2D;
 public class Intersection extends ElementRoutier{
     private String m_name = "";
     private Point2D.Float m_position;
-    private LinkedList<Troncon> m_listeTroncons = new LinkedList();
+    private LinkedList<Troncon> m_listeTroncons = new LinkedList<>();
     
     public final static float RAYON = 10;
     

@@ -16,7 +16,7 @@ import java.util.PriorityQueue;
 public class Arret extends ElementTransport{
     private Emplacement m_emplacement;
     private String m_nom = "";
-    private PriorityQueue<TempsArriveeAutobus> m_fileAutobus = new PriorityQueue();
+    private PriorityQueue<TempsArriveeAutobus> m_fileAutobus = new PriorityQueue<>();
     public final static float RAYON = 8;
     
     public Arret(Emplacement emplacement, String nom){
