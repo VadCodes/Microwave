@@ -101,7 +101,7 @@ class MyTimerActionListener implements ActionListener {
         suppressionTransport = new javax.swing.JButton();
         ajoutCircuit = new javax.swing.JToggleButton();
         jLabel3 = new javax.swing.JLabel();
-        selectionCircuit = new javax.swing.JComboBox();
+        selectionCircuit = new javax.swing.JComboBox<String>();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -400,31 +400,31 @@ class MyTimerActionListener implements ActionListener {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(411, Short.MAX_VALUE)
+                    .addContainerGap(535, Short.MAX_VALUE)
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(412, Short.MAX_VALUE)
+                    .addContainerGap(536, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(341, Short.MAX_VALUE)))
+                    .addContainerGap(348, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(311, Short.MAX_VALUE)))
+                    .addContainerGap(268, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -438,11 +438,11 @@ class MyTimerActionListener implements ActionListener {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 802, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 473, Short.MAX_VALUE)
+            .addGap(0, 481, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -883,7 +883,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JToggleButton routier;
-    private javax.swing.JComboBox selectionCircuit;
+    private javax.swing.JComboBox<String> selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;
