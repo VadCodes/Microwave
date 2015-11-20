@@ -82,12 +82,15 @@ class MyTimerActionListener implements ActionListener {
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        wtf2 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        wtf = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        annuler = new javax.swing.JButton();
+        retablir = new javax.swing.JButton();
+        geographie = new javax.swing.JPanel();
+        coordonnees = new javax.swing.JLabel();
+        zoom = new javax.swing.JLabel();
+        titreGeographie = new javax.swing.JPanel();
+        titreCoordonnees = new javax.swing.JLabel();
+        titreZoom = new javax.swing.JLabel();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
@@ -157,7 +160,7 @@ class MyTimerActionListener implements ActionListener {
         jPanel1.setPreferredSize(new java.awt.Dimension(150, 400));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        boutonModes.setPreferredSize(new java.awt.Dimension(150, 400));
+        boutonModes.setPreferredSize(new java.awt.Dimension(180, 400));
         boutonModes.setRequestFocusEnabled(false);
         boutonModes.setLayout(new java.awt.GridLayout(4, 1));
 
@@ -195,35 +198,62 @@ class MyTimerActionListener implements ActionListener {
 
         jPanel1.add(boutonModes, java.awt.BorderLayout.NORTH);
 
-        jPanel5.setLayout(new java.awt.GridLayout(3, 2));
+        jPanel5.setPreferredSize(new java.awt.Dimension(150, 65));
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("Annuler");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel6.setPreferredSize(new java.awt.Dimension(180, 25));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
+
+        annuler.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        annuler.setText("Annuler");
+        annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                annulerActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1);
+        jPanel6.add(annuler);
 
-        jButton2.setText("Revenir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        retablir.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        retablir.setText("Rétablir");
+        retablir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                retablirActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton2);
+        jPanel6.add(retablir);
 
-        jLabel1.setText("Zoom :");
-        jPanel5.add(jLabel1);
+        jPanel5.add(jPanel6, java.awt.BorderLayout.PAGE_START);
 
-        wtf2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        wtf2.setText("100 %");
-        wtf2.setRequestFocusEnabled(false);
-        jPanel5.add(wtf2);
+        geographie.setPreferredSize(new java.awt.Dimension(90, 40));
+        geographie.setLayout(new java.awt.GridLayout(2, 1));
 
-        jLabel2.setText("Position :");
-        jPanel5.add(jLabel2);
-        jPanel5.add(wtf);
+        coordonnees.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        geographie.add(coordonnees);
+
+        zoom.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        zoom.setText("100 %");
+        zoom.setMaximumSize(new java.awt.Dimension(0, 0));
+        zoom.setMinimumSize(new java.awt.Dimension(0, 0));
+        zoom.setPreferredSize(new java.awt.Dimension(0, 0));
+        zoom.setRequestFocusEnabled(false);
+        geographie.add(zoom);
+
+        jPanel5.add(geographie, java.awt.BorderLayout.LINE_END);
+
+        titreGeographie.setPreferredSize(new java.awt.Dimension(70, 40));
+        titreGeographie.setLayout(new java.awt.GridLayout(2, 1));
+
+        titreCoordonnees.setText("Position :");
+        titreCoordonnees.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        titreGeographie.add(titreCoordonnees);
+
+        titreZoom.setText("Zoom :");
+        titreZoom.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        titreZoom.setMaximumSize(new java.awt.Dimension(0, 0));
+        titreZoom.setMinimumSize(new java.awt.Dimension(0, 0));
+        titreGeographie.add(titreZoom);
+
+        jPanel5.add(titreGeographie, java.awt.BorderLayout.LINE_START);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
@@ -299,7 +329,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsTransport.setAlignmentX(1.0F);
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setOpaque(false);
-        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 160));
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 220));
         boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -408,9 +438,9 @@ class MyTimerActionListener implements ActionListener {
                     .addGap(27, 27, 27)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(536, Short.MAX_VALUE)
+                    .addContainerGap(535, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(26, 26, 26)))
+                    .addGap(27, 27, 27)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,8 +453,8 @@ class MyTimerActionListener implements ActionListener {
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(268, Short.MAX_VALUE)))
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(248, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -650,7 +680,7 @@ class MyTimerActionListener implements ActionListener {
         y = (int)(evt.getY() * (rapportEchelles  - 1)) + y;
         
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
-        wtf2.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
+        zoom.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
@@ -658,11 +688,11 @@ class MyTimerActionListener implements ActionListener {
         
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
-        wtf.setText(Integer.toString((int)x) + "  " + Integer.toString((int)y));
+        coordonnees.setText(String.format("%.1f", x) + "  " + String.format("%.1f", y));
     }//GEN-LAST:event_afficheurReseauMouseMoved
 
     private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
-        wtf.setText("");
+        coordonnees.setText("");
     }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void selectionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionRoutierActionPerformed
@@ -764,13 +794,13 @@ class MyTimerActionListener implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_afficheurReseauMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_annulerActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_retablirActionPerformed
 
     private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
         int index = selectionCircuit.getSelectedIndex();
@@ -854,21 +884,20 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
     private javax.swing.JToggleButton ajoutSource;
+    private javax.swing.JButton annuler;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JToggleButton constructionTroncon;
+    private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JMenu fichier;
+    private javax.swing.JPanel geographie;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.ButtonGroup groupeTransport;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -877,11 +906,13 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenuItem quitter;
+    private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JComboBox<String> selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
@@ -889,9 +920,11 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton simulation;
     private javax.swing.JButton suppressionRoutier;
     private javax.swing.JButton suppressionTransport;
+    private javax.swing.JLabel titreCoordonnees;
+    private javax.swing.JPanel titreGeographie;
+    private javax.swing.JLabel titreZoom;
     private javax.swing.JToggleButton transport;
-    private javax.swing.JLabel wtf;
-    private javax.swing.JLabel wtf2;
+    private javax.swing.JLabel zoom;
     // End of variables declaration//GEN-END:variables
 }
 
