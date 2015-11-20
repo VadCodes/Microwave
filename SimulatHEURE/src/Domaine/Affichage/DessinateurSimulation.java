@@ -48,7 +48,7 @@ public class DessinateurSimulation {
             for (Autobus autobus :autobuss){
                  p_g.setColor(Color.PINK);
                 Emplacement em = autobus.getEmplacement();
-                Point2D.Float position = em.calculPosition();
+                Point2D.Float position = em.calculPosition(p_echelle);
                 System.out.println("Pourcentage");
                 System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   5 / p_echelle;

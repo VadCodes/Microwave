@@ -30,7 +30,7 @@ public class Emplacement {
         
         m_intersection = intersection;
     }
-    public Point2D.Float calculPosition(){
+    public Point2D.Float calculPosition(Float p_echelle){
         if(m_estSurTroncon){
             float p1x = m_troncon.getIntersectionOrigin().getPosition().x;
             float p1y = m_troncon.getIntersectionOrigin().getPosition().y;
@@ -40,16 +40,16 @@ public class Emplacement {
             float n = 3.5f;
             if(m_troncon.getDoubleSens()){
                 if(p2y-p1y>0){
-                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                 }
                 else{
-                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));   
-                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
+                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                 }
 
             }
@@ -91,6 +91,6 @@ public class Emplacement {
                 (Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
                 m_troncon.equals(autreEmpl.m_troncon) &&
                 m_intersection.equals(autreEmpl.m_intersection) &&
-                this.calculPosition().equals(autreEmpl.calculPosition()));
+                this.calculPosition(1.0f).equals(autreEmpl.calculPosition(1.0f)));
     }
 }

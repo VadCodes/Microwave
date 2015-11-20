@@ -72,7 +72,7 @@ public class ReseauTransport {
 
         for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
             Emplacement em = arrets.next().getEmplacement();
-            Point2D.Float p = em.calculPosition();
+            Point2D.Float p = em.calculPosition(p_echelle);
             if(em.getEstSurTroncon()){
                 Troncon troncon = em.getTroncon();
 

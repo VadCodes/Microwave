@@ -68,8 +68,8 @@ public class DessinateurTransport {
             Arret arretDebut  =  circuit.getListeArretTrajet().getFirst().getArret();
             Troncon tronconFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getTrajet().getListeTroncon().getLast();//p-e -2 ou pas
             Arret arretFin = circuit.getListeArretTrajet().getLast().getArret();
-            Point2D.Float pd = arretDebut.getEmplacement().calculPosition();
-            Point2D.Float pf = arretFin.getEmplacement().calculPosition();
+            Point2D.Float pd = arretDebut.getEmplacement().calculPosition(p_echelle);
+            Point2D.Float pf = arretFin.getEmplacement().calculPosition(p_echelle);
             Path2D.Float ligne= new Path2D.Float();  
             ligne.moveTo(pd.x, pd.y);
             for (PaireArretTrajet paire : circuit.getListeArretTrajet()){
@@ -95,16 +95,16 @@ public class DessinateurTransport {
 
                                 float n = 3.5f;
                                 if(p2y-p1y>0){
-                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                                 }
                                 else{
-                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
-                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                                 }
                                 ligne.lineTo(p2x, p2y);
                             }
@@ -133,7 +133,7 @@ public class DessinateurTransport {
                     }
                 Emplacement em = source.getEmplacement();
                 
-                Point2D.Float position = em.calculPosition();
+                Point2D.Float position = em.calculPosition(p_echelle);
                 float x = position.x -   source.LONGUEUR / p_echelle;
                 float y = position.y -   source.LARGUEUR/ p_echelle;
                 p_g.fill(new Rectangle2D.Float(x,y, source.LONGUEUR,source.LARGUEUR ));
@@ -153,7 +153,7 @@ public class DessinateurTransport {
                     p_g.setColor(Color.BLUE);
                 }
                 Emplacement em = arret.getEmplacement();
-                Point2D.Float position = em.calculPosition();
+                Point2D.Float position = em.calculPosition(p_echelle);
                 
                 if(em.getEstSurTroncon()){
                     Troncon troncon = em.getTroncon();

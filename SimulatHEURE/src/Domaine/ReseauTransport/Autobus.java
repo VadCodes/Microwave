@@ -111,8 +111,8 @@ public class Autobus {
     }
     
     
-    public Point2D.Float getPosition(){
-        return m_emplacementActuel.calculPosition();
+    public Point2D.Float getPosition(Float p_echelle){
+        return m_emplacementActuel.calculPosition(p_echelle);
     }
     
     public ListIterator<PaireArretTrajet> getIterateur(){

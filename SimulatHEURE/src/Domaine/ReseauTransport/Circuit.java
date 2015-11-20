@@ -102,12 +102,12 @@ public class Circuit extends ElementTransport{
         bus.miseAJourAutobus(deltaT);
     }
     
-    public LinkedList<Point2D.Float> getPositionsDesAutobus(){
+    public LinkedList<Point2D.Float> getPositionsDesAutobus(Float p_echelle){
         
         LinkedList<Point2D.Float> listePositionsAutobus = new LinkedList<Point2D.Float>();
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
-            listePositionsAutobus.add(autobusItr.next().getPosition());
+            listePositionsAutobus.add(autobusItr.next().getPosition(p_echelle));
         }
         
         return listePositionsAutobus;
