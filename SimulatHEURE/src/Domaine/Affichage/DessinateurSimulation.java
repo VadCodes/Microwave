@@ -49,8 +49,8 @@ public class DessinateurSimulation {
                  p_g.setColor(Color.ORANGE);
                 Emplacement em = autobus.getEmplacement();
                 Point2D.Float position = em.calculPosition(p_echelle);
-                System.out.println("Pourcentage");
-                System.out.println(em.getPourcentageParcouru());
+                //System.out.println("Pourcentage");
+                //System.out.println(em.getPourcentageParcouru());
                 float x = position.x -   5 / p_echelle;
                 float y = position.y -   5 / p_echelle;
                 float diametre = 2 *   5 / p_echelle;

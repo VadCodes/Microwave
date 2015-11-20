@@ -45,6 +45,76 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);         
+        
+        //test
+    //this.afficheurReseau.setDimension(false);
+        /*
+    int x1 = 100;
+    int y1 = 100;
+    int x2 = 500;
+    int y2 = 500;
+    int x3 = 300;
+    
+    this.m_controleur.ajouterIntersection(x1, y1, 1f);
+    Intersection inter1 = this.m_controleur.getRoutier().getIntersections().getLast();
+    this.m_controleur.ajouterIntersection(x2, y1, 1f);
+    Intersection inter2 = this.m_controleur.getRoutier().getIntersections().getLast();
+    this.m_controleur.ajouterIntersection(x2, y2, 1f);
+    Intersection inter3 = this.m_controleur.getRoutier().getIntersections().getLast();
+    this.m_controleur.ajouterIntersection(x3, y2, 1f);
+    Intersection inter4 = this.m_controleur.getRoutier().getIntersections().getLast();
+    
+    this.m_controleur.getRoutier().ajouterTroncon(inter1, inter2);
+    Troncon troncon1 = this.m_controleur.getRoutier().getIntersections().get(0).getTroncons().getFirst();
+    this.m_controleur.getRoutier().ajouterTroncon(inter2, inter3);
+    Troncon troncon2 = this.m_controleur.getRoutier().getIntersections().get(1).getTroncons().getFirst();
+    this.m_controleur.getRoutier().ajouterTroncon(inter3, inter4);
+    Troncon troncon3 = this.m_controleur.getRoutier().getIntersections().get(2).getTroncons().getFirst();
+    
+    Emplacement emp1 = new Emplacement(false, 0, troncon2, inter1);
+    this.m_controleur.getTransport().ajouterArret(new Arret(emp1, ""));
+    Arret arret1 = this.m_controleur.getTransport().getListArrets().getLast();
+    
+    Emplacement emp2 = new Emplacement(true, 0.25f, troncon2, inter2);
+    this.m_controleur.getTransport().ajouterArret(new Arret(emp2, ""));
+    Arret arret2 = this.m_controleur.getTransport().getListArrets().getLast();
+    
+    Emplacement emp3 = new Emplacement(false, 0, troncon2, inter4);
+    this.m_controleur.getTransport().ajouterArret(new Arret(emp3, ""));
+    Arret arret3 = this.m_controleur.getTransport().getListArrets().getLast();
+    
+    LinkedList<Troncon> listeTroncons1 = new LinkedList<>();
+    listeTroncons1.add(troncon1);
+    listeTroncons1.add(troncon2);
+    Trajet trajet1 = new Trajet(emp1, emp2, listeTroncons1);
+    PaireArretTrajet paire1 = new PaireArretTrajet(arret1, trajet1);
+    
+    LinkedList<Troncon> listeTroncons2 = new LinkedList<>();
+    listeTroncons2.add(troncon2);
+    listeTroncons2.add(troncon3);
+    Trajet trajet2 = new Trajet(emp2, emp3, listeTroncons2);
+    PaireArretTrajet paire2 = new PaireArretTrajet(arret2, trajet2);
+    
+    PaireArretTrajet paire3 = new PaireArretTrajet(arret3, null);
+    
+    LinkedList<PaireArretTrajet> listePaires = new LinkedList<>();
+    listePaires.add(paire1);
+    listePaires.add(paire2);
+    listePaires.add(paire3);
+    
+    Circuit circuit1 = new Circuit("Calis", listePaires, this.m_controleur.getRoutier());
+    
+    this.m_controleur.getTransport().ajouterCircuit(circuit1);
+    
+    Distribution distSource = new Distribution();
+    distSource.setDistribution(new Temps(2), new Temps(2), new Temps(2));
+    
+    Emplacement empCalis = new Emplacement(true, 0, troncon1, inter1);
+    this.m_controleur.getTransport().ajoutSource(empCalis, circuit1, "Ta mere", distSource, new Temps(0));
+    this.m_controleur.getTransport().ajoutSource(emp2, circuit1, "Ta mere", distSource, new Temps(0));
+    
+    this.afficheurReseau.setDimension(true);
+        */
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
