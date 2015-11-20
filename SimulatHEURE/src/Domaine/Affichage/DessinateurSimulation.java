@@ -46,7 +46,7 @@ public class DessinateurSimulation {
         for (Circuit circuit :circuits){
             LinkedList<Autobus> autobuss = circuit.getListeAutobus();
             for (Autobus autobus :autobuss){
-                 p_g.setColor(Color.PINK);
+                 p_g.setColor(Color.ORANGE);
                 Emplacement em = autobus.getEmplacement();
                 Point2D.Float position = em.calculPosition(p_echelle);
                 System.out.println("Pourcentage");
