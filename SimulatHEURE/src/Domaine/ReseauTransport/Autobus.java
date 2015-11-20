@@ -32,6 +32,7 @@ public class Autobus {
     private ListIterator<PaireArretTrajet> m_iterateur; //jsais pas comment l'initialiser à NULL
     private Boolean m_estSurArret;
     private PaireArretTrajet m_paireActuelle;
+    private boolean m_asTerminer = false;
     
     public Autobus(Emplacement emplacementActuel, int capaciteMax, String id,
                     Temps tempsApparition, Boolean estSurArret){
@@ -42,7 +43,9 @@ public class Autobus {
         m_tempsApparition = tempsApparition;
         m_estSurArret = estSurArret;
     }
-    
+    public boolean asTerminer(){
+        return m_asTerminer;
+    }
     public void miseAJourEmplacement(Temps deltatT){
         /*
         * On calcul l'avancement en pourcentage sur un troncon.
@@ -69,6 +72,10 @@ public class Autobus {
                 System.out.println("On devrait changer la paire !!");
                 Emplacement emplacement1 = m_paireActuelle.getTrajet().getEmplacementFinal();
                 m_paireActuelle = m_iterateur.next();
+                if(m_paireActuelle.getTrajet() == null){
+                    m_asTerminer = true;
+                    return;
+                }
                 Emplacement emplacement2 = m_paireActuelle.getTrajet().getEmplacementFinal();
                 boolean bo = emplacement1.equals(emplacement2);
                 System.out.println(bo);

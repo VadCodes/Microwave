@@ -88,7 +88,13 @@ public class Circuit extends ElementTransport{
         //pour chaque autobus on calcule la circulation
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {
-            calculCirculation(deltatT, autobusItr.next());
+            Autobus aut = autobusItr.next();
+            if (aut.asTerminer()){
+                autobusItr.remove();
+            }
+            else{
+                calculCirculation(deltatT, aut);
+            }
         }
     }
     

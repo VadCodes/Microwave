@@ -45,7 +45,8 @@ public class SourceAutobus extends ElementTransport{
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
         while(m_tempsAvantApparition.getTemps() <= 0){
             miseAjourAvantAjout();
-            Autobus nouvelAutobus = new Autobus(m_emplacement, m_capaciteMax,  genererBusID(),tempsApparition() ,estSurArret() );
+            Emplacement em = new Emplacement(m_emplacement.getEstSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
+            Autobus nouvelAutobus = new Autobus(em, m_capaciteMax,  genererBusID(),tempsApparition() ,estSurArret() );
             m_circuit.ajouterAutobus(nouvelAutobus);
             m_circuit.assignerTrajetAutobus(nouvelAutobus);
             //On update le temps avant apparition. On l'addition de la frequence.
