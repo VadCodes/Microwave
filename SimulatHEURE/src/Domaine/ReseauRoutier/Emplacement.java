@@ -32,13 +32,31 @@ public class Emplacement {
     }
     public Point2D.Float calculPosition(){
         if(m_estSurTroncon){
-            float positionDepartX = m_troncon.getIntersectionOrigin().getPosition().x;
-            float positionDepartY = m_troncon.getIntersectionOrigin().getPosition().y;
-            float positionFinX = m_troncon.getDestination().getPosition().x;
-            float positionFinY = m_troncon.getDestination().getPosition().y;
-            float X = positionDepartX +(positionFinX - positionDepartX )*m_pourcentageParcouru;
-            float Y = positionDepartY +(positionFinY - positionDepartY )*m_pourcentageParcouru;
-            return new Point2D.Float(X, Y); // Criss un new;
+            float p1x = m_troncon.getIntersectionOrigin().getPosition().x;
+            float p1y = m_troncon.getIntersectionOrigin().getPosition().y;
+            float p2x = m_troncon.getDestination().getPosition().x;
+            float p2y = m_troncon.getDestination().getPosition().y;
+            
+            float n = 3.5f;
+            if(m_troncon.getDoubleSens()){
+                if(p2y-p1y>0){
+                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                }
+                else{
+                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));   
+                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                }
+
+            }
+            
+            float X = p1x +(p2x - p1x)*getPourcentageParcouru();
+            float Y = p1y +(p2y - p1y)*getPourcentageParcouru();
+            return new Point2D.Float(X, Y);
         }
         else{
             return m_intersection.getPosition();

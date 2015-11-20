@@ -85,7 +85,30 @@ public class DessinateurTransport {
                         }
                         else{
                             Point2D.Float p = troncon.getDestination().getPosition();
-                            ligne.lineTo(p.x,p.y);
+                            float p1x = p.x;
+                            float p1y = p.y;
+                            if(troncon.getDoubleSens()){
+                                Point2D.Float p2 = troncon.getIntersectionOrigin().getPosition();
+                                
+                                float p2x = p2.x;
+                                float p2y = p2.y;
+
+                                float n = 3.5f;
+                                if(p2y-p1y>0){
+                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                }
+                                else{
+                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y)));
+                                }
+                                ligne.lineTo(p2x, p2y);
+                            }
+                            ligne.lineTo(p1x,p1y);
                         }
                         premier = false;
                     }
