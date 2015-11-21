@@ -17,7 +17,7 @@ import java.util.PriorityQueue;
 public class Arret extends ElementTransport{
     private Emplacement m_emplacement;
     private String m_nom = "";
-    private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
+    private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList();
     public final static float RAYON = 8;
     
     public Arret(Emplacement emplacement, String nom){
