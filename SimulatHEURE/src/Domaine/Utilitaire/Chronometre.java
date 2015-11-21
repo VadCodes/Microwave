@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Domaine.Utilitaire;
-import java.util.Date;
 
 
 /**
@@ -13,28 +12,32 @@ import java.util.Date;
  */
 public class Chronometre {
     long m_tempsPrec;
-    long m_tempsInitial = -1;
+    long m_tempsDepuisDebut= 0;
     long m_tempsPauseDebut;
+    int m_facteurVitesse = 1;
     boolean m_pause = false;
-    Date m_timer = new Date();
     public Chronometre(){ }
     public void  start(){
-        if(m_tempsInitial == -1){
-            m_tempsInitial = System.currentTimeMillis();
-            m_tempsPrec = m_tempsInitial;
-        }
-        else{
-            m_tempsPrec =  System.currentTimeMillis();
-            m_pause = false;
-        }
+           m_pause = false;
+           m_tempsPrec =  System.currentTimeMillis();
     }
         
+    public void avancerX2(){
+        m_facteurVitesse *=2;
+    }
     
+    public void ralentirX2(){
+        m_facteurVitesse /=2;
+    }
+    public boolean estEnPause(){
+        return m_pause;
+    }
     public double getDeltatT(){
         if(!m_pause){
            long timeNow = System.currentTimeMillis();
-           double tmp =  timeNow - m_tempsPrec ;
+           double tmp =  m_facteurVitesse*(timeNow - m_tempsPrec );
            m_tempsPrec = timeNow;
+           m_tempsDepuisDebut += tmp;
             return tmp/1000;
         }
         return 0;
@@ -47,6 +50,7 @@ public class Chronometre {
     }
     
     public long getTempsDebut(){
-        return m_timer.getTime()-m_tempsInitial;
+        getDeltatT();
+        return m_tempsDepuisDebut;
     }
 }

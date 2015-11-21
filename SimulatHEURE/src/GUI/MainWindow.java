@@ -187,9 +187,9 @@ class MyTimerActionListener implements ActionListener {
         editerCircuit = new javax.swing.JButton();
         suppressionTransport = new javax.swing.JButton();
         boutonsSimulation = new javax.swing.JPanel();
-        playSimulation = new javax.swing.JToggleButton();
-        pauseSimulation = new javax.swing.JButton();
+        playPauseSimulation = new javax.swing.JToggleButton();
         avancerSimulation = new javax.swing.JButton();
+        ralentirSimulation = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -539,32 +539,32 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(140, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(1, 3, 20, 10));
 
-        playSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playSimulation.setText("Play");
-        playSimulation.addActionListener(new java.awt.event.ActionListener() {
+        playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        playPauseSimulation.setText("Play / Pause");
+        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playSimulationActionPerformed(evt);
+                playPauseSimulationActionPerformed(evt);
             }
         });
-        boutonsSimulation.add(playSimulation);
-
-        pauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        pauseSimulation.setText("Pause");
-        pauseSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pauseSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(pauseSimulation);
+        boutonsSimulation.add(playPauseSimulation);
 
         avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        avancerSimulation.setText("X2");
+        avancerSimulation.setText("Avancer X 2");
         avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 avancerSimulationActionPerformed(evt);
             }
         });
         boutonsSimulation.add(avancerSimulation);
+
+        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ralentirSimulation.setText("Ralentir X 2");
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
 
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
@@ -1060,22 +1060,26 @@ class MyTimerActionListener implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
-    private void playSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playSimulationActionPerformed
+    private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
         if(!m_simulationEstLancer ){
-        lancerSimulation();
+             lancerSimulation();
+            m_simulationEstLancer = true;
          }
-        else{
+        else if (m_crono.estEnPause()){
             m_crono.start();
         }
-    }//GEN-LAST:event_playSimulationActionPerformed
-
-    private void pauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseSimulationActionPerformed
-        m_crono.pause();
-    }//GEN-LAST:event_pauseSimulationActionPerformed
+        else{
+            m_crono.pause();
+        }
+    }//GEN-LAST:event_playPauseSimulationActionPerformed
 
     private void avancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancerSimulationActionPerformed
-        // TODO add your handling code here:
+        m_crono.avancerX2();
     }//GEN-LAST:event_avancerSimulationActionPerformed
+
+    private void ralentirSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ralentirSimulationActionPerformed
+        m_crono.ralentirX2();
+    }//GEN-LAST:event_ralentirSimulationActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1182,9 +1186,9 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
-    private javax.swing.JButton pauseSimulation;
-    private javax.swing.JToggleButton playSimulation;
+    private javax.swing.JToggleButton playPauseSimulation;
     private javax.swing.JMenuItem quitter;
+    private javax.swing.JButton ralentirSimulation;
     private javax.swing.JToggleButton routier;
     private javax.swing.JComboBox selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
