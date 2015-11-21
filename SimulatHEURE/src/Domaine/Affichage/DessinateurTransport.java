@@ -108,9 +108,9 @@ public class DessinateurTransport {
                         if (itTroncon.hasNext())
                             chemin.lineTo(p2.x + ajX, p2.y + ajY);
 
-                        else
+                        else if (itPaire.hasNext())
                         {
-                            Emplacement emplacementProchainArret = paire.getTrajet().getEmplacementFinal();
+                            Emplacement emplacementProchainArret = itPaire.next().getArret().getEmplacement();
                             Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
                             if (emplacementProchainArret.estSurTroncon())
                             {
@@ -120,6 +120,7 @@ public class DessinateurTransport {
                             {
                                 chemin.lineTo(positionProchainArret.x + ajX, positionProchainArret.y + ajY);
                             }
+                            itPaire.previous();
                         }
                     }
                 }
