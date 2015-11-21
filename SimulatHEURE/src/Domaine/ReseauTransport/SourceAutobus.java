@@ -40,13 +40,15 @@ public class SourceAutobus extends ElementTransport{
         // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
         double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
         m_tempsAvantApparition = new Temps(tmp);
+        
     }
     public void genererAutobus(){
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
         while(m_tempsAvantApparition.getTemps() <= 0){
             miseAjourAvantAjout();
             Emplacement em = new Emplacement(m_emplacement.getEstSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
-            Autobus nouvelAutobus = new Autobus(em, m_capaciteMax,  genererBusID(),tempsApparition() ,estSurArret() );
+            String ID = genererBusID();
+            Autobus nouvelAutobus = new Autobus(em, m_capaciteMax, ID, m_tempsAvantApparition,estSurArret() );
             m_circuit.ajouterAutobus(nouvelAutobus);
             m_circuit.assignerTrajetAutobus(nouvelAutobus);
             //On update le temps avant apparition. On l'addition de la frequence.
@@ -60,7 +62,9 @@ public class SourceAutobus extends ElementTransport{
     }
     private String genererBusID(){
         m_nbAutobusGeneres++;
-        return m_nomSource + Integer.toString(m_nbAutobusGeneres);
+        System.out.println(m_nbAutobusGeneres);
+        String tmp = m_nomSource.concat(Integer.toString(m_nbAutobusGeneres));
+        return tmp;
     }
         
     public Boolean estSurArret(){
@@ -83,7 +87,6 @@ public class SourceAutobus extends ElementTransport{
     private void miseAjourAvantAjout(){
         //met à jour le nombre d'autobus et on pige un nouveau temps de distribution
        // m_frequence  = m_distibutionFrequence.pigerTemps();
-        m_nbAutobusGeneres++;
     }
     public Emplacement getEmplacement(){
         return m_emplacement ;

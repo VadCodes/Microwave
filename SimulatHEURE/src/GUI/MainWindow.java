@@ -93,12 +93,12 @@ public class MainWindow extends javax.swing.JFrame {
 //        afficheurReseauMousePressed(evtArret2);
         
     this.afficheurReseau.setDimension(true);
-        
+        */
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
       double deltatT = m_crono.getDeltatT();
-      System.out.println(deltatT);
+     // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       m_this.afficheurCommandes.repaint();
   }
