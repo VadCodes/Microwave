@@ -21,6 +21,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -55,7 +56,7 @@ public class DessinateurTransport {
     }
     
     private void dessinerCircuit(Graphics2D p_g, float p_echelle){
-        Stroke dashed = new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{9}, 0);
+        Stroke dashed = new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0);
         p_g.setStroke(dashed);
         for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
@@ -162,9 +163,10 @@ public class DessinateurTransport {
                 Emplacement em = source.getEmplacement();
                 
                 Point2D.Float position = em.calculPosition(p_echelle);
-                float x = position.x -   source.LONGUEUR / p_echelle;
-                float y = position.y -   source.LARGUEUR/ p_echelle;
-                p_g.fill(new Rectangle2D.Float(x,y, source.LONGUEUR,source.LARGUEUR ));
+                float x = position.x - source.LARGUEUR / 2 / p_echelle;
+                float y = position.y - source.LARGUEUR / 2 / p_echelle;
+                float largeur = source.LARGUEUR / p_echelle;
+                p_g.fill(new RoundRectangle2D.Float(x,y, largeur, largeur, largeur / 2, largeur / 2));
             }
         }
     }
