@@ -34,7 +34,7 @@ public class ReseauTransport {
         return m_listeArrets;
     }
     public void ajouterArret(Arret p_arret){
-        p_arret.setNom("Arret" + Integer.toBinaryString(m_conteurArrets));
+        p_arret.setNom("Arret" + Integer.toString(m_conteurArrets));
         m_conteurArrets++;
         m_listeArrets.add(p_arret);
     }
@@ -124,15 +124,16 @@ public class ReseauTransport {
        }
        for(Circuit circ : m_listeCircuits){
            if (circ.estSelectionne()){
-                for(SourceAutobus sa : circ.getListeSourceAutobus()){
-                    if(circ.estSelectionne()){
-                        sa.changerStatutSelection();
-                    }
-                }
                 circ.changerStatutSelection();
            }
        }
-
+       for(Circuit circ : m_listeCircuits){
+                for(SourceAutobus sa : circ.getListeSourceAutobus()){
+                    if(sa.estSelectionne()){
+                        sa.changerStatutSelection();
+                    }
+                }
+           }
    }
    
     public LinkedList<ElementTransport> getElementsSelectionnes(){

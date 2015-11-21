@@ -904,7 +904,7 @@ class MyTimerActionListener implements ActionListener {
                     }
                 }
                 if(add){
-                     comboBoxSources.addItem(circuit.getNom());
+                     comboBoxSources.addItem(source.getNom());
                  }
               }
         }
@@ -1282,8 +1282,8 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_comboBoxAutobusActionPerformed
 
     private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
-        int index = comboBoxArrets.getSelectedIndex();
-         String name =(String) comboBoxArrets.getItemAt(index);
+        int index = comboBoxSources.getSelectedIndex();
+         String name =(String) comboBoxSources.getItemAt(index);
          m_controleur.deselectionnerTout();
          for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
