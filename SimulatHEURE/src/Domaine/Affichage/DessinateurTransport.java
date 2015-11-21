@@ -78,7 +78,32 @@ public class DessinateurTransport {
                     LinkedList<Troncon> listeTroncons = paire.getTrajet().getListeTroncon();
                     for(Troncon troncon : listeTroncons){
                         if(!premier && troncon == tronconFin){
+                            float p1x = pf.x;
+                            float p1y = pf.y;
+                            if(troncon.getDoubleSens()){
+                                Point2D.Float p2 = troncon.getIntersectionOrigin().getPosition();
+                                
+                                float p2x = p2.x;
+                                float p2y = p2.y;
+
+                                float n = 3.5f;
+                                if(p2y-p1y>0){
+                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                }
+                                else{
+                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
+                                }
+                                if (!premier){
+                                    ligne.lineTo(p2x, p2y);
+                                }
                             ligne.lineTo(pf.x, pf.y);
+                            }
                         }
                         else if (premier && troncon == tronconFin && listeTroncons.size()==1){
                             ligne.lineTo(pf.x, pf.y);
@@ -107,7 +132,9 @@ public class DessinateurTransport {
                                     p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                                     p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                                 }
-                                ligne.lineTo(p2x, p2y);
+                                if (!premier){
+                                    ligne.lineTo(p2x, p2y);
+                                }
                             }
                             ligne.lineTo(p1x,p1y);
                         }
