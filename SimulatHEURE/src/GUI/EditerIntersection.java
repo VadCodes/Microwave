@@ -104,7 +104,7 @@ public class EditerIntersection extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
-        m_intersection.setName(jTextField1.getText());
+        m_intersection.setNom(jTextField1.getText());
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

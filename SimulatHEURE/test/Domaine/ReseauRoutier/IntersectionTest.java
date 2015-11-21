@@ -30,7 +30,7 @@ public class IntersectionTest extends TestCase {
         String name = "Louise";
         Point2D.Float position = new Point2D.Float(4,6);
         Intersection intersection = new Intersection(position);
-        intersection.setName(name);
+        intersection.setNom(name);
         String nameExpected = intersection.getName();
         assertEquals(name, nameExpected);
     }
