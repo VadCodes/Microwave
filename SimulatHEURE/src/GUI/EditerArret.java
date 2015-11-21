@@ -5,24 +5,24 @@
  */
 package GUI;
 
-import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauTransport.Arret;
 
 /**
  *
  * @author louis
  */
-public class EditerIntersection extends javax.swing.JFrame {
-    private Intersection m_intersection;
+public class EditerArret extends javax.swing.JFrame {
+    private Arret m_arret;
     /**
-     * Creates new form EditerIntersection
+     * Creates new form EditerArret
      */
-    public EditerIntersection() {
+    public EditerArret() {
         initComponents();
     }
 
-    public void setIntersection(Intersection intrsct){
-        m_intersection = intrsct;
-        jTextField1.setText(m_intersection.getName());
+    public void setArret(Arret arr){
+        m_arret = arr;
+        jTextField1.setText(m_arret.getNom());
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,7 +39,7 @@ public class EditerIntersection extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Éditer une intersection");
+        setTitle("Éditer un arrêt");
 
         jButton1.setText("Annuler");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class EditerIntersection extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
-        m_intersection.setNom(jTextField1.getText());
+        m_arret.setNom(jTextField1.getText());
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -130,20 +130,21 @@ public class EditerIntersection extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditerIntersection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerArret.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditerIntersection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerArret.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditerIntersection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerArret.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditerIntersection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerArret.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditerIntersection().setVisible(true);
+                new EditerArret().setVisible(true);
             }
         });
     }

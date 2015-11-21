@@ -832,7 +832,7 @@ class MyTimerActionListener implements ActionListener {
             switch (m_mode_courant)
             {                
                 case ROUTIER:                  
-                    m_controleur.deselectionnerRoutier();
+                    m_controleur.deselectionnerTout();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                     if (elemRoutier!=null){
                         jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
@@ -849,7 +849,7 @@ class MyTimerActionListener implements ActionListener {
                         default:
                             break;
                     }
-                    m_controleur.deselectionnerRoutier();
+                    m_controleur.deselectionnerTout();
                     ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                     if (elemTransport!=null){
                         jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
@@ -1040,6 +1040,22 @@ class MyTimerActionListener implements ActionListener {
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 }
+                else if(elemTransport.getClass() == Arret.class){
+                    EditerArret fenetre = new EditerArret();
+                    fenetre.setArret((Arret) elemTransport);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
+                else if(elemTransport.getClass() == Circuit.class){
+                    EditerCircuit fenetre = new EditerCircuit();
+                    fenetre.setCircuit((Circuit) elemTransport);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -1084,7 +1100,20 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
-
+        boolean elementTransportSupprime = false;
+        switch (m_commande_courante)
+        {
+            case SELECTIONNER:
+                elementTransportSupprime = m_controleur.supprimerSelectionTransport();
+                break;
+                
+            default:
+                break;
+        }
+        
+        //afficheurReseau.setDimension(intersectionSupprimee);
+        //defilementAfficheur.setViewportView(afficheurReseau);
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
