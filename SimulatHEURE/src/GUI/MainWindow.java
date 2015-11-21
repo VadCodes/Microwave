@@ -54,6 +54,8 @@ class MyTimerActionListener implements ActionListener {
       double deltatT = m_crono.getDeltatT();
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
+      time.setText(m_crono.getTempsDebut() + " s");
+      facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
       m_this.afficheurCommandes.repaint();
   }
 }
@@ -104,8 +106,6 @@ class MyTimerActionListener implements ActionListener {
         comboBoxSources = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         selectionCircuit = new javax.swing.JComboBox<String>();
-        jPanel8 = new javax.swing.JPanel();
-        afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
         ajoutIntersection = new javax.swing.JToggleButton();
@@ -122,6 +122,17 @@ class MyTimerActionListener implements ActionListener {
         playPauseSimulation = new javax.swing.JToggleButton();
         avancerSimulation = new javax.swing.JButton();
         ralentirSimulation = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        time = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        facteurMultiplicatif = new javax.swing.JLabel();
+        boutonsSelectionSimulation = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        comboBoxAutobus = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        comboBoxPietons = new javax.swing.JComboBox();
+        jPanel8 = new javax.swing.JPanel();
+        afficheurCommandes = new javax.swing.JLayeredPane();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -313,60 +324,6 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsSelectionTransport.add(selectionCircuit);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 330, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 244, Short.MAX_VALUE)))
-        );
-
-        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
-
-        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
-        jPanel8.setLayout(new java.awt.BorderLayout());
-        jPanel6.add(jPanel8, java.awt.BorderLayout.SOUTH);
-
-        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
-        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurReseauMouseWheelMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurReseauMousePressed(evt);
-            }
-        });
-
         boutonsRoutier.setAlignmentX(1.0F);
         boutonsRoutier.setAlignmentY(1.0F);
         boutonsRoutier.setOpaque(false);
@@ -473,7 +430,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.setAlignmentY(1.0F);
         boutonsSimulation.setOpaque(false);
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(140, 160));
-        boutonsSimulation.setLayout(new java.awt.GridLayout(1, 3, 20, 10));
+        boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         playPauseSimulation.setText("Play / Pause");
@@ -501,6 +458,133 @@ class MyTimerActionListener implements ActionListener {
             }
         });
         boutonsSimulation.add(ralentirSimulation);
+
+        jLabel1.setText("Temps écoulé :");
+        boutonsSimulation.add(jLabel1);
+        boutonsSimulation.add(time);
+
+        jLabel2.setText("Facteur multiplicatif :");
+        boutonsSimulation.add(jLabel2);
+        boutonsSimulation.add(facteurMultiplicatif);
+
+        boutonsSelectionSimulation.setAlignmentX(1.0F);
+        boutonsSelectionSimulation.setAlignmentY(1.0F);
+        boutonsSelectionSimulation.setOpaque(false);
+        boutonsSelectionSimulation.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsSelectionSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        jLabel10.setText("Autobus :");
+        boutonsSelectionSimulation.add(jLabel10);
+
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxAutobusActionPerformed(evt);
+            }
+        });
+        boutonsSelectionSimulation.add(comboBoxAutobus);
+
+        jLabel11.setText("Pietons");
+        boutonsSelectionSimulation.add(jLabel11);
+
+        comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        boutonsSelectionSimulation.add(comboBoxPietons);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(20, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(20, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(686, Short.MAX_VALUE)
+                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                    .addContainerGap(606, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(566, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(686, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(606, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                    .addContainerGap(676, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)))
+        );
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+        jPanel6.add(jPanel8, java.awt.BorderLayout.SOUTH);
+
+        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
+        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurReseauMouseWheelMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurReseauMousePressed(evt);
+            }
+        });
 
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
@@ -544,45 +628,12 @@ class MyTimerActionListener implements ActionListener {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(563, Short.MAX_VALUE)
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(27, 27, 27)))
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(564, Short.MAX_VALUE)
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(26, 26, 26)))
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(295, Short.MAX_VALUE)))
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(361, Short.MAX_VALUE)))
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(302, Short.MAX_VALUE)))
-            .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(439, Short.MAX_VALUE)
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(28, 28, 28)))
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
         );
-        afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        afficheurCommandes.setLayer(boutonsSimulation, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jPanel6.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
@@ -595,11 +646,11 @@ class MyTimerActionListener implements ActionListener {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addGap(0, 1595, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 873, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -651,7 +702,7 @@ class MyTimerActionListener implements ActionListener {
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
         this.setMode(Modes.SIMULATION);
-        
+        boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
     }//GEN-LAST:event_simulationActionPerformed
 
@@ -1016,6 +1067,10 @@ class MyTimerActionListener implements ActionListener {
     private void ralentirSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ralentirSimulationActionPerformed
         m_crono.ralentirX2();
     }//GEN-LAST:event_ralentirSimulationActionPerformed
+
+    private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxAutobusActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1079,6 +1134,7 @@ class MyTimerActionListener implements ActionListener {
         this.m_mode_courant = p_mode;
         boutonsRoutier.setVisible(false);
         boutonsSelectionRoutier.setVisible(false);
+        boutonsSelectionSimulation.setVisible(false);
         boutonsTransport.setVisible(false);
         boutonsSelectionTransport.setVisible(false);
         //boutonsBesoins.setVisible(false);
@@ -1108,11 +1164,14 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
     private javax.swing.JPanel boutonsSelectionRoutier;
+    private javax.swing.JPanel boutonsSelectionSimulation;
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JComboBox comboBoxArrets;
+    private javax.swing.JComboBox comboBoxAutobus;
     private javax.swing.JComboBox<String> comboBoxIntersections;
+    private javax.swing.JComboBox comboBoxPietons;
     private javax.swing.JComboBox comboBoxSources;
     private javax.swing.JComboBox comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
@@ -1120,10 +1179,15 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JLabel coordonneesTitre;
     private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JButton editerCircuit;
+    private javax.swing.JLabel facteurMultiplicatif;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.ButtonGroup groupeTransport;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1154,6 +1218,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton simulation;
     private javax.swing.JButton suppressionRoutier;
     private javax.swing.JButton suppressionTransport;
+    private javax.swing.JLabel time;
     private javax.swing.JToggleButton transport;
     private javax.swing.JLabel zoom;
     private javax.swing.JLabel zoomTitre;
