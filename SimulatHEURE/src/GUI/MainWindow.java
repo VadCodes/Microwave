@@ -1231,6 +1231,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_retablirActionPerformed
 
     private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
+       this.setCommande(Commandes.SELECTIONNER);
         int index = selectionCircuit.getSelectedIndex();
         String name =(String) selectionCircuit.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1249,6 +1250,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_selectionCircuitActionPerformed
 
     private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
+       this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxIntersections.getSelectedIndex();
         String name =(String) comboBoxIntersections.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1267,7 +1269,8 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_editerCircuitActionPerformed
 
     private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
-         int index = comboBoxTroncons.getSelectedIndex();
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxTroncons.getSelectedIndex();
         String name =(String) comboBoxTroncons.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
@@ -1323,6 +1326,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_comboBoxAutobusActionPerformed
 
     private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxSources.getSelectedIndex();
          String name =(String) comboBoxSources.getItemAt(index);
          m_controleur.deselectionnerTout();
@@ -1340,6 +1344,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_comboBoxSourcesActionPerformed
 
     private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxArrets.getSelectedIndex();
         String name =(String) comboBoxArrets.getItemAt(index);
         m_controleur.deselectionnerTout();
