@@ -556,57 +556,6 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsSimulation.add(playPauseSimulation);
 
-        avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        avancerSimulation.setText("Avancer X 2");
-        avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avancerSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(avancerSimulation);
-
-        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ralentirSimulation.setText("Ralentir X 2");
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(ralentirSimulation);
-
-        editerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerCircuit.setText("Editer Circuit");
-        editerCircuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerCircuitActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(editerCircuit);
-
-        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        suppressionTransport.setText("Supprimer");
-        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(suppressionTransport);
-
-        boutonsSimulation.setAlignmentX(1.0F);
-        boutonsSimulation.setAlignmentY(1.0F);
-        boutonsSimulation.setOpaque(false);
-        boutonsSimulation.setPreferredSize(new java.awt.Dimension(140, 160));
-        boutonsSimulation.setLayout(new java.awt.GridLayout(1, 3, 20, 10));
-
-        playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playPauseSimulation.setText("Play / Pause");
-        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playPauseSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(playPauseSimulation);
-
         pauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         pauseSimulation.setText("Avancer X 2");
         pauseSimulation.addActionListener(new java.awt.event.ActionListener() {
@@ -1274,6 +1223,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton playPauseSimulation;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JButton ralentirSimulation;
+    private javax.swing.JButton annuler;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JComboBox<String> selectionCircuit;
