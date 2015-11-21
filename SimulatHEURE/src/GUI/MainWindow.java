@@ -51,7 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         
         //this.afficheurReseau.setDimension(false);
-        
+        /*
         int x1 = 100;   int y1 = 100;
         int x2 = 500;   int y2 = 500;
         int x3 = 300;
@@ -97,6 +97,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        afficheurReseauMousePressed(evtArret2);
         
     this.afficheurReseau.setDimension(true);
+        */
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
@@ -852,7 +853,6 @@ class MyTimerActionListener implements ActionListener {
     }
     
     private void miseAjourSelectionIntersectionsAjout(){
-        System.out.println("yoyoyoyo");
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
             Intersection intersection= intersections.next();
             boolean add = true;
