@@ -481,15 +481,15 @@
                                   <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="boutonsRoutier" min="-2" pref="160" max="-2" attributes="0"/>
-                                          <EmptySpace pref="681" max="32767" attributes="0"/>
+                                          <Component id="boutonsRoutier" min="-2" pref="200" max="-2" attributes="0"/>
+                                          <EmptySpace pref="641" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" rootIndex="4" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="boutonsTransport" min="-2" pref="240" max="-2" attributes="0"/>
-                                          <EmptySpace pref="601" max="32767" attributes="0"/>
+                                          <Component id="boutonsTransport" min="-2" pref="280" max="-2" attributes="0"/>
+                                          <EmptySpace pref="561" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
@@ -682,6 +682,14 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="constructionTronconActionPerformed"/>
                                   </Events>
                                 </Component>
+                                <Component class="javax.swing.JToggleButton" name="editerRoutier">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="&#xc9;dit"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerRoutierActionPerformed"/>
+                                  </Events>
+                                </Component>
                                 <Component class="javax.swing.JButton" name="suppressionRoutier">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -764,6 +772,14 @@
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerCircuitActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JToggleButton" name="editerTransport">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="&#xc9;dit"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerTransportActionPerformed"/>
                                   </Events>
                                 </Component>
                                 <Component class="javax.swing.JButton" name="suppressionTransport">

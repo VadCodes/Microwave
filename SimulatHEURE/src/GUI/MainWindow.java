@@ -118,6 +118,7 @@ class MyTimerActionListener implements ActionListener {
         selectionRoutier = new javax.swing.JToggleButton();
         ajoutIntersection = new javax.swing.JToggleButton();
         constructionTroncon = new javax.swing.JToggleButton();
+        editerRoutier = new javax.swing.JToggleButton();
         suppressionRoutier = new javax.swing.JButton();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
@@ -125,6 +126,7 @@ class MyTimerActionListener implements ActionListener {
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
         editerCircuit = new javax.swing.JButton();
+        editerTransport = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         boutonsSimulation = new javax.swing.JPanel();
         playPauseSimulation = new javax.swing.JToggleButton();
@@ -464,6 +466,14 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsRoutier.add(constructionTroncon);
 
+        editerRoutier.setText("Édit");
+        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(editerRoutier);
+
         suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionRoutier.setText("Supprimer");
         suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -523,6 +533,14 @@ class MyTimerActionListener implements ActionListener {
             }
         });
         boutonsTransport.add(editerCircuit);
+
+        editerTransport.setText("Édit");
+        editerTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(editerTransport);
 
         suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionTransport.setText("Supprimer");
@@ -651,13 +669,13 @@ class MyTimerActionListener implements ActionListener {
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(681, Short.MAX_VALUE)))
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(641, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(601, Short.MAX_VALUE)))
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(561, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                     .addContainerGap(671, Short.MAX_VALUE)
@@ -1094,8 +1112,8 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }                                                
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        switch(m_mode_courant){
+    private void editage(){
+         switch(m_mode_courant){
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 assert(elementsRoutiersSelectionnes.size() == 1);
@@ -1150,6 +1168,9 @@ class MyTimerActionListener implements ActionListener {
                     fenetre.setVisible(true);
                 }
         }
+    }
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       editage();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1360,6 +1381,14 @@ class MyTimerActionListener implements ActionListener {
           }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_comboBoxArretsActionPerformed
+
+    private void editerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerRoutierActionPerformed
+            editage();
+    }//GEN-LAST:event_editerRoutierActionPerformed
+
+    private void editerTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerTransportActionPerformed
+       editage();
+    }//GEN-LAST:event_editerTransportActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1467,6 +1496,8 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JButton editerCircuit;
+    private javax.swing.JToggleButton editerRoutier;
+    private javax.swing.JToggleButton editerTransport;
     private javax.swing.JLabel facteurMultiplicatif;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
