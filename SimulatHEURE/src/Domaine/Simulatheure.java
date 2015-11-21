@@ -481,7 +481,8 @@ public class Simulatheure {
     }
     
     public void cancellerCircuit(){
-        deselectionnerTout();
+       //deselectionnerTout();
+        deselectionnerRoutier();
         m_circuit_temp = new Circuit();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
