@@ -62,7 +62,7 @@ public class SourceAutobus extends ElementTransport{
     private String genererBusID(){
         m_nbAutobusGeneres++;
         System.out.println(m_nbAutobusGeneres);
-        String tmp = m_nomSource.concat("Autobus" +Integer.toString(m_nbAutobusGeneres));
+        String tmp = m_nomSource.concat("A" +Integer.toString(m_nbAutobusGeneres));
         return tmp;
     }
         

@@ -359,7 +359,9 @@ class MyTimerActionListener implements ActionListener {
         jPanel11.setLayout(new java.awt.BorderLayout());
         jPanel10.add(jPanel11, java.awt.BorderLayout.SOUTH);
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(130, 56));
+        jPanel7.setPreferredSize(new java.awt.Dimension(130, 1000));
+        jPanel7.setRequestFocusEnabled(false);
+        jPanel7.setVerifyInputWhenFocusTarget(false);
 
         boutonsSelectionRoutier.setAlignmentX(1.0F);
         boutonsSelectionRoutier.setAlignmentY(1.0F);
@@ -533,8 +535,9 @@ class MyTimerActionListener implements ActionListener {
 
         boutonsSimulation.setAlignmentX(1.0F);
         boutonsSimulation.setAlignmentY(1.0F);
+        boutonsSimulation.setMinimumSize(new java.awt.Dimension(140, 221));
         boutonsSimulation.setOpaque(false);
-        boutonsSimulation.setPreferredSize(new java.awt.Dimension(140, 160));
+        boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -611,8 +614,8 @@ class MyTimerActionListener implements ActionListener {
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
@@ -662,7 +665,7 @@ class MyTimerActionListener implements ActionListener {
                     .addGap(22, 22, 22)))
         );
 
-        jPanel10.add(jPanel7, java.awt.BorderLayout.EAST);
+        jPanel10.add(jPanel7, java.awt.BorderLayout.CENTER);
 
         jPanel6.add(jPanel10, java.awt.BorderLayout.EAST);
 
