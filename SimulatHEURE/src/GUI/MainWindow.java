@@ -93,7 +93,6 @@ public class MainWindow extends javax.swing.JFrame {
 //        afficheurReseauMousePressed(evtArret2);
         
     this.afficheurReseau.setDimension(true);
-        */
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {

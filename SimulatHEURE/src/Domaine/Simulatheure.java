@@ -180,7 +180,6 @@ public class Simulatheure {
                            Point2D.Float p1 = new Point2D.Float(xReel,yReel);
                             double distance1 = troncon.getIntersectionOrigin().getPosition().distance(p1);
                             double distance2 = troncon.getLongueurTroncon();
-                            System.out.print(distance2);System.out.print("\n");
                             float pourcentage = (float) (distance1/distance2);
                            if(arret1 != null){
                             if(arret1.getEmplacement().getTroncon() != null){
@@ -236,7 +235,6 @@ public class Simulatheure {
                     Point2D.Float p1 = new Point2D.Float(xReel,yReel);
                     double distance1 = intersectionOrigin.getPosition().distance(p1);
                     double distance2 = troncon.getLongueurTroncon();
-                    System.out.print(distance2);System.out.print("\n");
                     float pourcentage = (float) (distance1/distance2);
                      Emplacement emplacement = new Emplacement(true, pourcentage,troncon,intersectionOrigin);
                      m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
