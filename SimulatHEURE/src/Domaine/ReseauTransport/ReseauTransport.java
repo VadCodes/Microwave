@@ -136,4 +136,69 @@ public class ReseauTransport {
        }
 
    }
+   
+    public LinkedList<ElementTransport> getElementsSelectionnes(){
+        
+        LinkedList<ElementTransport> listeRetour = new LinkedList<>();
+        
+        for (Arret arr : m_listeArrets){
+            if (arr.estSelectionne()){
+                listeRetour.add(arr);
+            }
+        }
+        
+        for (Circuit circ: m_listeCircuits)
+        {
+            if (circ.estSelectionne())
+            {
+                listeRetour.add(circ);
+            }
+            
+            for (SourceAutobus src: circ.getListeSourceAutobus())
+            {   
+                if (src.estSelectionne())
+                {
+                    listeRetour.add(src);
+                }
+            }
+        }
+        return listeRetour;
+    }
+    
+    public Boolean supprimerSelection()
+    {
+        for (ListIterator<Circuit> circ = m_listeCircuits.listIterator() ; circ.hasNext(); )
+        {
+            Circuit circuit = circ.next();
+            if (circuit.estSelectionne())
+            {
+                circuit.getListeSourceAutobus().clear();
+                circ.remove();
+            }
+            else
+            {
+                for (ListIterator<SourceAutobus> src = circuit.getListeSourceAutobus().listIterator() ; src.hasNext() ; )
+                {
+                    if (src.next().estSelectionne())
+                    {
+                        src.remove();
+                    }
+                    else
+                    {
+                        src.next();
+                    }
+                }
+            }
+        }
+        
+        for (ListIterator<Arret> arr = m_listeArrets.listIterator() ; arr.hasNext() ; )
+        {
+            if (arr.next().estSelectionne())
+            {
+                arr.remove();
+            }
+        }
+        
+        return true;
+    }
 }

@@ -535,10 +535,20 @@ public class Simulatheure {
         return m_reseauRoutier.getElementsSelectionnes();
     }
     
+    public LinkedList<ElementTransport> getElementsSelectionnesTransport(){
+        return m_reseauTransport.getElementsSelectionnes();
+    }
+    
     public Boolean supprimerSelectionRoutier()
     {
         Boolean supprimee = m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
+        return supprimee;
+    }
+    
+    public Boolean supprimerSelectionTransport()
+    {
+        Boolean supprimee = m_reseauTransport.supprimerSelection();
         return supprimee;
     }
     

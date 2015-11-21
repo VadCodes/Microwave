@@ -20,7 +20,7 @@ public class SourceAutobus extends ElementTransport{
     private Circuit m_circuit;
     private Emplacement m_emplacement;
     private int m_capaciteMax = 50;
-    private Distribution m_distibutionFrequence;
+    private Distribution m_distributionFrequence;
     private Temps m_frequence;
     private Temps m_tempsAttenteinitial;
     private Temps m_tempsAvantApparition;
@@ -30,7 +30,7 @@ public class SourceAutobus extends ElementTransport{
         m_emplacement = p_emplacement;
         m_circuit = p_circuit;
         m_nomSource = p_nomSource;
-        m_distibutionFrequence = p_distribution;
+        m_distributionFrequence = p_distribution;
         m_tempsAttenteinitial = p_tempsAttenteinitial;
         m_tempsAvantApparition = m_tempsAttenteinitial;
     }
@@ -81,7 +81,7 @@ public class SourceAutobus extends ElementTransport{
     }
     
     public void initSourceAutobus(){
-        m_frequence  = m_distibutionFrequence.pigerTemps();
+        m_frequence  = m_distributionFrequence.pigerTemps();
     }
     private void miseAjourAvantAjout(){
         //met à jour le nombre d'autobus et on pige un nouveau temps de distribution
@@ -89,5 +89,18 @@ public class SourceAutobus extends ElementTransport{
     }
     public Emplacement getEmplacement(){
         return m_emplacement ;
+    }
+    
+    public void setNom(String nom){
+        m_nomSource = nom;
+    }
+    public String getNom(){
+        return m_nomSource;
+    }
+    public void setDistribution(Distribution dist){
+        m_distributionFrequence = dist;
+    }
+    public Distribution getDistribution(){
+        return m_distributionFrequence;
     }
 }

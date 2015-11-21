@@ -849,6 +849,11 @@ class MyTimerActionListener implements ActionListener {
                         default:
                             break;
                     }
+                    m_controleur.deselectionnerRoutier();
+                    ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
+                    if (elemTransport!=null){
+                        jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
+                    }
             }
         }
         this.afficheurCommandes.repaint();
@@ -997,35 +1002,69 @@ class MyTimerActionListener implements ActionListener {
     }                                                
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        LinkedList<ElementRoutier> elementsSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-        assert(elementsSelectionnes.size() == 1);
-        ElementRoutier elem = elementsSelectionnes.getFirst();
-        
-        //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
-        if(elem.getClass() == Intersection.class){
-            EditerIntersection fenetre = new EditerIntersection();
-            fenetre.setIntersection((Intersection) elem);
-            fenetre.setResizable(false);
-            fenetre.setLocationRelativeTo(null); //pour centrer
-            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            fenetre.setVisible(true);
-        }
-        else if (elem.getClass() == Troncon.class){
-            EditerTroncon fenetre = new EditerTroncon();
-            fenetre.setTroncon((Troncon) elem);
-            fenetre.setResizable(false);
-            fenetre.setLocationRelativeTo(null); //pour centrer
-            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            fenetre.setVisible(true);
+        switch(m_mode_courant){
+            case ROUTIER:
+                LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
+                assert(elementsRoutiersSelectionnes.size() == 1);
+                ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
+
+                //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
+                if(elemRoutier.getClass() == Intersection.class){
+                    EditerIntersection fenetre = new EditerIntersection();
+                    fenetre.setIntersection((Intersection) elemRoutier);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
+                else if (elemRoutier.getClass() == Troncon.class){
+                    EditerTroncon fenetre = new EditerTroncon();
+                    fenetre.setTroncon((Troncon) elemRoutier);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
+                break;
+                
+            case TRANSPORT:
+                LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
+                assert(elementsTransportSelectionnes.size() == 1);
+                ElementTransport elemTransport = elementsTransportSelectionnes.getFirst();
+                
+                if(elemTransport.getClass() == SourceAutobus.class){
+                    EditerSource fenetre = new EditerSource();
+                    fenetre.setSource((SourceAutobus) elemTransport);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        LinkedList<ElementRoutier> elementsSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-        assert(elementsSelectionnes.size() == 1);
-        ElementRoutier elem = elementsSelectionnes.getFirst();
-        
-        m_controleur.supprimerSelectionRoutier();
+        switch(m_mode_courant){
+            case ROUTIER:
+                LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
+                assert(elementsRoutiersSelectionnes.size() == 1);
+                ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
+                m_controleur.supprimerSelectionRoutier();
+                break;
+                
+            case TRANSPORT:
+                LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
+                assert(elementsTransportSelectionnes.size() == 1);
+                ElementTransport elemT = elementsTransportSelectionnes.getFirst();
+                m_controleur.supprimerSelectionTransport();
+                break;
+            
+            case BESOINS:
+                break;
+                
+            case SIMULATION:
+                break;
+        }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
