@@ -38,7 +38,6 @@ public class ReseauTransport {
         m_listeCircuits = listeCircuits;
     }
     public void ajouterCircuit(Circuit circ){
-        String name = "";
         int i = 1;
         int tempName = 1;
         for (ListIterator<Circuit> circuits =m_listeCircuits.listIterator() ; circuits.hasNext() ; ){

@@ -18,7 +18,7 @@ public class Intersection extends ElementRoutier{
         m_position = p_position;
     }
     
-    public void  setName(String name){
+    public void  setNom(String name){
         m_name = name;
     }
     

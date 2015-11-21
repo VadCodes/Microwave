@@ -27,7 +27,18 @@ public class ReseauRoutier {
     
     public void ajouterIntersection(float p_x, float p_y)
     {
-        m_listeIntersections.add(m_factory.intersection(new Point2D.Float(p_x, p_y)));
+        int i = 1;
+        int tempName = 1;
+        for (ListIterator<Intersection> intersections =m_listeIntersections.listIterator() ; intersections.hasNext() ; ){
+            Intersection intersection = intersections.next();
+            tempName =  Integer.parseInt(intersection.getName());
+           if ( i <= tempName){
+               i = tempName + 1;
+           }
+        }
+        Intersection inter = m_factory.intersection(new Point2D.Float(p_x, p_y));
+        inter.setNom(Integer.toString(i));
+        m_listeIntersections.add(inter);
     }
     
     public void setNameTroncon(Troncon p_troncon, String p_nom){

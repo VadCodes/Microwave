@@ -130,15 +130,26 @@ class MyTimerActionListener implements ActionListener {
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        wtf2 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        wtf = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        annuler = new javax.swing.JButton();
-        retablir = new javax.swing.JButton();
-        geographie = new javax.swing.JPanel();
-        coordonnees = new javax.swing.JLabel();
-        zoom = new javax.swing.JLabel();
-        titreGeographie = new javax.swing.JPanel();
-        titreCoordonnees = new javax.swing.JLabel();
-        titreZoom = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        boutonsSelectionRoutier = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        comboBoxTroncons = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        comboBoxIntersections = new javax.swing.JComboBox();
+        boutonsSelectionTransport = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        comboBoxArrets = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
+        comboBoxSources = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        selectionCircuit = new javax.swing.JComboBox();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
@@ -151,8 +162,6 @@ class MyTimerActionListener implements ActionListener {
         ajoutArret = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         ajoutCircuit = new javax.swing.JToggleButton();
-        jLabel3 = new javax.swing.JLabel();
-        selectionCircuit = new javax.swing.JComboBox<String>();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -309,6 +318,86 @@ class MyTimerActionListener implements ActionListener {
 
         jPanel3.add(jPanel2, java.awt.BorderLayout.WEST);
 
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel7.setPreferredSize(new java.awt.Dimension(130, 56));
+
+        boutonsSelectionRoutier.setAlignmentX(1.0F);
+        boutonsSelectionRoutier.setAlignmentY(1.0F);
+        boutonsSelectionRoutier.setOpaque(false);
+        boutonsSelectionRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsSelectionRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        jLabel4.setText("Troncons :");
+        boutonsSelectionRoutier.add(jLabel4);
+
+        boutonsSelectionRoutier.add(comboBoxTroncons);
+
+        jLabel5.setText("Intersections :");
+        boutonsSelectionRoutier.add(jLabel5);
+
+        comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIntersectionsActionPerformed(evt);
+            }
+        });
+        boutonsSelectionRoutier.add(comboBoxIntersections);
+
+        boutonsSelectionTransport.setAlignmentX(1.0F);
+        boutonsSelectionTransport.setAlignmentY(1.0F);
+        boutonsSelectionTransport.setOpaque(false);
+        boutonsSelectionTransport.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsSelectionTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        jLabel8.setText("Arrets :");
+        boutonsSelectionTransport.add(jLabel8);
+
+        boutonsSelectionTransport.add(comboBoxArrets);
+
+        jLabel9.setText("Sources :");
+        boutonsSelectionTransport.add(jLabel9);
+
+        boutonsSelectionTransport.add(comboBoxSources);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel3.setText("Selection Circuit:");
+        boutonsSelectionTransport.add(jLabel3);
+
+        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionCircuitActionPerformed(evt);
+            }
+        });
+        boutonsSelectionTransport.add(selectionCircuit);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 709, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 623, Short.MAX_VALUE)))
+        );
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
+
         afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
         afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -425,18 +514,6 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setText("Selection Circuit:");
-        boutonsTransport.add(jLabel3);
-
-        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
-        selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectionCircuitActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(selectionCircuit);
-
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
 
@@ -478,37 +555,39 @@ class MyTimerActionListener implements ActionListener {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(535, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(535, Short.MAX_VALUE)
+                    .addContainerGap(1199, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(348, Short.MAX_VALUE)))
+                    .addContainerGap(741, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(248, Short.MAX_VALUE)))
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(711, Short.MAX_VALUE)))
         );
         afficheurCommandes.setLayer(boutonsRoutier, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jPanel3.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+        jPanel6.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+
+        jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("SimulatHEURE", jPanel3);
 
@@ -516,11 +595,11 @@ class MyTimerActionListener implements ActionListener {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 802, Short.MAX_VALUE)
+            .addGap(0, 1595, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 481, Short.MAX_VALUE)
+            .addGap(0, 873, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -555,12 +634,14 @@ class MyTimerActionListener implements ActionListener {
 
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
+        boutonsSelectionRoutier.setVisible(true);
         selectionRoutier.doClick();        
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
         this.setMode(Modes.TRANSPORT);
         boutonsTransport.setVisible(true);
+        boutonsSelectionTransport.setVisible(true);
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -606,7 +687,8 @@ class MyTimerActionListener implements ActionListener {
                             m_controleur.ajouterIntersection(evt.getX(), evt.getY(), echelle);
                             boolean intersectionAjoutee = true;
                             afficheurReseau.setDimension(intersectionAjoutee);
-                            defilementAfficheur.setViewportView(afficheurReseau);                            
+                            defilementAfficheur.setViewportView(afficheurReseau);   
+                            miseAjourSelectionIntersectionsAjout();
                             break;
                             
                         case TRONCON:
@@ -628,22 +710,7 @@ class MyTimerActionListener implements ActionListener {
                         
                         case AJOUTERCIRCUIT:
                             m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
-                            
-                            for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-                              boolean add = true;
-                              Circuit circuit = circuits.next();
-                              String name = circuit.getNom();
-                              for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
-                                  String tmp = (String)selectionCircuit.getItemAt(i);
-                                  if(tmp == name){
-                                   add = false;
-                                  }
-                              }
-                              if(add){
-                                   selectionCircuit.addItem(circuit.getNom());
-                               }
-                            }
-                                
+                            miseAjourSelectionCrcuitsAjout();
                             break;
                             
                         case EDITERCIRCUIT:
@@ -715,6 +782,40 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
+    private void miseAjourSelectionCrcuitsAjout(){
+        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+                boolean add = true;
+                Circuit circuit = circuits.next();
+                String name = circuit.getNom();
+                for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
+                    String tmp = (String)selectionCircuit.getItemAt(i);
+                    if(tmp == name){
+                     add = false;
+                    }
+                }
+                if(add){
+                     selectionCircuit.addItem(circuit.getNom());
+                 }
+              }
+    }
+    
+    private void miseAjourSelectionIntersectionsAjout(){
+        System.out.println("yoyoyoyo");
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+            boolean add = true;
+            String name = intersection.getName();
+            for (int i =0; i<comboBoxIntersections.getItemCount();i++ ){
+                String tmp = (String)comboBoxIntersections.getItemAt(i);
+                if(tmp == name){
+                     add = false;
+                    }
+            }
+            if(add){
+                     comboBoxIntersections.addItem(intersection.getName());
+                 }
+        }
+    }
     private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
         
         float echelleInitiale = afficheurReseau.getEchelle();
@@ -853,10 +954,9 @@ class MyTimerActionListener implements ActionListener {
     private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
         int index = selectionCircuit.getSelectedIndex();
         String name =(String) selectionCircuit.getItemAt(index);
+        m_controleur.deselectionnerTout();
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
-            
-            m_controleur.deselectionnerTout();
               if (circuit.getNom().equals(name)){
                   for(PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()){
                   ElementTransport arret = ArretTrajet.getArret();
@@ -866,10 +966,28 @@ class MyTimerActionListener implements ActionListener {
                   if(circuit.estSelectionne()){
                       this.setCommande(Commandes.EDITERCIRCUIT);
                   }
+                  break;
               }
           }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_selectionCircuitActionPerformed
+
+    private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
+        int index = comboBoxIntersections.getSelectedIndex();
+        String name =(String) comboBoxIntersections.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+            System.out.println("Compare");
+            System.out.println(name);
+            System.out.println(intersection.getName());
+              if (intersection.getName().equals(name)){
+                      intersection.changerStatutSelection();
+                      break;
+              }
+          }
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
     
     /**
      * @param args the command line arguments
@@ -910,7 +1028,9 @@ class MyTimerActionListener implements ActionListener {
     {
         this.m_mode_courant = p_mode;
         boutonsRoutier.setVisible(false);
+        boutonsSelectionRoutier.setVisible(false);
         boutonsTransport.setVisible(false);
+        boutonsSelectionTransport.setVisible(false);
         //boutonsBesoins.setVisible(false);
         //boutonsSimulation.setVisible(false);
     }
@@ -936,7 +1056,13 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
     private javax.swing.JPanel boutonsRoutier;
+    private javax.swing.JPanel boutonsSelectionRoutier;
+    private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsTransport;
+    private javax.swing.JComboBox comboBoxArrets;
+    private javax.swing.JComboBox comboBoxIntersections;
+    private javax.swing.JComboBox comboBoxSources;
+    private javax.swing.JComboBox comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
@@ -947,6 +1073,10 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.ButtonGroup groupeTransport;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
@@ -955,6 +1085,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
