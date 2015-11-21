@@ -84,6 +84,7 @@ public class DessinateurTransport {
                             ligne.lineTo(pf.x, pf.y);
                         }
                         else{
+                            // Des fois le troncon p-e null si c'est le dernier de tout le réseau
                             Point2D.Float p = troncon.getDestination().getPosition();
                             float p1x = p.x;
                             float p1y = p.y;

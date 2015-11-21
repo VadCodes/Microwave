@@ -48,7 +48,7 @@ public class MainWindow extends javax.swing.JFrame {
         
         //test
     //this.afficheurReseau.setDimension(false);
-        
+        /*
     int x1 = 100;
     int y1 = 100;
     int x2 = 500;
@@ -114,12 +114,12 @@ public class MainWindow extends javax.swing.JFrame {
     this.m_controleur.getTransport().ajoutSource(emp2, circuit1, "Ta mere", distSource, new Temps(0));
     
     this.afficheurReseau.setDimension(true);
-        
+        */
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
       double deltatT = m_crono.getDeltatT();
-      System.out.println(deltatT);
+     // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       m_this.afficheurCommandes.repaint();
   }

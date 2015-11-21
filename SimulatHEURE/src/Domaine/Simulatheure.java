@@ -200,7 +200,7 @@ public class Simulatheure {
                             }
                              Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getIntersectionOrigin());
                              Distribution distributionDefault = new Distribution();
-                             m_reseauTransport.ajoutSource(emplacement, circuit, null, distributionDefault, new Temps(0));
+                             m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                              return;
                        }
                        }
