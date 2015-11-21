@@ -91,9 +91,15 @@ class MyTimerActionListener implements ActionListener {
         retablir = new javax.swing.JButton();
         zoomTitre = new javax.swing.JLabel();
         zoom = new javax.swing.JLabel();
-        coordonneesTitre = new javax.swing.JLabel();
-        coordonnees = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        afficheurCommandes = new javax.swing.JLayeredPane();
+        defilementAfficheur = new javax.swing.JScrollPane();
+        afficheurReseau = new GUI.AfficheurReseau(this);
+        jPanel8 = new javax.swing.JPanel();
+        coordonnees = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -132,10 +138,6 @@ class MyTimerActionListener implements ActionListener {
         comboBoxAutobus = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
-        jPanel8 = new javax.swing.JPanel();
-        afficheurCommandes = new javax.swing.JLayeredPane();
-        defilementAfficheur = new javax.swing.JScrollPane();
-        afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -225,7 +227,7 @@ class MyTimerActionListener implements ActionListener {
 
         jPanel1.add(boutonModes, java.awt.BorderLayout.NORTH);
 
-        jPanel5.setLayout(new java.awt.GridLayout(3, 2));
+        jPanel5.setLayout(new java.awt.GridLayout(2, 2));
 
         annuler.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         annuler.setText("Annuler");
@@ -248,14 +250,10 @@ class MyTimerActionListener implements ActionListener {
         zoomTitre.setText("Zoom :");
         jPanel5.add(zoomTitre);
 
-        zoom.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        zoom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         zoom.setText("100 %");
         zoom.setRequestFocusEnabled(false);
         jPanel5.add(zoom);
-
-        coordonneesTitre.setText("Position :");
-        jPanel5.add(coordonneesTitre);
-        jPanel5.add(coordonnees);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
@@ -264,6 +262,101 @@ class MyTimerActionListener implements ActionListener {
         jPanel3.add(jPanel2, java.awt.BorderLayout.WEST);
 
         jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
+        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurReseauMouseWheelMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurReseauMousePressed(evt);
+            }
+        });
+
+        defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
+        defilementAfficheur.setWheelScrollingEnabled(false);
+
+        afficheurReseau.setEnabled(false);
+        afficheurReseau.setPreferredSize(new java.awt.Dimension(1600, 900));
+        afficheurReseau.setBackground(Color.WHITE);
+        afficheurReseau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseMoved(evt);
+            }
+        });
+        afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurReseauMouseWheelMoved(evt);
+            }
+        });
+        afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurReseauMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
+        afficheurReseau.setLayout(afficheurReseauLayout);
+        afficheurReseauLayout.setHorizontalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1600, Short.MAX_VALUE)
+        );
+        afficheurReseauLayout.setVerticalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+
+        defilementAfficheur.setViewportView(afficheurReseau);
+
+        javax.swing.GroupLayout afficheurCommandesLayout = new javax.swing.GroupLayout(afficheurCommandes);
+        afficheurCommandes.setLayout(afficheurCommandesLayout);
+        afficheurCommandesLayout.setHorizontalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
+        );
+        afficheurCommandesLayout.setVerticalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
+        );
+        afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jPanel9.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        coordonnees.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        coordonnees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(coordonnees, java.awt.BorderLayout.CENTER);
+
+        jPanel9.add(jPanel8, java.awt.BorderLayout.SOUTH);
+
+        jPanel6.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel10.setPreferredSize(new java.awt.Dimension(130, 4100));
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPanel11.setLayout(new java.awt.BorderLayout());
+        jPanel10.add(jPanel11, java.awt.BorderLayout.SOUTH);
 
         jPanel7.setPreferredSize(new java.awt.Dimension(130, 56));
 
@@ -528,116 +621,39 @@ class MyTimerActionListener implements ActionListener {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(686, Short.MAX_VALUE)
+                .addContainerGap(681, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(606, Short.MAX_VALUE)
+                    .addContainerGap(601, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(566, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(686, Short.MAX_VALUE)))
+                    .addContainerGap(681, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(606, Short.MAX_VALUE)))
+                    .addContainerGap(601, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(676, Short.MAX_VALUE)
+                    .addContainerGap(671, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(22, 22, 22)))
         );
 
-        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
+        jPanel10.add(jPanel7, java.awt.BorderLayout.EAST);
 
-        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
-        jPanel8.setLayout(new java.awt.BorderLayout());
-        jPanel6.add(jPanel8, java.awt.BorderLayout.SOUTH);
-
-        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
-        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurReseauMouseWheelMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurReseauMousePressed(evt);
-            }
-        });
-
-        defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
-        defilementAfficheur.setWheelScrollingEnabled(false);
-
-        afficheurReseau.setEnabled(false);
-        afficheurReseau.setPreferredSize(new java.awt.Dimension(1600, 900));
-        afficheurReseau.setBackground(Color.WHITE);
-        afficheurReseau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseMoved(evt);
-            }
-        });
-        afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurReseauMouseWheelMoved(evt);
-            }
-        });
-        afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurReseauMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
-        afficheurReseau.setLayout(afficheurReseauLayout);
-        afficheurReseauLayout.setHorizontalGroup(
-            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1600, Short.MAX_VALUE)
-        );
-        afficheurReseauLayout.setVerticalGroup(
-            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-
-        defilementAfficheur.setViewportView(afficheurReseau);
-
-        javax.swing.GroupLayout afficheurCommandesLayout = new javax.swing.GroupLayout(afficheurCommandes);
-        afficheurCommandes.setLayout(afficheurCommandesLayout);
-        afficheurCommandesLayout.setHorizontalGroup(
-            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
-        );
-        afficheurCommandesLayout.setVerticalGroup(
-            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
-        );
-        afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jPanel6.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+        jPanel6.add(jPanel10, java.awt.BorderLayout.EAST);
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
@@ -934,7 +950,7 @@ class MyTimerActionListener implements ActionListener {
         
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
-        coordonnees.setText(String.format("%.1f", x) + "  " + String.format("%.1f", y));
+        coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
     }//GEN-LAST:event_afficheurReseauMouseMoved
 
     private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
@@ -1072,9 +1088,6 @@ class MyTimerActionListener implements ActionListener {
         m_controleur.deselectionnerTout();
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
             Intersection intersection= intersections.next();
-            System.out.println("Compare");
-            System.out.println(name);
-            System.out.println(intersection.getName());
               if (intersection.getName().equals(name)){
                       intersection.changerStatutSelection();
                       break;
@@ -1088,7 +1101,20 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_editerCircuitActionPerformed
 
     private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
-        // TODO add your handling code here:
+         int index = comboBoxTroncons.getSelectedIndex();
+        String name =(String) comboBoxTroncons.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ;troncons.hasNext() ; ){
+              Troncon troncon = troncons.next();
+              if (troncon.getNom().equals(name)){
+                      troncon.changerStatutSelection();
+                      break;
+              }
+          }
+        this.afficheurCommandes.repaint();
+        }
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
     private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
@@ -1220,7 +1246,6 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JComboBox comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
-    private javax.swing.JLabel coordonneesTitre;
     private javax.swing.JScrollPane defilementAfficheur;
     private javax.swing.JButton editerCircuit;
     private javax.swing.JLabel facteurMultiplicatif;
@@ -1240,6 +1265,8 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1247,6 +1274,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
