@@ -56,6 +56,7 @@ class MyTimerActionListener implements ActionListener {
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
       facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
+      miseAjourSelectionAutobusAjout();
       m_this.afficheurCommandes.repaint();
   }
 }
@@ -747,6 +748,7 @@ class MyTimerActionListener implements ActionListener {
                             
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
+                            miseAjourSelectionTronconsAjout();
                             break;
                             
                         default:
@@ -867,6 +869,48 @@ class MyTimerActionListener implements ActionListener {
             if(add){
                      comboBoxIntersections.addItem(intersection.getName());
                  }
+        }
+    }
+    
+    private void miseAjourSelectionAutobusAjout(){
+        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+                Circuit circuit = circuits.next();
+                for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ; autobuss.hasNext() ; ){
+                Autobus autobus = autobuss.next();
+                boolean add = true;
+                String name = autobus.getID();
+                System.out.println(name);
+                for (int i =0; i<comboBoxAutobus.getItemCount();i++ ){
+                    String tmp = (String)comboBoxAutobus.getItemAt(i);
+                    if(tmp == name){
+                         add = false;
+                        }
+                }
+                if(add){
+                         comboBoxAutobus.addItem(autobus.getID());
+                     }
+        }
+        }
+    }
+    
+    private void miseAjourSelectionTronconsAjout(){
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+                for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ; troncons.hasNext() ; ){
+                Troncon troncon = troncons.next();
+                boolean add = true;
+                String name = troncon.getNom();
+                System.out.println(name);
+                for (int i =0; i<comboBoxTroncons.getItemCount();i++ ){
+                    String tmp = (String)comboBoxTroncons.getItemAt(i);
+                    if(tmp == name){
+                         add = false;
+                        }
+                }
+                if(add){
+                         comboBoxTroncons.addItem(troncon.getNom());
+                     }
+        }
         }
     }
     private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
