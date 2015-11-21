@@ -16,6 +16,7 @@ public class ReseauRoutier {
     private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     private int m_conteurTroncon = 1;
+    private int m_conteurIntersection = 1;
     
     public final static double VITESSE_PIETON = 4;
     
@@ -28,17 +29,9 @@ public class ReseauRoutier {
     
     public void ajouterIntersection(float p_x, float p_y)
     {
-        int i = 1;
-        int tempName = 1;
-        for (ListIterator<Intersection> intersections =m_listeIntersections.listIterator() ; intersections.hasNext() ; ){
-            Intersection intersection = intersections.next();
-            tempName =  Integer.parseInt(intersection.getName());
-           if ( i <= tempName){
-               i = tempName + 1;
-           }
-        }
         Intersection inter = m_factory.intersection(new Point2D.Float(p_x, p_y));
-        inter.setNom(Integer.toString(i));
+        inter.setNom("Intersection" + Integer.toString(m_conteurIntersection));
+        m_conteurIntersection++;
         m_listeIntersections.add(inter);
     }
     
@@ -171,7 +164,7 @@ public class ReseauRoutier {
             }
         }
         Troncon tr = m_factory.creerTroncon(p_origine, p_destination);
-        tr.setNom( Integer.toString(m_conteurTroncon));
+        tr.setNom( "Troncon" +Integer.toString(m_conteurTroncon));
         m_conteurTroncon++;
         p_origine.ajouterTroncon(tr);
     }

@@ -399,12 +399,22 @@ class MyTimerActionListener implements ActionListener {
         boutonsSelectionTransport.add(jLabel8);
 
         comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxArretsActionPerformed(evt);
+            }
+        });
         boutonsSelectionTransport.add(comboBoxArrets);
 
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
         comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSourcesActionPerformed(evt);
+            }
+        });
         boutonsSelectionTransport.add(comboBoxSources);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -799,6 +809,7 @@ class MyTimerActionListener implements ActionListener {
                                 if (elemRoutie.getClass() == Troncon.class){
                                     m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
+                                    miseAjourSelectionSourcesAjout();
                                 }
                             }                                
                             break;                  
@@ -808,10 +819,12 @@ class MyTimerActionListener implements ActionListener {
                                 if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class){
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
+                                    miseAjourSelectionArretsAjout();
                                 }
                                 else if (elemRoutier.getClass() == Intersection.class){
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                 m_controleur.deselectionnerRoutier();
+                                miseAjourSelectionArretsAjout();
                                 }   
                             }
                             break;
@@ -875,6 +888,42 @@ class MyTimerActionListener implements ActionListener {
                      selectionCircuit.addItem(circuit.getNom());
                  }
               }
+    }
+    private void miseAjourSelectionSourcesAjout(){
+        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+             for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator() ;sources.hasNext() ; ){
+                SourceAutobus source = sources.next();
+                boolean add = true;
+                
+                String name = source.getNom();
+                for (int i = 0 ; i < comboBoxSources.getItemCount();i++ ){
+                    String tmp = (String)comboBoxSources.getItemAt(i);
+                    if(tmp.equals( name)){
+                     add = false;
+                    }
+                }
+                if(add){
+                     comboBoxSources.addItem(circuit.getNom());
+                 }
+              }
+        }
+    }
+    private void miseAjourSelectionArretsAjout(){
+       for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+            Arret arret = arrets.next();
+            boolean add = true;
+            String name = arret.getNom();
+            for (int i =0; i<comboBoxArrets.getItemCount();i++ ){
+                String tmp = (String)comboBoxArrets.getItemAt(i);
+                if(tmp.equals(name)){
+                     add = false;
+                    }
+            }
+            if(add){
+                     comboBoxArrets.addItem(arret.getNom());
+                 }
+        }
     }
     
     private void miseAjourSelectionIntersectionsAjout(){
@@ -1215,8 +1264,53 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_ralentirSimulationActionPerformed
 
     private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
-        // TODO add your handling code here:
+       
+        /*int index = comboBoxAutobus.getSelectedIndex();
+        String name =(String) comboBoxAutobus.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
+                Autobus autobus = autobuss.next();
+              if (autobus.getID().equals(name)){
+                      autobusachangerStatutSelection();
+                      break;
+              }
+          }
+        this.afficheurCommandes.repaint();
+        */
     }//GEN-LAST:event_comboBoxAutobusActionPerformed
+
+    private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
+        int index = comboBoxArrets.getSelectedIndex();
+         String name =(String) comboBoxArrets.getItemAt(index);
+         m_controleur.deselectionnerTout();
+         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator() ;sources.hasNext() ; ){
+                SourceAutobus source = sources.next();
+                if (source.getNom().equals(name)){
+                    source.changerStatutSelection();
+                    break;
+                    }
+                }
+         }
+         this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_comboBoxSourcesActionPerformed
+
+    private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
+        int index = comboBoxArrets.getSelectedIndex();
+        String name =(String) comboBoxArrets.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+            Arret arret = arrets.next();
+              if (arret.getNom().equals(name)){
+                      arret.changerStatutSelection();
+                      break;
+              }
+          }
+        this.afficheurCommandes.repaint();
+    }//GEN-LAST:event_comboBoxArretsActionPerformed
     
     /**
      * @param args the command line arguments
