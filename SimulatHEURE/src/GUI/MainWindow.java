@@ -20,6 +20,7 @@ import javax.swing.JPopupMenu;
 import java.util.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.UIManager;
 
 /**
  *
@@ -41,11 +42,12 @@ public class MainWindow extends javax.swing.JFrame {
      */
     
     public MainWindow() {
-        
+        changeLookAndFeel();
         m_controleur = new Simulatheure();
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);         
+        
         
         //test
     //this.afficheurReseau.setDimension(false);
@@ -141,7 +143,6 @@ class MyTimerActionListener implements ActionListener {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jComboBox1 = new javax.swing.JComboBox();
         mainPanel = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -188,8 +189,8 @@ class MyTimerActionListener implements ActionListener {
         suppressionTransport = new javax.swing.JButton();
         boutonsSimulation = new javax.swing.JPanel();
         playPauseSimulation = new javax.swing.JToggleButton();
+        pauseSimulation = new javax.swing.JButton();
         avancerSimulation = new javax.swing.JButton();
-        ralentirSimulation = new javax.swing.JButton();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
         jPanel4 = new javax.swing.JPanel();
@@ -229,8 +230,6 @@ class MyTimerActionListener implements ActionListener {
             }
         });
         jPopupMenu1.add(jMenuItem2);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -399,11 +398,11 @@ class MyTimerActionListener implements ActionListener {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 374, Short.MAX_VALUE))
+                .addGap(0, 309, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 288, Short.MAX_VALUE)))
+                    .addGap(0, 223, Short.MAX_VALUE)))
         );
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
@@ -548,23 +547,23 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsSimulation.add(playPauseSimulation);
 
+        pauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        pauseSimulation.setText("Avancer X 2");
+        pauseSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(pauseSimulation);
+
         avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        avancerSimulation.setText("Avancer X 2");
+        avancerSimulation.setText("Ralentir / 2");
         avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 avancerSimulationActionPerformed(evt);
             }
         });
         boutonsSimulation.add(avancerSimulation);
-
-        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ralentirSimulation.setText("Ralentir X 2");
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(ralentirSimulation);
 
         defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
         defilementAfficheur.setWheelScrollingEnabled(false);
@@ -607,7 +606,7 @@ class MyTimerActionListener implements ActionListener {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -615,31 +614,31 @@ class MyTimerActionListener implements ActionListener {
                     .addGap(27, 27, 27)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(562, Short.MAX_VALUE)
+                    .addContainerGap(281, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(26, 26, 26)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(293, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(406, Short.MAX_VALUE)))
+                    .addContainerGap(341, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(347, Short.MAX_VALUE)))
+                    .addContainerGap(282, Short.MAX_VALUE)))
             .addGroup(afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
-                    .addContainerGap(483, Short.MAX_VALUE)
+                    .addContainerGap(418, Short.MAX_VALUE)
                     .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(28, 28, 28)))
         );
@@ -658,11 +657,11 @@ class MyTimerActionListener implements ActionListener {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 958, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 538, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -1073,17 +1072,37 @@ class MyTimerActionListener implements ActionListener {
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
 
-    private void avancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancerSimulationActionPerformed
+    private void pauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseSimulationActionPerformed
         m_crono.avancerX2();
-    }//GEN-LAST:event_avancerSimulationActionPerformed
+    }//GEN-LAST:event_pauseSimulationActionPerformed
 
-    private void ralentirSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ralentirSimulationActionPerformed
+    private void avancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_avancerSimulationActionPerformed
         m_crono.ralentirX2();
-    }//GEN-LAST:event_ralentirSimulationActionPerformed
+    }//GEN-LAST:event_avancerSimulationActionPerformed
     
     /**
      * @param args the command line arguments
      */
+    private void changeLookAndFeel(){
+         try {
+             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if("javax.swing.plaf.nimbus.NimbusLookAndFeel".equals(info.getClassName())){
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+            }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1106,6 +1125,8 @@ class MyTimerActionListener implements ActionListener {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -1165,7 +1186,6 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.ButtonGroup groupeTransport;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1186,9 +1206,9 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JButton pauseSimulation;
     private javax.swing.JToggleButton playPauseSimulation;
     private javax.swing.JMenuItem quitter;
-    private javax.swing.JButton ralentirSimulation;
     private javax.swing.JToggleButton routier;
     private javax.swing.JComboBox selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
