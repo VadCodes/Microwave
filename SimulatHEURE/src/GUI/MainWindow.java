@@ -130,26 +130,29 @@ class MyTimerActionListener implements ActionListener {
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        wtf2 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        wtf = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        annuler = new javax.swing.JButton();
+        retablir = new javax.swing.JButton();
+        geographie = new javax.swing.JPanel();
+        coordonnees = new javax.swing.JLabel();
+        zoom = new javax.swing.JLabel();
+        titreGeographie = new javax.swing.JPanel();
+        titreCoordonnees = new javax.swing.JLabel();
+        titreZoom = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboBoxTroncons = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         comboBoxArrets = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         comboBoxSources = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        selectionCircuit = new javax.swing.JComboBox();
+        selectionCircuit = new javax.swing.JComboBox<String>();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
@@ -318,7 +321,7 @@ class MyTimerActionListener implements ActionListener {
 
         jPanel3.add(jPanel2, java.awt.BorderLayout.WEST);
 
-        jPanel6.setLayout(new java.awt.BorderLayout());
+        jPanel8.setLayout(new java.awt.BorderLayout());
 
         jPanel7.setPreferredSize(new java.awt.Dimension(130, 56));
 
@@ -396,7 +399,7 @@ class MyTimerActionListener implements ActionListener {
                     .addGap(0, 623, Short.MAX_VALUE)))
         );
 
-        jPanel6.add(jPanel7, java.awt.BorderLayout.EAST);
+        jPanel8.add(jPanel7, java.awt.BorderLayout.EAST);
 
         afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
         afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -466,7 +469,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsTransport.setAlignmentX(1.0F);
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setOpaque(false);
-        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 220));
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(90, 160));
         boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
@@ -565,7 +568,7 @@ class MyTimerActionListener implements ActionListener {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, afficheurCommandesLayout.createSequentialGroup()
                     .addContainerGap(1199, Short.MAX_VALUE)
                     .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(27, 27, 27)))
+                    .addGap(26, 26, 26)))
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -585,9 +588,9 @@ class MyTimerActionListener implements ActionListener {
         afficheurCommandes.setLayer(boutonsTransport, javax.swing.JLayeredPane.DEFAULT_LAYER);
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jPanel6.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+        jPanel8.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
 
-        jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
+        jPanel3.add(jPanel8, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("SimulatHEURE", jPanel3);
 
@@ -1060,7 +1063,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JComboBox comboBoxArrets;
-    private javax.swing.JComboBox comboBoxIntersections;
+    private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxSources;
     private javax.swing.JComboBox comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
@@ -1086,6 +1089,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
