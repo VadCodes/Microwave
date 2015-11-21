@@ -82,7 +82,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,9,0,0,2,124"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,53,0,0,3,-59"/>
   </AuxValues>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="mainPanel">
@@ -204,40 +204,46 @@
                             <Property name="rows" type="int" value="3"/>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JButton" name="jButton1">
+                            <Component class="javax.swing.JButton" name="annuler">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="10" style="0"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Annuler"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annulerActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton2">
+                            <Component class="javax.swing.JButton" name="retablir">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Revenir"/>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="10" style="0"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="R&#xe9;tablir"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retablirActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel1">
+                            <Component class="javax.swing.JLabel" name="zoomTitre">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Zoom :"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="wtf2">
+                            <Component class="javax.swing.JLabel" name="zoom">
                               <Properties>
                                 <Property name="horizontalAlignment" type="int" value="4"/>
                                 <Property name="text" type="java.lang.String" value="100 %"/>
                                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel2">
+                            <Component class="javax.swing.JLabel" name="coordonneesTitre">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Position :"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="wtf">
+                            <Component class="javax.swing.JLabel" name="coordonnees">
                             </Component>
                           </SubComponents>
                         </Container>
@@ -287,12 +293,12 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="boutonsSelectionRoutier" min="-2" pref="164" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="694" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="330" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="boutonsSelectionTransport" min="-2" pref="250" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="244" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -455,17 +461,17 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="defilementAfficheur" alignment="1" max="32767" attributes="0"/>
+                              <Component id="defilementAfficheur" alignment="1" pref="680" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="563" max="32767" attributes="0"/>
                                       <Component id="boutonsRoutier" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace pref="1199" max="32767" attributes="0"/>
+                                      <EmptySpace pref="564" max="32767" attributes="0"/>
                                       <Component id="boutonsTransport" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
@@ -474,31 +480,31 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="boutonsSimulation" min="-2" pref="373" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="295" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="defilementAfficheur" pref="858" max="32767" attributes="0"/>
+                              <Component id="defilementAfficheur" pref="494" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="boutonsRoutier" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="726" max="32767" attributes="0"/>
+                                      <EmptySpace pref="361" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="boutonsTransport" min="-2" pref="179" max="-2" attributes="0"/>
-                                      <EmptySpace pref="667" max="32767" attributes="0"/>
+                                      <EmptySpace pref="302" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" rootIndex="3" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace pref="803" max="32767" attributes="0"/>
+                                      <EmptySpace pref="439" max="32767" attributes="0"/>
                                       <Component id="boutonsSimulation" min="-2" pref="27" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   </Group>
@@ -681,7 +687,7 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playPauseSimulationActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JButton" name="pauseSimulation">
+                            <Component class="javax.swing.JButton" name="avancerSimulation">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="10" style="0"/>
@@ -689,10 +695,10 @@
                                 <Property name="text" type="java.lang.String" value="Avancer X 2"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseSimulationActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="avancerSimulationActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JButton" name="avancerSimulation">
+                            <Component class="javax.swing.JButton" name="ralentirSimulation">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Tahoma" size="10" style="0"/>
@@ -700,7 +706,7 @@
                                 <Property name="text" type="java.lang.String" value="Ralentir / 2"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="avancerSimulationActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ralentirSimulationActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -766,12 +772,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1595" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="960" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="873" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="509" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
