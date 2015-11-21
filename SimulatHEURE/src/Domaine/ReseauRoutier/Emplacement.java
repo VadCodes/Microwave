@@ -30,6 +30,12 @@ public class Emplacement {
         
         m_intersection = intersection;
     }
+    public void copy(Emplacement p_emplacement){
+        m_estSurTroncon = p_emplacement.estSurTroncon();
+        m_pourcentageParcouru = p_emplacement.getPourcentageParcouru();
+        m_troncon = p_emplacement.getTroncon();
+        m_intersection = p_emplacement.getIntersection();
+    }
     public Point2D.Float calculPosition(Float p_echelle){
         if(m_estSurTroncon){
             float p1x = m_troncon.getOrigine().getPosition().x;

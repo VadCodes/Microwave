@@ -129,6 +129,7 @@ public class Autobus {
                 else{
                     m_asTerminer = true;
                     float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                    m_emplacementActuel.copy(m_paireActuelle.getArret().getEmplacement());
                     m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
                     return true;
                 }
