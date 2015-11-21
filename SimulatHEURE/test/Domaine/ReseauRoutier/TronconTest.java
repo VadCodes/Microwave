@@ -57,7 +57,7 @@ public class TronconTest extends TestCase {
         intersectionB.ajouterTroncon(tronconBA);
         tronconAB.setDoubleSens();
         tronconBA.setDoubleSens();
-        assertTrue(tronconAB.getDoubleSens());
-        assertTrue(tronconBA.getDoubleSens());
+        assertTrue(tronconAB.estDoubleSens());
+        assertTrue(tronconBA.estDoubleSens());
     }
 }

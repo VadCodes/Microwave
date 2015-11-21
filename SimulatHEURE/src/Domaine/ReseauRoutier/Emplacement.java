@@ -32,13 +32,13 @@ public class Emplacement {
     }
     public Point2D.Float calculPosition(Float p_echelle){
         if(m_estSurTroncon){
-            float p1x = m_troncon.getIntersectionOrigin().getPosition().x;
-            float p1y = m_troncon.getIntersectionOrigin().getPosition().y;
+            float p1x = m_troncon.getOrigine().getPosition().x;
+            float p1y = m_troncon.getOrigine().getPosition().y;
             float p2x = m_troncon.getDestination().getPosition().x;
             float p2y = m_troncon.getDestination().getPosition().y;
             
             float n = 3.5f;
-            if(m_troncon.getDoubleSens()){
+            if(m_troncon.estDoubleSens()){
                 if(p2y-p1y>0){
                     p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                     p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
@@ -62,7 +62,7 @@ public class Emplacement {
             return m_intersection.getPosition();
         }
     }
-    public Boolean getEstSurTroncon(){
+    public Boolean estSurTroncon(){
         return m_estSurTroncon;
     }
     public  float getPourcentageParcouru(){
@@ -87,11 +87,11 @@ public class Emplacement {
         m_intersection = intersection;
     }
     public Boolean equals(Emplacement autreEmpl){
-        if (m_estSurTroncon && autreEmpl.getEstSurTroncon()){
+        if (m_estSurTroncon && autreEmpl.estSurTroncon()){
             return ((Math.abs(m_pourcentageParcouru-autreEmpl.m_pourcentageParcouru) <= 0.000001) &&
                     m_troncon.equals(autreEmpl.m_troncon));
         }
-        else if (!m_estSurTroncon && !autreEmpl.getEstSurTroncon()){
+        else if (!m_estSurTroncon && !autreEmpl.estSurTroncon()){
             return (m_intersection == autreEmpl.getIntersection());
         }
         else return false;

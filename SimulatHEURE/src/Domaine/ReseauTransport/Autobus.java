@@ -52,7 +52,7 @@ public class Autobus {
          */
         float pourcentageInitiale = 0;
         Temps tempsTransit;
-        if(m_emplacementActuel.getEstSurTroncon()){
+        if(m_emplacementActuel.estSurTroncon()){
              tempsTransit= m_emplacementActuel.getTroncon().getTempsTransitAutobus();
              pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
         }
@@ -72,7 +72,7 @@ public class Autobus {
          */
         boolean changementiterator = false;
         boolean changementPaireArretTrajetAVerifier;
-        if(!m_paireActuelle.getTrajet().getEmplacementFinal().getEstSurTroncon()){
+        if(!m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
             changementPaireArretTrajetAVerifier = m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection());
         }
         else{
@@ -102,7 +102,7 @@ public class Autobus {
      
     private boolean changerPaireArretTrajet(double p_pourcentageInitiale, Temps p_deltatT){
         float pourcentageFinal;
-        if (m_emplacementActuel.getEstSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().getEstSurTroncon()){
+        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
              pourcentageFinal= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
         }
          else{

@@ -43,108 +43,91 @@ public class DessinateurTransport {
     {
         float echelle = (float)p_g.getTransform().getScaleX();
         if (echelle > 1){
-            dessinerArrets(p_g, echelle);
             dessinerCircuit(p_g, echelle);
+            dessinerArrets(p_g, echelle);
             dessinerSourceAutobus(p_g, echelle);
         }
         else
         {
-            dessinerArrets(p_g, 1);
             dessinerCircuit(p_g, 1);
+            dessinerArrets(p_g, 1);
             dessinerSourceAutobus(p_g, 1);
         }
     }
     
-    private void dessinerCircuit(Graphics2D p_g, float p_echelle){
+    private void dessinerCircuit(Graphics2D p_g, float p_echelle)
+    {
         Stroke dashed = new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0);
         p_g.setStroke(dashed);
-        for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-            if(circuit.estSelectionne()){
+        
+        for (Circuit circuit: m_reseau.getListeCircuits())
+        {
+            if(circuit.estSelectionne())
+            {
                 p_g.setColor(Color.BLUE);
             }
-            else{
+            else
+            {
                 p_g.setColor(Color.RED);
             }
-            Arret arretDebut  =  circuit.getListeArretTrajet().getFirst().getArret();
-            Troncon tronconFin = circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).getTrajet().getListeTroncon().getLast();//p-e -2 ou pas
-            Arret arretFin = circuit.getListeArretTrajet().getLast().getArret();
-            Point2D.Float pd = arretDebut.getEmplacement().calculPosition(p_echelle);
-            Point2D.Float pf = arretFin.getEmplacement().calculPosition(p_echelle);
-            Path2D.Float ligne= new Path2D.Float();  
-            ligne.moveTo(pd.x, pd.y);
-            for (PaireArretTrajet paire : circuit.getListeArretTrajet()){
-                if (paire.getTrajet()!=null){
-                    Boolean premier = true;
-                    LinkedList<Troncon> listeTroncons = paire.getTrajet().getListeTroncon();
-                    for(Troncon troncon : listeTroncons){
-                        if(!premier && troncon == tronconFin){
-                            float p1x = pf.x;
-                            float p1y = pf.y;
-                            if(troncon.getDoubleSens()){
-                                Point2D.Float p2 = troncon.getIntersectionOrigin().getPosition();
-                                
-                                float p2x = p2.x;
-                                float p2y = p2.y;
+            
+            Path2D.Float chemin = new Path2D.Float();
+            for (ListIterator<PaireArretTrajet> itPaire = circuit.getListeArretTrajet().listIterator() ; itPaire.hasNext() ; )
+            {
+                PaireArretTrajet paire = itPaire.next();
+                if (paire.getArret().getEmplacement().estSurTroncon())
+                {
+                    Point2D.Float positionArret = paire.getArret().getEmplacement().calculPosition(p_echelle);
+                    chemin.moveTo(positionArret.x, positionArret.y);
+                }
+                
+                if (paire.getTrajet() != null)
+                {
+                    ListIterator<Troncon> itTroncon = paire.getTrajet().getListeTroncons().listIterator();
+                    while (itTroncon.hasNext())
+                    {
+                        Troncon troncon = itTroncon.next();
+                        Point2D.Float p1 = troncon.getOrigine().getPosition();
+                        Point2D.Float p2 = troncon.getDestination().getPosition();
+                        float ajX = 0;
+                        float ajY = 0;
 
-                                float n = 3.5f;
-                                if(p2y-p1y>0){
-                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                }
-                                else{
-                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                }
-                                if (!premier){
-                                    ligne.lineTo(p2x, p2y);
-                                }
-                            ligne.lineTo(pf.x, pf.y);
-                            }
-                        }
-                        else if (premier && troncon == tronconFin && listeTroncons.size()==1){
-                            ligne.lineTo(pf.x, pf.y);
-                        }
-                        else{
-                            // Des fois le troncon p-e null si c'est le dernier de tout le réseau
-                            Point2D.Float p = troncon.getDestination().getPosition();
-                            float p1x = p.x;
-                            float p1y = p.y;
-                            if(troncon.getDoubleSens()){
-                                Point2D.Float p2 = troncon.getIntersectionOrigin().getPosition();
-                                
-                                float p2x = p2.x;
-                                float p2y = p2.y;
+                        if (troncon.estDoubleSens())
+                        {
+                            float d = (float)p2.distance(p1);
+                            float dx = p2.x - p1.x;
+                            float dy = p2.y - p1.y;
 
-                                float n = 3.5f;
-                                if(p2y-p1y>0){
-                                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                }
-                                else{
-                                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                                }
-                                if (!premier){
-                                    ligne.lineTo(p2x, p2y);
-                                }
-                            }
-                            ligne.lineTo(p1x,p1y);
+                            float n = 3.5f;
+                            ajX = (n * -dy / d) / p_echelle;
+                            ajY = (n * dx / d) / p_echelle;
                         }
-                        premier = false;
+                        if (itTroncon.previousIndex() != 0 || !paire.getArret().getEmplacement().estSurTroncon())
+                            chemin.moveTo(p1.x + ajX, p1.y + ajY);
+                        
+                        if (itTroncon.hasNext())
+                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
+
+                        else if (itPaire.hasNext())
+                        {
+                            Emplacement emplacementProchainArret = itPaire.next().getArret().getEmplacement();
+                            Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
+                            if (emplacementProchainArret.estSurTroncon())
+                            {
+                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
+                            }
+                            else
+                            {
+                                chemin.lineTo(positionProchainArret.x + ajX, positionProchainArret.y + ajY);
+                            }
+                            itPaire.previous();
+                        }
                     }
                 }
             }
-            p_g.draw(ligne); 
+            p_g.draw(chemin); 
         }
+
     }
       private void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)
     {
@@ -185,16 +168,16 @@ public class DessinateurTransport {
                 Emplacement em = arret.getEmplacement();
                 Point2D.Float position = em.calculPosition(p_echelle);
                 
-                if(em.getEstSurTroncon()){
+                if(em.estSurTroncon()){
                     Troncon troncon = em.getTroncon();
 
-                    float p1x = troncon.getIntersectionOrigin().getPosition().x;
-                    float p1y = troncon.getIntersectionOrigin().getPosition().y;
+                    float p1x = troncon.getOrigine().getPosition().x;
+                    float p1y = troncon.getOrigine().getPosition().y;
                     float p2x = troncon.getDestination().getPosition().x;
                     float p2y = troncon.getDestination().getPosition().y;
                     
                     float n = 3.5f; //aww yeah c'est hardcodé à souhait
-                    if (troncon.getDoubleSens()){
+                    if (troncon.estDoubleSens()){
                         if(p2y-p1y>0){
                             p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                             p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
