@@ -50,53 +50,56 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurReseau.setDimension(false);         
         
         
-        //this.afficheurReseau.setDimension(false);
+        this.afficheurReseau.setDimension(false);
         
-        int x1 = 100;   int y1 = 100;
-        int x2 = 500;   int y2 = 500;
-        int x3 = 300;
-                        int y3 = 200;
-        int x4 = 200;
-    
-        
-        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
-        
-        
-        ajoutIntersection.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        constructionTroncon.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        transport.doClick();
-        
-        ajoutArret.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtArret2);
-        afficheurReseauMousePressed(evtInter5);
-        
-        ajoutCircuit.doClick();
+//        int x1 = 100;   int y1 = 100;
+//        int x2 = 500;   int y2 = 500;
+//        int x3 = 300;
+//                        int y3 = 200;
+//        int x4 = 200;
+//    
+//        
+//        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
+//        
+//        
+//        ajoutIntersection.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        constructionTroncon.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        transport.doClick();
+//        
+//        ajoutArret.doClick();
 //        afficheurReseauMousePressed(evtInter1);
 //        afficheurReseauMousePressed(evtArret2);
-        
-    this.afficheurReseau.setDimension(true);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        ajoutCircuit.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtArret2);
+//        afficheurReseauMousePressed(evtTrajet1);
+//        
+//    this.afficheurReseau.setDimension(true);
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
@@ -145,14 +148,14 @@ class MyTimerActionListener implements ActionListener {
         jLabel4 = new javax.swing.JLabel();
         comboBoxTroncons = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         comboBoxArrets = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         comboBoxSources = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        selectionCircuit = new javax.swing.JComboBox();
+        selectionCircuit = new javax.swing.JComboBox<String>();
         jPanel8 = new javax.swing.JPanel();
         afficheurCommandes = new javax.swing.JLayeredPane();
         boutonsRoutier = new javax.swing.JPanel();
@@ -852,7 +855,6 @@ class MyTimerActionListener implements ActionListener {
     }
     
     private void miseAjourSelectionIntersectionsAjout(){
-        System.out.println("yoyoyoyo");
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
             Intersection intersection= intersections.next();
             boolean add = true;
@@ -1162,7 +1164,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JComboBox comboBoxArrets;
-    private javax.swing.JComboBox comboBoxIntersections;
+    private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxSources;
     private javax.swing.JComboBox comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
@@ -1198,7 +1200,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JButton ralentirSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
-    private javax.swing.JComboBox selectionCircuit;
+    private javax.swing.JComboBox<String> selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;

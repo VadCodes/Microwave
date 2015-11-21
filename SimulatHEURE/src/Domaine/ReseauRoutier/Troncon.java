@@ -48,7 +48,7 @@ public class Troncon extends ElementRoutier{
         }       
         m_doubleSens = doubleSens;
     }
-    public Boolean getDoubleSens(){
+    public Boolean estDoubleSens(){
         return m_doubleSens;
     }
     
@@ -82,7 +82,7 @@ public class Troncon extends ElementRoutier{
          m_origine =  p_intersectionOrigin;
     }
     
-    public Intersection getIntersectionOrigin(){
+    public Intersection getOrigine(){
         return  m_origine;
     }
     public float getLongueurTroncon(){

@@ -58,7 +58,7 @@ public class Trajet {
              }
              return null;
     }
-    public LinkedList<Troncon> getListeTroncon(){
+    public LinkedList<Troncon> getListeTroncons(){
         return m_listTroncons;
     }
 }

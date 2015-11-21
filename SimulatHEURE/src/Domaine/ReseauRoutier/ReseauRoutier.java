@@ -89,7 +89,7 @@ public class ReseauRoutier {
                 float p2x = p2.x;
                 float p2y = p2.y;
                 float n = 3.5f;
-                if (troncon.getDoubleSens()){
+                if (troncon.estDoubleSens()){
                     if(p2y-p1y>0){
                         p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
                         p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
