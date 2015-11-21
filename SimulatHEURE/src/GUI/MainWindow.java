@@ -873,6 +873,45 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
+    private void miseAjourComboBoxTotal(){
+        selectionCircuit.removeAllItems();
+        comboBoxSources.removeAllItems();
+         comboBoxArrets.removeAllItems();
+        comboBoxIntersections.removeAllItems();
+        comboBoxTroncons.removeAllItems();
+        selectionCircuit.addItem("Aucun");
+        comboBoxSources.addItem("Aucun");
+         comboBoxArrets.addItem("Aucun");
+        comboBoxIntersections.addItem("Aucun");
+        comboBoxTroncons.addItem("Aucun");
+        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+                Circuit circuit = circuits.next();
+                     selectionCircuit.addItem(circuit.getNom());
+              }
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                 comboBoxSources.addItem(source.getNom());
+            }
+               
+        }
+         for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+            Arret arret = arrets.next();
+            comboBoxArrets.addItem(arret.getNom());
+         }
+         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+            comboBoxIntersections.addItem(intersection.getName());
+         }
+         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
+            Intersection intersection= intersections.next();
+                for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ; troncons.hasNext() ; ){
+                Troncon troncon = troncons.next();
+                comboBoxTroncons.addItem(troncon.getNom());
+                }
+         }
+    }
     private void miseAjourSelectionCrcuitsAjout(){
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
                 boolean add = true;
@@ -1048,6 +1087,7 @@ class MyTimerActionListener implements ActionListener {
         
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
+        miseAjourComboBoxTotal();
         this.afficheurCommandes.repaint();
     }                                                
 
@@ -1170,6 +1210,7 @@ class MyTimerActionListener implements ActionListener {
         
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
+        miseAjourComboBoxTotal();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
