@@ -167,6 +167,22 @@ public class ReseauTransport {
     
     public Boolean supprimerSelection()
     {
+        for (ListIterator<Arret> arrIt = m_listeArrets.listIterator() ; arrIt.hasNext() ; )
+        {
+            Arret arr = arrIt.next();
+            if (arr.estSelectionne())
+            {
+                for (Circuit circ : m_listeCircuits) {
+                    for (PaireArretTrajet pat : circ.getListeArretTrajet()){
+                        if (pat.getArret() == arr){
+                            return false;
+                        }
+                    }
+                }
+                arrIt.remove();
+            }
+        }
+        
         for (ListIterator<Circuit> circ = m_listeCircuits.listIterator() ; circ.hasNext(); )
         {
             Circuit circuit = circ.next();
@@ -188,14 +204,6 @@ public class ReseauTransport {
                         src.next();
                     }
                 }
-            }
-        }
-        
-        for (ListIterator<Arret> arr = m_listeArrets.listIterator() ; arr.hasNext() ; )
-        {
-            if (arr.next().estSelectionne())
-            {
-                arr.remove();
             }
         }
         

@@ -21,6 +21,7 @@ import javax.swing.JPopupMenu;
 import java.util.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -1072,7 +1073,11 @@ class MyTimerActionListener implements ActionListener {
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
                 assert(elementsTransportSelectionnes.size() == 1);
                 ElementTransport elemT = elementsTransportSelectionnes.getFirst();
-                m_controleur.supprimerSelectionTransport();
+                Boolean suppr = m_controleur.supprimerSelectionTransport();
+                System.out.println(suppr);
+                if (!suppr){
+                    JOptionPane.showMessageDialog(null, "L'arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             
             case BESOINS:
@@ -1105,6 +1110,9 @@ class MyTimerActionListener implements ActionListener {
         {
             case SELECTIONNER:
                 elementTransportSupprime = m_controleur.supprimerSelectionTransport();
+                if (!elementTransportSupprime){
+                    JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
                 
             default:
