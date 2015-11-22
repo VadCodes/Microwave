@@ -40,6 +40,9 @@ public class Simulatheure {
     
     public Simulatheure() {}  
     
+    public void copier(Simulatheure p_simulatheure){
+       // p_simulatheure.m_arret_temp = p_simulatheure.m_reseauTransport.this.m_arret_temp;
+    }
     public ReseauRoutier getRoutier()
     {
         return m_reseauRoutier;

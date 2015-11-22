@@ -27,6 +27,15 @@ public class ReseauRoutier {
         return m_listeIntersections;
     }
     
+    public void copier(ReseauRoutier p_reseauRoutier){
+        p_reseauRoutier.m_conteurIntersection = this.m_conteurIntersection;
+        p_reseauRoutier.m_conteurTroncon = this.m_conteurTroncon;
+        p_reseauRoutier.m_listeIntersections  = new LinkedList<>();
+        for (ListIterator<Intersection> intersections = this.m_listeIntersections.listIterator() ;intersections.hasNext() ; ){
+           // Intersection inter = p_reseauRoutier.intersections.next();
+        }
+               // Intersection intersection = p_reseauRoutier.copyIntersection(intersections.next());
+    }
     public void ajouterIntersection(float p_x, float p_y)
     {
         Intersection inter = m_factory.intersection(new Point2D.Float(p_x, p_y));

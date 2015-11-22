@@ -25,6 +25,8 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
 
     public Simulatheure m_controleur;
+    public Simulatheure m_controleurSimulation;
+    public Simulatheure m_contoleurReseau;
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
     private Boolean m_booleanCTRL = false;
@@ -805,6 +807,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_simulationActionPerformed
 
     private void lancerSimulation(){
+        m_controleurSimulation.copier(m_controleur);
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
         m_timer.setDelay(1);
