@@ -13,6 +13,7 @@ import Domaine.ReseauTransport.Arret;
  */
 public class EditerArret extends javax.swing.JFrame {
     private Arret m_arret;
+    private MainWindow m_mainWindow;
     /**
      * Creates new form EditerArret
      */
@@ -20,7 +21,8 @@ public class EditerArret extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setArret(Arret arr){
+    public void setArret(Arret arr, MainWindow p_mainWindow){
+        m_mainWindow = p_mainWindow;
         m_arret = arr;
         jTextField1.setText(m_arret.getNom());
     }
@@ -106,6 +108,7 @@ public class EditerArret extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
         m_arret.setNom(jTextField1.getText());
+        m_mainWindow.miseAjourComboBoxTotal();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

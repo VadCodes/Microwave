@@ -13,6 +13,7 @@ import Domaine.ReseauRoutier.Intersection;
  */
 public class EditerIntersection extends javax.swing.JFrame {
     private Intersection m_intersection;
+    private MainWindow m_mainWindow;
     /**
      * Creates new form EditerIntersection
      */
@@ -20,7 +21,8 @@ public class EditerIntersection extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setIntersection(Intersection intrsct){
+    public void setIntersection(Intersection intrsct, MainWindow p_mainWindow){
+        m_mainWindow = p_mainWindow;
         m_intersection = intrsct;
         jTextField1.setText(m_intersection.getName());
     }
@@ -106,6 +108,7 @@ public class EditerIntersection extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
         m_intersection.setNom(jTextField1.getText());
+        m_mainWindow.miseAjourComboBoxTotal();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

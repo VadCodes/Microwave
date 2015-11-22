@@ -13,6 +13,7 @@ import Domaine.ReseauTransport.Circuit;
  */
 public class EditerCircuit extends javax.swing.JFrame {
     private Circuit m_circuit;
+    private MainWindow m_mainWindow;
     /**
      * Creates new form EditerCircuit
      */
@@ -20,7 +21,8 @@ public class EditerCircuit extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setCircuit(Circuit circ){
+    public void setCircuit(Circuit circ, MainWindow p_mainWindow){
+        m_mainWindow = p_mainWindow;
         m_circuit = circ;
         jTextField1.setText(m_circuit.getNom());
         
@@ -139,7 +141,7 @@ public class EditerCircuit extends javax.swing.JFrame {
         if (jCheckBox1.isSelected()){
             m_circuit.setVeutBoucler(true);
         }
-        
+        m_mainWindow.miseAjourComboBoxTotal();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

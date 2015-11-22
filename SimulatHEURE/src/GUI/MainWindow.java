@@ -56,10 +56,10 @@ class MyTimerActionListener implements ActionListener {
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
-      miseAjourAutobusComboBox();
+     // miseAjourSelectionAutobusAjout();
       facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
       if (deltatT != 0){
-          miseAjourSelectionAutobusAjout();
+          miseAjoutAutobusComboBox();
       }
       m_this.afficheurCommandes.repaint();
   }
@@ -900,19 +900,19 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
-    private void miseAjourAutobusComboBox(){
+    private void miseAjoutAutobusComboBox(){
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
             for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator(); autobuss.hasNext();) {
                 Autobus autobus = autobuss.next();
-                 comboBoxSources.addItem(autobus.getID());
+                 comboBoxAutobus.addItem(autobus.getID());
             }
                
         }
     }
-    private void miseAjourComboBoxTotal(){
+    public void miseAjourComboBoxTotal(){
         selectionCircuit.removeAllItems();
         comboBoxSources.removeAllItems();
          comboBoxArrets.removeAllItems();
@@ -1140,7 +1140,7 @@ class MyTimerActionListener implements ActionListener {
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
                 if(elemRoutier.getClass() == Intersection.class){
                     EditerIntersection fenetre = new EditerIntersection();
-                    fenetre.setIntersection((Intersection) elemRoutier);
+                    fenetre.setIntersection((Intersection) elemRoutier, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1148,7 +1148,7 @@ class MyTimerActionListener implements ActionListener {
                 }
                 else if (elemRoutier.getClass() == Troncon.class){
                     EditerTroncon fenetre = new EditerTroncon();
-                    fenetre.setTroncon((Troncon) elemRoutier);
+                    fenetre.setTroncon((Troncon) elemRoutier, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1163,7 +1163,7 @@ class MyTimerActionListener implements ActionListener {
                 
                 if(elemTransport.getClass() == SourceAutobus.class){
                     EditerSource fenetre = new EditerSource();
-                    fenetre.setSource((SourceAutobus) elemTransport);
+                    fenetre.setSource((SourceAutobus) elemTransport, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1171,7 +1171,7 @@ class MyTimerActionListener implements ActionListener {
                 }
                 else if(elemTransport.getClass() == Arret.class){
                     EditerArret fenetre = new EditerArret();
-                    fenetre.setArret((Arret) elemTransport);
+                    fenetre.setArret((Arret) elemTransport, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1179,14 +1179,14 @@ class MyTimerActionListener implements ActionListener {
                 }
                 else if(elemTransport.getClass() == Circuit.class){
                     EditerCircuit fenetre = new EditerCircuit();
-                    fenetre.setCircuit((Circuit) elemTransport);
+                    fenetre.setCircuit((Circuit) elemTransport, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 }
         }
-         miseAjourComboBoxTotal();
+        
     }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        editage();

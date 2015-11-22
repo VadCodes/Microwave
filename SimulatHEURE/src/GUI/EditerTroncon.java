@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class EditerTroncon extends javax.swing.JFrame {
     private Troncon m_troncon;
+    private MainWindow m_mainWindow;
     /**
      * Creates new form EditerTroncon2
      */
@@ -23,7 +24,8 @@ public class EditerTroncon extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setTroncon(Troncon trc){
+    public void setTroncon(Troncon trc, MainWindow p_mainWindow){
+        m_mainWindow = p_mainWindow;
         m_troncon = trc;
         jTextField1.setText(m_troncon.getNom());
         jTextField2.setText(String.valueOf(m_troncon.getDistribution().getTempsMin().getTemps()));
@@ -193,7 +195,7 @@ public class EditerTroncon extends javax.swing.JFrame {
         m_troncon.setDistribution(dist);
         
         m_troncon.setNom(jTextField1.getText());
-        
+        m_mainWindow.miseAjourComboBoxTotal();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

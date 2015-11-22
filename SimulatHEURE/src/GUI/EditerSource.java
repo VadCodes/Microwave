@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class EditerSource extends javax.swing.JFrame {
     private SourceAutobus m_source;
+    private MainWindow m_mainWindow;
     /**
      * Creates new form EditerSource
      */
@@ -23,7 +24,8 @@ public class EditerSource extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setSource(SourceAutobus src){
+    public void setSource(SourceAutobus src, MainWindow p_mainWindow){
+        m_mainWindow = p_mainWindow;
         m_source = src;
         jTextField1.setText(m_source.getNom());
         jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()));
@@ -193,6 +195,7 @@ public class EditerSource extends javax.swing.JFrame {
         m_source.setDistribution(dist);
         
         m_source.setNom(jTextField1.getText());
+        m_mainWindow.miseAjourComboBoxTotal();
         
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
