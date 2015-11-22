@@ -533,6 +533,9 @@ public class Simulatheure {
                 Arret arret2 = circuit.getListeArretTrajet().getLast().getArret();
                 for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator() ; paires.hasNext() ; ){
                     PaireArretTrajet paire = paires.next();
+                    if (paire.getTrajet() == null){
+                        return;
+                    }
                     for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncons().listIterator() ; troncons.hasNext() ; ){
                         Troncon troncon = troncons.next();
                         if(troncon.estSelectionne()){
@@ -570,7 +573,9 @@ public class Simulatheure {
                                         }
                                     }
                                     else{
-                                        return;
+                                        if(avantArret1 || apresArret2){
+                                            return;
+                                        }
                                     }
                                 }
                                 
