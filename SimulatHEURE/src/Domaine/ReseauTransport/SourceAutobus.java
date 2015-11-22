@@ -71,11 +71,6 @@ public class SourceAutobus extends ElementTransport{
         return m_emplacement.equals(m_circuit.getListeArretTrajet().getFirst().getArret().getEmplacement()); 
     }
     
-    private Temps tempsApparition(){
-       double tmp =  m_tempsAttenteinitial.getTemps()+ (m_frequence.getTemps() * m_nbAutobusGeneres);
-        Temps tmo = new Temps(tmp);
-        return tmo;
-    }
     
     public void setCapaciteMax(int capacite){
         m_capaciteMax = capacite;
@@ -103,5 +98,10 @@ public class SourceAutobus extends ElementTransport{
     }
     public Distribution getDistribution(){
         return m_distributionFrequence;
+    }
+
+    public void setDefault() {
+       m_nbAutobusGeneres = 0;
+       m_tempsAvantApparition = m_tempsAttenteinitial;
     }
 }

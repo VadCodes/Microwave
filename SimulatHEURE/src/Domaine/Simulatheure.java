@@ -13,6 +13,8 @@ import java.util.ListIterator;
  * @author vinny
  */
 public class Simulatheure {
+
+    
     public enum Modes {
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
@@ -39,7 +41,27 @@ public class Simulatheure {
     private Arret m_arret_temp = new Arret();
     
     public Simulatheure() {}  
-    
+    public void recommancerSimulation() {
+        for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator() ;arrets.hasNext() ; ){
+            Arret arret = arrets.next();
+            arret.viderFile();
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+            circuit.getListeAutobus().clear();
+        }
+    }
     public void copier(Simulatheure p_simulatheure){
        // p_simulatheure.m_arret_temp = p_simulatheure.m_reseauTransport.this.m_arret_temp;
     }
