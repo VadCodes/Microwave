@@ -108,7 +108,7 @@ class MyTimerActionListener implements ActionListener {
       }
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
-      time.setText(m_crono.getTempsDebut() + " s");
+      time.setText((m_tempsDebutSimulation + m_crono.getTempsDebut()) + " s");
      // miseAjourSelectionAutobusAjout();
       facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
       if (deltatT != 0){
