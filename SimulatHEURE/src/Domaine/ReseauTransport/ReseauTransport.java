@@ -139,13 +139,7 @@ public class ReseauTransport {
     public LinkedList<ElementTransport> getElementsSelectionnes(){
         
         LinkedList<ElementTransport> listeRetour = new LinkedList<>();
-        
-        for (Arret arr : m_listeArrets){
-            if (arr.estSelectionne()){
-                listeRetour.add(arr);
-            }
-        }
-        
+                
         for (Circuit circ: m_listeCircuits)
         {
             if (circ.estSelectionne())
@@ -159,6 +153,11 @@ public class ReseauTransport {
                 {
                     listeRetour.add(src);
                 }
+            }
+        }
+        for (Arret arr : m_listeArrets){
+            if (arr.estSelectionne()){
+                listeRetour.add(arr);
             }
         }
         return listeRetour;

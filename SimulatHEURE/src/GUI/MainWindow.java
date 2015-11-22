@@ -469,7 +469,8 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsRoutier.add(constructionTroncon);
 
-        editerRoutier.setText("Édit");
+        editerRoutier.setText("Éditer sélection");
+        editerRoutier.setToolTipText("");
         editerRoutier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editerRoutierActionPerformed(evt);
@@ -511,7 +512,8 @@ class MyTimerActionListener implements ActionListener {
         boutonsTransport.add(ajoutSource);
 
         ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutArret.setText("Arret");
+        ajoutArret.setText("Arrêt");
+        ajoutArret.setToolTipText("");
         ajoutArret.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajoutArretActionPerformed(evt);
@@ -529,7 +531,8 @@ class MyTimerActionListener implements ActionListener {
         boutonsTransport.add(ajoutCircuit);
 
         editerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerCircuit.setText("Editer Circuit");
+        editerCircuit.setText("Allonger Circuit");
+        editerCircuit.setToolTipText("");
         editerCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editerCircuitActionPerformed(evt);
@@ -537,7 +540,7 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsTransport.add(editerCircuit);
 
-        editerTransport.setText("Édit");
+        editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editerTransportActionPerformed(evt);
@@ -1279,8 +1282,10 @@ class MyTimerActionListener implements ActionListener {
             Circuit circuit = circuits.next();
               if (circuit.getNom().equals(name)){
                   for(PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()){
-                  ElementTransport arret = ArretTrajet.getArret();
-                  arret.changerStatutSelection();
+                    ElementTransport arret = ArretTrajet.getArret();
+                    if (!arret.estSelectionne()){
+                        arret.changerStatutSelection();
+                    }
                   }
                   circuit.changerStatutSelection();
                   break;
