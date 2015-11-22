@@ -56,8 +56,11 @@ class MyTimerActionListener implements ActionListener {
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
+      miseAjourAutobusComboBox();
       facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
-      miseAjourSelectionAutobusAjout();
+      if (deltatT != 0){
+          miseAjourSelectionAutobusAjout();
+      }
       m_this.afficheurCommandes.repaint();
   }
 }
@@ -894,6 +897,18 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
+    private void miseAjourAutobusComboBox(){
+        comboBoxAutobus.removeAllItems();
+        comboBoxAutobus.addItem("Aucun");
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator(); autobuss.hasNext();) {
+                Autobus autobus = autobuss.next();
+                 comboBoxSources.addItem(autobus.getID());
+            }
+               
+        }
+    }
     private void miseAjourComboBoxTotal(){
         selectionCircuit.removeAllItems();
         comboBoxSources.removeAllItems();
@@ -1168,6 +1183,7 @@ class MyTimerActionListener implements ActionListener {
                     fenetre.setVisible(true);
                 }
         }
+         miseAjourComboBoxTotal();
     }
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
        editage();
