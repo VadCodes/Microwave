@@ -174,37 +174,54 @@ public class Simulatheure {
                 Arret arret2 = circuit.getListeArretTrajet().getLast().getArret();
                 for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator() ; paires.hasNext() ; ){
                     PaireArretTrajet paire = paires.next();
-                   for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncons().listIterator() ; troncons.hasNext() ; ){
-                       Troncon troncon = troncons.next();
-                       if(troncon.estSelectionne()){
-                           Point2D.Float p1 = new Point2D.Float(xReel,yReel);
+                    for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncons().listIterator() ; troncons.hasNext() ; ){
+                        Troncon troncon = troncons.next();
+                        if(troncon.estSelectionne()){
+                            Point2D.Float p1 = new Point2D.Float(xReel,yReel);
                             double distance1 = troncon.getOrigine().getPosition().distance(p1);
                             double distance2 = troncon.getLongueurTroncon();
                             float pourcentage = (float) (distance1/distance2);
-                           if(arret1 != null){
-                            if(arret1.getEmplacement().getTroncon() != null){
-                                if(troncon.equals(arret1.getEmplacement().getTroncon())){
-                                    if(pourcentage <= arret1.getEmplacement().getPourcentageParcouru()){
+                            Boolean avantArret1 = false;
+                            Boolean apresArret2 = false;
+                            Troncon trc1 = null;
+                            Troncon trc2 = null;
+                            if(arret1 != null){
+                                if(arret1.getEmplacement().estSurTroncon()){
+                                    trc1 = arret1.getEmplacement().getTroncon();
+                                    if(troncon.equals(trc1)){
+                                        if(pourcentage <= arret1.getEmplacement().getPourcentageParcouru()){
+                                            avantArret1=true;
+                                        }
+                                    }
+                                }
+                                if(arret2 != null){
+                                    if(arret2.getEmplacement().estSurTroncon()){
+                                        trc2 = arret2.getEmplacement().getTroncon();
+                                        if(troncon.equals(trc2)){
+                                            if(pourcentage >= arret2.getEmplacement().getPourcentageParcouru()){
+                                                apresArret2=true;
+                                            }
+                                        }
+                                    }
+                                }
+                                if(trc1 != null && trc2 != null){
+                                    if (trc1.equals(trc2)){
+                                        if (avantArret1 && apresArret2){
+                                            return;
+                                        }
+                                    }
+                                    else{
                                         return;
                                     }
+                                }
+                                
+                                Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getOrigine());
+                                Distribution distributionDefault = new Distribution();
+                                m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                return;
                             }
-                            }
-                            if(arret2 != null){
-                               if(arret2.getEmplacement().getTroncon() != null){
-                                 if(troncon.equals(arret2.getEmplacement().getTroncon())){
-                                    if(pourcentage >= arret2.getEmplacement().getPourcentageParcouru()){
-                                        return;
-                                    }
-                                 }
-                            }
-                            }
-                             Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getOrigine());
-                             Distribution distributionDefault = new Distribution();
-                             m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
-                             return;
-                       }
-                       }
-                   }
+                        }
+                    }
                 }
             }
         }
