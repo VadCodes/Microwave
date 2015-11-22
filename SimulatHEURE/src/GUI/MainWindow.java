@@ -96,7 +96,7 @@ public class MainWindow extends javax.swing.JFrame {
 //        afficheurReseauMousePressed(evtInter1);
 //        afficheurReseauMousePressed(evtArret2);
 //        afficheurReseauMousePressed(evtTrajet1);
-//        
+        
 //    this.afficheurReseau.setDimension(true);
     }
 class MyTimerActionListener implements ActionListener {
@@ -156,14 +156,14 @@ class MyTimerActionListener implements ActionListener {
         jPanel7 = new javax.swing.JPanel();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox();
+        comboBoxArrets = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox();
+        comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         selectionCircuit = new javax.swing.JComboBox<String>();
         boutonsRoutier = new javax.swing.JPanel();
@@ -190,7 +190,7 @@ class MyTimerActionListener implements ActionListener {
         facteurMultiplicatif = new javax.swing.JLabel();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox();
+        comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
@@ -1006,7 +1006,7 @@ class MyTimerActionListener implements ActionListener {
                 }
          }
     }
-    private void miseAjourSelectionCrcuitsAjout(){
+    private void miseAjourSelectionCircuitsAjout(){
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
                 boolean add = true;
                 Circuit circuit = circuits.next();
@@ -1569,12 +1569,12 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
-    private javax.swing.JComboBox comboBoxArrets;
-    private javax.swing.JComboBox comboBoxAutobus;
+    private javax.swing.JComboBox<String> comboBoxArrets;
+    private javax.swing.JComboBox<String> comboBoxAutobus;
     private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxPietons;
-    private javax.swing.JComboBox comboBoxSources;
-    private javax.swing.JComboBox comboBoxTroncons;
+    private javax.swing.JComboBox<String> comboBoxSources;
+    private javax.swing.JComboBox<String> comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
