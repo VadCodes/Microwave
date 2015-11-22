@@ -99,7 +99,13 @@ public class MainWindow extends javax.swing.JFrame {
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
+      double tmp = m_crono.getTempsDebut();
+      boolean finSimulation = false;
       double deltatT = m_crono.getDeltatT();
+       if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()){
+          deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+          finSimulation =true;
+      }
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
@@ -109,6 +115,10 @@ class MyTimerActionListener implements ActionListener {
           miseAjoutAutobusComboBox();
       }
       m_this.afficheurCommandes.repaint();
+      if(finSimulation ) {
+       arreterSimulation();
+      }
+      
   }
 }
 
@@ -832,6 +842,10 @@ class MyTimerActionListener implements ActionListener {
        alalEditSimulation();
       lancerSimulation();
       m_crono.pause();
+    }
+    private void arreterSimulation(){
+        m_crono.pause();
+        m_timer.stop();
     }
     private void alalEditSimulation(){
         EditerSimulation fenetre= new EditerSimulation();{
