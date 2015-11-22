@@ -426,6 +426,10 @@ public class Simulatheure {
             m_modeNouvelArret = false;
 
             m_arret_temp = nouvArret;
+            if(emplPrec.estSurTroncon()){
+                m_trajet_temp.getListeTroncons().add(emplPrec.getTroncon());
+            }
+            m_trajet_temp.setEmplacementInitial(emplPrec);
         }
         else{ //mode trajet           
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
@@ -463,6 +467,7 @@ public class Simulatheure {
             if(m_arret_temp.getEmplacement().estSurTroncon()){
                 if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getTroncon().getOrigine()) {
                     m_trajet_temp.getListeTroncons().addLast(m_arret_temp.getEmplacement().getTroncon());
+                    m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                     circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
                     
@@ -471,6 +476,7 @@ public class Simulatheure {
             }
             else{ //arret sur intersection
                 if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getIntersection()) {
+                    m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                     circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
 
