@@ -135,12 +135,16 @@ public class Autobus {
                 }
             }
             else{
-                Emplacement emplacement2 = m_paireActuelle.getTrajet().getEmplacementFinal();
-                boolean bo = emplacement1.equals(emplacement2);
                 float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                 m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
-                m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
-                m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
+                if(m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()){
+                    m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
+                    m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
+                }
+                else{
+                    m_emplacementActuel.setPourcentageParcouru(0.0f);
+                    m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
+                }
                 Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
                 miseAJourEmplacement(tmp);
                 return true;
