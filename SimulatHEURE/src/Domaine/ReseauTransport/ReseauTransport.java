@@ -19,7 +19,7 @@ import java.awt.geom.Point2D;
  * @author louis
  */
 public class ReseauTransport {
-    
+    public  ReseauTransportFactory m_factory = new ReseauTransportFactory();
     private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
     private LinkedList<Arret> m_listeArrets = new LinkedList<>();
     private int m_conteurArrets = 1;

@@ -60,18 +60,19 @@ public class DessinateurSimulation {
                 float diametre = 2 *   5 / p_echelle;
                 int int1 = (int)x;
                 int int2 = (int)y;
-                dessinerBus(p_g, int1, int2, p_echelle);
-               // p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+              //  dessinerBus(p_g, int1, int2, p_echelle);
+               p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
             }
         }
         }
     private void dessinerBus(Graphics2D p_g, int p_x, int p_y, float p_echelle){
         try{
                 Image image = ImageIO.read(new File("src/bus.gif"));
-                float hauteurDefault = 30;
+                float hauteurDefault = 30/p_echelle;
                 float x = p_x -hauteurDefault;
                 float y = p_y -hauteurDefault/2;
-               Image im =  image.getScaledInstance((int)(2*hauteurDefault),(int)hauteurDefault, Image.SCALE_DEFAULT);
+                Graphics2D ii =(Graphics2D )image.getGraphics();
+               Image im =  image.getScaledInstance((int)(2*hauteurDefault),(int)hauteurDefault, Image.SCALE_SMOOTH);
                 p_g.drawImage(im, (int)x,(int) y, null);
                 
         }
