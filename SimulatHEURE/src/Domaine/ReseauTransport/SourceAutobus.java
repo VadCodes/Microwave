@@ -39,9 +39,6 @@ public class SourceAutobus extends ElementTransport{
         // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
         double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
         m_tempsAvantApparition = new Temps(tmp);
-        if(m_tempsAvantApparition.getTemps() <= 0){
-            System.out.println(m_tempsAvantApparition);
-        }
         
         
     }
@@ -66,7 +63,6 @@ public class SourceAutobus extends ElementTransport{
     }
     private String genererBusID(){
         m_nbAutobusGeneres++;
-        System.out.println(m_nbAutobusGeneres);
         String tmp = m_nomSource.concat("A" +Integer.toString(m_nbAutobusGeneres));
         return tmp;
     }

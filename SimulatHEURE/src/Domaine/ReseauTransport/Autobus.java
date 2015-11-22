@@ -42,7 +42,6 @@ public class Autobus {
         m_capaciteMax = capaciteMax; 
         m_id = id;
         m_tempsApparition = tempsApparition;
-        System.out.println(m_tempsApparition.getTemps());
         m_estSurArret = estSurArret;
     }
     public boolean asTerminer(){
@@ -124,7 +123,6 @@ public class Autobus {
              */
             if(m_paireActuelle.getTrajet() == null){
                 if(this.getBoucle()){
-                    System.out.println("BOUCLE");
                     m_iterateur = m_list.listIterator();
                     m_paireActuelle = m_iterateur.next();
                 }
