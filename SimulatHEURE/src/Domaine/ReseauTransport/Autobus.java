@@ -167,8 +167,22 @@ public class Autobus {
         m_list = listeArretTrajet;
         m_boucle = boucle;
         m_iterateur = listeArretTrajet.listIterator();
-        m_paireActuelle = m_iterateur.next();
-    }
+      for (ListIterator<PaireArretTrajet> paires =listeArretTrajet.listIterator(); paires.hasNext();) {
+          m_paireActuelle = paires.next();
+          m_iterateur.next();
+          if(m_paireActuelle .getTrajet()!=null){
+             for (ListIterator<Troncon> troncons = m_paireActuelle .getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+            Troncon troncon = troncons.next();
+            if(m_emplacementActuel.estSurTroncon()){
+                if(troncon.equals(m_emplacementActuel.getTroncon())){
+                    System.out.println("erbgiusadguhsbaiu");
+                    return;
+                }
+            }
+             }
+            }
+        }
+      }
     
     public Emplacement getEmplacement(){
         return m_emplacementActuel;

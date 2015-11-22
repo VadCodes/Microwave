@@ -39,11 +39,16 @@ public class SourceAutobus extends ElementTransport{
         // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
         double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
         m_tempsAvantApparition = new Temps(tmp);
+        if(m_tempsAvantApparition.getTemps() <= 0){
+            System.out.println(m_tempsAvantApparition);
+        }
+        
         
     }
     public void genererAutobus(){
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
         while(m_tempsAvantApparition.getTemps() <= 0){
+            
             miseAjourAvantAjout();
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             String ID = genererBusID();
