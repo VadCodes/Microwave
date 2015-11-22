@@ -611,7 +611,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        recommancerSimulation.setText("Recommancer");
+        recommancerSimulation.setText("Recommencer");
         recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recommancerSimulationActionPerformed(evt);

@@ -5,6 +5,7 @@ package Domaine.ReseauRoutier;
  * @author Nathaniel
  */
 import Domaine.Utilitaire.*;
+import java.awt.geom.Point2D;
 
 public class Troncon extends ElementRoutier{
     private String m_nom = "";
@@ -86,6 +87,17 @@ public class Troncon extends ElementRoutier{
         return  m_origine;
     }
     public float getLongueurTroncon(){
-     return (float)m_longueur;
- }
+        return (float)m_longueur;
+    }
+    
+    public Point2D.Float ajusterSiDoubleSens(Point2D.Float p1, Point2D.Float p2){
+        if(this.estDoubleSens()){
+            
+        }
+        else{
+            
+            //return p1, p2;
+        }
+        return p1; //a enlever
+    }
 }
