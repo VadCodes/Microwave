@@ -165,12 +165,7 @@ public class ReseauRoutier {
     }
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
-    {
-        if (p_origine == p_destination)
-        {
-            return;
-        }
-        
+    {        
         //on s'assure qu'il n'y a pas deux tronçons de origine à destination
         for(Troncon trc : p_origine.getTroncons()){
             if (trc.getDestination()==p_destination){
