@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    public double m_tempsDebutSimulation;
+      public double   m_tempsFinSimulation;
     public Simulatheure m_controleur;
     public Simulatheure m_controleurSimulation;
     public Simulatheure m_contoleurReseau;
@@ -109,6 +111,7 @@ class MyTimerActionListener implements ActionListener {
       m_this.afficheurCommandes.repaint();
   }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -814,12 +817,32 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+      
+    }
     }//GEN-LAST:event_simulationActionPerformed
     private void recommancerSimulation(){
        m_controleur.recommancerSimulation();
+       alalEditSimulation();
       lancerSimulation();
       m_crono.pause();
     }
+    private void alalEditSimulation(){
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+}
+}
     private void lancerSimulation(){
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
