@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    public double m_tempsDebutSimulation;
+      public double   m_tempsFinSimulation;
     public Simulatheure m_controleur;
     public Simulatheure m_controleurSimulation;
     public Simulatheure m_contoleurReseau;
@@ -97,7 +99,13 @@ public class MainWindow extends javax.swing.JFrame {
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
+      double tmp = m_crono.getTempsDebut();
+      boolean finSimulation = false;
       double deltatT = m_crono.getDeltatT();
+       if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()){
+          deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+          finSimulation =true;
+      }
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
@@ -107,8 +115,13 @@ class MyTimerActionListener implements ActionListener {
           miseAjoutAutobusComboBox();
       }
       m_this.afficheurCommandes.repaint();
+      if(finSimulation ) {
+       arreterSimulation();
+      }
+      
   }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -814,12 +827,36 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+      
+    }
     }//GEN-LAST:event_simulationActionPerformed
     private void recommancerSimulation(){
        m_controleur.recommancerSimulation();
+       alalEditSimulation();
       lancerSimulation();
       m_crono.pause();
     }
+    private void arreterSimulation(){
+        m_crono.pause();
+        m_timer.stop();
+    }
+    private void alalEditSimulation(){
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+}
+}
     private void lancerSimulation(){
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
