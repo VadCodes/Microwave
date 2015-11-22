@@ -280,14 +280,13 @@ public class Simulatheure {
                 largeurSelection = 2 * Arret.RAYON;
             }
             
-            Arret arretSelectionnee = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
-            if (arretSelectionnee != null && m_arretsNouveauCircuit.isEmpty())
+            Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
+            if (arret != null)
             {
-                m_arretsNouveauCircuit.add(arretSelectionnee);
-            }
-            else if (arretSelectionnee != null && m_arretsNouveauCircuit.getFirst() != arretSelectionnee)
-            {
-                m_arretsNouveauCircuit.add(arretSelectionnee);
+                if (arret.estSelectionne())
+                    m_arretsNouveauCircuit.add(arret);
+                else
+                    m_arretsNouveauCircuit.clear();
             }
             
             if (m_arretsNouveauCircuit.size() == 2)
