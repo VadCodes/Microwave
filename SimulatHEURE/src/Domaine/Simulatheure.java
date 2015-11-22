@@ -468,8 +468,10 @@ public class Simulatheure {
 
             if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
                 LinkedList<Troncon> listetmp = new LinkedList<>();
-                listetmp.add(emplPrec.getTroncon());
-                if (trcVersTrcSuivant){
+                if (!interOrigVersTrcImmediat){
+                    listetmp.add(emplPrec.getTroncon());
+                }
+                if (trcVersTrcSuivant || interOrigVersTrcImmediat){
                     listetmp.add(emplNouv.getTroncon());
                 }
                 Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
