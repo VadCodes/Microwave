@@ -116,6 +116,7 @@ public class ReseauRoutier {
     
     public void deselectionnerTout()
     {
+        desuggererTout();
         for (Intersection intersection: m_listeIntersections)
         {
             if (intersection.estSelectionne())
@@ -129,6 +130,19 @@ public class ReseauRoutier {
                 {
                     troncon.changerStatutSelection();
                 }
+            }
+        }
+    }
+    
+    public void desuggererTout()
+    {
+        for (Intersection intersection: m_listeIntersections)
+        {
+            intersection.setEstSuggere(false);
+            
+            for (Troncon troncon: intersection.getTroncons())
+            {   
+                troncon.setEstSuggere(false);
             }
         }
     }
