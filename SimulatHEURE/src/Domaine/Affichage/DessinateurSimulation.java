@@ -54,6 +54,9 @@ public class DessinateurSimulation {
                 float x = position.x -   5 / p_echelle;
                 float y = position.y -   5 / p_echelle;
                 float diametre = 2 *   5 / p_echelle;
+                if (autobus.getEmplacement().getPourcentageParcouru() > 1){
+                    int i = 0;
+                }
                 p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
             }
         }

@@ -22,7 +22,9 @@ public class ReseauTransport {
     
     private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
     private LinkedList<Arret> m_listeArrets = new LinkedList<>();
-    private Temps tempsDebut;
+    private int m_conteurArrets = 1;
+    private int m_conteurCircuits = 1;
+    private int m_conteurSources = 1;
     public ReseauTransport(){}
     
     public LinkedList<Circuit> getListeCircuits(){
@@ -32,22 +34,16 @@ public class ReseauTransport {
         return m_listeArrets;
     }
     public void ajouterArret(Arret p_arret){
+        p_arret.setNom("Arret" + Integer.toString(m_conteurArrets));
+        m_conteurArrets++;
         m_listeArrets.add(p_arret);
     }
     public void setListeCircuits(LinkedList<Circuit> listeCircuits){
         m_listeCircuits = listeCircuits;
     }
     public void ajouterCircuit(Circuit circ){
-        int i = 1;
-        int tempName = 1;
-        for (ListIterator<Circuit> circuits =m_listeCircuits.listIterator() ; circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-            tempName =  Integer.parseInt(circuit.getNom());
-           if ( i <= tempName){
-               i = tempName + 1;
-           }
-        }
-        circ.setNom(Integer.toString(i));
+        circ.setNom("Circuit"+ Integer.toString(m_conteurCircuits));
+        m_conteurCircuits++;
         m_listeCircuits.add(circ);
     }
             
@@ -110,6 +106,8 @@ public class ReseauTransport {
     }
    public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
        SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit,p_nomSource,p_distribution,p_tempsAttenteinitial);
+       src.setNom("Source" + Integer.toString(m_conteurSources));
+       m_conteurSources++;
        p_circuit.ajouterSource(src);
        return src;
    }
@@ -126,14 +124,87 @@ public class ReseauTransport {
        }
        for(Circuit circ : m_listeCircuits){
            if (circ.estSelectionne()){
-                for(SourceAutobus sa : circ.getListeSourceAutobus()){
-                    if(circ.estSelectionne()){
-                        sa.changerStatutSelection();
-                    }
-                }
                 circ.changerStatutSelection();
            }
        }
-
+       for(Circuit circ : m_listeCircuits){
+                for(SourceAutobus sa : circ.getListeSourceAutobus()){
+                    if(sa.estSelectionne()){
+                        sa.changerStatutSelection();
+                    }
+                }
+           }
    }
+   
+    public LinkedList<ElementTransport> getElementsSelectionnes(){
+        
+        LinkedList<ElementTransport> listeRetour = new LinkedList<>();
+                
+        for (Circuit circ: m_listeCircuits)
+        {
+            if (circ.estSelectionne())
+            {
+                listeRetour.add(circ);
+            }
+            
+            for (SourceAutobus src: circ.getListeSourceAutobus())
+            {   
+                if (src.estSelectionne())
+                {
+                    listeRetour.add(src);
+                }
+            }
+        }
+        for (Arret arr : m_listeArrets){
+            if (arr.estSelectionne()){
+                listeRetour.add(arr);
+            }
+        }
+        return listeRetour;
+    }
+    
+    public Boolean supprimerSelection()
+    {
+        for (ListIterator<Arret> arrIt = m_listeArrets.listIterator() ; arrIt.hasNext() ; )
+        {
+            Arret arr = arrIt.next();
+            if (arr.estSelectionne())
+            {
+                for (Circuit circ : m_listeCircuits) {
+                    for (PaireArretTrajet pat : circ.getListeArretTrajet()){
+                        if (pat.getArret() == arr){
+                            return false;
+                        }
+                    }
+                }
+                arrIt.remove();
+            }
+        }
+        
+        for (ListIterator<Circuit> circ = m_listeCircuits.listIterator() ; circ.hasNext(); )
+        {
+            Circuit circuit = circ.next();
+            if (circuit.estSelectionne())
+            {
+                circuit.getListeSourceAutobus().clear();
+                circ.remove();
+            }
+            else
+            {
+                for (ListIterator<SourceAutobus> src = circuit.getListeSourceAutobus().listIterator() ; src.hasNext() ; )
+                {
+                    if (src.next().estSelectionne())
+                    {
+                        src.remove();
+                    }
+                    else
+                    {
+                        src.next();
+                    }
+                }
+            }
+        }
+        
+        return true;
+    }
 }

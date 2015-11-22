@@ -14,7 +14,7 @@ public class Chronometre {
     long m_tempsPrec;
     long m_tempsDepuisDebut= 0;
     long m_tempsPauseDebut;
-    int m_facteurVitesse = 1;
+    double m_facteurVitesse = 1;
     boolean m_pause = false;
     public Chronometre(){ }
     public void  start(){
@@ -22,6 +22,9 @@ public class Chronometre {
            m_tempsPrec =  System.currentTimeMillis();
     }
         
+    public double getFacteurVitesse(){
+        return m_facteurVitesse;
+    }
     public void avancerX2(){
         m_facteurVitesse *=2;
     }
@@ -50,7 +53,7 @@ public class Chronometre {
     }
     
     public long getTempsDebut(){
-        getDeltatT();
-        return m_tempsDepuisDebut;
+        return m_tempsDepuisDebut/1000;
     }
+    
 }

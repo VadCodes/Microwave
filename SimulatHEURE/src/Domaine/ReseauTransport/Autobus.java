@@ -33,6 +33,7 @@ public class Autobus {
     private Boolean m_estSurArret;
     private PaireArretTrajet m_paireActuelle;
     private boolean m_asTerminer = false;
+    private Boolean m_boucle = false;
     
     public Autobus(Emplacement emplacementActuel, int capaciteMax, String id,
                     Temps tempsApparition, Boolean estSurArret){
@@ -78,9 +79,9 @@ public class Autobus {
         else{
              changementPaireArretTrajetAVerifier = m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon());
         }
-            if(changementPaireArretTrajetAVerifier){
-                changementiterator = changerPaireArretTrajet(pourcentageInitiale, deltatT);
-            }
+        if(changementPaireArretTrajetAVerifier){
+            changementiterator = changerPaireArretTrajet(pourcentageInitiale, deltatT);
+        }
         
         if(pourcentage > 1 && !changementiterator){
             pourcentage = 1;
@@ -93,9 +94,9 @@ public class Autobus {
                 m_emplacementActuel.setPourcentageParcouru(pourcentage);
             }
             else{
-                
+
             }
-            Temps tmp = new  Temps(deltatT.getTemps() - tempsParcourirResteTroncon);
+            Temps tmp = new Temps(deltatT.getTemps() - tempsParcourirResteTroncon);
             miseAJourEmplacement(tmp);
         }
     }
@@ -121,27 +122,29 @@ public class Autobus {
              * Si le prochain trajet est null ça veut dire que le circuit est terminer et que l'autobus a finis son travail. 
              */
             if(m_paireActuelle.getTrajet() == null){
-                if(this.boucleOuPas()){
-                    System.out.println("BOUCLE");
+                if(this.getBoucle()){
                     m_iterateur = m_list.listIterator();
                     m_paireActuelle = m_iterateur.next();
                 }
                 else{
                     m_asTerminer = true;
                     float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                    m_emplacementActuel.copy(m_paireActuelle.getArret().getEmplacement());
                     m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
                     return true;
                 }
             }
-            Emplacement emplacement2 = m_paireActuelle.getTrajet().getEmplacementFinal();
-            boolean bo = emplacement1.equals(emplacement2);
-            float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
-            m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
-            m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
-            m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
-            Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
-            miseAJourEmplacement(tmp);
-            return true;
+            else{
+                Emplacement emplacement2 = m_paireActuelle.getTrajet().getEmplacementFinal();
+                boolean bo = emplacement1.equals(emplacement2);
+                float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
+                m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
+                m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
+                Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
+                miseAJourEmplacement(tmp);
+                return true;
+            }
         }
         return false;
     }
@@ -158,12 +161,26 @@ public class Autobus {
         m_paireActuelle = m_iterateur.next();            
     }
 
-    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet){
+    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet, Boolean boucle){
         //Assigne l'iterateur a la premiere paire du trajet du circuit
         m_list = listeArretTrajet;
+        m_boucle = boucle;
         m_iterateur = listeArretTrajet.listIterator();
-        m_paireActuelle = m_iterateur.next();
-    }
+      for (ListIterator<PaireArretTrajet> paires =listeArretTrajet.listIterator(); paires.hasNext();) {
+          m_paireActuelle = paires.next();
+          m_iterateur.next();
+          if(m_paireActuelle .getTrajet()!=null){
+             for (ListIterator<Troncon> troncons = m_paireActuelle .getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+            Troncon troncon = troncons.next();
+            if(m_emplacementActuel.estSurTroncon()){
+                if(troncon.equals(m_emplacementActuel.getTroncon())){
+                    return;
+                }
+            }
+             }
+            }
+        }
+      }
     
     public Emplacement getEmplacement(){
         return m_emplacementActuel;
@@ -175,13 +192,8 @@ public class Autobus {
     public String getID(){
         return m_id;
     }
-    private boolean boucleOuPas(){
-        if(m_list.getFirst().getArret().equals(m_list.getLast().getArret())){
-            return true;
-        }
-        else{
-            return false;
-        }
+    private Boolean getBoucle(){
+        return m_boucle;
     }
     public void miseAJourAutobus (Temps deltatT){
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());

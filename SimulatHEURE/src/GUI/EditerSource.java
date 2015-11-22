@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauTransport.SourceAutobus;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 import javax.swing.JOptionPane;
@@ -14,23 +14,23 @@ import javax.swing.JOptionPane;
  *
  * @author louis
  */
-public class EditerTroncon extends javax.swing.JFrame {
-    private Troncon m_troncon;
+public class EditerSource extends javax.swing.JFrame {
+    private SourceAutobus m_source;
     private MainWindow m_mainWindow;
     /**
-     * Creates new form EditerTroncon2
+     * Creates new form EditerSource
      */
-    public EditerTroncon() {
+    public EditerSource() {
         initComponents();
     }
 
-    public void setTroncon(Troncon trc, MainWindow p_mainWindow){
+    public void setSource(SourceAutobus src, MainWindow p_mainWindow){
         m_mainWindow = p_mainWindow;
-        m_troncon = trc;
-        jTextField1.setText(m_troncon.getNom());
-        jTextField2.setText(String.valueOf(m_troncon.getDistribution().getTempsMin().getTemps()));
-        jTextField3.setText(String.valueOf(m_troncon.getDistribution().getTempsPlusFrequent().getTemps()));
-        jTextField4.setText(String.valueOf(m_troncon.getDistribution().getTempsMax().getTemps()));
+        m_source = src;
+        jTextField1.setText(m_source.getNom());
+        jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()));
+        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()));
+        jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()));
     }
     
     /**
@@ -55,7 +55,7 @@ public class EditerTroncon extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Éditer un tronçon");
+        setTitle("Éditer une source");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,10 +192,11 @@ public class EditerTroncon extends javax.swing.JFrame {
         
         Distribution dist = new Distribution();
         dist.setDistribution(new Temps(min), new Temps(freq), new Temps(max));
-        m_troncon.setDistribution(dist);
+        m_source.setDistribution(dist);
         
-        m_troncon.setNom(jTextField1.getText());
+        m_source.setNom(jTextField1.getText());
         m_mainWindow.miseAjourComboBoxTotal();
+        
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -225,20 +226,21 @@ public class EditerTroncon extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditerTroncon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerSource.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditerTroncon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerSource.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditerTroncon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerSource.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditerTroncon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditerSource.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditerTroncon().setVisible(true);
+                new EditerSource().setVisible(true);
             }
         });
     }

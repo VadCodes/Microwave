@@ -51,7 +51,7 @@ public class Circuit extends ElementTransport{
         while (sourceAutobusItr.hasNext()) {
             SourceAutobus src = sourceAutobusItr.next();
             src.miseAJourTempsRestant(deltatT);
-            src.genererAutobus();
+            src.genererAutobus(deltatT);
         }
     }
     public void setNom(String p_nom){
@@ -121,7 +121,7 @@ public class Circuit extends ElementTransport{
     }
     
     public void assignerTrajetAutobus(Autobus bus){
-        bus.assignerTrajet(m_listeArretTrajet);
+        bus.assignerTrajet(m_listeArretTrajet, (m_boucle && m_veutBoucler));
     }
     
     public void initCircuit(){

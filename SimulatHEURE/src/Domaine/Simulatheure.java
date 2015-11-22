@@ -212,7 +212,68 @@ public class Simulatheure {
         
         return m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
     }
-    
+    public void ajouterSource(Integer p_x, Integer p_y, Float p_echelle){
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;  
+        for (ListIterator<Circuit> circuits =m_reseauTransport.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            if(circuit.estSelectionne()){
+                Arret arret1 = circuit.getListeArretTrajet().getFirst().getArret();
+                Arret arret2 = circuit.getListeArretTrajet().getLast().getArret();
+                for (ListIterator<PaireArretTrajet> paires =circuit.getListeArretTrajet().listIterator() ; paires.hasNext() ; ){
+                    PaireArretTrajet paire = paires.next();
+                    for (ListIterator<Troncon> troncons =paire.getTrajet().getListeTroncons().listIterator() ; troncons.hasNext() ; ){
+                        Troncon troncon = troncons.next();
+                        if(troncon.estSelectionne()){
+                            Point2D.Float p1 = new Point2D.Float(xReel,yReel);
+                            double distance1 = troncon.getOrigine().getPosition().distance(p1);
+                            double distance2 = troncon.getLongueurTroncon();
+                            float pourcentage = (float) (distance1/distance2);
+                            Boolean avantArret1 = false;
+                            Boolean apresArret2 = false;
+                            Troncon trc1 = null;
+                            Troncon trc2 = null;
+                            if(arret1 != null){
+                                if(arret1.getEmplacement().estSurTroncon()){
+                                    trc1 = arret1.getEmplacement().getTroncon();
+                                    if(troncon.equals(trc1)){
+                                        if(pourcentage <= arret1.getEmplacement().getPourcentageParcouru()){
+                                            avantArret1=true;
+                                        }
+                                    }
+                                }
+                                if(arret2 != null){
+                                    if(arret2.getEmplacement().estSurTroncon()){
+                                        trc2 = arret2.getEmplacement().getTroncon();
+                                        if(troncon.equals(trc2)){
+                                            if(pourcentage >= arret2.getEmplacement().getPourcentageParcouru()){
+                                                apresArret2=true;
+                                            }
+                                        }
+                                    }
+                                }
+                                if(trc1 != null && trc2 != null){
+                                    if (trc1.equals(trc2)){
+                                        if (avantArret1 && apresArret2){
+                                            return;
+                                        }
+                                    }
+                                    else{
+                                        return;
+                                    }
+                                }
+                                
+                                Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getOrigine());
+                                Distribution distributionDefault = new Distribution();
+                                m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     public void ajouterArret(Integer p_x, Integer p_y, Float p_echelle){
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;  
@@ -466,6 +527,10 @@ public class Simulatheure {
             m_modeNouvelArret = false;
 
             m_arret_temp = nouvArret;
+            if(emplPrec.estSurTroncon()){
+                m_trajet_temp.getListeTroncons().add(emplPrec.getTroncon());
+            }
+            m_trajet_temp.setEmplacementInitial(emplPrec);
         }
         else{ //mode trajet           
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
@@ -503,6 +568,7 @@ public class Simulatheure {
             if(m_arret_temp.getEmplacement().estSurTroncon()){
                 if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getTroncon().getOrigine()) {
                     m_trajet_temp.getListeTroncons().addLast(m_arret_temp.getEmplacement().getTroncon());
+                    m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                     circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
                     
@@ -511,6 +577,7 @@ public class Simulatheure {
             }
             else{ //arret sur intersection
                 if (nouvTroncon.getDestination() == m_arret_temp.getEmplacement().getIntersection()) {
+                    m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                     circuit.ajouterPaire(m_arret_temp, null);
                     circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
 
@@ -570,10 +637,20 @@ public class Simulatheure {
         return m_reseauRoutier.getElementsSelectionnes();
     }
     
+    public LinkedList<ElementTransport> getElementsSelectionnesTransport(){
+        return m_reseauTransport.getElementsSelectionnes();
+    }
+    
     public Boolean supprimerSelectionRoutier()
     {
         Boolean supprimee = m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
+        return supprimee;
+    }
+    
+    public Boolean supprimerSelectionTransport()
+    {
+        Boolean supprimee = m_reseauTransport.supprimerSelection();
         return supprimee;
     }
     
