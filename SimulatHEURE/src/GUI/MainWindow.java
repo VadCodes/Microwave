@@ -24,12 +24,16 @@ import javax.swing.JOptionPane;
  */
 public class MainWindow extends javax.swing.JFrame {
 
+    public double m_tempsDebutSimulation;
+      public double   m_tempsFinSimulation;
     public Simulatheure m_controleur;
+    public Simulatheure m_controleurSimulation;
+    public Simulatheure m_contoleurReseau;
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
     private Boolean m_booleanCTRL = false;
     private Timer m_timer;
-    private Chronometre m_crono = new Chronometre();
+    private Chronometre m_crono;
     private MainWindow m_this = this;
     private boolean m_simulationEstLancer = false;
 
@@ -95,7 +99,13 @@ public class MainWindow extends javax.swing.JFrame {
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
+      double tmp = m_crono.getTempsDebut();
+      boolean finSimulation = false;
       double deltatT = m_crono.getDeltatT();
+       if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()){
+          deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+          finSimulation =true;
+      }
      // System.out.println(deltatT);
       m_controleur.rafraichirSimulation(new Temps(deltatT));
       time.setText(m_crono.getTempsDebut() + " s");
@@ -105,8 +115,13 @@ class MyTimerActionListener implements ActionListener {
           miseAjoutAutobusComboBox();
       }
       m_this.afficheurCommandes.repaint();
+      if(finSimulation ) {
+       arreterSimulation();
+      }
+      
   }
 }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -175,6 +190,7 @@ class MyTimerActionListener implements ActionListener {
         editerTransport = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         boutonsSimulation = new javax.swing.JPanel();
+        recommancerSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
         avancerSimulation = new javax.swing.JButton();
         ralentirSimulation = new javax.swing.JButton();
@@ -607,6 +623,15 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
+        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        recommancerSimulation.setText("Recommancer");
+        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recommancerSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(recommancerSimulation);
+
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         playPauseSimulation.setText("Play / Pause");
         playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
@@ -702,7 +727,7 @@ class MyTimerActionListener implements ActionListener {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(681, Short.MAX_VALUE)
+                .addContainerGap(322, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -713,8 +738,8 @@ class MyTimerActionListener implements ActionListener {
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(162, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
@@ -803,11 +828,40 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+      
+    }
     }//GEN-LAST:event_simulationActionPerformed
-
+    private void recommancerSimulation(){
+       m_controleur.recommancerSimulation();
+       alalEditSimulation();
+      lancerSimulation();
+      m_crono.pause();
+    }
+    private void arreterSimulation(){
+        m_crono.pause();
+        m_timer.stop();
+    }
+    private void alalEditSimulation(){
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+}
+}
     private void lancerSimulation(){
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
+        m_crono  = new Chronometre();
         m_timer.setDelay(1);
         m_controleur.demarrerSimulation();
         m_crono.start();
@@ -1467,6 +1521,10 @@ class MyTimerActionListener implements ActionListener {
     private void editerTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerTransportActionPerformed
        editage();
     }//GEN-LAST:event_editerTransportActionPerformed
+
+    private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
+        recommancerSimulation();
+    }//GEN-LAST:event_recommancerSimulationActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1610,6 +1668,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton playPauseSimulation;
     private javax.swing.JMenuItem quitter;
     private javax.swing.JButton ralentirSimulation;
+    private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JComboBox<String> selectionCircuit;

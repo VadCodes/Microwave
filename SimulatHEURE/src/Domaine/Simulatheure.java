@@ -13,6 +13,8 @@ import java.util.ListIterator;
  * @author vinny
  */
 public class Simulatheure {
+
+    
     public enum Modes {
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
@@ -39,7 +41,30 @@ public class Simulatheure {
     private Arret m_arret_temp = new Arret();
     
     public Simulatheure() {}  
-    
+    public void recommancerSimulation() {
+        for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator() ;arrets.hasNext() ; ){
+            Arret arret = arrets.next();
+            arret.viderFile();
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+            circuit.getListeAutobus().clear();
+        }
+    }
+    public void copier(Simulatheure p_simulatheure){
+       // p_simulatheure.m_arret_temp = p_simulatheure.m_reseauTransport.this.m_arret_temp;
+    }
     public ReseauRoutier getRoutier()
     {
         return m_reseauRoutier;
@@ -253,6 +278,13 @@ public class Simulatheure {
     
     public void cancellerCircuit(){
         deselectionnerRoutier();
+        for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+            for (Troncon trc : intrsct.getTroncons()){
+                if (trc.estSuggere()){
+                    trc.setEstSuggere(false);
+                }
+            }
+        }
 //        m_circuit_temp = new Circuit();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
@@ -430,8 +462,10 @@ public class Simulatheure {
 
             if (memeTronconBonSens || trcVersInterDestImmediate || interOrigVersTrcImmediat || trcVersTrcSuivant){
                 LinkedList<Troncon> listetmp = new LinkedList<>();
-                listetmp.add(emplPrec.getTroncon());
-                if (trcVersTrcSuivant){
+                if (!interOrigVersTrcImmediat){
+                    listetmp.add(emplPrec.getTroncon());
+                }
+                if (trcVersTrcSuivant || interOrigVersTrcImmediat){
                     listetmp.add(emplNouv.getTroncon());
                 }
                 Trajet trj = new Trajet(emplPrec, emplNouv, listetmp);
@@ -459,6 +493,23 @@ public class Simulatheure {
                 m_trajet_temp.getListeTroncons().add(emplPrec.getTroncon());
             }
             m_trajet_temp.setEmplacementInitial(emplPrec);
+            
+            //pour les suggestions
+            Intersection interSugg;
+            if (precSurTrc){
+                interSugg = emplPrec.getTroncon().getDestination();
+            }
+            else{
+                interSugg = emplPrec.getIntersection();
+            }
+            for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+                for (Troncon trc : intrsct.getTroncons()){
+                    if (interSugg.getTroncons().contains(trc))
+                        trc.setEstSuggere(true);
+                    else
+                        trc.setEstSuggere(false);
+                }
+            }
         }
         else{ //mode trajet           
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
@@ -491,6 +542,15 @@ public class Simulatheure {
             
             nouvTroncon.changerStatutSelection();
             m_trajet_temp.getListeTroncons().add(nouvTroncon);
+            
+            for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+                for (Troncon trc : intrsct.getTroncons()){
+                    if (nouvTroncon.getDestination().getTroncons().contains(trc))
+                        trc.setEstSuggere(true);
+                    else
+                        trc.setEstSuggere(false);
+                }
+            }
             
             //si dernier troncon avant l'arret on push le trajet
             if(m_arret_temp.getEmplacement().estSurTroncon()){

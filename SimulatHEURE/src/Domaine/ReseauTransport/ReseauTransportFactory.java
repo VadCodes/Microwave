@@ -18,9 +18,8 @@ import java.util.LinkedList;
  * @author Nathaniel
  */
 public class ReseauTransportFactory {
-    
     ReseauTransportFactory(){}
-    
+
     public Arret creerArret(Emplacement emplacement, String nom){
         return new Arret(emplacement, nom);
     } 

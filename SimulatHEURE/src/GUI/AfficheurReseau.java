@@ -51,7 +51,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport(), m_dimension);
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport(), m_dimension);
             dessinateurRoutier.dessiner(graphic2D);
-            dessinateurTransport.dessiner(graphic2D);
+            dessinateurTransport .dessiner(graphic2D);
             dessinateurSimulation.dessiner(graphic2D);
         }
     }
