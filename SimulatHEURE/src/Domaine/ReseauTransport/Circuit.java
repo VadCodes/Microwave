@@ -52,7 +52,7 @@ public class Circuit extends ElementTransport{
         while (sourceAutobusItr.hasNext()) {
             SourceAutobus src = sourceAutobusItr.next();
             src.miseAJourTempsRestant(deltatT);
-            src.genererAutobus();
+            src.genererAutobus(deltatT);
         }
     }
     public void setNom(String p_nom){

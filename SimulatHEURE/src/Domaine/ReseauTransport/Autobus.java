@@ -42,6 +42,7 @@ public class Autobus {
         m_capaciteMax = capaciteMax; 
         m_id = id;
         m_tempsApparition = tempsApparition;
+        System.out.println(m_tempsApparition.getTemps());
         m_estSurArret = estSurArret;
     }
     public boolean asTerminer(){
@@ -175,7 +176,6 @@ public class Autobus {
             Troncon troncon = troncons.next();
             if(m_emplacementActuel.estSurTroncon()){
                 if(troncon.equals(m_emplacementActuel.getTroncon())){
-                    System.out.println("erbgiusadguhsbaiu");
                     return;
                 }
             }

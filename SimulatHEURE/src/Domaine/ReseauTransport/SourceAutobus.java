@@ -45,14 +45,14 @@ public class SourceAutobus extends ElementTransport{
         
         
     }
-    public void genererAutobus(){
+    public void genererAutobus(Temps p_deltatT){
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
         while(m_tempsAvantApparition.getTemps() <= 0){
-            
             miseAjourAvantAjout();
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             String ID = genererBusID();
-            Autobus nouvelAutobus = new Autobus(em, m_capaciteMax, ID, m_tempsAvantApparition,estSurArret() );
+            Temps tempsAvantApparition = new Temps ( p_deltatT.getTemps() + m_tempsAvantApparition.getTemps());
+            Autobus nouvelAutobus = new Autobus(em, m_capaciteMax, ID, tempsAvantApparition ,estSurArret());
             m_circuit.ajouterAutobus(nouvelAutobus);
             m_circuit.assignerTrajetAutobus(nouvelAutobus);
             //On update le temps avant apparition. On l'addition de la frequence.
