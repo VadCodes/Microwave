@@ -202,7 +202,11 @@ public class Simulatheure {
         Intersection intersection = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
         if (intersection != null)
         {
-            m_parametresTroncon.add(intersection);
+            if (intersection.estSelectionne())
+                m_parametresTroncon.add(intersection);
+            else
+                m_parametresTroncon.removeFirst();
+            
             if (m_parametresTroncon.size() == 2)
             {
                 Intersection origine = m_parametresTroncon.getFirst();
@@ -210,7 +214,9 @@ public class Simulatheure {
                 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
                 ajusterDoubleSens();
-                deselectionnerRoutier();
+                
+                m_parametresTroncon.removeFirst();
+                origine.changerStatutSelection();
             }
         }
     }
@@ -333,7 +339,7 @@ public class Simulatheure {
                     {
                         if (arretFinale.getEmplacement().getTroncon() == m_tronconsNouveauTrajet.getLast())
                         {
-                            if (arretFinale.getEmplacement().getPourcentageParcouru() > arretInitiale.getEmplacement().getPourcentageParcouru())
+                            if (arretInitiale.getEmplacement().getPourcentageParcouru() < arretFinale.getEmplacement().getPourcentageParcouru())
                                 estConstructible = true;
                             else 
                                 m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
@@ -357,26 +363,6 @@ public class Simulatheure {
                     {
                         m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
                         estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
-                    }
-                    else
-                    {
-                        for (Troncon tronconSuggere: arretInitiale.getEmplacement().getIntersection().getTroncons())
-                        {
-                            if (tronconSuggere.getDestination() == arretFinale.getEmplacement().getIntersection())
-                            {
-                                m_tronconsNouveauTrajet.add(tronconSuggere);
-                                estConstructible = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (!estConstructible)
-                {
-                    for (Troncon troncon: m_tronconsNouveauTrajet)
-                    {
-                        troncon.changerStatutSelection();
                     }
                 }
             }
@@ -420,7 +406,8 @@ public class Simulatheure {
                 tronconSelectionne.changerStatutSelection();
                 for (Troncon troncon : tronconSelectionne.getDestination().getTroncons())
                 {
-                    troncon.setEstSuggere(true);
+                    if (!m_tronconsNouveauTrajet.contains(troncon))
+                        troncon.setEstSuggere(true);
                 }
             }
         }
@@ -650,6 +637,7 @@ public class Simulatheure {
                                 
                                 Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getOrigine());
                                 Distribution distributionDefault = new Distribution();
+                                distributionDefault.setDistribution(new Temps(15), new Temps(15), new Temps(15));
                                 m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                                 return;
                             }

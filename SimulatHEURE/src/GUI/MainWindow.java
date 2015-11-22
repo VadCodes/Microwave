@@ -809,13 +809,14 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
         boutonsSelectionRoutier.setVisible(true);
-        selectionRoutier.doClick();        
+        selectionRoutier.doClick();
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
         this.setMode(Modes.TRANSPORT);
         boutonsTransport.setVisible(true);
         boutonsSelectionTransport.setVisible(true);
+        selectionTransport.doClick();
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -880,7 +881,7 @@ class MyTimerActionListener implements ActionListener {
                         case SELECTIONNER:
                             if(evt.isControlDown())
                             {
-                                System.out.println("Pressed");
+                                //System.out.println("Pressed");
                                 ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
                             }
                             else{
@@ -1131,7 +1132,7 @@ class MyTimerActionListener implements ActionListener {
                 Autobus autobus = autobuss.next();
                 boolean add = true;
                 String name = autobus.getID();
-                System.out.println(name);
+                //System.out.println(name);
                 for (int i =0; i<comboBoxAutobus.getItemCount();i++ ){
                     String tmp = (String)comboBoxAutobus.getItemAt(i);
                     if(tmp == name){
@@ -1152,7 +1153,7 @@ class MyTimerActionListener implements ActionListener {
                 Troncon troncon = troncons.next();
                 boolean add = true;
                 String name = troncon.getNom();
-                System.out.println(name);
+                //System.out.println(name);
                 for (int i =0; i<comboBoxTroncons.getItemCount();i++ ){
                     String tmp = (String)comboBoxTroncons.getItemAt(i);
                     if(tmp == name){
@@ -1309,7 +1310,7 @@ class MyTimerActionListener implements ActionListener {
                 assert(elementsTransportSelectionnes.size() == 1);
                 ElementTransport elemT = elementsTransportSelectionnes.getFirst();
                 Boolean suppr = m_controleur.supprimerSelectionTransport();
-                System.out.println(suppr);
+                //System.out.println(suppr);
                 if (!suppr){
                     JOptionPane.showMessageDialog(null, "L'arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
                 }
