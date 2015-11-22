@@ -7,7 +7,6 @@ package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.Utilitaire.Distribution;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;

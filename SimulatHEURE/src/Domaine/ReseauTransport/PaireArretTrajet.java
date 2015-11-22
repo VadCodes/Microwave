@@ -19,10 +19,10 @@ public class PaireArretTrajet {
             m_trajet = trajet;
     }
     
-    public PaireArretTrajet(){
-        m_arret = null;
-        m_trajet = null;
-    }
+//    public PaireArretTrajet(){
+//        m_arret = null;
+//        m_trajet = null;
+//    }
     
     public Arret getArret(){
         return m_arret;

@@ -9,20 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
 import java.util.LinkedList;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPopupMenu;
 import java.util.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
  *
@@ -50,7 +44,56 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur = new Simulatheure();
         initComponents();
         routier.doClick();
-        this.afficheurReseau.setDimension(false);         
+        this.afficheurReseau.setDimension(false);
+        
+//        int x1 = 100;   int y1 = 100;
+//        int x2 = 500;   int y2 = 500;
+//        int x3 = 300;
+//                        int y3 = 200;
+//        int x4 = 200;
+//    
+//        
+//        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
+//        
+//        
+//        ajoutIntersection.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        constructionTroncon.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        transport.doClick();
+//        
+//        ajoutArret.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtArret2);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        ajoutCircuit.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtArret2);
+//        afficheurReseauMousePressed(evtTrajet1);
+        
+//    this.afficheurReseau.setDimension(true);
     }
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
@@ -109,14 +152,14 @@ class MyTimerActionListener implements ActionListener {
         jPanel7 = new javax.swing.JPanel();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox();
+        comboBoxArrets = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox();
+        comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         selectionCircuit = new javax.swing.JComboBox<String>();
         boutonsRoutier = new javax.swing.JPanel();
@@ -143,7 +186,7 @@ class MyTimerActionListener implements ActionListener {
         facteurMultiplicatif = new javax.swing.JLabel();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox();
+        comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
@@ -822,8 +865,14 @@ class MyTimerActionListener implements ActionListener {
                             break;
                         
                         case AJOUTERCIRCUIT:
-                            m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
-                            miseAjourSelectionCrcuitsAjout();
+                            if(m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle))
+                            {
+                                miseAjourSelectionCircuitsAjout();
+                                selectionCircuit.setSelectedIndex(selectionCircuit.getItemCount() - 1);
+                                editerCircuit.doClick();                                
+                            }
+
+                            miseAjourSelectionCircuitsAjout();
                             break;
                             
                         case EDITERCIRCUIT:
@@ -954,7 +1003,7 @@ class MyTimerActionListener implements ActionListener {
                 }
          }
     }
-    private void miseAjourSelectionCrcuitsAjout(){
+    private void miseAjourSelectionCircuitsAjout(){
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
                 boolean add = true;
                 Circuit circuit = circuits.next();
@@ -1229,14 +1278,21 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_selectionTransportActionPerformed
 
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
+        
         this.setCommande(Commandes.ARRET);
-        m_controleur.deselectionnerTransport();
         m_controleur.deselectionnerRoutier();
+        m_controleur.deselectionnerTransport();
+        
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
+        
         this.setCommande(Commandes.AJOUTERCIRCUIT);
+        m_controleur.deselectionnerRoutier();
+        m_controleur.deselectionnerTransport();
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
@@ -1510,12 +1566,12 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
-    private javax.swing.JComboBox comboBoxArrets;
-    private javax.swing.JComboBox comboBoxAutobus;
+    private javax.swing.JComboBox<String> comboBoxArrets;
+    private javax.swing.JComboBox<String> comboBoxAutobus;
     private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxPietons;
-    private javax.swing.JComboBox comboBoxSources;
-    private javax.swing.JComboBox comboBoxTroncons;
+    private javax.swing.JComboBox<String> comboBoxSources;
+    private javax.swing.JComboBox<String> comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;

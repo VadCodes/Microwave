@@ -24,8 +24,8 @@ public class ReseauTransportFactory {
         return new Arret(emplacement, nom);
     } 
     
-    public Circuit creerCircuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
-        return new Circuit(nom, listeArrTraj, resRoutier);
+    public Circuit creerCircuit(LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
+        return new Circuit(listeArrTraj, resRoutier);
     } 
     
     public PaireArretTrajet creerPaireArretTrajet(Arret arret, Trajet trajet){

@@ -78,13 +78,17 @@ public class DessinateurRoutier
             
             for (Troncon troncon: intersection.getTroncons())
             {   
-                if (!troncon.estSelectionne())
+                if (troncon.estSuggere())
                 {
-                    p_g.setColor(Color.LIGHT_GRAY);
+                    p_g.setColor(Color.ORANGE);
+                }                
+                else if (troncon.estSelectionne())
+                {
+                    p_g.setColor(Color.BLUE);
                 }
                 else 
                 {
-                    p_g.setColor(Color.BLUE);
+                    p_g.setColor(Color.LIGHT_GRAY);
                 }   
                     
                 Point2D.Float p2 = troncon.getDestination().getPosition();

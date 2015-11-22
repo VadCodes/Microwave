@@ -17,6 +17,7 @@ public class Trajet {
     private Emplacement m_emplacementInitial;
     private Emplacement m_emplacementFinal;
     private LinkedList<Troncon> m_listTroncons;
+    
     public Trajet(Emplacement emplacementInitial, Emplacement emplacementFinal, LinkedList<Troncon> listTroncons){
         m_emplacementInitial = emplacementInitial;
         m_emplacementFinal = emplacementFinal;

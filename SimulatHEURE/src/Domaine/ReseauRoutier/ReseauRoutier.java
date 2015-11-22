@@ -68,13 +68,13 @@ public class ReseauRoutier {
         return null;
     }
     
-    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
-        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
-        if (trc != null){
-            trc.changerStatutSelection();
-        }
-        return trc;
-    }
+//    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
+//        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
+//        if (trc != null){
+//            trc.changerStatutSelection();
+//        }
+//        return trc;
+//    }
     
     public Troncon obtenirTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
     {
@@ -119,6 +119,7 @@ public class ReseauRoutier {
     
     public void deselectionnerTout()
     {
+        desuggererTout();
         for (Intersection intersection: m_listeIntersections)
         {
             if (intersection.estSelectionne())
@@ -132,6 +133,19 @@ public class ReseauRoutier {
                 {
                     troncon.changerStatutSelection();
                 }
+            }
+        }
+    }
+    
+    public void desuggererTout()
+    {
+        for (Intersection intersection: m_listeIntersections)
+        {
+            intersection.setEstSuggere(false);
+            
+            for (Troncon troncon: intersection.getTroncons())
+            {   
+                troncon.setEstSuggere(false);
             }
         }
     }
