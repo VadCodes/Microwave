@@ -65,13 +65,13 @@ public class ReseauRoutier {
         return null;
     }
     
-    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
-        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
-        if (trc != null){
-            trc.changerStatutSelection();
-        }
-        return trc;
-    }
+//    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
+//        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
+//        if (trc != null){
+//            trc.changerStatutSelection();
+//        }
+//        return trc;
+//    }
     
     public Troncon obtenirTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
     {

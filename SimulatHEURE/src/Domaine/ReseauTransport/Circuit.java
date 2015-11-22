@@ -30,16 +30,15 @@ public class Circuit extends ElementTransport{
     private Boolean m_boucle = false;
     private Boolean m_veutBoucler = false;
     
-    public Circuit(String nom, LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
+    public Circuit(LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
         //assert listeArrTraj doit avoir les 2 premiers
-        m_nom = nom;
         m_listeArretTrajet = listeArrTraj;
         m_reseauRoutier = resRoutier;
     }
     
-    public Circuit(){
-        m_listeArretTrajet = new LinkedList<>();
-    }
+//    public Circuit(){
+//        m_listeArretTrajet = new LinkedList<>();
+//    }
     
     public LinkedList<Autobus> getListeAutobus(){
         return m_listeAutobus;

@@ -47,9 +47,6 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur = new Simulatheure();
         initComponents();
         routier.doClick();
-        this.afficheurReseau.setDimension(false);         
-        
-        
         this.afficheurReseau.setDimension(false);
         
 //        int x1 = 100;   int y1 = 100;
@@ -764,8 +761,14 @@ class MyTimerActionListener implements ActionListener {
                             break;
                         
                         case AJOUTERCIRCUIT:
-                            m_controleur.ajouterCircuit(evt.getX(), evt.getY(), echelle);
-                            miseAjourSelectionCrcuitsAjout();
+                            if(m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle))
+                            {
+                                miseAjourSelectionCircuitsAjout();
+                                selectionCircuit.setSelectedIndex(selectionCircuit.getItemCount() - 1);
+                                editerCircuit.doClick();                                
+                            }
+
+                            miseAjourSelectionCircuitsAjout();
                             break;
                             
                         case EDITERCIRCUIT:
@@ -793,7 +796,7 @@ class MyTimerActionListener implements ActionListener {
                                 }
                                 else if (elemRoutier.getClass() == Intersection.class){
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                m_controleur.deselectionnerRoutier();
+                                    m_controleur.deselectionnerRoutier();
                                 }   
                             }
                             break;
@@ -837,7 +840,7 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
-    private void miseAjourSelectionCrcuitsAjout(){
+    private void miseAjourSelectionCircuitsAjout(){
         for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
                 boolean add = true;
                 Circuit circuit = circuits.next();
@@ -975,14 +978,21 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_selectionTransportActionPerformed
 
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
+        
         this.setCommande(Commandes.ARRET);
-        m_controleur.deselectionnerTransport();
         m_controleur.deselectionnerRoutier();
+        m_controleur.deselectionnerTransport();
+        
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
+        
         this.setCommande(Commandes.AJOUTERCIRCUIT);
+        m_controleur.deselectionnerRoutier();
+        m_controleur.deselectionnerTransport();
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
