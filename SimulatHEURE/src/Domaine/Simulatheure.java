@@ -573,14 +573,16 @@ public class Simulatheure {
                                 }
                                 if(trc1 != null && trc2 != null){
                                     if (trc1.equals(trc2)){
-                                        if (arret1.getEmplacement().getPourcentageParcouru() > arret2.getEmplacement().getPourcentageParcouru()){
-                                            if (avantArret1 && apresArret2){
-                                                return;
+                                        if (!circuit.getBoucle()){
+                                            if (arret1.getEmplacement().getPourcentageParcouru() > arret2.getEmplacement().getPourcentageParcouru()){
+                                                if (avantArret1 && apresArret2){
+                                                    return;
+                                                }
                                             }
-                                        }
-                                        else{
-                                            if(avantArret1 || apresArret2){
-                                                return;
+                                            else{
+                                                if(avantArret1 || apresArret2){
+                                                    return;
+                                                }
                                             }
                                         }
                                     }
