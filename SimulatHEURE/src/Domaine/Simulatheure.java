@@ -272,6 +272,13 @@ public class Simulatheure {
     
     public void cancellerCircuit(){
         deselectionnerRoutier();
+        for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+            for (Troncon trc : intrsct.getTroncons()){
+                if (trc.estSuggere()){
+                    trc.setEstSuggere(false);
+                }
+            }
+        }
 //        m_circuit_temp = new Circuit();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
@@ -499,6 +506,23 @@ public class Simulatheure {
                 m_trajet_temp.getListeTroncons().add(emplPrec.getTroncon());
             }
             m_trajet_temp.setEmplacementInitial(emplPrec);
+            
+            //pour les suggestions
+            Intersection interSugg;
+            if (precSurTrc){
+                interSugg = emplPrec.getTroncon().getDestination();
+            }
+            else{
+                interSugg = emplPrec.getIntersection();
+            }
+            for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+                for (Troncon trc : intrsct.getTroncons()){
+                    if (interSugg.getTroncons().contains(trc))
+                        trc.setEstSuggere(true);
+                    else
+                        trc.setEstSuggere(false);
+                }
+            }
         }
         else{ //mode trajet           
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
@@ -531,6 +555,15 @@ public class Simulatheure {
             
             nouvTroncon.changerStatutSelection();
             m_trajet_temp.getListeTroncons().add(nouvTroncon);
+            
+            for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
+                for (Troncon trc : intrsct.getTroncons()){
+                    if (nouvTroncon.getDestination().getTroncons().contains(trc))
+                        trc.setEstSuggere(true);
+                    else
+                        trc.setEstSuggere(false);
+                }
+            }
             
             //si dernier troncon avant l'arret on push le trajet
             if(m_arret_temp.getEmplacement().estSurTroncon()){
