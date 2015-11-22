@@ -807,7 +807,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_simulationActionPerformed
 
     private void lancerSimulation(){
-        m_controleurSimulation.copier(m_controleur);
+        //m_controleurSimulation.copier(m_controleur);
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
         m_timer.setDelay(1);
