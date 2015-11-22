@@ -1,13 +1,10 @@
 package Domaine;
 
-import Domaine.ReseauTransport.ElementTransport;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
 import Domaine.Utilitaire.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.Line2D;
-import java.util.Iterator;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

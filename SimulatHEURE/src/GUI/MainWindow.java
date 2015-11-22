@@ -9,20 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import java.lang.Object;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
 import java.util.LinkedList;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPopupMenu;
 import java.util.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
  *
