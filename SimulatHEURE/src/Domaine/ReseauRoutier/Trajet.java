@@ -45,18 +45,19 @@ public class Trajet {
     
     public Troncon getNextTroncon(Emplacement emplacement){
         boolean trg= false;
-         ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();
-             while (troncon_it.hasNext()) {
-                 
-                 Troncon tr = troncon_it.next();
-                 if (trg){
-                     return tr;
-                 }
-                 if(tr.equals(emplacement.getTroncon())){
-                     trg = true;
-                 }
-             }
-             return null;
+
+        ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();
+        while (troncon_it.hasNext()) {
+
+            Troncon tr = troncon_it.next();
+            if (trg){
+                return tr;
+            }
+            if(tr.equals(emplacement.getTroncon())){
+                trg = true;
+            }
+        }
+        return null;
     }
     public LinkedList<Troncon> getListeTroncons(){
         return m_listTroncons;
