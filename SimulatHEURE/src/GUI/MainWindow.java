@@ -610,7 +610,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.add(playPauseSimulation);
 
         arreterSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        arreterSimulation.setText("Arreter");
+        arreterSimulation.setText("Arrêter");
         arreterSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 arreterSimulationActionPerformed(evt);
@@ -650,7 +650,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
         boutonsSelectionRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        jLabel4.setText("Troncons :");
+        jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
         comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -678,7 +678,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionTransport.setPreferredSize(new java.awt.Dimension(90, 120));
         boutonsSelectionTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        jLabel8.setText("Arrets :");
+        jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
         comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -701,7 +701,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionTransport.add(comboBoxSources);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setText("Selection Circuit:");
+        jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
         comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
