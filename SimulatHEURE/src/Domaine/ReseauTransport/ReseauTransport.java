@@ -154,14 +154,12 @@ public class ReseauTransport {
                     {
                         src.remove();
                     }
-                    else
-                    {
-                        src.next();
-                    }
                 }
             }
         }
         
+        Boolean supprArretOK = true;
+        Boolean supprTotalOK = true;
         for (ListIterator<Arret> arrIt = m_listeArrets.listIterator() ; arrIt.hasNext() ; )
         {
             Arret arr = arrIt.next();
@@ -170,13 +168,17 @@ public class ReseauTransport {
                 for (Circuit circ : m_listeCircuits) {
                     for (PaireArretTrajet pat : circ.getListeArretTrajet()){
                         if (pat.getArret() == arr){
-                            return false;
+                            supprArretOK = false;
+                            supprTotalOK = false;
                         }
                     }
                 }
-                arrIt.remove();
+                if (supprArretOK){
+                    arrIt.remove();
+                }
+                supprArretOK = true;
             }
         }
-        return true;
+        return supprTotalOK;
     }
 }
