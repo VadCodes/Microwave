@@ -5,6 +5,7 @@
  */
 package Domaine.ReseauRoutier;
 
+import Domaine.Utilitaire.PaireFloats;
 import java.awt.geom.Point2D;
 
 /**
@@ -38,30 +39,13 @@ public class Emplacement {
     }
     public Point2D.Float calculPosition(Float p_echelle){
         if(m_estSurTroncon){
-            float p1x = m_troncon.getOrigine().getPosition().x;
-            float p1y = m_troncon.getOrigine().getPosition().y;
-            float p2x = m_troncon.getDestination().getPosition().x;
-            float p2y = m_troncon.getDestination().getPosition().y;
+            Point2D.Float p1 = m_troncon.getOrigine().getPosition();
+            Point2D.Float p2 = m_troncon.getDestination().getPosition();
             
-            float n = 3.5f;
-            if(m_troncon.estDoubleSens()){
-                if(p2y-p1y>0){
-                    p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                }
-                else{
-                    p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
-                    p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                }
-
-            }
+            PaireFloats pAj = m_troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
             
-            float X = p1x +(p2x - p1x)*getPourcentageParcouru();
-            float Y = p1y +(p2y - p1y)*getPourcentageParcouru();
+            float X = p1.x +(p2.x - p1.x)*getPourcentageParcouru() + pAj.getFloat1();
+            float Y = p1.y +(p2.y - p1.y)*getPourcentageParcouru() + pAj.getFloat2();
             return new Point2D.Float(X, Y);
         }
         else{

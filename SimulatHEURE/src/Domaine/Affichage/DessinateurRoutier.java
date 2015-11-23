@@ -12,6 +12,7 @@ import java.awt.geom.Path2D;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.*;
+import Domaine.Utilitaire.PaireFloats;
 
 /**
  *
@@ -79,48 +80,31 @@ public class DessinateurRoutier
             for (Troncon troncon: intersection.getTroncons())
             {   
                 if (troncon.estSuggere())
-                {
-                    p_g.setColor(Color.ORANGE);
-                }                
+                    p_g.setColor(Color.ORANGE);          
                 else if (troncon.estSelectionne())
-                {
                     p_g.setColor(Color.BLUE);
-                }
                 else 
-                {
                     p_g.setColor(Color.LIGHT_GRAY);
-                }   
                     
                 Point2D.Float p2 = troncon.getDestination().getPosition();
 
                 Path2D.Float fleche = new Path2D.Float();  
                 
-                float p1x = p1.x;
-                float p1y = p1.y;
-                float p2x = p2.x;
-                float p2y = p2.y;
-                float n = 3.5f; //aww yeah c'est hardcodé à souhait
-                if (troncon.estDoubleSens()){
-                    if(p2y-p1y>0){
-                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                    else{
-                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
-                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                }
+                PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
+                Float ajX = pAj.getFloat1();
+                Float ajY = pAj.getFloat2();
+                
+                Float p1x = p1.x + ajX;
+                Float p1y = p1.y + ajY;
+                Float p2x = p2.x + ajX;
+                Float p2y = p2.y + ajY;
                 
                 fleche.moveTo(p1x, p1y);
                 fleche.lineTo(p2x, p2y);
                 p_g.draw(fleche);
 
                 float d = (float)p2.distance(p1);
-                float dx = p2x - p1x;
+                float dx = p2.x - p1x;
                 float dy = p2y - p1y;
 
                 if(troncon.estDoubleSens()){
@@ -128,16 +112,15 @@ public class DessinateurRoutier
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                     fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                    fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / dy / d) / p_echelle, 
-                            p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / dx / d) / p_echelle);                    
+                    fleche.lineTo(p1x + 0.5 * dx / p_echelle, p1y + 0.5 * dy / p_echelle);                    
                 }
                 else{
                     fleche.moveTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                     fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                    fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / p_echelle, 
-                            p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / p_echelle);
+                    fleche.lineTo(p1x + 0.5 * dx + ((Troncon.GROSSEUR_FLECHE / 2) * (dy / d)) / p_echelle, 
+                            p1y + 0.5 * dy + ((Troncon.GROSSEUR_FLECHE / 2) * (-dx / d)) / p_echelle);
                 }
                 fleche.closePath();
                 p_g.fill(fleche);              

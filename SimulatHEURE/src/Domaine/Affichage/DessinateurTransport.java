@@ -12,6 +12,7 @@ import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.PaireArretTrajet;
 import Domaine.ReseauTransport.ReseauTransport;
 import Domaine.ReseauTransport.SourceAutobus;
+import Domaine.Utilitaire.PaireFloats;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -88,19 +89,11 @@ public class DessinateurTransport {
                         Troncon troncon = itTroncon.next();
                         Point2D.Float p1 = troncon.getOrigine().getPosition();
                         Point2D.Float p2 = troncon.getDestination().getPosition();
-                        float ajX = 0;
-                        float ajY = 0;
-
-                        if (troncon.estDoubleSens())
-                        {
-                            float d = (float)p2.distance(p1);
-                            float dx = p2.x - p1.x;
-                            float dy = p2.y - p1.y;
-
-                            float n = 3.5f;
-                            ajX = (n * -dy / d) / p_echelle;
-                            ajY = (n * dx / d) / p_echelle;
-                        }
+                        
+                        PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
+                        Float ajX = pAj.getFloat1();
+                        Float ajY = pAj.getFloat2();
+                        
                         if (itTroncon.previousIndex() != 0 || !paire.getArret().getEmplacement().estSurTroncon())
                             chemin.moveTo(p1.x + ajX, p1.y + ajY);
                         
@@ -135,13 +128,10 @@ public class DessinateurTransport {
                 for (ListIterator<SourceAutobus> sources =circuit.getListeSourceAutobus().listIterator(); sources.hasNext() ; ){
                     SourceAutobus source  = sources.next();
                     if (!source.estSelectionne())
-                    {
                         p_g.setColor(Color.CYAN);
-                    }
                     else 
-                    {
                         p_g.setColor(Color.BLUE);
-                    }
+
                 Emplacement em = source.getEmplacement();
                 
                 Point2D.Float position = em.calculPosition(p_echelle);
@@ -157,48 +147,16 @@ public class DessinateurTransport {
          LinkedList<Arret> arrets = m_reseau.getListArrets();
         for (Arret arret :arrets){
                 if (!arret.estSelectionne())
-                {
                     p_g.setColor(Color.GREEN);
-                }
                 else 
-                {
                     p_g.setColor(Color.BLUE);
-                }
-                Emplacement em = arret.getEmplacement();
-                Point2D.Float position = em.calculPosition(p_echelle);
-                
-                if(em.estSurTroncon()){
-                    Troncon troncon = em.getTroncon();
 
-                    float p1x = troncon.getOrigine().getPosition().x;
-                    float p1y = troncon.getOrigine().getPosition().y;
-                    float p2x = troncon.getDestination().getPosition().x;
-                    float p2y = troncon.getDestination().getPosition().y;
-                    
-                    float n = 3.5f; //aww yeah c'est hardcodé à souhait
-                    if (troncon.estDoubleSens()){
-                        if(p2y-p1y>0){
-                            p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                            p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                            p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                            p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        }
-                        else{
-                            p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                            p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
-                            p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                            p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        }
-                        float X = p1x +(p2x - p1x)*em.getPourcentageParcouru();
-                        float Y = p1y +(p2y - p1y)*em.getPourcentageParcouru();
-                        position = new Point2D.Float(X, Y);
-                    }
-                }
+                Emplacement em = arret.getEmplacement();
                 
+                Point2D.Float position = em.calculPosition(p_echelle);
                 float x = position.x -   arret.RAYON / p_echelle;
                 float y = position.y -   arret.RAYON / p_echelle;
                 float diametre = 2 *   arret.RAYON / p_echelle;
-
                 p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
             }
         }

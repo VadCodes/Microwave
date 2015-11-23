@@ -67,33 +67,6 @@ public class ReseauTransport {
         for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
             Emplacement em = arrets.next().getEmplacement();
             Point2D.Float p = em.calculPosition(p_echelle);
-            if(em.estSurTroncon()){
-                Troncon troncon = em.getTroncon();
-
-                float p1x = troncon.getOrigine().getPosition().x;
-                float p1y = troncon.getOrigine().getPosition().y;
-                float p2x = troncon.getDestination().getPosition().x;
-                float p2y = troncon.getDestination().getPosition().y;
-
-                float n = 3.5f; //aww yeah c'est hardcodé à souhait
-                if (troncon.estDoubleSens()){
-                    if(p2y-p1y>0){
-                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                    else{
-                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
-                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                    float X = p1x +(p2x - p1x)*em.getPourcentageParcouru();
-                    float Y = p1y +(p2y - p1y)*em.getPourcentageParcouru();
-                    p = new Point2D.Float(X, Y);
-                }
-            }
             
             if (zoneSelection.contains(p))
             {

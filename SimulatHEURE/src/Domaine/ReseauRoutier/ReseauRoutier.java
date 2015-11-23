@@ -1,5 +1,6 @@
 package Domaine.ReseauRoutier;
 
+import Domaine.Utilitaire.PaireFloats;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -87,26 +88,12 @@ public class ReseauRoutier {
             for (Troncon troncon: intersection.getTroncons())
             {   
                 Point2D.Float p2 = troncon.getDestination().getPosition();
-                float p1x = p1.x;
-                float p1y = p1.y;
-                float p2x = p2.x;
-                float p2y = p2.y;
-                float n = 3.5f;
-                if (troncon.estDoubleSens()){
-                    if(p2y-p1y>0){
-                        p1x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x -= n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p1y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y += n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                    else{
-                        p1x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2x += n*Math.cos(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;   
-                        p1y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                        p2y -= n*Math.sin(Math.atan((p2x-p1x)/(p2y-p1y))) / p_echelle;
-                    }
-                }
-                Line2D.Float segment = new Line2D.Float(new Point2D.Float(p1x, p1y), new Point2D.Float(p2x, p2y));
+                
+                PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
+                Float ajX = pAj.getFloat1();
+                Float ajY = pAj.getFloat2();
+
+                Line2D.Float segment = new Line2D.Float(new Point2D.Float(p1.x + ajX, p1.y + ajY), new Point2D.Float(p2.x + ajX, p2.y + ajY));
                 
                 if (segment.intersects(zoneApproximative))
                 {
@@ -174,12 +161,7 @@ public class ReseauRoutier {
     }
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
-    {
-        if (p_origine == p_destination)
-        {
-            return;
-        }
-        
+    {        
         //on s'assure qu'il n'y a pas deux tronçons de origine à destination
         for(Troncon trc : p_origine.getTroncons()){
             if (trc.getDestination()==p_destination){
@@ -193,12 +175,15 @@ public class ReseauRoutier {
     }
     
     public Boolean supprimerSelection()
-    {
-        for (Intersection intersection: m_listeIntersections)
+    {        
+        for (ListIterator<Intersection> intersectionIt = m_listeIntersections.listIterator() ; intersectionIt.hasNext() ; )
         {
+            Intersection intersection = intersectionIt.next();
+            
             if (intersection.estSelectionne())
             {
                 intersection.getTroncons().clear();
+                intersectionIt.remove();
             }
             else
             {
@@ -215,18 +200,7 @@ public class ReseauRoutier {
                 }
             }
         }
-
-        boolean intersectionSupprimee = false;
-        for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
-        {
-            if (intersection.next().estSelectionne())
-            {
-                intersection.remove();
-                intersectionSupprimee = true;
-            }
-        }
-        
-        return intersectionSupprimee;
+        return true; //useless
     }
     
     public void initReseauRoutier(){

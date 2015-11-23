@@ -47,6 +47,8 @@ public void setMainWindow(MainWindow p_mainWindow){
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Durée de la simulation");
+        setAlwaysOnTop(true);
 
         jLabel1.setText("Temps début simulation : ");
 

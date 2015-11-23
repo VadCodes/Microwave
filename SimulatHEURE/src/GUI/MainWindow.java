@@ -48,55 +48,53 @@ public class MainWindow extends javax.swing.JFrame {
         routier.doClick();
         this.afficheurReseau.setDimension(false);
         
-//        int x1 = 100;   int y1 = 100;
-//        int x2 = 500;   int y2 = 500;
-//        int x3 = 300;
-//                        int y3 = 200;
-//        int x4 = 200;
-//    
-//        
-//        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
-//        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
-//        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
-//        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
-//        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
-//        
-//        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
-//        
-//        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
-//        
-//        
-//        ajoutIntersection.doClick();
-//        afficheurReseauMousePressed(evtInter1);
-//        afficheurReseauMousePressed(evtInter2);
-//        afficheurReseauMousePressed(evtInter3);
-//        afficheurReseauMousePressed(evtInter4);
-//        afficheurReseauMousePressed(evtInter5);
-//        
-//        constructionTroncon.doClick();
-//        afficheurReseauMousePressed(evtInter1);
-//        afficheurReseauMousePressed(evtInter2);
-//        afficheurReseauMousePressed(evtInter2);
-//        afficheurReseauMousePressed(evtInter3);
-//        afficheurReseauMousePressed(evtInter3);
-//        afficheurReseauMousePressed(evtInter4);
-//        afficheurReseauMousePressed(evtInter4);
-//        afficheurReseauMousePressed(evtInter5);
-//        
-//        transport.doClick();
-//        
-//        ajoutArret.doClick();
-//        afficheurReseauMousePressed(evtInter1);
-//        afficheurReseauMousePressed(evtArret2);
-//        afficheurReseauMousePressed(evtInter5);
-//        
-//        ajoutCircuit.doClick();
-//        afficheurReseauMousePressed(evtInter1);
-//        afficheurReseauMousePressed(evtArret2);
-//        afficheurReseauMousePressed(evtTrajet1);
+        int x1 = 100;   int y1 = 100;
+        int x2 = 500;   int y2 = 500;
+        int x3 = 300;
+                        int y3 = 200;
+        int x4 = 200;
+    
         
-//    this.afficheurReseau.setDimension(true);
+        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
+        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
+        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
+        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
+        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
+        
+        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
+        
+        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
+        
+        
+        ajoutIntersection.doClick();
+        afficheurReseauMousePressed(evtInter1);
+        afficheurReseauMousePressed(evtInter2);
+        afficheurReseauMousePressed(evtInter3);
+        afficheurReseauMousePressed(evtInter4);
+        afficheurReseauMousePressed(evtInter5);
+        
+        constructionTroncon.doClick();
+        afficheurReseauMousePressed(evtInter1);
+        afficheurReseauMousePressed(evtInter2);
+        afficheurReseauMousePressed(evtInter3);
+        afficheurReseauMousePressed(evtInter4);
+        afficheurReseauMousePressed(evtInter5);
+        
+        transport.doClick();
+        
+        ajoutArret.doClick();
+        afficheurReseauMousePressed(evtInter1);
+        afficheurReseauMousePressed(evtArret2);
+        afficheurReseauMousePressed(evtInter5);
+        
+        ajoutCircuit.doClick();
+        afficheurReseauMousePressed(evtInter1);
+        afficheurReseauMousePressed(evtArret2);
+        afficheurReseauMousePressed(evtTrajet1);
+
+    this.afficheurReseau.setDimension(true);
     }
+    
 class MyTimerActionListener implements ActionListener {
   public void actionPerformed(ActionEvent e) {
       double tmp = m_crono.getTempsDebut();
@@ -624,7 +622,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
         recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        recommancerSimulation.setText("Recommancer");
+        recommancerSimulation.setText("Recommencer");
         recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recommancerSimulationActionPerformed(evt);
@@ -633,7 +631,7 @@ class MyTimerActionListener implements ActionListener {
         boutonsSimulation.add(recommancerSimulation);
 
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playPauseSimulation.setText("Play / Pause");
+        playPauseSimulation.setText("Lancer!");
         playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseSimulationActionPerformed(evt);
@@ -809,13 +807,14 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
         boutonsSelectionRoutier.setVisible(true);
-        selectionRoutier.doClick();        
+        selectionRoutier.doClick();
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
         this.setMode(Modes.TRANSPORT);
         boutonsTransport.setVisible(true);
         boutonsSelectionTransport.setVisible(true);
+        selectionTransport.doClick();
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -880,7 +879,7 @@ class MyTimerActionListener implements ActionListener {
                         case SELECTIONNER:
                             if(evt.isControlDown())
                             {
-                                System.out.println("Pressed");
+                                //System.out.println("Pressed");
                                 ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
                             }
                             else{
@@ -1131,7 +1130,7 @@ class MyTimerActionListener implements ActionListener {
                 Autobus autobus = autobuss.next();
                 boolean add = true;
                 String name = autobus.getID();
-                System.out.println(name);
+                //System.out.println(name);
                 for (int i =0; i<comboBoxAutobus.getItemCount();i++ ){
                     String tmp = (String)comboBoxAutobus.getItemAt(i);
                     if(tmp == name){
@@ -1152,7 +1151,7 @@ class MyTimerActionListener implements ActionListener {
                 Troncon troncon = troncons.next();
                 boolean add = true;
                 String name = troncon.getNom();
-                System.out.println(name);
+                //System.out.println(name);
                 for (int i =0; i<comboBoxTroncons.getItemCount();i++ ){
                     String tmp = (String)comboBoxTroncons.getItemAt(i);
                     if(tmp == name){
@@ -1216,11 +1215,14 @@ class MyTimerActionListener implements ActionListener {
 
     private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         
-        boolean intersectionSupprimee = false;
+        boolean suppressionOK = false;
         switch (m_commande_courante)
         {
             case SELECTIONNER:
-                intersectionSupprimee = m_controleur.supprimerSelectionRoutier();
+                suppressionOK = m_controleur.supprimerSelectionRoutier();
+                if (!suppressionOK){
+                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
                 
             default:
@@ -1301,7 +1303,10 @@ class MyTimerActionListener implements ActionListener {
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 assert(elementsRoutiersSelectionnes.size() == 1);
                 ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
-                m_controleur.supprimerSelectionRoutier();
+                Boolean suppressionOK = m_controleur.supprimerSelectionRoutier();
+                if (!suppressionOK){
+                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
                 
             case TRANSPORT:
@@ -1309,7 +1314,7 @@ class MyTimerActionListener implements ActionListener {
                 assert(elementsTransportSelectionnes.size() == 1);
                 ElementTransport elemT = elementsTransportSelectionnes.getFirst();
                 Boolean suppr = m_controleur.supprimerSelectionTransport();
-                System.out.println(suppr);
+                //System.out.println(suppr);
                 if (!suppr){
                     JOptionPane.showMessageDialog(null, "L'arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1443,14 +1448,17 @@ class MyTimerActionListener implements ActionListener {
 
     private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
         if(!m_simulationEstLancer ){
-             lancerSimulation();
+            lancerSimulation();
             m_simulationEstLancer = true;
-         }
+            playPauseSimulation.setText("Pause");
+        }
         else if (m_crono.estEnPause()){
             m_crono.start();
+            playPauseSimulation.setText("Pause");
         }
         else{
             m_crono.pause();
+            playPauseSimulation.setText("Relancer!");
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
 
@@ -1522,6 +1530,7 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
+        playPauseSimulation.setText("Lancer!");
         recommancerSimulation();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
     
