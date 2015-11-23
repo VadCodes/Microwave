@@ -1491,10 +1491,7 @@ public class MainWindow extends javax.swing.JFrame {
                 Boolean suppr = m_controleur.supprimerSelectionTransport();
                 selectionTransport.doClick();
                 suppressionTransport.doClick();
-                //System.out.println(suppr);
-                if (!suppr) {
-                    JOptionPane.showMessageDialog(null, "L'arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
-                }
+
                 break;
 
             case BESOINS:
