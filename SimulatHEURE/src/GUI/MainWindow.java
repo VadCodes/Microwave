@@ -1100,6 +1100,7 @@ public class MainWindow extends javax.swing.JFrame {
                             if (m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle)) {
                                 miseAjourSelectionCircuitsAjout();
                                 comboBoxCircuits.setSelectedIndex(comboBoxCircuits.getItemCount() - 1);
+                                allongerCircuit.setEnabled(true);
                                 allongerCircuit.doClick();
                             }
 
