@@ -1656,7 +1656,7 @@ public class MainWindow extends javax.swing.JFrame {
                     allongerCircuit.setEnabled(false);
                     ajoutSource.setEnabled(false);
                 }
-                
+
                 if (comboBoxSources.getItemCount() > 1) {
                     simulation.setEnabled(true);
                 } else {
