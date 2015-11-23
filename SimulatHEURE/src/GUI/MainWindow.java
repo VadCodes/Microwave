@@ -46,7 +46,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);
-
+/*
         int x1 = 100;   int y1 = 100;
         int x2 = 500;   int y2 = 500;
         int x3 = 300;
@@ -102,6 +102,7 @@ public class MainWindow extends javax.swing.JFrame {
         afficheurReseauMousePressed(evtSource1);
 
     this.afficheurReseau.setDimension(true);
+        */
     }
 
     class MyTimerActionListener implements ActionListener {
