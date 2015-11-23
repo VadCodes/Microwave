@@ -4,7 +4,6 @@ import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
 import Domaine.Simulatheure.Commandes;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
@@ -25,7 +24,7 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
 
     public double m_tempsDebutSimulation;
-      public double   m_tempsFinSimulation;
+    public double m_tempsFinSimulation;
     public Simulatheure m_controleur;
     public Simulatheure m_controleurSimulation;
     public Simulatheure m_contoleurReseau;
@@ -40,14 +39,13 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    
     public MainWindow() {
         changeLookAndFeel();
         m_controleur = new Simulatheure();
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);
-        
+
 //        int x1 = 100;   int y1 = 100;
 //        int x2 = 500;   int y2 = 500;
 //        int x3 = 300;
@@ -93,30 +91,32 @@ public class MainWindow extends javax.swing.JFrame {
 //
 //    this.afficheurReseau.setDimension(true);
     }
-class MyTimerActionListener implements ActionListener {
-  public void actionPerformed(ActionEvent e) {
-      double tmp = m_crono.getTempsDebut();
-      boolean finSimulation = false;
-      double deltatT = m_crono.getDeltatT();
-       if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()){
-          deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
-          finSimulation =true;
-      }
-     // System.out.println(deltatT);
-      m_controleur.rafraichirSimulation(new Temps(deltatT));
-      time.setText(m_crono.getTempsDebut() + " s");
-     // miseAjourSelectionAutobusAjout();
-      facteurMultiplicatif.setText("X"+  m_crono.getFacteurVitesse()) ;
-      if (deltatT != 0){
-          miseAjoutAutobusComboBox();
-      }
-      m_this.afficheurCommandes.repaint();
-      if(finSimulation ) {
-       arreterSimulation();
-      }
-      
-  }
-}
+
+    class MyTimerActionListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            double tmp = m_crono.getTempsDebut();
+            boolean finSimulation = false;
+            double deltatT = m_crono.getDeltatT();
+            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()) {
+                deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+                finSimulation = true;
+            }
+            // System.out.println(deltatT);
+            m_controleur.rafraichirSimulation(new Temps(deltatT));
+            time.setText(m_crono.getTempsDebut() + " s");
+            // miseAjourSelectionAutobusAjout();
+            facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
+            if (deltatT != 0) {
+                miseAjoutAutobusComboBox();
+            }
+            m_this.afficheurCommandes.repaint();
+            if (finSimulation) {
+                arreterSimulation();
+            }
+
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,7 +169,7 @@ class MyTimerActionListener implements ActionListener {
         ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
-        editerCircuit = new javax.swing.JButton();
+        allongerCircuit = new javax.swing.JButton();
         editerTransport = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         boutonsSimulation = new javax.swing.JPanel();
@@ -192,7 +192,7 @@ class MyTimerActionListener implements ActionListener {
         jLabel9 = new javax.swing.JLabel();
         comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        selectionCircuit = new javax.swing.JComboBox<String>();
+        comboBoxCircuits = new javax.swing.JComboBox<String>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         comboBoxAutobus = new javax.swing.JComboBox<String>();
@@ -294,6 +294,7 @@ class MyTimerActionListener implements ActionListener {
 
         annuler.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         annuler.setText("Annuler");
+        annuler.setEnabled(false);
         annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 annulerActionPerformed(evt);
@@ -303,6 +304,7 @@ class MyTimerActionListener implements ActionListener {
 
         retablir.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         retablir.setText("Rétablir");
+        retablir.setEnabled(false);
         retablir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retablirActionPerformed(evt);
@@ -487,6 +489,7 @@ class MyTimerActionListener implements ActionListener {
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionTransport.setText("Sélectionner");
+        selectionTransport.setEnabled(false);
         selectionTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectionTransportActionPerformed(evt);
@@ -496,6 +499,7 @@ class MyTimerActionListener implements ActionListener {
 
         ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutSource.setText("Source");
+        ajoutSource.setEnabled(false);
         ajoutSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajoutSourceActionPerformed(evt);
@@ -515,6 +519,7 @@ class MyTimerActionListener implements ActionListener {
 
         ajoutCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutCircuit.setText("Circuit");
+        ajoutCircuit.setEnabled(false);
         ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ajoutCircuitActionPerformed(evt);
@@ -522,15 +527,16 @@ class MyTimerActionListener implements ActionListener {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        editerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerCircuit.setText("Allonger Circuit");
-        editerCircuit.setToolTipText("");
-        editerCircuit.addActionListener(new java.awt.event.ActionListener() {
+        allongerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        allongerCircuit.setText("Allonger Circuit");
+        allongerCircuit.setToolTipText("");
+        allongerCircuit.setEnabled(false);
+        allongerCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerCircuitActionPerformed(evt);
+                allongerCircuitActionPerformed(evt);
             }
         });
-        boutonsTransport.add(editerCircuit);
+        boutonsTransport.add(allongerCircuit);
 
         editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
@@ -542,6 +548,7 @@ class MyTimerActionListener implements ActionListener {
 
         suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionTransport.setText("Supprimer");
+        suppressionTransport.setEnabled(false);
         suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suppressionTransportActionPerformed(evt);
@@ -660,13 +667,13 @@ class MyTimerActionListener implements ActionListener {
         jLabel3.setText("Selection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        selectionCircuit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
-        selectionCircuit.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectionCircuitActionPerformed(evt);
+                comboBoxCircuitsActionPerformed(evt);
             }
         });
-        boutonsSelectionTransport.add(selectionCircuit);
+        boutonsSelectionTransport.add(comboBoxCircuits);
 
         boutonsSelectionSimulation.setAlignmentX(1.0F);
         boutonsSelectionSimulation.setAlignmentY(1.0F);
@@ -814,11 +821,11 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
-        
+
         this.setMode(Modes.TRANSPORT);
         boutonsTransport.setVisible(true);
         boutonsSelectionTransport.setVisible(true);
-        selectionTransport.doClick();
+        ajoutArret.doClick();
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -830,40 +837,45 @@ class MyTimerActionListener implements ActionListener {
         this.setMode(Modes.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
-        EditerSimulation fenetre= new EditerSimulation();{
-        fenetre.setMainWindow(m_this);
-        fenetre.setResizable(false);
-        fenetre.setLocationRelativeTo(null); //pour centrer
-        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fenetre.setVisible(true);
-        this.setEnabled(false);
-      
-    }
+        EditerSimulation fenetre = new EditerSimulation();
+        {
+            fenetre.setMainWindow(m_this);
+            fenetre.setResizable(false);
+            fenetre.setLocationRelativeTo(null); //pour centrer
+            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fenetre.setVisible(true);
+            this.setEnabled(false);
+
+        }
     }//GEN-LAST:event_simulationActionPerformed
-    private void recommancerSimulation(){
-       m_controleur.recommancerSimulation();
-       alalEditSimulation();
-      lancerSimulation();
-      m_crono.pause();
+    private void recommancerSimulation() {
+        m_controleur.recommancerSimulation();
+        alalEditSimulation();
+        lancerSimulation();
+        m_crono.pause();
     }
-    private void arreterSimulation(){
+
+    private void arreterSimulation() {
         m_crono.pause();
         m_timer.stop();
     }
-    private void alalEditSimulation(){
-        EditerSimulation fenetre= new EditerSimulation();{
-        fenetre.setMainWindow(m_this);
-        fenetre.setResizable(false);
-        fenetre.setLocationRelativeTo(null); //pour centrer
-        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fenetre.setVisible(true);
-        this.setEnabled(false);
-}
-}
-    private void lancerSimulation(){
+
+    private void alalEditSimulation() {
+        EditerSimulation fenetre = new EditerSimulation();
+        {
+            fenetre.setMainWindow(m_this);
+            fenetre.setResizable(false);
+            fenetre.setLocationRelativeTo(null); //pour centrer
+            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fenetre.setVisible(true);
+            this.setEnabled(false);
+        }
+    }
+
+    private void lancerSimulation() {
         boutonsSimulation.setVisible(true);
-        m_timer= new Timer(0, new MyTimerActionListener());     
-        m_crono  = new Chronometre();
+        m_timer = new Timer(0, new MyTimerActionListener());
+        m_crono = new Chronometre();
         m_timer.setDelay(1);
         m_controleur.demarrerSimulation();
         m_crono.start();
@@ -871,135 +883,122 @@ class MyTimerActionListener implements ActionListener {
     }
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         float echelle = afficheurReseau.getEchelle();
-        if (SwingUtilities.isLeftMouseButton(evt))
-        {
-            
-            switch (m_mode_courant)
-            {                
+        if (SwingUtilities.isLeftMouseButton(evt)) {
+
+            switch (m_mode_courant) {
                 case ROUTIER:
-                                        
-                    switch (m_commande_courante)
-                    {                        
+
+                    switch (m_commande_courante) {
                         case SELECTIONNER:
-                            if(evt.isControlDown())
-                            {
+                            if (evt.isControlDown()) {
                                 //System.out.println("Pressed");
                                 ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
+                            } else {
+                                ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
                             }
-                            else{
-                            ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            }
-                               
+
                             break;
-                        
+
                         case INTERSECTION:
                             m_controleur.ajouterIntersection(evt.getX(), evt.getY(), echelle);
                             boolean intersectionAjoutee = true;
                             afficheurReseau.setDimension(intersectionAjoutee);
-                            defilementAfficheur.setViewportView(afficheurReseau);   
+                            defilementAfficheur.setViewportView(afficheurReseau);
                             miseAjourSelectionIntersectionsAjout();
                             break;
-                            
+
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                             miseAjourSelectionTronconsAjout();
                             break;
-                            
+
                         default:
                             break;
                     }
-                break;
-                case TRANSPORT:                   
-                    switch (m_commande_courante)
-                    {                        
-                        
+                    break;
+                case TRANSPORT:
+                    switch (m_commande_courante) {
+
                         case SELECTIONNER:
                             m_controleur.deselectionnerRoutier();
                             ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                             break;
-                        
+
                         case AJOUTERCIRCUIT:
-                            if(m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle))
-                            {
+                            if (m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle)) {
                                 miseAjourSelectionCircuitsAjout();
-                                selectionCircuit.setSelectedIndex(selectionCircuit.getItemCount() - 1);
-                                editerCircuit.doClick();                                
+                                comboBoxCircuits.setSelectedIndex(comboBoxCircuits.getItemCount() - 1);
+                                allongerCircuit.doClick();
                             }
 
                             miseAjourSelectionCircuitsAjout();
                             break;
-                            
+
                         case EDITERCIRCUIT:
                             Circuit circ = m_controleur.obtenirCircuitSelectionne();
-                            if (circ!=null){
-                                m_controleur.editerCircuit(circ,evt.getX(), evt.getY(), echelle);
+                            if (circ != null) {
+                                m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
                             }
                             break;
-                            
+
                         case SOURCE:
                             ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutie != null){
-                                if (elemRoutie.getClass() == Troncon.class){
+                            if (elemRoutie != null) {
+                                if (elemRoutie.getClass() == Troncon.class) {
                                     m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionSourcesAjout();
                                 }
-                            }                                
-                            break;                  
+                            }
+                            break;
                         case ARRET:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutier != null){
-                                if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class){
+                            if (elemRoutier != null) {
+                                if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class) {
+                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
+                                    m_controleur.deselectionnerRoutier();
+                                    miseAjourSelectionArretsAjout();
+                                } else if (elemRoutier.getClass() == Intersection.class) {
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionArretsAjout();
                                 }
-                                else if (elemRoutier.getClass() == Intersection.class){
-                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                m_controleur.deselectionnerRoutier();
-                                miseAjourSelectionArretsAjout();
-                                }   
                             }
                             break;
-                            
+
                         default:
                             break;
                     }
                 case SIMULATION:
-                    
+
                     break;
-                    
-                    
+
                 default:
                     break;
             }
-        }
-        else if (SwingUtilities.isRightMouseButton(evt))
-        {
-            switch (m_mode_courant)
-            {                
-                case ROUTIER:                  
+        } else if (SwingUtilities.isRightMouseButton(evt)) {
+            switch (m_mode_courant) {
+                case ROUTIER:
                     m_controleur.deselectionnerTout();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                    if (elemRoutier!=null){
-                        jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
+                    if (elemRoutier != null) {
+                        jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
                     break;
-                    
+
                 case TRANSPORT:
-                    switch (m_commande_courante)
-                    {                                              
+                    switch (m_commande_courante) {
                         case AJOUTERCIRCUIT:
                             m_controleur.cancellerCircuit();
                             break;
-                    
+
                         default:
                             break;
                     }
                     m_controleur.deselectionnerTout();
                     ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
-                    if (elemTransport!=null){
-                        jPopupMenu1.show(this.afficheurReseau,evt.getX(),evt.getY());
+                    if (elemTransport != null) {
+                        jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
             }
         }
@@ -1007,187 +1006,191 @@ class MyTimerActionListener implements ActionListener {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
-    private void miseAjoutAutobusComboBox(){
+    private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
             for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator(); autobuss.hasNext();) {
                 Autobus autobus = autobuss.next();
-                 comboBoxAutobus.addItem(autobus.getID());
+                comboBoxAutobus.addItem(autobus.getID());
             }
-               
+
         }
     }
-    public void miseAjourComboBoxTotal(){
-        selectionCircuit.removeAllItems();
+
+    public void miseAjourComboBoxTotal() {
+        comboBoxCircuits.removeAllItems();
         comboBoxSources.removeAllItems();
-         comboBoxArrets.removeAllItems();
+        comboBoxArrets.removeAllItems();
         comboBoxIntersections.removeAllItems();
         comboBoxTroncons.removeAllItems();
-        selectionCircuit.addItem("Aucun");
+        comboBoxCircuits.addItem("Aucun");
         comboBoxSources.addItem("Aucun");
-         comboBoxArrets.addItem("Aucun");
+        comboBoxArrets.addItem("Aucun");
         comboBoxIntersections.addItem("Aucun");
         comboBoxTroncons.addItem("Aucun");
-        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-                Circuit circuit = circuits.next();
-                     selectionCircuit.addItem(circuit.getNom());
-              }
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            comboBoxCircuits.addItem(circuit.getNom());
+        }
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
             for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
-                 comboBoxSources.addItem(source.getNom());
+                comboBoxSources.addItem(source.getNom());
             }
-               
+
         }
-         for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             comboBoxArrets.addItem(arret.getNom());
-         }
-         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
+        }
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
             comboBoxIntersections.addItem(intersection.getName());
-         }
-         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
-                for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ; troncons.hasNext() ; ){
+        }
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
                 Troncon troncon = troncons.next();
                 comboBoxTroncons.addItem(troncon.getNom());
-                }
-         }
-    }
-    private void miseAjourSelectionCircuitsAjout(){
-        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-                boolean add = true;
-                Circuit circuit = circuits.next();
-                String name = circuit.getNom();
-                for (int i = 0 ; i < selectionCircuit.getItemCount();i++ ){
-                    String tmp = (String)selectionCircuit.getItemAt(i);
-                    if(tmp == name){
-                     add = false;
-                    }
-                }
-                if(add){
-                     selectionCircuit.addItem(circuit.getNom());
-                 }
-              }
-    }
-    private void miseAjourSelectionSourcesAjout(){
-        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-             for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator() ;sources.hasNext() ; ){
-                SourceAutobus source = sources.next();
-                boolean add = true;
-                
-                String name = source.getNom();
-                for (int i = 0 ; i < comboBoxSources.getItemCount();i++ ){
-                    String tmp = (String)comboBoxSources.getItemAt(i);
-                    if(tmp.equals( name)){
-                     add = false;
-                    }
-                }
-                if(add){
-                     comboBoxSources.addItem(source.getNom());
-                 }
-              }
+            }
         }
     }
-    private void miseAjourSelectionArretsAjout(){
-       for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+
+    private void miseAjourSelectionCircuitsAjout() {
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            boolean add = true;
+            Circuit circuit = circuits.next();
+            String name = circuit.getNom();
+            for (int i = 0; i < comboBoxCircuits.getItemCount(); i++) {
+                String tmp = (String) comboBoxCircuits.getItemAt(i);
+                if (tmp == name) {
+                    add = false;
+                }
+            }
+            if (add) {
+                comboBoxCircuits.addItem(circuit.getNom());
+            }
+        }
+    }
+
+    private void miseAjourSelectionSourcesAjout() {
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                boolean add = true;
+
+                String name = source.getNom();
+                for (int i = 0; i < comboBoxSources.getItemCount(); i++) {
+                    String tmp = (String) comboBoxSources.getItemAt(i);
+                    if (tmp.equals(name)) {
+                        add = false;
+                    }
+                }
+                if (add) {
+                    comboBoxSources.addItem(source.getNom());
+                }
+            }
+        }
+    }
+
+    private void miseAjourSelectionArretsAjout() {
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             boolean add = true;
             String name = arret.getNom();
-            for (int i =0; i<comboBoxArrets.getItemCount();i++ ){
-                String tmp = (String)comboBoxArrets.getItemAt(i);
-                if(tmp.equals(name)){
-                     add = false;
-                    }
+            for (int i = 0; i < comboBoxArrets.getItemCount(); i++) {
+                String tmp = (String) comboBoxArrets.getItemAt(i);
+                if (tmp.equals(name)) {
+                    add = false;
+                }
             }
-            if(add){
-                     comboBoxArrets.addItem(arret.getNom());
-                 }
+            if (add) {
+                comboBoxArrets.addItem(arret.getNom());
+            }
         }
     }
-    
-    private void miseAjourSelectionIntersectionsAjout(){
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
+
+    private void miseAjourSelectionIntersectionsAjout() {
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
             boolean add = true;
             String name = intersection.getName();
-            for (int i =0; i<comboBoxIntersections.getItemCount();i++ ){
-                String tmp = (String)comboBoxIntersections.getItemAt(i);
-                if(tmp == name){
-                     add = false;
-                    }
+            for (int i = 0; i < comboBoxIntersections.getItemCount(); i++) {
+                String tmp = (String) comboBoxIntersections.getItemAt(i);
+                if (tmp == name) {
+                    add = false;
+                }
             }
-            if(add){
-                     comboBoxIntersections.addItem(intersection.getName());
-                 }
+            if (add) {
+                comboBoxIntersections.addItem(intersection.getName());
+            }
         }
     }
-    
-    private void miseAjourSelectionAutobusAjout(){
-        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
-                Circuit circuit = circuits.next();
-                for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ; autobuss.hasNext() ; ){
+
+    private void miseAjourSelectionAutobusAjout() {
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator(); autobuss.hasNext();) {
                 Autobus autobus = autobuss.next();
                 boolean add = true;
                 String name = autobus.getID();
                 //System.out.println(name);
-                for (int i =0; i<comboBoxAutobus.getItemCount();i++ ){
-                    String tmp = (String)comboBoxAutobus.getItemAt(i);
-                    if(tmp == name){
-                         add = false;
-                        }
+                for (int i = 0; i < comboBoxAutobus.getItemCount(); i++) {
+                    String tmp = (String) comboBoxAutobus.getItemAt(i);
+                    if (tmp == name) {
+                        add = false;
+                    }
                 }
-                if(add){
-                         comboBoxAutobus.addItem(autobus.getID());
-                     }
-        }
+                if (add) {
+                    comboBoxAutobus.addItem(autobus.getID());
+                }
+            }
         }
     }
-    
-    private void miseAjourSelectionTronconsAjout(){
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
-                for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ; troncons.hasNext() ; ){
+
+    private void miseAjourSelectionTronconsAjout() {
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
                 Troncon troncon = troncons.next();
                 boolean add = true;
                 String name = troncon.getNom();
                 //System.out.println(name);
-                for (int i =0; i<comboBoxTroncons.getItemCount();i++ ){
-                    String tmp = (String)comboBoxTroncons.getItemAt(i);
-                    if(tmp == name){
-                         add = false;
-                        }
+                for (int i = 0; i < comboBoxTroncons.getItemCount(); i++) {
+                    String tmp = (String) comboBoxTroncons.getItemAt(i);
+                    if (tmp == name) {
+                        add = false;
+                    }
                 }
-                if(add){
-                         comboBoxTroncons.addItem(troncon.getNom());
-                     }
-        }
+                if (add) {
+                    comboBoxTroncons.addItem(troncon.getNom());
+                }
+            }
         }
     }
     private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
-        
+
         float echelleInitiale = afficheurReseau.getEchelle();
         afficheurReseau.setEchelle(evt.getWheelRotation());
         float rapportEchelles = afficheurReseau.getEchelle() / echelleInitiale;
-        
+
         int x = defilementAfficheur.getViewport().getViewPosition().x;
-        x = (int)(evt.getX() * (rapportEchelles  - 1)) + x;
-        
+        x = (int) (evt.getX() * (rapportEchelles - 1)) + x;
+
         int y = defilementAfficheur.getViewport().getViewPosition().y;
-        y = (int)(evt.getY() * (rapportEchelles  - 1)) + y;
-        
+        y = (int) (evt.getY() * (rapportEchelles - 1)) + y;
+
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
-        zoom.setText(Integer.toString((int)(afficheurReseau.getEchelle() * 100)) + " %");
+        zoom.setText(Integer.toString((int) (afficheurReseau.getEchelle() * 100)) + " %");
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
     private void afficheurReseauMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseMoved
-        
+
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
         coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
@@ -1202,59 +1205,57 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_selectionRoutierActionPerformed
 
     private void ajoutIntersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutIntersectionActionPerformed
-        
+
         this.setCommande(Commandes.INTERSECTION);
         m_controleur.deselectionnerRoutier();
-        
+
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutIntersectionActionPerformed
 
-  
+
     private void constructionTronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructionTronconActionPerformed
-        
+
         this.setCommande(Commandes.TRONCON);
         m_controleur.deselectionnerRoutier();
-        
+
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_constructionTronconActionPerformed
 
-    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        
+    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {
+
         boolean intersectionSupprimee = false;
-        switch (m_commande_courante)
-        {
+        switch (m_commande_courante) {
             case SELECTIONNER:
-                intersectionSupprimee = m_controleur.supprimerSelectionRoutier();                
+                intersectionSupprimee = m_controleur.supprimerSelectionRoutier();
                 break;
-                
+
             default:
                 break;
         }
-        
+
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
         miseAjourComboBoxTotal();
-        miseAJourPermissionsBoutons();        
+        miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
-    }                                                
+    }
 
-    private void editage(){
-         switch(m_mode_courant){
+    private void editage() {
+        switch (m_mode_courant) {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-                assert(elementsRoutiersSelectionnes.size() == 1);
+                assert (elementsRoutiersSelectionnes.size() == 1);
                 ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
 
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
-                if(elemRoutier.getClass() == Intersection.class){
+                if (elemRoutier.getClass() == Intersection.class) {
                     EditerIntersection fenetre = new EditerIntersection();
                     fenetre.setIntersection((Intersection) elemRoutier, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
-                }
-                else if (elemRoutier.getClass() == Troncon.class){
+                } else if (elemRoutier.getClass() == Troncon.class) {
                     EditerTroncon fenetre = new EditerTroncon();
                     fenetre.setTroncon((Troncon) elemRoutier, this);
                     fenetre.setResizable(false);
@@ -1263,29 +1264,27 @@ class MyTimerActionListener implements ActionListener {
                     fenetre.setVisible(true);
                 }
                 break;
-                
+
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                assert(elementsTransportSelectionnes.size() == 1);
+                assert (elementsTransportSelectionnes.size() == 1);
                 ElementTransport elemTransport = elementsTransportSelectionnes.getFirst();
-                
-                if(elemTransport.getClass() == SourceAutobus.class){
+
+                if (elemTransport.getClass() == SourceAutobus.class) {
                     EditerSource fenetre = new EditerSource();
                     fenetre.setSource((SourceAutobus) elemTransport, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
-                }
-                else if(elemTransport.getClass() == Arret.class){
+                } else if (elemTransport.getClass() == Arret.class) {
                     EditerArret fenetre = new EditerArret();
                     fenetre.setArret((Arret) elemTransport, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
-                }
-                else if(elemTransport.getClass() == Circuit.class){
+                } else if (elemTransport.getClass() == Circuit.class) {
                     EditerCircuit fenetre = new EditerCircuit();
                     fenetre.setCircuit((Circuit) elemTransport, this);
                     fenetre.setResizable(false);
@@ -1296,34 +1295,36 @@ class MyTimerActionListener implements ActionListener {
         }
     }
     private void editerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerClicDroitActionPerformed
-       editage();
+        editage();
     }//GEN-LAST:event_editerClicDroitActionPerformed
 
     private void supprimerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerClicDroitActionPerformed
-        switch(m_mode_courant){
+        switch (m_mode_courant) {
             case ROUTIER:
                 //LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 //assert(elementsRoutiersSelectionnes.size() == 1);
                 //ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
-                
+
                 selectionRoutier.doClick();
                 suppressionRoutier.doClick();
                 break;
-                
+
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                assert(elementsTransportSelectionnes.size() == 1);
+                assert (elementsTransportSelectionnes.size() == 1);
                 ElementTransport elemT = elementsTransportSelectionnes.getFirst();
                 Boolean suppr = m_controleur.supprimerSelectionTransport();
+                selectionTransport.doClick();
+                suppressionTransport.doClick();
                 //System.out.println(suppr);
-                if (!suppr){
+                if (!suppr) {
                     JOptionPane.showMessageDialog(null, "L'arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
-            
+
             case BESOINS:
                 break;
-                
+
             case SIMULATION:
                 break;
         }
@@ -1335,46 +1336,46 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_selectionTransportActionPerformed
 
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
-        
+
         this.setCommande(Commandes.ARRET);
         m_controleur.deselectionnerRoutier();
         m_controleur.deselectionnerTransport();
-        
+
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
-        
+
         this.setCommande(Commandes.AJOUTERCIRCUIT);
         m_controleur.deselectionnerRoutier();
         m_controleur.deselectionnerTransport();
-        
+
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
         boolean elementTransportSupprime = false;
-        switch (m_commande_courante)
-        {
+        switch (m_commande_courante) {
             case SELECTIONNER:
                 elementTransportSupprime = m_controleur.supprimerSelectionTransport();
-                if (!elementTransportSupprime){
+                if (!elementTransportSupprime) {
                     JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
-                
+
             default:
                 break;
         }
-        
+
         //afficheurReseau.setDimension(intersectionSupprimee);
-        //defilementAfficheur.setViewportView(afficheurReseau);
+        //defilementAfficheur.setViewportView(afficheurReseau);   
         miseAjourComboBoxTotal();
+        miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
-         this.setCommande(Commandes.SOURCE);
+        this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
 
     private void afficheurReseauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseClicked
@@ -1389,73 +1390,71 @@ class MyTimerActionListener implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_retablirActionPerformed
 
-    private void selectionCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionCircuitActionPerformed
-       this.setCommande(Commandes.SELECTIONNER);
-        int index = selectionCircuit.getSelectedIndex();
-        String name =(String) selectionCircuit.getItemAt(index);
+    private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxCircuits.getSelectedIndex();
+        String name = (String) comboBoxCircuits.getItemAt(index);
         m_controleur.deselectionnerTout();
-        for (ListIterator<Circuit> circuits =m_controleur.getTransport().getListeCircuits().listIterator() ; circuits.hasNext() ; ){
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-              if (circuit.getNom().equals(name)){
-                  for(PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()){
+            if (circuit.getNom().equals(name)) {
+                for (PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()) {
                     ElementTransport arret = ArretTrajet.getArret();
-                    if (!arret.estSelectionne()){
+                    if (!arret.estSelectionne()) {
                         arret.changerStatutSelection();
                     }
-                  }
-                  circuit.changerStatutSelection();
-                  break;
-              }
-          }
+                }
+                circuit.changerStatutSelection();
+                break;
+            }
+        }
         this.afficheurCommandes.repaint();
-    }//GEN-LAST:event_selectionCircuitActionPerformed
+    }//GEN-LAST:event_comboBoxCircuitsActionPerformed
 
     private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
-       this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxIntersections.getSelectedIndex();
-        String name =(String) comboBoxIntersections.getItemAt(index);
+        String name = (String) comboBoxIntersections.getItemAt(index);
         m_controleur.deselectionnerTout();
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
-              if (intersection.getName().equals(name)){
-                      intersection.changerStatutSelection();
-                      break;
-              }
-          }
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            if (intersection.getName().equals(name)) {
+                intersection.changerStatutSelection();
+                break;
+            }
+        }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
 
-    private void editerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerCircuitActionPerformed
-       this.setCommande(Commandes.EDITERCIRCUIT);
-    }//GEN-LAST:event_editerCircuitActionPerformed
+    private void allongerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allongerCircuitActionPerformed
+        this.setCommande(Commandes.EDITERCIRCUIT);
+    }//GEN-LAST:event_allongerCircuitActionPerformed
 
     private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxTroncons.getSelectedIndex();
-        String name =(String) comboBoxTroncons.getItemAt(index);
+        String name = (String) comboBoxTroncons.getItemAt(index);
         m_controleur.deselectionnerTout();
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator() ;intersections.hasNext() ; ){
-            Intersection intersection= intersections.next();
-            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator() ;troncons.hasNext() ; ){
-              Troncon troncon = troncons.next();
-              if (troncon.getNom().equals(name)){
-                      troncon.changerStatutSelection();
-                      break;
-              }
-          }
-        this.afficheurCommandes.repaint();
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
+                Troncon troncon = troncons.next();
+                if (troncon.getNom().equals(name)) {
+                    troncon.changerStatutSelection();
+                    break;
+                }
+            }
+            this.afficheurCommandes.repaint();
         }
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
     private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
-        if(!m_simulationEstLancer ){
-             lancerSimulation();
+        if (!m_simulationEstLancer) {
+            lancerSimulation();
             m_simulationEstLancer = true;
-         }
-        else if (m_crono.estEnPause()){
+        } else if (m_crono.estEnPause()) {
             m_crono.start();
-        }
-        else{
+        } else {
             m_crono.pause();
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
@@ -1469,78 +1468,78 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_ralentirSimulationActionPerformed
 
     private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
-       
+
         /*int index = comboBoxAutobus.getSelectedIndex();
-        String name =(String) comboBoxAutobus.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
-                Autobus autobus = autobuss.next();
-              if (autobus.getID().equals(name)){
-                      autobusachangerStatutSelection();
-                      break;
-              }
-          }
-        this.afficheurCommandes.repaint();
-        */
+         String name =(String) comboBoxAutobus.getItemAt(index);
+         m_controleur.deselectionnerTout();
+         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+         Circuit circuit = circuits.next();
+         for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
+         Autobus autobus = autobuss.next();
+         if (autobus.getID().equals(name)){
+         autobusachangerStatutSelection();
+         break;
+         }
+         }
+         this.afficheurCommandes.repaint();
+         */
     }//GEN-LAST:event_comboBoxAutobusActionPerformed
 
     private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxSources.getSelectedIndex();
-         String name =(String) comboBoxSources.getItemAt(index);
-         m_controleur.deselectionnerTout();
-         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+        String name = (String) comboBoxSources.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator() ;sources.hasNext() ; ){
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
-                if (source.getNom().equals(name)){
+                if (source.getNom().equals(name)) {
                     source.changerStatutSelection();
                     break;
-                    }
                 }
-         }
-         this.afficheurCommandes.repaint();
+            }
+        }
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_comboBoxSourcesActionPerformed
 
     private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxArrets.getSelectedIndex();
-        String name =(String) comboBoxArrets.getItemAt(index);
+        String name = (String) comboBoxArrets.getItemAt(index);
         m_controleur.deselectionnerTout();
-        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator() ;arrets.hasNext() ; ){
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
-              if (arret.getNom().equals(name)){
-                      arret.changerStatutSelection();
-                      break;
-              }
-          }
+            if (arret.getNom().equals(name)) {
+                arret.changerStatutSelection();
+                break;
+            }
+        }
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_comboBoxArretsActionPerformed
 
     private void editerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerRoutierActionPerformed
-    editage();
+        editage();
     }//GEN-LAST:event_editerRoutierActionPerformed
 
     private void editerTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerTransportActionPerformed
-    editage();
+        editage();
     }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
         recommancerSimulation();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
-    private void changeLookAndFeel(){
-         try {
-             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if("javax.swing.plaf.nimbus.NimbusLookAndFeel".equals(info.getClassName())){
-                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                 break;
-            }
+    private void changeLookAndFeel() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("javax.swing.plaf.nimbus.NimbusLookAndFeel".equals(info.getClassName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -1551,9 +1550,9 @@ class MyTimerActionListener implements ActionListener {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        
+
     }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1576,8 +1575,7 @@ class MyTimerActionListener implements ActionListener {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -1585,11 +1583,10 @@ class MyTimerActionListener implements ActionListener {
             public void run() {
                 new MainWindow().setVisible(true);
             }
-        });        
+        });
     }
-    
-    public void setMode(Modes p_mode) 
-    {
+
+    public void setMode(Modes p_mode) {
         this.m_mode_courant = p_mode;
         boutonsRoutier.setVisible(false);
         boutonsSelectionRoutier.setVisible(false);
@@ -1600,62 +1597,77 @@ class MyTimerActionListener implements ActionListener {
         m_controleur.deselectionnerTout();
         this.afficheurCommandes.repaint();
     }
-    
-    public void setCommande(Commandes p_commande) 
-    {
+
+    public void setCommande(Commandes p_commande) {
         this.m_commande_courante = p_commande;
     }
-    
-    public javax.swing.JScrollPane getDefilementAfficheur() 
-    {
+
+    public javax.swing.JScrollPane getDefilementAfficheur() {
         return defilementAfficheur;
     }
-    
-    public void miseAJourPermissionsBoutons()
-    {
-        switch (m_mode_courant)
-        {                
+
+    public void miseAJourPermissionsBoutons() {
+        switch (m_mode_courant) {
             case ROUTIER:
 
-                if (comboBoxIntersections.getItemCount() > 2)
-                {
+                if (comboBoxIntersections.getItemCount() > 2) {
                     selectionRoutier.setEnabled(true);
                     suppressionRoutier.setEnabled(true);
                     constructionTroncon.setEnabled(true);
-                }
-                else if (comboBoxIntersections.getItemCount() > 1)
-                {
+                } else if (comboBoxIntersections.getItemCount() > 1) {
                     selectionRoutier.setEnabled(true);
                     suppressionRoutier.setEnabled(true);
                     constructionTroncon.setEnabled(false);
-                }
-                else
-                {
+                } else {
                     selectionRoutier.setEnabled(false);
                     suppressionRoutier.setEnabled(false);
                     constructionTroncon.setEnabled(false);
                     ajoutIntersection.doClick();
                 }
-                
-                if (comboBoxTroncons.getItemCount() > 1)
+
+                if (comboBoxTroncons.getItemCount() > 1) {
                     transport.setEnabled(true);
-                else
+                } else {
                     transport.setEnabled(false);
-                    
+                }
+
                 break;
-                
+
             case TRANSPORT:
-                if (comboBoxSources.getItemCount() > 1)
-                    simulation.setEnabled(true);
-                else
-                    simulation.setEnabled(true);
-                    
-                    
-                break;
+                if (comboBoxArrets.getItemCount() > 2) {
+                    selectionTransport.setEnabled(true);
+                    suppressionTransport.setEnabled(true);
+                    ajoutCircuit.setEnabled(true);
+                } else if (comboBoxArrets.getItemCount() > 1) {
+                    selectionTransport.setEnabled(true);
+                    suppressionTransport.setEnabled(true);
+                    ajoutCircuit.setEnabled(false);
+                } else {
+                    selectionTransport.setEnabled(false);
+                    suppressionTransport.setEnabled(false);
+                    ajoutCircuit.setEnabled(false);
+                    ajoutArret.doClick();
+                }
+
+                if (comboBoxCircuits.getItemCount() > 1) {
+                    allongerCircuit.setEnabled(true);
+                    ajoutSource.setEnabled(true);
+                } else {
+                    allongerCircuit.setEnabled(false);
+                    ajoutSource.setEnabled(false);
+                }
                 
+                if (comboBoxSources.getItemCount() > 1) {
+                    simulation.setEnabled(true);
+                } else {
+                    simulation.setEnabled(false);
+                }
+
+                break;
+
             default:
                 break;
-                
+
         }
     }
 
@@ -1666,6 +1678,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
     private javax.swing.JToggleButton ajoutSource;
+    private javax.swing.JButton allongerCircuit;
     private javax.swing.JButton annuler;
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
@@ -1678,6 +1691,7 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JComboBox<String> comboBoxArrets;
     private javax.swing.JComboBox<String> comboBoxAutobus;
+    private javax.swing.JComboBox<String> comboBoxCircuits;
     private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxPietons;
     private javax.swing.JComboBox<String> comboBoxSources;
@@ -1685,7 +1699,6 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
-    private javax.swing.JButton editerCircuit;
     private javax.swing.JMenuItem editerClicDroit;
     private javax.swing.JToggleButton editerRoutier;
     private javax.swing.JToggleButton editerTransport;
@@ -1724,7 +1737,6 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
-    private javax.swing.JComboBox<String> selectionCircuit;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;
@@ -1737,4 +1749,3 @@ class MyTimerActionListener implements ActionListener {
     private javax.swing.JLabel zoomTitre;
     // End of variables declaration//GEN-END:variables
 }
-
