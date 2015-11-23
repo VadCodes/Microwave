@@ -1,18 +1,20 @@
 package Domaine.Affichage;
 
+import Domaine.Utilitaire.PaireFloats;
+import Domaine.ReseauRoutier.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
-import java.awt.Graphics2D;
 import java.awt.BasicStroke;
+
+import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 
 import java.awt.geom.Path2D;
 
 import java.util.LinkedList;
-import Domaine.ReseauRoutier.*;
-import Domaine.Utilitaire.PaireFloats;
 
 /**
  *
@@ -112,7 +114,7 @@ public class DessinateurRoutier
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                     fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                    fleche.lineTo(p1x + 0.5 * dx / p_echelle, p1y + 0.5 * dy / p_echelle);                    
+                    fleche.lineTo(p1x + 0.5 * dx, p1y + 0.5 * dy);                    
                 }
                 else{
                     fleche.moveTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 

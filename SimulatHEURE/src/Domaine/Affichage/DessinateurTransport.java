@@ -5,23 +5,22 @@
  */
 package Domaine.Affichage;
 
+import Domaine.Utilitaire.PaireFloats;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
-import Domaine.ReseauTransport.Arret;
-import Domaine.ReseauTransport.Circuit;
-import Domaine.ReseauTransport.PaireArretTrajet;
-import Domaine.ReseauTransport.ReseauTransport;
-import Domaine.ReseauTransport.SourceAutobus;
-import Domaine.Utilitaire.PaireFloats;
+import Domaine.ReseauTransport.*;
+
+//import java.awt.Dimension;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
+
 import java.awt.Graphics2D;
-import java.awt.Stroke;
+import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
+
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -31,12 +30,13 @@ import java.util.ListIterator;
  */
 public class DessinateurTransport {
     
-     private final Dimension m_dimensionInitiale;
+    //private final Dimension m_dimensionInitiale;
     
     private final ReseauTransport m_reseau;
-    public DessinateurTransport(ReseauTransport p_reseau, Dimension p_dimensionInitiale){
+    
+    public DessinateurTransport(ReseauTransport p_reseau){//, Dimension p_dimensionInitiale){
         m_reseau = p_reseau;
-        m_dimensionInitiale = p_dimensionInitiale;
+        //m_dimensionInitiale = p_dimensionInitiale;
     }
     
     public void dessiner(Graphics2D p_g)
@@ -57,8 +57,7 @@ public class DessinateurTransport {
     
     private void dessinerCircuit(Graphics2D p_g, float p_echelle)
     {
-        Stroke dashed = new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0);
-        p_g.setStroke(dashed);
+        p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {

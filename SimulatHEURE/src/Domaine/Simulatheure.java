@@ -25,20 +25,16 @@ public class Simulatheure {
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
-    //private Intersection m_intersectionOriginArret;
     private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList<>();
-    //private Troncon m_tronconArret;
-    private ReseauTransport m_reseauTransport = new ReseauTransport() ;
-    //private Temps m_deltaT;
-    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
     
+    private ReseauTransport m_reseauTransport = new ReseauTransport();
     private LinkedList<Arret> m_arretsNouveauCircuit = new LinkedList<>();
     private LinkedList<Troncon> m_tronconsNouveauTrajet = new LinkedList<>();
-    
-//    private Circuit m_circuit_temp = new Circuit();
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
+    
+    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();   
     
     public Simulatheure() {}  
     public void recommancerSimulation() {

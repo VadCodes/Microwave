@@ -48,8 +48,8 @@ public class AfficheurReseau extends JPanel implements Serializable {
             graphic2D.scale(m_echelle, m_echelle);
             
             DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier(), m_dimension);
-            DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport(), m_dimension);
-            DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport(), m_dimension);
+            DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
+            DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport());
             dessinateurRoutier.dessiner(graphic2D);
             dessinateurTransport .dessiner(graphic2D);
             dessinateurSimulation.dessiner(graphic2D);
@@ -72,17 +72,16 @@ public class AfficheurReseau extends JPanel implements Serializable {
         return (m_echelle);
     }
     
-    public void setEchelle(float p_valeur){
-        
-        m_echelle *= (1 - p_valeur / 16);
-        //max : 300 000 (glitches)
+    public void setEchelle(float p_valeur)
+    {
+        m_echelle *= 1 - p_valeur / 8;
         
         boolean ajoutIntersection = false;
         setDimension(ajoutIntersection);
     }
     
-    public final void setDimension(boolean p_nouvelleIntersection){
-
+    public final void setDimension(boolean p_nouvelleIntersection)
+    {
         int l = m_fenetrePrincipale.getDefilementAfficheur().getWidth();
         int h = m_fenetrePrincipale.getDefilementAfficheur().getHeight();
 
