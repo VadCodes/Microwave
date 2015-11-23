@@ -1217,11 +1217,14 @@ class MyTimerActionListener implements ActionListener {
 
     private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         
-        boolean intersectionSupprimee = false;
+        boolean suppressionOK = false;
         switch (m_commande_courante)
         {
             case SELECTIONNER:
-                intersectionSupprimee = m_controleur.supprimerSelectionRoutier();
+                suppressionOK = m_controleur.supprimerSelectionRoutier();
+                if (!suppressionOK){
+                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
                 
             default:
@@ -1302,7 +1305,10 @@ class MyTimerActionListener implements ActionListener {
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 assert(elementsRoutiersSelectionnes.size() == 1);
                 ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
-                m_controleur.supprimerSelectionRoutier();
+                Boolean suppressionOK = m_controleur.supprimerSelectionRoutier();
+                if (!suppressionOK){
+                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
                 
             case TRANSPORT:

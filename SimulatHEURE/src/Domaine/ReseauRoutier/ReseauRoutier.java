@@ -175,9 +175,7 @@ public class ReseauRoutier {
     }
     
     public Boolean supprimerSelection()
-    {
-        Boolean suppressionOK = true;
-        
+    {        
         for (ListIterator<Intersection> intersectionIt = m_listeIntersections.listIterator() ; intersectionIt.hasNext() ; )
         {
             Intersection intersection = intersectionIt.next();
@@ -202,8 +200,7 @@ public class ReseauRoutier {
                 }
             }
         }
-        
-        return suppressionOK;
+        return true; //useless
     }
     
     public void initReseauRoutier(){
