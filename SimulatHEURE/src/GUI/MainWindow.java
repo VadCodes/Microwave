@@ -123,6 +123,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
             m_this.afficheurCommandes.repaint();
             if (finSimulation) {
+                playPauseSimulation.setText("Lancer!");
                 arreterSimulation();
             }
 
