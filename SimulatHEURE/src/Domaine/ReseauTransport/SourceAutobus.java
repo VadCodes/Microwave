@@ -107,6 +107,7 @@ public class SourceAutobus extends ElementTransport{
     
     public void setTempsAttenteInitial(Temps temps){
         m_tempsAttenteinitial = temps;
+         setDefault() ;
     }
     
     public Temps getTempsAttenteInitial(){
