@@ -823,43 +823,33 @@ class MyTimerActionListener implements ActionListener {
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
-      if(!m_simulationEstLancer){ 
-                        this.setMode(Modes.SIMULATION);
-                        boutonsSelectionSimulation.setVisible(true);
-                        boutonsSimulation.setVisible(true);
-                        EditerSimulation fenetre= new EditerSimulation();{
-                        fenetre.setMainWindow(m_this);
-                        fenetre.setResizable(false);
-                        fenetre.setLocationRelativeTo(null); //pour centrer
-                        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        fenetre.setVisible(true);
-                        this.setEnabled(false);
-                }
-        }
+
+        this.setMode(Modes.SIMULATION);
+        boutonsSelectionSimulation.setVisible(true);
+        boutonsSimulation.setVisible(true);
+        
     }//GEN-LAST:event_simulationActionPerformed
     private void recommancerSimulation(){
-       m_controleur.recommancerSimulation();
-       alalEditSimulation();
-       m_simulationEstLancer = false;
-      lancerSimulation();
-      m_crono.pause();
+        arreterSimulation();
+       playPauseSimulation.doClick();
     }
     private void arreterSimulation(){
+        m_timer.stop();
         m_crono.pause();
         m_simulationEstLancer = false;
-        m_timer.stop();
+        m_controleur.arreterSimulation();
     }
     private void alalEditSimulation(){
         EditerSimulation fenetre= new EditerSimulation();{
         fenetre.setMainWindow(m_this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
-        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       // fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
         this.setEnabled(false);
 }
 }
-    private void lancerSimulation(){
+    public void lancerSimulation(){
         m_simulationEstLancer = true;
         boutonsSimulation.setVisible(true);
         m_timer= new Timer(0, new MyTimerActionListener());     
@@ -1452,7 +1442,7 @@ class MyTimerActionListener implements ActionListener {
 
     private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
         if(!m_simulationEstLancer ){
-            lancerSimulation();
+            alalEditSimulation();
             playPauseSimulation.setText("Pause");
         }
         else if (m_crono.estEnPause()){

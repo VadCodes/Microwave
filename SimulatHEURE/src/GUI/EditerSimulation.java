@@ -21,11 +21,12 @@ public class EditerSimulation extends javax.swing.JFrame {
     private MainWindow  m_mainWindow;
     private boolean m_done = false;
     public EditerSimulation() {
-        
         initComponents();
+          this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 public void setMainWindow(MainWindow p_mainWindow){
     m_mainWindow = p_mainWindow;
+  
 }
 
     /**
@@ -135,6 +136,7 @@ private void setTemps(){
             m_mainWindow.m_tempsFinSimulation = fin;
             m_done = true;
             m_mainWindow.setEnabled(true);
+             m_mainWindow.lancerSimulation();
               this.dispose();
         }
         catch(NumberFormatException e){

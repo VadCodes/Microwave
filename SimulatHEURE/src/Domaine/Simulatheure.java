@@ -41,7 +41,7 @@ public class Simulatheure {
     private Arret m_arret_temp = new Arret();
     
     public Simulatheure() {}  
-    public void recommancerSimulation() {
+    public void arreterSimulation() {
         for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator() ;arrets.hasNext() ; ){
             Arret arret = arrets.next();
             arret.viderFile();
