@@ -35,7 +35,8 @@ public class Autobus {
     private boolean m_asTerminer = false;
     private Boolean m_boucle = false;
     
-    public final static float LARGEUR = 16;
+    public final static float LARGEUR = 48;
+    public final static float HAUTEUR = 16;
     
     public Autobus(Emplacement emplacementActuel, int capaciteMax, String id,
                     Temps tempsApparition, Boolean estSurArret){

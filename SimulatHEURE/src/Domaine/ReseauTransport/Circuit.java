@@ -10,18 +10,22 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
-import Domaine.ReseauRoutier.Emplacement;
-import Domaine.ReseauRoutier.Intersection;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
-import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
-import Domaine.Utilitaire.Temps;
+import java.awt.geom.Rectangle2D;
+
+import java.awt.Font;
+import java.awt.font.GlyphVector;
+import java.awt.font.FontRenderContext;
+
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class Circuit extends ElementTransport{
     private String m_nom = "";
+    private GlyphVector m_representationNom;
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
     private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
@@ -56,9 +60,23 @@ public class Circuit extends ElementTransport{
     }
     public void setNom(String p_nom){
         m_nom = p_nom;
+        Font a = new Font(null, Font.BOLD, 12);
+        m_representationNom = a.createGlyphVector(new FontRenderContext(null, false, false), p_nom);
+        double ajX = m_representationNom.getVisualBounds().getCenterX();
+        double ajY = m_representationNom.getVisualBounds().getCenterY();
+        
+        for (int i = 0 ; i< p_nom.length() ; i++)
+        {
+            Point2D position = m_representationNom.getGlyphPosition(i);
+            position.setLocation(position.getX() - ajX, position.getY() - ajY);
+            m_representationNom.setGlyphPosition(i, position);
+        }        
     }
     public String getNom(){
         return m_nom;
+    }
+    public GlyphVector getRepresentationNom(){
+        return m_representationNom;
     }
     public void ajouterSource(SourceAutobus source){
         m_listeSources.add(source);

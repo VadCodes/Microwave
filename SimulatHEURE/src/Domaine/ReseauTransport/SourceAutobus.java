@@ -24,7 +24,7 @@ public class SourceAutobus extends ElementTransport{
     private Temps m_frequence;
     private Temps m_tempsAttenteinitial;
     private Temps m_tempsAvantApparition;
-    public final static float LARGUEUR = 20;
+    public final static float LARGUEUR = 16;
     
     public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
         m_emplacement = p_emplacement;
