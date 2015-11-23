@@ -34,7 +34,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Boolean m_booleanCTRL = false;
     private Timer m_timer;
     private Chronometre m_crono;
-    private MainWindow m_this = this;
+    private MainWindow m_this = this; //l33t
     private boolean m_simulationEstLancer = false;
 
     /**
@@ -132,6 +132,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
             m_this.afficheurCommandes.repaint();
             if (finSimulation) {
+                playPauseSimulation.setText("Lancer!");
                 arreterSimulation();
             }
 
@@ -599,7 +600,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.add(recommancerSimulation);
 
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playPauseSimulation.setText("Play / Pause");
+        playPauseSimulation.setText("Lancer!");
         playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseSimulationActionPerformed(evt);
