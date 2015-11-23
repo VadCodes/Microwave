@@ -154,10 +154,6 @@ public class ReseauTransport {
                     {
                         src.remove();
                     }
-                    else
-                    {
-                        src.next();
-                    }
                 }
             }
         }
