@@ -673,7 +673,7 @@ public class MainWindow extends javax.swing.JFrame {
                 comboBoxCircuitsActionPerformed(evt);
             }
         });
-        boutonsSelectionTransport.add(selectionCircuit);
+        boutonsSelectionTransport.add(comboBoxCircuits);
 
         boutonsRoutier.setAlignmentX(1.0F);
         boutonsRoutier.setAlignmentY(1.0F);
@@ -769,15 +769,15 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        editerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerCircuit.setText("Allonger Circuit");
-        editerCircuit.setToolTipText("");
-        editerCircuit.addActionListener(new java.awt.event.ActionListener() {
+        allongerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        allongerCircuit.setText("Allonger Circuit");
+        allongerCircuit.setToolTipText("");
+        allongerCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerCircuitActionPerformed(evt);
+                allongerCircuitActionPerformed(evt);
             }
         });
-        boutonsTransport.add(editerCircuit);
+        boutonsTransport.add(allongerCircuit);
 
         editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
@@ -1384,7 +1384,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {
 
-        boolean intersectionSupprimee = false;
+        boolean suppressionOK = false;
         switch (m_commande_courante) {
             case SELECTIONNER:
                 suppressionOK = m_controleur.supprimerSelectionRoutier();

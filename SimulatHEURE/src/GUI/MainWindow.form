@@ -899,7 +899,7 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="boutonsRoutier">
+                            <Container class="javax.swing.JPanel" name="boutonsRoutier1">
                               <Properties>
                                 <Property name="alignmentX" type="float" value="1.0"/>
                                 <Property name="alignmentY" type="float" value="1.0"/>
@@ -915,7 +915,7 @@
                                 <Property name="verticalGap" type="int" value="10"/>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JToggleButton" name="selectionRoutier">
+                                <Component class="javax.swing.JToggleButton" name="selectionRoutier1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -926,7 +926,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectionRoutierActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="ajoutIntersection">
+                                <Component class="javax.swing.JToggleButton" name="ajoutIntersection1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -937,7 +937,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutIntersectionActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="constructionTroncon">
+                                <Component class="javax.swing.JToggleButton" name="constructionTroncon1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -948,7 +948,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="constructionTronconActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="editerRoutier">
+                                <Component class="javax.swing.JToggleButton" name="editerRoutier1">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="&#xc9;diter s&#xe9;lection"/>
                                     <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -957,7 +957,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerRoutierActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="suppressionRoutier">
+                                <Component class="javax.swing.JButton" name="suppressionRoutier1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -970,7 +970,7 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="boutonsTransport">
+                            <Container class="javax.swing.JPanel" name="boutonsTransport1">
                               <Properties>
                                 <Property name="alignmentX" type="float" value="1.0"/>
                                 <Property name="alignmentY" type="float" value="1.0"/>
@@ -986,7 +986,7 @@
                                 <Property name="verticalGap" type="int" value="10"/>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JToggleButton" name="selectionTransport">
+                                <Component class="javax.swing.JToggleButton" name="selectionTransport1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -997,7 +997,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectionTransportActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="ajoutSource">
+                                <Component class="javax.swing.JToggleButton" name="ajoutSource1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1008,7 +1008,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutSourceActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="ajoutArret">
+                                <Component class="javax.swing.JToggleButton" name="ajoutArret1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1020,7 +1020,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ajoutArretActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="ajoutCircuit">
+                                <Component class="javax.swing.JToggleButton" name="ajoutCircuit1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1043,7 +1043,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerCircuitActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="editerTransport">
+                                <Component class="javax.swing.JToggleButton" name="editerTransport1">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="&#xc9;diter s&#xe9;lection"/>
                                   </Properties>
@@ -1051,7 +1051,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerTransportActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="suppressionTransport">
+                                <Component class="javax.swing.JButton" name="suppressionTransport1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1064,7 +1064,7 @@
                                 </Component>
                               </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="boutonsSimulation">
+                            <Container class="javax.swing.JPanel" name="boutonsSimulation1">
                               <Properties>
                                 <Property name="alignmentX" type="float" value="1.0"/>
                                 <Property name="alignmentY" type="float" value="1.0"/>
@@ -1083,7 +1083,7 @@
                                 <Property name="verticalGap" type="int" value="10"/>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JButton" name="recommancerSimulation">
+                                <Component class="javax.swing.JButton" name="recommancerSimulation1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="11" style="0"/>
@@ -1094,7 +1094,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommancerSimulationActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JToggleButton" name="playPauseSimulation">
+                                <Component class="javax.swing.JToggleButton" name="playPauseSimulation1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1105,7 +1105,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playPauseSimulationActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="avancerSimulation">
+                                <Component class="javax.swing.JButton" name="avancerSimulation1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1116,7 +1116,7 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="avancerSimulationActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JButton" name="ralentirSimulation">
+                                <Component class="javax.swing.JButton" name="ralentirSimulation1">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="Tahoma" size="10" style="0"/>
@@ -1127,19 +1127,19 @@
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ralentirSimulationActionPerformed"/>
                                   </Events>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel1">
+                                <Component class="javax.swing.JLabel" name="jLabel6">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Temps &#xe9;coul&#xe9; :"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="time">
+                                <Component class="javax.swing.JLabel" name="time1">
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="jLabel2">
+                                <Component class="javax.swing.JLabel" name="jLabel7">
                                   <Properties>
                                     <Property name="text" type="java.lang.String" value="Facteur multiplicatif :"/>
                                   </Properties>
                                 </Component>
-                                <Component class="javax.swing.JLabel" name="facteurMultiplicatif">
+                                <Component class="javax.swing.JLabel" name="facteurMultiplicatif1">
                                 </Component>
                               </SubComponents>
                             </Container>
