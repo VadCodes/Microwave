@@ -542,6 +542,17 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
+        allongerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        allongerCircuit.setText("Allonger Circuit");
+        allongerCircuit.setToolTipText("");
+        allongerCircuit.setEnabled(false);
+        allongerCircuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allongerCircuitActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(allongerCircuit);
+
         editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -566,6 +577,50 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setOpaque(false);
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        recommancerSimulation.setText("Recommencer");
+        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recommancerSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(recommancerSimulation);
+
+        playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        playPauseSimulation.setText("Play / Pause");
+        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playPauseSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(playPauseSimulation);
+
+        avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        avancerSimulation.setText("Avancer X 2");
+        avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avancerSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(avancerSimulation);
+
+        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ralentirSimulation.setText("Ralentir / 2");
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
+
+        jLabel1.setText("Temps écoulé :");
+        boutonsSimulation.add(jLabel1);
+        boutonsSimulation.add(time);
+
+        jLabel2.setText("Facteur multiplicatif :");
+        boutonsSimulation.add(jLabel2);
+        boutonsSimulation.add(facteurMultiplicatif);
 
         boutonsSelectionRoutier.setAlignmentX(1.0F);
         boutonsSelectionRoutier.setAlignmentY(1.0F);
@@ -634,161 +689,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsSelectionTransport.add(comboBoxCircuits);
-
-        boutonsRoutier.setAlignmentX(1.0F);
-        boutonsRoutier.setAlignmentY(1.0F);
-        boutonsRoutier.setOpaque(false);
-        boutonsRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
-        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
-
-        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        selectionRoutier.setText("Sélectionner");
-        selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(selectionRoutier);
-
-        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutIntersection.setText("Intersection");
-        ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutIntersectionActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(ajoutIntersection);
-
-        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        constructionTroncon.setText("Tronçon");
-        constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                constructionTronconActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(constructionTroncon);
-
-        editerRoutier.setText("Éditer sélection");
-        editerRoutier.setToolTipText("");
-        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(editerRoutier);
-
-        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        suppressionRoutier.setText("Supprimer");
-        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(suppressionRoutier);
-
-        boutonsTransport.setAlignmentX(1.0F);
-        boutonsTransport.setAlignmentY(1.0F);
-        boutonsTransport.setOpaque(false);
-        boutonsTransport.setPreferredSize(new java.awt.Dimension(140, 160));
-        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
-
-        selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        selectionTransport.setText("Sélectionner");
-        selectionTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectionTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(selectionTransport);
-
-        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutSource.setText("Source");
-        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutSourceActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(ajoutSource);
-
-        ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutArret.setText("Arrêt");
-        ajoutArret.setToolTipText("");
-        ajoutArret.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutArretActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(ajoutArret);
-
-        ajoutCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutCircuit.setText("Circuit");
-        ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutCircuitActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(ajoutCircuit);
-
-        editerTransport.setText("Éditer sélection");
-        editerTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(editerTransport);
-
-        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        suppressionTransport.setText("Supprimer");
-        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(suppressionTransport);
-
-        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        recommancerSimulation.setText("Recommencer");
-        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recommancerSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(recommancerSimulation);
-
-        playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playPauseSimulation.setText("Lancer!");
-        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playPauseSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(playPauseSimulation);
-
-        avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        avancerSimulation.setText("Avancer X 2");
-        avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                avancerSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(avancerSimulation);
-
-        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ralentirSimulation.setText("Ralentir / 2");
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(ralentirSimulation);
-
-        jLabel1.setText("Temps écoulé :");
-        boutonsSimulation.add(jLabel1);
-        boutonsSimulation.add(time);
-
-        jLabel2.setText("Facteur multiplicatif :");
-        boutonsSimulation.add(jLabel2);
-        boutonsSimulation.add(facteurMultiplicatif);
 
         boutonsSelectionSimulation.setAlignmentX(1.0F);
         boutonsSelectionSimulation.setAlignmentY(1.0F);
