@@ -1393,6 +1393,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
+        m_controleur.cancellerCircuit();
+        this.afficheurCommandes.repaint();
         this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
 
@@ -1445,6 +1447,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
 
     private void allongerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allongerCircuitActionPerformed
+        if(m_commande_courante != Commandes.EDITERCIRCUIT){
+            m_controleur.cancellerCircuit();
+            this.afficheurCommandes.repaint();
+        }
         this.setCommande(Commandes.EDITERCIRCUIT);
     }//GEN-LAST:event_allongerCircuitActionPerformed
 
