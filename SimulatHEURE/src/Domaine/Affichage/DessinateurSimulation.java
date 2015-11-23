@@ -64,7 +64,7 @@ public class DessinateurSimulation {
 //                dessinerBus(p_g, int1, int2, p_echelle);
                 p_g.fill(new RoundRectangle2D.Float(x, y, largeur, largeur, largeur / 2, largeur / 2));
                 p_g.setColor(Color.BLACK);
-                p_g.setFont(new Font("Monospaced", Font.PLAIN, (int)(30 / Math.pow(p_echelle, 0.60) )));// / (Math.log(p_echelle) / Math.log(1.55))  )));
+                p_g.setFont(new Font("Monospaced", Font.PLAIN, (int)(30 / Math.pow(p_echelle, 0.60) )));
                 p_g.drawString(noCorcuit, x, y + largeur);
             }
         }
