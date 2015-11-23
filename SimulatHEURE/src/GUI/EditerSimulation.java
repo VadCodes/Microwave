@@ -165,21 +165,26 @@ public double getTempsFin(){
     return m_tempsFinSimulation;
 }
 private void setTemps(){
-        Date debut;
-        Date fin;
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         try{
-          String s_debut  = jTextField1.getText();
-          String s_fin  = jTextField2.getText();
-          Date dateDebut = simpleDateFormat.parse(s_debut);
-          Date dateFin = simpleDateFormat.parse(s_fin);
-          if (dateFin.getTime() <= dateDebut.getTime()){
-             m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime() + 86400000);
-          }
-          else{
-              m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime());
-          }
-           m_mainWindow.m_tempsDebutSimulation= (double)(dateDebut.getTime());
+            String s_debut  = jTextField1.getText();
+            String s_fin  = jTextField2.getText();
+            Date dateDebut = simpleDateFormat.parse(s_debut);
+            Date dateFin = simpleDateFormat.parse(s_fin);
+            if (jRadioButton2.isSelected()){
+                m_mainWindow.m_tempsFinSimulation = Double.POSITIVE_INFINITY;
+            }
+            else{
+                if (dateFin.getTime() <= dateDebut.getTime()){
+                    m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime() + 86400000);
+                }
+                else{
+                    m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime());
+                }
+            }
+
+            m_mainWindow.m_tempsDebutSimulation= (double)(dateDebut.getTime());
             m_done = true;
             m_mainWindow.setEnabled(true);
             m_mainWindow.lancerSimulation();

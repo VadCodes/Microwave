@@ -1265,7 +1265,7 @@ public class MainWindow extends javax.swing.JFrame {
         switch (m_mode_courant) {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-                if (elementsRoutiersSelectionnes == null) return;
+                if (elementsRoutiersSelectionnes.getFirst() == null) return;
                 ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
 
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
@@ -1288,7 +1288,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                if (elementsTransportSelectionnes == null) return;
+                if (elementsTransportSelectionnes.getFirst() == null) return;
                 ElementTransport elemTransport = elementsTransportSelectionnes.getFirst();
 
                 if (elemTransport.getClass() == SourceAutobus.class) {
