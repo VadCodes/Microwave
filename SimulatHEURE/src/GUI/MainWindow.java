@@ -12,6 +12,7 @@ import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import java.util.*;
@@ -109,13 +110,21 @@ public class MainWindow extends javax.swing.JFrame {
             double tmp = m_crono.getTempsDebut();
             boolean finSimulation = false;
             double deltatT = m_crono.getDeltatT();
-            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()) {
-                deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()*1000) {
+                deltatT = ((m_tempsFinSimulation - m_tempsDebutSimulation) - tmp*1000)/1000;
                 finSimulation = true;
+                Date itemDate = new Date((long)(m_tempsDebutSimulation + (tmp + deltatT)*1000));
+                String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+                 time.setText(itemDateStr);
+            }
+            else{
+                Date itemDate = new Date((long)(m_tempsDebutSimulation + m_crono.getTempsDebut()*1000));
+                String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+                 time.setText(itemDateStr);
             }
             // System.out.println(deltatT);
             m_controleur.rafraichirSimulation(new Temps(deltatT));
-            time.setText(m_crono.getTempsDebut() + " s");
+                    
             // miseAjourSelectionAutobusAjout();
             facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
             if (deltatT != 0) {
@@ -477,6 +486,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         editerRoutier.setText("Éditer sélection");
         editerRoutier.setToolTipText("");
         editerRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -553,6 +563,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(allongerCircuit);
 
+        editerTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -614,7 +625,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(ralentirSimulation);
 
-        jLabel1.setText("Temps écoulé :");
+        jLabel1.setText("Heure :");
         boutonsSimulation.add(jLabel1);
         boutonsSimulation.add(time);
 

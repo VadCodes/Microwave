@@ -5,7 +5,10 @@
  */
 package GUI;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import java.util.Date;
 
 /**
  *
@@ -53,7 +56,7 @@ public void setMainWindow(MainWindow p_mainWindow){
 
         jLabel1.setText("Temps début simulation : ");
 
-        jTextField1.setText("0");
+        jTextField1.setText("05:00:00");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -62,7 +65,7 @@ public void setMainWindow(MainWindow p_mainWindow){
 
         jLabel2.setText("Temps fin simulation : ");
 
-        jTextField2.setText("Infinie");
+        jTextField2.setText("01:00:00");
 
         jButton1.setText("Ok");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +125,33 @@ public double getTempsFin(){
     return m_tempsFinSimulation;
 }
 private void setTemps(){
+        Date debut;
+        Date fin;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        try{
+          String s_debut  = jTextField1.getText();
+          String s_fin  = jTextField2.getText();
+          Date dateDebut = simpleDateFormat.parse(s_debut);
+          Date dateFin = simpleDateFormat.parse(s_fin);
+          if (dateFin.getTime() <= dateDebut.getTime()){
+             m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime() + 86400000);
+          }
+          else{
+              m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime());
+          }
+           m_mainWindow.m_tempsDebutSimulation= (double)(dateDebut.getTime());
+            m_done = true;
+            m_mainWindow.setEnabled(true);
+            m_mainWindow.lancerSimulation();
+            this.dispose();
+        }
+        catch(ParseException ex){
+            JOptionPane.showMessageDialog(null, "Les champs de temps doivent être de format HH:mm:ss", "Champs invalides", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    /*
      double debut;
-           double fin;
+           double fin;  
         try{
             debut = Double.parseDouble(jTextField1.getText());
             if (jTextField2.getText().equals("Infinie")){
@@ -143,6 +171,7 @@ private void setTemps(){
             JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
             return;
         }
+           */
 }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
           setTemps();
