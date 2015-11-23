@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package Domaine.Utilitaire;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  *
@@ -19,5 +22,12 @@ public class Temps {
     public double getTemps()
     {
         return m_temps;
+    }
+    public String getTempsFormat(){
+        
+        Date itemDate = new Date((long)((m_temps)));
+        String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+        System.out.println(itemDateStr);
+        return itemDateStr;
     }
 }

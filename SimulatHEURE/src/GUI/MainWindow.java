@@ -12,6 +12,7 @@ import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import java.util.*;
@@ -33,7 +34,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Boolean m_booleanCTRL = false;
     private Timer m_timer;
     private Chronometre m_crono;
-    private MainWindow m_this = this;
+    private MainWindow m_this = this; //l33t
     private boolean m_simulationEstLancer = false;
 
     /**
@@ -109,13 +110,21 @@ public class MainWindow extends javax.swing.JFrame {
             double tmp = m_crono.getTempsDebut();
             boolean finSimulation = false;
             double deltatT = m_crono.getDeltatT();
-            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()) {
-                deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation) - tmp;
+            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()*1000) {
+                deltatT = ((m_tempsFinSimulation - m_tempsDebutSimulation) - tmp*1000)/1000;
                 finSimulation = true;
+                Date itemDate = new Date((long)(m_tempsDebutSimulation + (tmp + deltatT)*1000));
+                String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+                 time.setText(itemDateStr);
+            }
+            else{
+                Date itemDate = new Date((long)(m_tempsDebutSimulation + m_crono.getTempsDebut()*1000));
+                String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+                 time.setText(itemDateStr);
             }
             // System.out.println(deltatT);
             m_controleur.rafraichirSimulation(new Temps(deltatT));
-            time.setText(m_crono.getTempsDebut() + " s");
+                    
             // miseAjourSelectionAutobusAjout();
             facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
             if (deltatT != 0) {
@@ -123,6 +132,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
             m_this.afficheurCommandes.repaint();
             if (finSimulation) {
+                playPauseSimulation.setText("Lancer!");
                 arreterSimulation();
             }
 
@@ -190,6 +200,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation = new javax.swing.JPanel();
         recommancerSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
+        arreterSimulation = new javax.swing.JButton();
         avancerSimulation = new javax.swing.JButton();
         ralentirSimulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -477,6 +488,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         editerRoutier.setText("Éditer sélection");
         editerRoutier.setToolTipText("");
         editerRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -553,6 +565,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(allongerCircuit);
 
+        editerTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         editerTransport.setText("Éditer sélection");
         editerTransport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,13 +601,22 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.add(recommancerSimulation);
 
         playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        playPauseSimulation.setText("Play / Pause");
+        playPauseSimulation.setText("Lancer!");
         playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseSimulationActionPerformed(evt);
             }
         });
         boutonsSimulation.add(playPauseSimulation);
+
+        arreterSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        arreterSimulation.setText("Arrêter");
+        arreterSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arreterSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(arreterSimulation);
 
         avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         avancerSimulation.setText("Avancer X 2");
@@ -614,7 +636,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(ralentirSimulation);
 
-        jLabel1.setText("Temps écoulé :");
+        jLabel1.setText("Heure :");
         boutonsSimulation.add(jLabel1);
         boutonsSimulation.add(time);
 
@@ -628,7 +650,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
         boutonsSelectionRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        jLabel4.setText("Troncons :");
+        jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
         comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -656,7 +678,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionTransport.setPreferredSize(new java.awt.Dimension(90, 120));
         boutonsSelectionTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        jLabel8.setText("Arrets :");
+        jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
         comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -679,7 +701,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionTransport.add(comboBoxSources);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setText("Selection Circuit:");
+        jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
         comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -750,7 +772,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(322, Short.MAX_VALUE)
+                .addContainerGap(681, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -761,8 +783,8 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(162, Short.MAX_VALUE)))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(481, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
@@ -849,8 +871,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
-
-        this.setMode(Modes.SIMULATION);
+         this.setMode(Modes.SIMULATION);
+        routier.setEnabled(false);
+        transport.setEnabled(false);
+        besoins.setEnabled(false);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
         
@@ -1253,7 +1277,7 @@ public class MainWindow extends javax.swing.JFrame {
         switch (m_mode_courant) {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-                if (elementsRoutiersSelectionnes == null) return;
+                if (elementsRoutiersSelectionnes.getFirst() == null) return;
                 ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
 
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
@@ -1276,7 +1300,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                if (elementsTransportSelectionnes == null) return;
+                if (elementsTransportSelectionnes.getFirst() == null) return;
                 ElementTransport elemTransport = elementsTransportSelectionnes.getFirst();
 
                 if (elemTransport.getClass() == SourceAutobus.class) {
@@ -1381,6 +1405,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
     private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
+        m_controleur.cancellerCircuit();
+        this.afficheurCommandes.repaint();
         this.setCommande(Commandes.SOURCE);
     }//GEN-LAST:event_ajoutSourceActionPerformed
 
@@ -1433,6 +1459,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
 
     private void allongerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allongerCircuitActionPerformed
+        if(m_commande_courante != Commandes.EDITERCIRCUIT){
+            m_controleur.cancellerCircuit();
+            this.afficheurCommandes.repaint();
+        }
         this.setCommande(Commandes.EDITERCIRCUIT);
     }//GEN-LAST:event_allongerCircuitActionPerformed
 
@@ -1541,6 +1571,13 @@ public class MainWindow extends javax.swing.JFrame {
         playPauseSimulation.setText("Lancer!");
         recommancerSimulation();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
+
+    private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
+       arreterSimulation();
+       routier.setEnabled(true);
+       transport.setEnabled(true);
+       //besoins.setEnabled(true);
+    }//GEN-LAST:event_arreterSimulationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1692,6 +1729,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutSource;
     private javax.swing.JButton allongerCircuit;
     private javax.swing.JButton annuler;
+    private javax.swing.JButton arreterSimulation;
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
