@@ -112,16 +112,15 @@ public class DessinateurRoutier
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                     fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                    fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / dy / d) / p_echelle, 
-                            p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / dx / d) / p_echelle);                    
+                    fleche.lineTo(p1x + 0.5 * dx / p_echelle, p1y + 0.5 * dy / p_echelle);                    
                 }
                 else{
                     fleche.moveTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE * dx / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE * dy / d) / p_echelle);
                     fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * -dy / d) / p_echelle, 
                             p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * dx / d) / p_echelle);
-                    fleche.lineTo(p1x + 0.5 * dx + (Troncon.GROSSEUR_FLECHE / 2 * dy / d) / p_echelle, 
-                            p1y + 0.5 * dy + (Troncon.GROSSEUR_FLECHE / 2 * -dx / d) / p_echelle);
+                    fleche.lineTo(p1x + 0.5 * dx + ((Troncon.GROSSEUR_FLECHE / 2) * (dy / d)) / p_echelle, 
+                            p1y + 0.5 * dy + ((Troncon.GROSSEUR_FLECHE / 2) * (-dx / d)) / p_echelle);
                 }
                 fleche.closePath();
                 p_g.fill(fleche);              

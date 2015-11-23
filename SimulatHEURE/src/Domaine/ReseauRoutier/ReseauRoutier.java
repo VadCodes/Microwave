@@ -189,11 +189,16 @@ public class ReseauRoutier {
     
     public Boolean supprimerSelection()
     {
-        for (Intersection intersection: m_listeIntersections)
+        Boolean suppressionOK = true;
+        
+        for (ListIterator<Intersection> intersectionIt = m_listeIntersections.listIterator() ; intersectionIt.hasNext() ; )
         {
+            Intersection intersection = intersectionIt.next();
+            
             if (intersection.estSelectionne())
             {
                 intersection.getTroncons().clear();
+                intersectionIt.remove();
             }
             else
             {
@@ -210,18 +215,8 @@ public class ReseauRoutier {
                 }
             }
         }
-
-        boolean intersectionSupprimee = false;
-        for (ListIterator<Intersection> intersection = m_listeIntersections.listIterator() ; intersection.hasNext() ; )
-        {
-            if (intersection.next().estSelectionne())
-            {
-                intersection.remove();
-                intersectionSupprimee = true;
-            }
-        }
         
-        return intersectionSupprimee;
+        return suppressionOK;
     }
     
     public void initReseauRoutier(){
