@@ -104,4 +104,12 @@ public class SourceAutobus extends ElementTransport{
        m_nbAutobusGeneres = 0;
        m_tempsAvantApparition = m_tempsAttenteinitial;
     }
+    
+    public void setTempsAttenteInitial(Temps temps){
+        m_tempsAttenteinitial = temps;
+    }
+    
+    public Temps getTempsAttenteInitial(){
+        return m_tempsAttenteinitial;
+    }
 }
