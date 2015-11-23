@@ -12,6 +12,7 @@ import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  *
@@ -76,6 +77,27 @@ public class ReseauTransport {
         }
         return null;
     }
+   
+    public SourceAutobus selectionnerSourceAutobus(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
+       
+        RoundRectangle2D.Float zoneSelection = new RoundRectangle2D.Float(p_x, p_y, p_largeur, p_largeur, p_largeur/2, p_largeur/2);
+
+        for (Circuit circ : m_listeCircuits){
+            for (SourceAutobus src : circ.getListeSourceAutobus()){
+                Emplacement em = src.getEmplacement();
+                Point2D.Float p = em.calculPosition(p_echelle);
+                
+                if (zoneSelection.contains(p))
+                {
+                    src.changerStatutSelection();
+                    return src;
+                }
+            }
+        }
+       
+        return null;
+    }
+   
    public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
        SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit,p_nomSource,p_distribution,p_tempsAttenteinitial);
        src.setNom("Source" + Integer.toString(m_conteurSources));
