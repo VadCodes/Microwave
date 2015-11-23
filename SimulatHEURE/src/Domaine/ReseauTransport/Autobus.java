@@ -125,6 +125,18 @@ public class Autobus {
                 if(this.getBoucle()){
                     m_iterateur = m_list.listIterator();
                     m_paireActuelle = m_iterateur.next();
+                    float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                     Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
+                    if(!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()){
+                        m_emplacementActuel.setPourcentageParcouru(0.0f);
+                        m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
+                    }
+                    else{
+                         m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
+                        m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
+                    }
+                    miseAJourEmplacement(tmp);
+                    return true;
                 }
                 else{
                     m_asTerminer = true;

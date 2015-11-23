@@ -37,7 +37,7 @@ public class Simulatheure {
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();   
     
     public Simulatheure() {}  
-    public void recommancerSimulation() {
+    public void arreterSimulation() {
         for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator() ;arrets.hasNext() ; ){
             Arret arret = arrets.next();
             arret.viderFile();
@@ -654,6 +654,35 @@ public class Simulatheure {
     
     public Boolean supprimerSelectionRoutier()
     {
+        for (Arret arr : m_reseauTransport.getListArrets())
+        {
+            if (arr.getEmplacement().estSurTroncon()){
+                Troncon trc_arr = arr.getEmplacement().getTroncon();
+                if (trc_arr.estSelectionne() || trc_arr.getDestination().estSelectionne()
+                        || trc_arr.getOrigine().estSelectionne()) {
+                    return false;
+                }
+            }
+            else{
+                if (arr.getEmplacement().getIntersection().estSelectionne())
+                    return false;
+            }
+        }
+        for (Circuit circ : m_reseauTransport.getListeCircuits())
+        {
+            for (PaireArretTrajet pat : circ.getListeArretTrajet()) {
+                Trajet traj = pat.getTrajet();
+                if (traj != null) {
+                    for (Troncon trc : traj.getListeTroncons()){
+                        if (trc.estSelectionne() || trc.getOrigine().estSelectionne() 
+                                || trc.getDestination().estSelectionne()){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
         Boolean supprimee = m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
         return supprimee;

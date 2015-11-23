@@ -673,7 +673,179 @@ public class MainWindow extends javax.swing.JFrame {
                 comboBoxCircuitsActionPerformed(evt);
             }
         });
-        boutonsSelectionTransport.add(comboBoxCircuits);
+        boutonsSelectionTransport.add(selectionCircuit);
+
+        boutonsRoutier.setAlignmentX(1.0F);
+        boutonsRoutier.setAlignmentY(1.0F);
+        boutonsRoutier.setOpaque(false);
+        boutonsRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionRoutier.setText("Sélectionner");
+        selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(selectionRoutier);
+
+        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutIntersection.setText("Intersection");
+        ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutIntersectionActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(ajoutIntersection);
+
+        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        constructionTroncon.setText("Tronçon");
+        constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                constructionTronconActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(constructionTroncon);
+
+        editerRoutier.setText("Éditer sélection");
+        editerRoutier.setToolTipText("");
+        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(editerRoutier);
+
+        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        suppressionRoutier.setText("Supprimer");
+        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(suppressionRoutier);
+
+        boutonsTransport.setAlignmentX(1.0F);
+        boutonsTransport.setAlignmentY(1.0F);
+        boutonsTransport.setOpaque(false);
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(140, 160));
+        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionTransport.setText("Sélectionner");
+        selectionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(selectionTransport);
+
+        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutSource.setText("Source");
+        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutSourceActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutSource);
+
+        ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutArret.setText("Arrêt");
+        ajoutArret.setToolTipText("");
+        ajoutArret.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutArretActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutArret);
+
+        ajoutCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutCircuit.setText("Circuit");
+        ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutCircuitActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(ajoutCircuit);
+
+        editerCircuit.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        editerCircuit.setText("Allonger Circuit");
+        editerCircuit.setToolTipText("");
+        editerCircuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerCircuitActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(editerCircuit);
+
+        editerTransport.setText("Éditer sélection");
+        editerTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(editerTransport);
+
+        suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        suppressionTransport.setText("Supprimer");
+        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(suppressionTransport);
+
+        boutonsSimulation.setAlignmentX(1.0F);
+        boutonsSimulation.setAlignmentY(1.0F);
+        boutonsSimulation.setMinimumSize(new java.awt.Dimension(140, 221));
+        boutonsSimulation.setOpaque(false);
+        boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
+        boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        recommancerSimulation.setText("Recommencer");
+        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recommancerSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(recommancerSimulation);
+
+        playPauseSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        playPauseSimulation.setText("Lancer!");
+        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playPauseSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(playPauseSimulation);
+
+        avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        avancerSimulation.setText("Avancer X 2");
+        avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                avancerSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(avancerSimulation);
+
+        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ralentirSimulation.setText("Ralentir / 2");
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
+
+        jLabel1.setText("Temps écoulé :");
+        boutonsSimulation.add(jLabel1);
+        boutonsSimulation.add(time);
+
+        jLabel2.setText("Facteur multiplicatif :");
+        boutonsSimulation.add(jLabel2);
+        boutonsSimulation.add(facteurMultiplicatif);
 
         boutonsSelectionSimulation.setAlignmentX(1.0F);
         boutonsSelectionSimulation.setAlignmentY(1.0F);
@@ -834,45 +1006,34 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
+
         this.setMode(Modes.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
-        EditerSimulation fenetre = new EditerSimulation();
-        {
-            fenetre.setMainWindow(m_this);
-            fenetre.setResizable(false);
-            fenetre.setLocationRelativeTo(null); //pour centrer
-            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            fenetre.setVisible(true);
-            this.setEnabled(false);
-
-        }
+        
     }//GEN-LAST:event_simulationActionPerformed
-    private void recommancerSimulation() {
-        m_controleur.recommancerSimulation();
-        alalEditSimulation();
-        lancerSimulation();
-        m_crono.pause();
+    private void recommancerSimulation(){
+        arreterSimulation();
+       playPauseSimulation.doClick();
     }
-
-    private void arreterSimulation() {
-        m_crono.pause();
+    private void arreterSimulation(){
         m_timer.stop();
+        m_crono.pause();
+        m_simulationEstLancer = false;
+        m_controleur.arreterSimulation();
     }
-
-    private void alalEditSimulation() {
-        EditerSimulation fenetre = new EditerSimulation();
-        {
-            fenetre.setMainWindow(m_this);
-            fenetre.setResizable(false);
-            fenetre.setLocationRelativeTo(null); //pour centrer
-            fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            fenetre.setVisible(true);
-            this.setEnabled(false);
-        }
-    }
-
-    private void lancerSimulation() {
+    private void alalEditSimulation(){
+        EditerSimulation fenetre= new EditerSimulation();{
+        fenetre.setMainWindow(m_this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+       // fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        this.setEnabled(false);
+}
+}
+    public void lancerSimulation(){
+        m_simulationEstLancer = true;
         boutonsSimulation.setVisible(true);
         m_timer = new Timer(0, new MyTimerActionListener());
         m_crono = new Chronometre();
@@ -1226,7 +1387,10 @@ public class MainWindow extends javax.swing.JFrame {
         boolean intersectionSupprimee = false;
         switch (m_commande_courante) {
             case SELECTIONNER:
-                intersectionSupprimee = m_controleur.supprimerSelectionRoutier();
+                suppressionOK = m_controleur.supprimerSelectionRoutier();
+                if (!suppressionOK){
+                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
 
             default:
@@ -1449,13 +1613,17 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
     private void playPauseSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseSimulationActionPerformed
-        if (!m_simulationEstLancer) {
-            lancerSimulation();
-            m_simulationEstLancer = true;
-        } else if (m_crono.estEnPause()) {
+        if(!m_simulationEstLancer ){
+            alalEditSimulation();
+            playPauseSimulation.setText("Pause");
+        }
+        else if (m_crono.estEnPause()){
             m_crono.start();
-        } else {
+            playPauseSimulation.setText("Pause");
+        }
+        else{
             m_crono.pause();
+            playPauseSimulation.setText("Relancer!");
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
 
@@ -1527,6 +1695,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
+        playPauseSimulation.setText("Lancer!");
         recommancerSimulation();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
 
