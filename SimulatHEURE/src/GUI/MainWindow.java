@@ -200,6 +200,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation = new javax.swing.JPanel();
         recommancerSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
+        arreterSimulation = new javax.swing.JButton();
         avancerSimulation = new javax.swing.JButton();
         ralentirSimulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -608,6 +609,15 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(playPauseSimulation);
 
+        arreterSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        arreterSimulation.setText("Arreter");
+        arreterSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arreterSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(arreterSimulation);
+
         avancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         avancerSimulation.setText("Avancer X 2");
         avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
@@ -762,7 +772,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(322, Short.MAX_VALUE)
+                .addContainerGap(681, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -773,8 +783,8 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(162, Short.MAX_VALUE)))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(481, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
@@ -861,8 +871,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
-
-        this.setMode(Modes.SIMULATION);
+         this.setMode(Modes.SIMULATION);
+        routier.setEnabled(false);
+        transport.setEnabled(false);
+        besoins.setEnabled(false);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);
         
@@ -1554,6 +1566,13 @@ public class MainWindow extends javax.swing.JFrame {
         recommancerSimulation();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
 
+    private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
+       arreterSimulation();
+       routier.setEnabled(true);
+       transport.setEnabled(true);
+       //besoins.setEnabled(true);
+    }//GEN-LAST:event_arreterSimulationActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1704,6 +1723,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutSource;
     private javax.swing.JButton allongerCircuit;
     private javax.swing.JButton annuler;
+    private javax.swing.JButton arreterSimulation;
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
