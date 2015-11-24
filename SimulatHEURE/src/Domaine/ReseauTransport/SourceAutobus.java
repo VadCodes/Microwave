@@ -113,4 +113,12 @@ public class SourceAutobus extends ElementTransport{
     public Temps getTempsAttenteInitial(){
         return m_tempsAttenteinitial;
     }
+    
+    public int getNbBusMax(){
+        return m_capaciteMax;
+    }
+    
+    public void setNbBusMax(int cap){
+        m_capaciteMax = cap;
+    }
 }
