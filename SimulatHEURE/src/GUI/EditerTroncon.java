@@ -28,9 +28,9 @@ public class EditerTroncon extends javax.swing.JFrame {
         m_mainWindow = p_mainWindow;
         m_troncon = trc;
         jTextField1.setText(m_troncon.getNom());
-        jTextField2.setText(String.valueOf(m_troncon.getDistribution().getTempsMin().getTemps()));
-        jTextField3.setText(String.valueOf(m_troncon.getDistribution().getTempsPlusFrequent().getTemps()));
-        jTextField4.setText(String.valueOf(m_troncon.getDistribution().getTempsMax().getTemps()));
+        jTextField2.setText(String.valueOf(m_troncon.getDistribution().getTempsMin().getTemps()/60));
+        jTextField3.setText(String.valueOf(m_troncon.getDistribution().getTempsPlusFrequent().getTemps()/60));
+        jTextField4.setText(String.valueOf(m_troncon.getDistribution().getTempsMax().getTemps()/60));
     }
     
     /**
@@ -197,7 +197,7 @@ public class EditerTroncon extends javax.swing.JFrame {
         }
         
         Distribution dist = new Distribution();
-        dist.setDistribution(new Temps(min), new Temps(freq), new Temps(max));
+        dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         m_troncon.setDistribution(dist);
         
         m_troncon.setNom(jTextField1.getText());

@@ -19,7 +19,7 @@ public class Distribution {
 
     public Distribution()
     {
-        setDistribution(new Temps(5), new Temps(5), new Temps(5));
+        setDistribution(new Temps(5*60), new Temps(5*60), new Temps(5*60));
     }
     
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
