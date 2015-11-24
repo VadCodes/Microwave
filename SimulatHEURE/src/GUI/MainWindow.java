@@ -340,10 +340,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanel5.add(retablir);
 
-        zoomTitre.setText("Zoom :");
+        zoomTitre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        zoomTitre.setText("Zoom : ");
         jPanel5.add(zoomTitre);
 
-        zoom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        zoom.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         zoom.setText("100 %");
         zoom.setRequestFocusEnabled(false);
         jPanel5.add(zoom);

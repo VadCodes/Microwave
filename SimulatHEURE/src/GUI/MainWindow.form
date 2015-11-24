@@ -233,12 +233,13 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="zoomTitre">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Zoom :"/>
+                                <Property name="horizontalAlignment" type="int" value="4"/>
+                                <Property name="text" type="java.lang.String" value="Zoom : "/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="zoom">
                               <Properties>
-                                <Property name="horizontalAlignment" type="int" value="0"/>
+                                <Property name="horizontalAlignment" type="int" value="2"/>
                                 <Property name="text" type="java.lang.String" value="100 %"/>
                                 <Property name="requestFocusEnabled" type="boolean" value="false"/>
                               </Properties>
