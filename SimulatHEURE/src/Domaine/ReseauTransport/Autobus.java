@@ -34,7 +34,7 @@ public class Autobus {
     private PaireArretTrajet m_paireActuelle;
     private boolean m_asTerminer = false;
     private Boolean m_boucle = false;
-    private Boolean m_aChangerTroncon = false;
+   
 
     public final static float LARGEUR = 48;
     public final static float HAUTEUR = 16;
@@ -65,7 +65,6 @@ public class Autobus {
         } else {
             Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
             m_emplacementActuel.setTroncon(troncon);
-            m_aChangerTroncon = true;
             m_emplacementActuel.setPourcentageParcouru(pourcentageInitiale);
             tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
         }
@@ -95,7 +94,6 @@ public class Autobus {
             if (m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel) != null) {
                 Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
                 m_emplacementActuel.setTroncon(troncon);
-                m_aChangerTroncon = true;
                 pourcentage = 0;
                 m_emplacementActuel.setPourcentageParcouru(pourcentage);
             } else {
@@ -108,8 +106,10 @@ public class Autobus {
 
     private boolean changerPaireArretTrajet(double p_pourcentageInitiale, Temps p_deltatT) {
         float pourcentageFinal;
-        if (m_paireActuelle.getTrajet().getListeTroncons().getFirst().equals(m_paireActuelle.getTrajet().getListeTroncons().getLast()) && !m_aChangerTroncon
-                && m_paireActuelle.getTrajet().getListeTroncons().size() > 1) {
+        if ((m_paireActuelle.getTrajet().getListeTroncons().getFirst().equals(m_paireActuelle.getTrajet().getListeTroncons().getLast())
+                && m_paireActuelle.getTrajet().getListeTroncons().size() > 1)
+                && (m_emplacementActuel.getPourcentageParcouru()< m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
+                || m_emplacementActuel.getPourcentageParcouru()>= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
             return false;
         }
         if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
@@ -127,7 +127,6 @@ public class Autobus {
         if (m_emplacementActuel.getPourcentageParcouru() > pourcentageFinal) {
             Emplacement emplacement1 = m_paireActuelle.getTrajet().getEmplacementFinal();
             m_paireActuelle = m_iterateur.next();
-            m_aChangerTroncon = false;
             /*
              * Si le prochain trajet est null ça veut dire que le circuit est terminer et que l'autobus a finis son travail. 
              */
@@ -140,11 +139,9 @@ public class Autobus {
                     if (!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
                         m_emplacementActuel.setPourcentageParcouru(0.0f);
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
-                        m_aChangerTroncon = false;
                     } else {
                         m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
-                        m_aChangerTroncon = false;
                     }
                     miseAJourEmplacement(tmp);
                     return true;
@@ -161,11 +158,9 @@ public class Autobus {
                 if (m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
                     m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                     m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
-                    m_aChangerTroncon = true;
                 } else {
                     m_emplacementActuel.setPourcentageParcouru(0.0f);
                     m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
-                    m_aChangerTroncon = true;
                 }
                 Temps tmp = new Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
                 miseAJourEmplacement(tmp);
