@@ -46,63 +46,62 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);
-/*
-        int x1 = 100;   int y1 = 100;
-        int x2 = 500;   int y2 = 500;
-        int x3 = 300;
-                        int y3 = 200;
-        int x4 = 200;
-        int x5 = 400;
-        int x6 = 278;   int y4 = 437;
-        
-        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtCircuit1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x5, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtCircuit2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x6, y4, 1, false, 1);
-        java.awt.event.MouseEvent evtSource1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y1, 1, false, 1);
-        
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        constructionTroncon.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        transport.doClick();
-        
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtArret2);
-        afficheurReseauMousePressed(evtInter5);
-        
-        ajoutCircuit.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtArret2);
-        afficheurReseauMousePressed(evtTrajet1);
-        
-        allongerCircuit.doClick();
-        afficheurReseauMousePressed(evtInter5);
-        afficheurReseauMousePressed(evtCircuit1);
-        afficheurReseauMousePressed(evtCircuit2);
-        
-        ajoutSource.doClick();
-        afficheurReseauMousePressed(evtSource1);
 
-    this.afficheurReseau.setDimension(true);
-        */
+//        int x1 = 100;   int y1 = 100;
+//        int x2 = 500;   int y2 = 500;
+//        int x3 = 300;
+//                        int y3 = 200;
+//        int x4 = 200;
+//        int x5 = 400;
+//        int x6 = 278;   int y4 = 437;
+//        
+//        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
+//        
+//        java.awt.event.MouseEvent evtCircuit1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x5, y2, 1, false, 1);
+//        java.awt.event.MouseEvent evtCircuit2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x6, y4, 1, false, 1);
+//        java.awt.event.MouseEvent evtSource1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y1, 1, false, 1);
+//        
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        constructionTroncon.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtInter2);
+//        afficheurReseauMousePressed(evtInter3);
+//        afficheurReseauMousePressed(evtInter4);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        transport.doClick();
+//        
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtArret2);
+//        afficheurReseauMousePressed(evtInter5);
+//        
+//        ajoutCircuit.doClick();
+//        afficheurReseauMousePressed(evtInter1);
+//        afficheurReseauMousePressed(evtArret2);
+//        afficheurReseauMousePressed(evtTrajet1);
+//        
+//        allongerCircuit.doClick();
+//        afficheurReseauMousePressed(evtInter5);
+//        afficheurReseauMousePressed(evtCircuit1);
+//        afficheurReseauMousePressed(evtCircuit2);
+//        
+//        ajoutSource.doClick();
+//        afficheurReseauMousePressed(evtSource1);
+//
+//    this.afficheurReseau.setDimension(true);
     }
 
     class MyTimerActionListener implements ActionListener {
@@ -138,10 +137,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
 
         }
-    }
-    private void etatBoutonsRoutier(){
-        selectionRoutier.isSelected();
-        selectionRoutier.setSelected(true);
     }
 
     /**
@@ -592,7 +587,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         recommancerSimulation.setText("Recommencer");
         recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -730,7 +724,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionSimulation.add(comboBoxAutobus);
 
-        jLabel11.setText("Pietons");
+        jLabel11.setText("Piétons :");
         boutonsSelectionSimulation.add(jLabel11);
 
         comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -1033,7 +1027,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
         miseAJourPermissionsBoutons();
-        etatBoutonsRoutier();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
@@ -1574,6 +1567,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_recommancerSimulationActionPerformed
 
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
+       playPauseSimulation.setText("Lancer!");
        arreterSimulation();
        routier.setEnabled(true);
        transport.setEnabled(true);
