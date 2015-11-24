@@ -195,45 +195,62 @@ public class Autobus {
         for (ListIterator<PaireArretTrajet> paires = listeArretTrajet.listIterator(); paires.hasNext();) {
             m_paireActuelle = paires.next();
             m_iterateur.next();
-            for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
-                        Troncon troncon = troncons.next();
-                        if (m_emplacementActuel.estSurTroncon()) {
-                            if (troncon.equals(m_emplacementActuel.getTroncon())) {
-                                    return;
-                            }
-                        } else {
-                            //TODO source sur intersectio
-                        }
-            }
-            /*
-            boolean debutGood = true;
-            boolean finGood = true;
-            boolean a = m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon().equals(m_emplacementActuel.getTroncon());
-            boolean b = m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon().equals(m_emplacementActuel.getTroncon());
-            if (m_paireActuelle.getTrajet() != null) {
-                if (m_paireActuelle.getTrajet().getListeTroncons().size() ==1){
-                    if(a && b){
-                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()&&
-                                (m_emplacementActuel.getPourcentageParcouru() > m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())){
-                           return;
-                        }
-                    }
-                
-                }else{
+            if (m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
+                boolean a = m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon().equals(m_emplacementActuel.getTroncon());
+                boolean b = m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon().equals(m_emplacementActuel.getTroncon());
+                if (!a && !b) {
                     for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
                         Troncon troncon = troncons.next();
                         if (m_emplacementActuel.estSurTroncon()) {
                             if (troncon.equals(m_emplacementActuel.getTroncon())) {
-                                if(debutGood && finGood){
-                                    return;
-                                }
+                                return;
                             }
                         } else {
                             //TODO source sur intersectio
                         }
-            /*/
+                    }
+                } else if (a && b) {
+                    if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
+                            && (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
+                        if (m_paireActuelle.getTrajet().getListeTroncons().size() == 1) {
+                            return;
+                        }
+                    }
+                    if (a) {
+                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
+                            return;
+                        }
+                    }
+                    if (b) {
+                        if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
+                            return;
+                        }
+                    }
+                } else if (a) {
+                    if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
+                        return;
+                    }
+                } else if (b) {
+                    if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
+                        return;
+                    }
+                }
+            } else {
+                for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+                    Troncon troncon = troncons.next();
+                    if (m_emplacementActuel.estSurTroncon()) {
+                        if (troncon.equals(m_emplacementActuel.getTroncon())) {
+                            return;
+                        }
+                    } else {
+                        //TODO source sur intersectio
+                    }
+                }
+            }
         }
     }
+
+    
 
     public Emplacement getEmplacement() {
         return m_emplacementActuel;
