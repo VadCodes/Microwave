@@ -445,7 +445,7 @@ public class Simulatheure {
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
             Boolean premier = true;
             for(PaireArretTrajet pat : circuit.getListeArretTrajet()){
-                if (premier){
+                if (pat.getArret() == nouvArret && premier){
                     circuit.setBoucle(true);
                     premier = false;
                 }
