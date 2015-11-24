@@ -90,6 +90,9 @@ public class SourceAutobus extends ElementTransport{
     public void setNbMaxAutobus(int p_max){
         m_nbMaxAutobus = p_max;
     }
+    public int getNbMaxAutobus(){
+        return m_nbMaxAutobus;
+    }
     public void setNom(String nom){
         m_nomSource = nom;
     }
@@ -115,13 +118,5 @@ public class SourceAutobus extends ElementTransport{
     
     public Temps getTempsAttenteInitial(){
         return m_tempsAttenteinitial;
-    }
-    
-    public int getNbBusMax(){
-        return m_capaciteMax;
-    }
-    
-    public void setNbBusMax(int cap){
-        m_capaciteMax = cap;
     }
 }

@@ -32,7 +32,14 @@ public class EditerSource extends javax.swing.JFrame {
         jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()/60));
         jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()/60));
         jTextField5.setText(String.valueOf(m_source.getTempsAttenteInitial().getTemps()/60));
-        jTextField6.setText(String.valueOf(m_source.getNbAutobus()));
+        int nbMaxBus = m_source.getNbMaxAutobus();
+        if (nbMaxBus == Integer.MAX_VALUE){
+            jTextField6.setText("Infini");
+        }
+        else{
+            jTextField6.setText(String.valueOf(m_source.getNbMaxAutobus()));
+        }
+        
     }
     
     /**
@@ -214,7 +221,19 @@ public class EditerSource extends javax.swing.JFrame {
             freq = Double.parseDouble(jTextField3.getText());
             max = Double.parseDouble(jTextField4.getText());
             delai = Double.parseDouble(jTextField5.getText());
-            nbBus = Integer.parseInt(jTextField6.getText());
+            if (jTextField6.getText().toLowerCase().equals("infini")) {
+                nbBus = Integer.MAX_VALUE;
+            }
+            else{
+                try{
+                    nbBus = Integer.parseInt(jTextField6.getText());
+                }
+                catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "La champ Nombre de bus max doit contenir un entier ou le mot Infini. ", "Champs invalides", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+                
         }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
@@ -233,7 +252,7 @@ public class EditerSource extends javax.swing.JFrame {
         dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         m_source.setDistribution(dist);
         m_source.setTempsAttenteInitial(new Temps(delai*60));
-        m_source.setCapaciteMax(nbBus);
+        m_source.setNbMaxAutobus(nbBus);
         
         m_source.setNom(jTextField1.getText());
         m_mainWindow.miseAjourComboBoxTotal();
