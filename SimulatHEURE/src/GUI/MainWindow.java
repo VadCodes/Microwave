@@ -591,7 +591,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
         boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
 
-        recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         recommancerSimulation.setText("Recommencer");
         recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -729,7 +728,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionSimulation.add(comboBoxAutobus);
 
-        jLabel11.setText("Pietons");
+        jLabel11.setText("Piétons :");
         boutonsSelectionSimulation.add(jLabel11);
 
         comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
@@ -1573,6 +1572,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_recommancerSimulationActionPerformed
 
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
+       playPauseSimulation.setText("Lancer!");
        arreterSimulation();
        routier.setEnabled(true);
        transport.setEnabled(true);
