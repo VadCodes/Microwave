@@ -434,6 +434,8 @@ public class Simulatheure {
         
         if (m_modeNouvelArret){
 
+            if (circuit.getBoucle()) return;
+            
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
             if (nouvET == null || nouvET.getClass() != Arret.class){
                 return;
