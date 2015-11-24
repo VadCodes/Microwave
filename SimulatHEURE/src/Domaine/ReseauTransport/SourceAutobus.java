@@ -15,6 +15,7 @@ import Domaine.Utilitaire.Temps;
  * @author louis
  */
 public class SourceAutobus extends ElementTransport{
+    private int m_nbMaxAutobus = Integer.MAX_VALUE;
     private String m_nomSource;
     private int m_nbAutobusGeneres = 0;
     private Circuit m_circuit;
@@ -44,7 +45,7 @@ public class SourceAutobus extends ElementTransport{
     }
     public void genererAutobus(Temps p_deltatT){
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
-        while(m_tempsAvantApparition.getTemps() <= 0){
+        while(m_tempsAvantApparition.getTemps() <= 0 && (m_nbMaxAutobus > m_nbAutobusGeneres )){
             miseAjourAvantAjout();
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             String ID = genererBusID();
@@ -86,7 +87,9 @@ public class SourceAutobus extends ElementTransport{
     public Emplacement getEmplacement(){
         return m_emplacement ;
     }
-    
+    public void setNbMaxAutobus(int p_max){
+        m_nbMaxAutobus = p_max;
+    }
     public void setNom(String nom){
         m_nomSource = nom;
     }
