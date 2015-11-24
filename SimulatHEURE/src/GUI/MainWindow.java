@@ -47,62 +47,6 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         this.afficheurReseau.setDimension(false);
-
-        int x1 = 100;   int y1 = 100;
-        int x2 = 500;   int y2 = 500;
-        int x3 = 300;
-                        int y3 = 200;
-        int x4 = 200;
-        int x5 = 400;
-        int x6 = 278;   int y4 = 437;
-        
-        java.awt.event.MouseEvent evtInter1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x1, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y1, 1, false, 1);
-        java.awt.event.MouseEvent evtInter3 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter4 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtInter5 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y3, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtArret2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x2, y3, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtTrajet1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x3, y1, 1, false, 1);
-        
-        java.awt.event.MouseEvent evtCircuit1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x5, y2, 1, false, 1);
-        java.awt.event.MouseEvent evtCircuit2 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x6, y4, 1, false, 1);
-        java.awt.event.MouseEvent evtSource1 = new java.awt.event.MouseEvent(defilementAfficheur, 0, 0, 0, x4, y1, 1, false, 1);
-        
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        constructionTroncon.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtInter2);
-        afficheurReseauMousePressed(evtInter3);
-        afficheurReseauMousePressed(evtInter4);
-        afficheurReseauMousePressed(evtInter5);
-        
-        transport.doClick();
-        
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtArret2);
-        afficheurReseauMousePressed(evtInter5);
-        
-        ajoutCircuit.doClick();
-        afficheurReseauMousePressed(evtInter1);
-        afficheurReseauMousePressed(evtArret2);
-        afficheurReseauMousePressed(evtTrajet1);
-        
-        allongerCircuit.doClick();
-        afficheurReseauMousePressed(evtInter5);
-        afficheurReseauMousePressed(evtCircuit1);
-        afficheurReseauMousePressed(evtCircuit2);
-        
-        ajoutSource.doClick();
-        afficheurReseauMousePressed(evtSource1);
-
-        this.afficheurReseau.setDimension(true);
     }
 
     class MyTimerActionListener implements ActionListener {
@@ -123,10 +67,7 @@ public class MainWindow extends javax.swing.JFrame {
                 String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
                  time.setText(itemDateStr);
             }
-            // System.out.println(deltatT);
             m_controleur.rafraichirSimulation(new Temps(deltatT));
-                    
-            // miseAjourSelectionAutobusAjout();
             facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
             if (deltatT != 0) {
                 miseAjoutAutobusComboBox();
@@ -917,7 +858,6 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante) {
                         case SELECTIONNER:
                             if (evt.isControlDown()) {
-                                //System.out.println("Pressed");
                                 ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
                             } else {
                                 ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
@@ -1165,7 +1105,6 @@ public class MainWindow extends javax.swing.JFrame {
                 Autobus autobus = autobuss.next();
                 boolean add = true;
                 String name = autobus.getID();
-                //System.out.println(name);
                 for (int i = 0; i < comboBoxAutobus.getItemCount(); i++) {
                     String tmp = comboBoxAutobus.getItemAt(i);
                     if (tmp == name) {
@@ -1186,7 +1125,6 @@ public class MainWindow extends javax.swing.JFrame {
                 Troncon troncon = troncons.next();
                 boolean add = true;
                 String name = troncon.getNom();
-                //System.out.println(name);
                 for (int i = 0; i < comboBoxTroncons.getItemCount(); i++) {
                     String tmp = comboBoxTroncons.getItemAt(i);
                     if (tmp == name) {
