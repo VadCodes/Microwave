@@ -28,10 +28,10 @@ public class EditerSource extends javax.swing.JFrame {
         m_mainWindow = p_mainWindow;
         m_source = src;
         jTextField1.setText(m_source.getNom());
-        jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()));
-        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()));
-        jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()));
-        jTextField5.setText(String.valueOf(m_source.getTempsAttenteInitial().getTemps()));
+        jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()/60));
+        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()/60));
+        jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()/60));
+        jTextField5.setText(String.valueOf(m_source.getTempsAttenteInitial().getTemps()/60));
     }
     
     /**
@@ -215,9 +215,9 @@ public class EditerSource extends javax.swing.JFrame {
         }
         
         Distribution dist = new Distribution();
-        dist.setDistribution(new Temps(min), new Temps(freq), new Temps(max));
+        dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         m_source.setDistribution(dist);
-        m_source.setTempsAttenteInitial(new Temps(delai));
+        m_source.setTempsAttenteInitial(new Temps(delai*60));
         
         m_source.setNom(jTextField1.getText());
         m_mainWindow.miseAjourComboBoxTotal();

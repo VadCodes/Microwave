@@ -639,7 +639,7 @@ public class Simulatheure {
                                 
                                 Emplacement emplacement = new Emplacement(true, pourcentage,troncon,troncon.getOrigine());
                                 Distribution distributionDefault = new Distribution();
-                                distributionDefault.setDistribution(new Temps(15), new Temps(15), new Temps(15));
+                                distributionDefault.setDistribution(new Temps(15*60), new Temps(15*60), new Temps(15*60));
                                 m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                                 return;
                             }
