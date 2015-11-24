@@ -177,22 +177,27 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         coordonnees = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
         ajoutIntersection = new javax.swing.JToggleButton();
         constructionTroncon = new javax.swing.JToggleButton();
-        editerRoutier = new javax.swing.JToggleButton();
         suppressionRoutier = new javax.swing.JButton();
+        editerRoutier = new javax.swing.JToggleButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
-        ajoutSource = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
         allongerCircuit = new javax.swing.JButton();
-        editerTransport = new javax.swing.JToggleButton();
+        ajoutSource = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
+        editerTransport = new javax.swing.JToggleButton();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
         recommancerSimulation = new javax.swing.JButton();
         arreterSimulation = new javax.swing.JButton();
@@ -220,6 +225,7 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
+        jPanel11 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -417,11 +423,11 @@ public class MainWindow extends javax.swing.JFrame {
         afficheurCommandes.setLayout(afficheurCommandesLayout);
         afficheurCommandesLayout.setHorizontalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1315, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
         );
         afficheurCommandesLayout.setVerticalGroup(
             afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -438,22 +444,18 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel6.add(jPanel9, java.awt.BorderLayout.CENTER);
 
-        jPanel10.setPreferredSize(new java.awt.Dimension(130, 4100));
+        jPanel10.setPreferredSize(new java.awt.Dimension(130, 900));
         jPanel10.setLayout(new java.awt.BorderLayout());
 
-        jPanel11.setPreferredSize(new java.awt.Dimension(20, 20));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-        jPanel10.add(jPanel11, java.awt.BorderLayout.SOUTH);
-
-        jPanel7.setPreferredSize(new java.awt.Dimension(130, 1000));
+        jPanel7.setPreferredSize(new java.awt.Dimension(130, 900));
         jPanel7.setRequestFocusEnabled(false);
         jPanel7.setVerifyInputWhenFocusTarget(false);
 
         boutonsRoutier.setAlignmentX(1.0F);
         boutonsRoutier.setAlignmentY(1.0F);
         boutonsRoutier.setOpaque(false);
-        boutonsRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
-        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+        boutonsRoutier.setPreferredSize(new java.awt.Dimension(116, 360));
+        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
         selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionRoutier.setText("Sélectionner");
@@ -484,16 +486,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
-        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerRoutier.setText("Éditer sélection");
-        editerRoutier.setToolTipText("");
-        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(editerRoutier);
-
         suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionRoutier.setText("Supprimer");
         suppressionRoutier.setEnabled(false);
@@ -504,11 +496,34 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(suppressionRoutier);
 
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        editerRoutier.setText("Éditer sélection");
+        editerRoutier.setToolTipText("");
+        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(editerRoutier);
+
+        jSeparator1.setEnabled(false);
+        boutonsRoutier.add(jSeparator1);
+
+        jSeparator2.setEnabled(false);
+        boutonsRoutier.add(jSeparator2);
+
+        jSeparator3.setEnabled(false);
+        boutonsRoutier.add(jSeparator3);
+
+        jSeparator4.setEnabled(false);
+        boutonsRoutier.add(jSeparator4);
+
         boutonsTransport.setAlignmentX(1.0F);
         boutonsTransport.setAlignmentY(1.0F);
+        boutonsTransport.setMinimumSize(new java.awt.Dimension(116, 360));
         boutonsTransport.setOpaque(false);
-        boutonsTransport.setPreferredSize(new java.awt.Dimension(140, 160));
-        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+        boutonsTransport.setPreferredSize(new java.awt.Dimension(116, 360));
+        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionTransport.setText("Sélectionner");
@@ -519,16 +534,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsTransport.add(selectionTransport);
-
-        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ajoutSource.setText("Source");
-        ajoutSource.setEnabled(false);
-        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutSourceActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(ajoutSource);
 
         ajoutArret.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ajoutArret.setText("Arrêt");
@@ -561,14 +566,15 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(allongerCircuit);
 
-        editerTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        editerTransport.setText("Éditer sélection");
-        editerTransport.addActionListener(new java.awt.event.ActionListener() {
+        ajoutSource.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutSource.setText("Source");
+        ajoutSource.setEnabled(false);
+        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerTransportActionPerformed(evt);
+                ajoutSourceActionPerformed(evt);
             }
         });
-        boutonsTransport.add(editerTransport);
+        boutonsTransport.add(ajoutSource);
 
         suppressionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         suppressionTransport.setText("Supprimer");
@@ -580,12 +586,27 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(suppressionTransport);
 
+        editerTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        editerTransport.setText("Éditer sélection");
+        editerTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(editerTransport);
+
+        jSeparator5.setEnabled(false);
+        boutonsTransport.add(jSeparator5);
+
+        jSeparator6.setEnabled(false);
+        boutonsTransport.add(jSeparator6);
+
         boutonsSimulation.setAlignmentX(1.0F);
         boutonsSimulation.setAlignmentY(1.0F);
-        boutonsSimulation.setMinimumSize(new java.awt.Dimension(140, 221));
+        boutonsSimulation.setMinimumSize(new java.awt.Dimension(116, 360));
         boutonsSimulation.setOpaque(false);
-        boutonsSimulation.setPreferredSize(new java.awt.Dimension(110, 160));
-        boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+        boutonsSimulation.setPreferredSize(new java.awt.Dimension(116, 360));
+        boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
         recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         recommancerSimulation.setText("Recommencer");
@@ -636,10 +657,12 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(ralentirSimulation);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Heure :");
         boutonsSimulation.add(jLabel1);
         boutonsSimulation.add(time);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Facteur multiplicatif :");
         boutonsSimulation.add(jLabel2);
         boutonsSimulation.add(facteurMultiplicatif);
@@ -741,68 +764,72 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
+                    .addContainerGap()
                     .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(20, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(681, Short.MAX_VALUE)
+                .addContainerGap(422, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(601, Short.MAX_VALUE)
+                    .addContainerGap(342, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(481, Short.MAX_VALUE)))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(222, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(641, Short.MAX_VALUE)))
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(222, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(561, Short.MAX_VALUE)))
+                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(222, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(671, Short.MAX_VALUE)
+                    .addContainerGap(413, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(22, 22, 22)))
         );
 
         jPanel10.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(20, 20));
+        jPanel11.setLayout(new java.awt.BorderLayout());
+        jPanel10.add(jPanel11, java.awt.BorderLayout.SOUTH);
 
         jPanel6.add(jPanel10, java.awt.BorderLayout.EAST);
 
@@ -814,11 +841,11 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1595, Short.MAX_VALUE)
+            .addGap(0, 961, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 873, Short.MAX_VALUE)
+            .addGap(0, 615, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -1064,7 +1091,7 @@ public class MainWindow extends javax.swing.JFrame {
             Circuit circuit = circuits.next();
             String name = circuit.getNom();
             for (int i = 0; i < comboBoxCircuits.getItemCount(); i++) {
-                String tmp = (String) comboBoxCircuits.getItemAt(i);
+                String tmp = comboBoxCircuits.getItemAt(i);
                 if (tmp == name) {
                     add = false;
                 }
@@ -1084,7 +1111,7 @@ public class MainWindow extends javax.swing.JFrame {
 
                 String name = source.getNom();
                 for (int i = 0; i < comboBoxSources.getItemCount(); i++) {
-                    String tmp = (String) comboBoxSources.getItemAt(i);
+                    String tmp = comboBoxSources.getItemAt(i);
                     if (tmp.equals(name)) {
                         add = false;
                     }
@@ -1102,7 +1129,7 @@ public class MainWindow extends javax.swing.JFrame {
             boolean add = true;
             String name = arret.getNom();
             for (int i = 0; i < comboBoxArrets.getItemCount(); i++) {
-                String tmp = (String) comboBoxArrets.getItemAt(i);
+                String tmp = comboBoxArrets.getItemAt(i);
                 if (tmp.equals(name)) {
                     add = false;
                 }
@@ -1119,7 +1146,7 @@ public class MainWindow extends javax.swing.JFrame {
             boolean add = true;
             String name = intersection.getName();
             for (int i = 0; i < comboBoxIntersections.getItemCount(); i++) {
-                String tmp = (String) comboBoxIntersections.getItemAt(i);
+                String tmp = comboBoxIntersections.getItemAt(i);
                 if (tmp == name) {
                     add = false;
                 }
@@ -1139,7 +1166,7 @@ public class MainWindow extends javax.swing.JFrame {
                 String name = autobus.getID();
                 //System.out.println(name);
                 for (int i = 0; i < comboBoxAutobus.getItemCount(); i++) {
-                    String tmp = (String) comboBoxAutobus.getItemAt(i);
+                    String tmp = comboBoxAutobus.getItemAt(i);
                     if (tmp == name) {
                         add = false;
                     }
@@ -1160,7 +1187,7 @@ public class MainWindow extends javax.swing.JFrame {
                 String name = troncon.getNom();
                 //System.out.println(name);
                 for (int i = 0; i < comboBoxTroncons.getItemCount(); i++) {
-                    String tmp = (String) comboBoxTroncons.getItemAt(i);
+                    String tmp = comboBoxTroncons.getItemAt(i);
                     if (tmp == name) {
                         add = false;
                     }
@@ -1394,7 +1421,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxCircuits.getSelectedIndex();
-        String name = (String) comboBoxCircuits.getItemAt(index);
+        String name = comboBoxCircuits.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
@@ -1415,7 +1442,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxIntersections.getSelectedIndex();
-        String name = (String) comboBoxIntersections.getItemAt(index);
+        String name = comboBoxIntersections.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
             Intersection intersection = intersections.next();
@@ -1438,7 +1465,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxTroncons.getSelectedIndex();
-        String name = (String) comboBoxTroncons.getItemAt(index);
+        String name = comboBoxTroncons.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
             Intersection intersection = intersections.next();
@@ -1529,7 +1556,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxSources.getSelectedIndex();
-        String name = (String) comboBoxSources.getItemAt(index);
+        String name = comboBoxSources.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
@@ -1547,7 +1574,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
         int index = comboBoxArrets.getSelectedIndex();
-        String name = (String) comboBoxArrets.getItemAt(index);
+        String name = comboBoxArrets.getItemAt(index);
         m_controleur.deselectionnerTout();
         for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
@@ -1800,6 +1827,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
