@@ -18,12 +18,12 @@ import java.util.LinkedList;
 import Domaine.ReseauRoutier.Troncon;
 
 public class Autobus {
-   
+
     /*la source a un attribut mutable capaciteMax defaut a 50
      *elle cree tous ces autobus avec cette capacite et on ne 
      *peut plus la changer pour l'autobus
      */
-     private Emplacement m_emplacementActuel;
+    private Emplacement m_emplacementActuel;
     private final int m_capaciteMax;
     private int m_nbPassagers = 0;
     private String m_id;
@@ -35,40 +35,41 @@ public class Autobus {
     private boolean m_asTerminer = false;
     private Boolean m_boucle = false;
     private Boolean m_aChangerTroncon = false;
-    
+
     public final static float LARGEUR = 48;
     public final static float HAUTEUR = 16;
-    
+
     public Autobus(Emplacement emplacementActuel, int capaciteMax, String id,
-                    Temps tempsApparition, Boolean estSurArret){
-        
+            Temps tempsApparition, Boolean estSurArret) {
+
         m_emplacementActuel = emplacementActuel;
-        m_capaciteMax = capaciteMax; 
+        m_capaciteMax = capaciteMax;
         m_id = id;
         m_tempsApparition = tempsApparition;
         m_estSurArret = estSurArret;
     }
-    public boolean asTerminer(){
+
+    public boolean asTerminer() {
         return m_asTerminer;
     }
-    public void miseAJourEmplacement(Temps deltatT){
+
+    public void miseAJourEmplacement(Temps deltatT) {
         /*
          * On calcul l'avancement en pourcentage sur un troncon.
          */
         float pourcentageInitiale = 0;
         Temps tempsTransit;
-        if(m_emplacementActuel.estSurTroncon()){
-             tempsTransit= m_emplacementActuel.getTroncon().getTempsTransitAutobus();
-             pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
-        }
-        else{
+        if (m_emplacementActuel.estSurTroncon()) {
+            tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
+            pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
+        } else {
             Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
             m_emplacementActuel.setTroncon(troncon);
             m_aChangerTroncon = true;
             m_emplacementActuel.setPourcentageParcouru(pourcentageInitiale);
-            tempsTransit= m_emplacementActuel.getTroncon().getTempsTransitAutobus();
+            tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
         }
-        float pourcentage = (float)(pourcentageInitiale  + deltatT.getTemps()/tempsTransit.getTemps());
+        float pourcentage = (float) (pourcentageInitiale + deltatT.getTemps() / tempsTransit.getTemps());
         m_emplacementActuel.setPourcentageParcouru(pourcentage);
         /*
          * Si l'autobus est sur le troncon final du trajet 
@@ -78,166 +79,187 @@ public class Autobus {
          */
         boolean changementiterator = false;
         boolean changementPaireArretTrajetAVerifier;
-        if(!m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
+        if (!m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
             changementPaireArretTrajetAVerifier = m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection());
+        } else {
+            changementPaireArretTrajetAVerifier = m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon());
         }
-        else{
-             changementPaireArretTrajetAVerifier = m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon());
-        }
-        if(changementPaireArretTrajetAVerifier){
+        if (changementPaireArretTrajetAVerifier) {
             changementiterator = changerPaireArretTrajet(pourcentageInitiale, deltatT);
         }
-        
-        if(pourcentage > 1 && !changementiterator){
+
+        if (pourcentage > 1 && !changementiterator) {
             pourcentage = 1;
             m_emplacementActuel.setPourcentageParcouru(pourcentage);
-            float tempsParcourirResteTroncon = (float)((1 - pourcentageInitiale)*tempsTransit.getTemps());
-            if(m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel) != null){
+            float tempsParcourirResteTroncon = (float) ((1 - pourcentageInitiale) * tempsTransit.getTemps());
+            if (m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel) != null) {
                 Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
                 m_emplacementActuel.setTroncon(troncon);
                 m_aChangerTroncon = true;
                 pourcentage = 0;
                 m_emplacementActuel.setPourcentageParcouru(pourcentage);
-            }
-            else{
+            } else {
 
             }
             Temps tmp = new Temps(deltatT.getTemps() - tempsParcourirResteTroncon);
             miseAJourEmplacement(tmp);
         }
     }
-     
-    private boolean changerPaireArretTrajet(double p_pourcentageInitiale, Temps p_deltatT){
+
+    private boolean changerPaireArretTrajet(double p_pourcentageInitiale, Temps p_deltatT) {
         float pourcentageFinal;
-            if(m_paireActuelle.getTrajet().getListeTroncons().getFirst().equals(m_paireActuelle.getTrajet().getListeTroncons().getLast()) && !m_aChangerTroncon){
+        if (m_paireActuelle.getTrajet().getListeTroncons().getFirst().equals(m_paireActuelle.getTrajet().getListeTroncons().getLast()) && !m_aChangerTroncon
+                && m_paireActuelle.getTrajet().getListeTroncons().size() > 1) {
+            return false;
+        }
+        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
+            pourcentageFinal = m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
+        } else {
+            if (m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
+                pourcentageFinal = 1;
+            } else {
                 return false;
             }
-        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
-             pourcentageFinal= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
         }
-         else{
-            if(m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())){
-              pourcentageFinal = 1;
-            }
-            else return false;
-        }     
         /*
          * Si le pourcentage parcouru est plus grand on change l'itérateur.
          */
-        if(m_emplacementActuel.getPourcentageParcouru() > pourcentageFinal){
+        if (m_emplacementActuel.getPourcentageParcouru() > pourcentageFinal) {
             Emplacement emplacement1 = m_paireActuelle.getTrajet().getEmplacementFinal();
             m_paireActuelle = m_iterateur.next();
             m_aChangerTroncon = false;
             /*
              * Si le prochain trajet est null ça veut dire que le circuit est terminer et que l'autobus a finis son travail. 
              */
-            if(m_paireActuelle.getTrajet() == null){
-                if(this.getBoucle()){
+            if (m_paireActuelle.getTrajet() == null) {
+                if (this.getBoucle()) {
                     m_iterateur = m_list.listIterator();
                     m_paireActuelle = m_iterateur.next();
-                    //m_aChangerTroncon = false;
-                    float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
-                     Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
-                    if(!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()){
+                    float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                    Temps tmp = new Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
+                    if (!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
                         m_emplacementActuel.setPourcentageParcouru(0.0f);
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
-                        m_aChangerTroncon = true;
-                    }
-                    else{
-                         m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
+                        m_aChangerTroncon = false;
+                    } else {
+                        m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
-                        m_aChangerTroncon = true;
+                        m_aChangerTroncon = false;
                     }
                     miseAJourEmplacement(tmp);
                     return true;
-                }
-                else{
+                } else {
                     m_asTerminer = true;
-                    float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                    float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     m_emplacementActuel.copy(m_paireActuelle.getArret().getEmplacement());
-                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
                     return true;
                 }
-            }
-            else{
-                float tempsParcourirResteTroncon = (float)((pourcentageFinal - p_pourcentageInitiale)*m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
-                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon) , this);
-                if(m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()){
+            } else {
+                float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
+                if (m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
                     m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                     m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
                     m_aChangerTroncon = true;
-                }
-                else{
+                } else {
                     m_emplacementActuel.setPourcentageParcouru(0.0f);
                     m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
                     m_aChangerTroncon = true;
                 }
-                Temps tmp = new  Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
+                Temps tmp = new Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
                 miseAJourEmplacement(tmp);
                 return true;
             }
         }
         return false;
     }
-    
-    public Point2D.Float getPosition(Float p_echelle){
+
+    public Point2D.Float getPosition(Float p_echelle) {
         return m_emplacementActuel.calculPosition(p_echelle);
     }
-    
-    public ListIterator<PaireArretTrajet> getIterateur(){
+
+    public ListIterator<PaireArretTrajet> getIterateur() {
         return m_iterateur;
     }
-    
-    public void incrementerIterateur(){
-        m_paireActuelle = m_iterateur.next();            
+
+    public void incrementerIterateur() {
+        m_paireActuelle = m_iterateur.next();
     }
 
-    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet, Boolean boucle){
+    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet, Boolean boucle) {
         //Assigne l'iterateur a la premiere paire du trajet du circuit
         m_list = listeArretTrajet;
         m_boucle = boucle;
         m_iterateur = listeArretTrajet.listIterator();
-      for (ListIterator<PaireArretTrajet> paires =listeArretTrajet.listIterator(); paires.hasNext();) {
-          m_paireActuelle = paires.next();
-          m_iterateur.next();
-          if(m_paireActuelle .getTrajet()!=null){
-             for (ListIterator<Troncon> troncons = m_paireActuelle .getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
-            Troncon troncon = troncons.next();
-            if(m_emplacementActuel.estSurTroncon()){
-                if(troncon.equals(m_emplacementActuel.getTroncon())){
-                    return;
-                }
+        for (ListIterator<PaireArretTrajet> paires = listeArretTrajet.listIterator(); paires.hasNext();) {
+            m_paireActuelle = paires.next();
+            m_iterateur.next();
+            for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+                        Troncon troncon = troncons.next();
+                        if (m_emplacementActuel.estSurTroncon()) {
+                            if (troncon.equals(m_emplacementActuel.getTroncon())) {
+                                    return;
+                            }
+                        } else {
+                            //TODO source sur intersectio
+                        }
             }
-             }
-            }
+            /*
+            boolean debutGood = true;
+            boolean finGood = true;
+            boolean a = m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon().equals(m_emplacementActuel.getTroncon());
+            boolean b = m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon().equals(m_emplacementActuel.getTroncon());
+            if (m_paireActuelle.getTrajet() != null) {
+                if (m_paireActuelle.getTrajet().getListeTroncons().size() ==1){
+                    if(a && b){
+                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()&&
+                                (m_emplacementActuel.getPourcentageParcouru() > m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())){
+                           return;
+                        }
+                    }
+                
+                }else{
+                    for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+                        Troncon troncon = troncons.next();
+                        if (m_emplacementActuel.estSurTroncon()) {
+                            if (troncon.equals(m_emplacementActuel.getTroncon())) {
+                                if(debutGood && finGood){
+                                    return;
+                                }
+                            }
+                        } else {
+                            //TODO source sur intersectio
+                        }
+            /*/
         }
-      }
-    
-    public Emplacement getEmplacement(){
+    }
+
+    public Emplacement getEmplacement() {
         return m_emplacementActuel;
     }
-    public void setID(String id){
+
+    public void setID(String id) {
         m_id = id;
     }
-    
-    public String getID(){
+
+    public String getID() {
         return m_id;
     }
-    private Boolean getBoucle(){
+
+    private Boolean getBoucle() {
         return m_boucle;
     }
-    public void miseAJourAutobus (Temps deltatT){
+
+    public void miseAJourAutobus(Temps deltatT) {
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
-         if (tmp.getTemps() < 0){
-             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
-             miseAJourEmplacement(nouveauDeltatT);
-             m_tempsApparition = new Temps(0);
-         }
-         else{
-             m_tempsApparition = tmp;
-         }
+        if (tmp.getTemps() < 0) {
+            Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
+            miseAJourEmplacement(nouveauDeltatT);
+            m_tempsApparition = new Temps(0);
+        } else {
+            m_tempsApparition = tmp;
+        }
     }
-            
-            
+
 }
-    
