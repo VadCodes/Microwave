@@ -914,8 +914,6 @@ public class MainWindow extends javax.swing.JFrame {
                                 allongerCircuit.setEnabled(true);
                                 allongerCircuit.doClick();
                             }
-
-                            miseAjourSelectionCircuitsAjout();
                             break;
 
                         case EDITERCIRCUIT:
@@ -1294,11 +1292,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void supprimerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerClicDroitActionPerformed
         switch (m_mode_courant) {
             case ROUTIER:
-                //LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-                //assert(elementsRoutiersSelectionnes.size() == 1);
-                //ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
-
-                //selectionRoutier.doClick();
                 suppressionRoutier.doClick();
                 break;
 
