@@ -232,6 +232,7 @@ public class ReseauTransport {
     }
     
     public Boolean arretsConnectesRec(Intersection inter1, Intersection inter2, LinkedList<Intersection> intersectionsVerifiees){
+        Boolean est_connecte = false;
         for (Intersection intr : inter1.getEnfants()){
             if (intr.equals(inter2)){
                 return true;
@@ -239,11 +240,11 @@ public class ReseauTransport {
             else{
                 if (!intersectionsVerifiees.contains(intr)){
                     intersectionsVerifiees.add(intr);
-                    return arretsConnectesRec(intr, inter2, intersectionsVerifiees);
+                    est_connecte =  arretsConnectesRec(intr, inter2, intersectionsVerifiees);
                 }
             }
         }
-        return false;
+        return est_connecte;
     }
     
     public LinkedList<Troncon> dijkstra(Arret arretInitial, Arret arretFinal){
