@@ -183,7 +183,7 @@ public class Simulatheure {
         {
             ajouterIntersection(p_x, p_y, p_echelle);
             m_parametresTroncon.add(m_reseauRoutier.getIntersections().getLast());
-            m_reseauRoutier.getIntersections().getLast().changerStatutSelection();
+            m_parametresTroncon.getLast().changerStatutSelection();
         }
         else
         {
@@ -201,16 +201,12 @@ public class Simulatheure {
             {
                 Intersection origine = m_parametresTroncon.getFirst();
                 Intersection destination = m_parametresTroncon.getLast();
+                
+                m_parametresTroncon.removeFirst();
+                origine.changerStatutSelection();
 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
                 ajusterDoubleSens();
-
-                m_parametresTroncon.removeFirst();
-                origine.changerStatutSelection();
-                Integer positionx = ((int) origine.getPosition().x);
-                Integer positiony = (int) origine.getPosition().y;
-                String action = "construireTroncon".concat("\t").concat(positionx.toString()).concat("\t").concat(positiony.toString()).concat("\t").concat("1");
-            m_reculelrRetablir.ajouterAction(action);
             }
     }
 
