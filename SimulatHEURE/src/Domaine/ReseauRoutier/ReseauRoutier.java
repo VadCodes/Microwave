@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 public class ReseauRoutier {
     private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
-    private int m_conteurTroncon = 1;
+    private int m_compteurTroncon = 1;
     private int m_conteurIntersection = 1;
     
     public final static double VITESSE_PIETON = 4;
@@ -28,8 +28,13 @@ public class ReseauRoutier {
         return m_listeIntersections;
     }
     
-    public void deepCoier(ReseauRoutier p_reseauRoutier){
-        
+    public void copier(ReseauRoutier p_reseauRoutier){
+        p_reseauRoutier.m_conteurIntersection = this.m_conteurIntersection;
+        p_reseauRoutier.m_compteurTroncon = this.m_compteurTroncon;
+        p_reseauRoutier.m_listeIntersections  = new LinkedList<>();
+        for (ListIterator<Intersection> intersections = this.m_listeIntersections.listIterator() ;intersections.hasNext() ; ){
+           // Intersection inter = p_reseauRoutier.intersections.next();
+        }
                // Intersection intersection = p_reseauRoutier.copyIntersection(intersections.next());
     }
     public void ajouterIntersection(float p_x, float p_y)
@@ -159,12 +164,12 @@ public class ReseauRoutier {
         //on s'assure qu'il n'y a pas deux tronçons de origine à destination
         for(Troncon trc : p_origine.getTroncons()){
             if (trc.getDestination()==p_destination){
-                return; 
+                throw new RuntimeException("Un même tronçon est déjà présent présent.", new Throwable("Ajout impossible")); 
             }
         }
         Troncon tr = m_factory.creerTroncon(p_origine, p_destination);
-        tr.setNom( "Troncon" +Integer.toString(m_conteurTroncon));
-        m_conteurTroncon++;
+        tr.setNom( "Troncon" +Integer.toString(m_compteurTroncon));
+        m_compteurTroncon++;
         p_origine.ajouterTroncon(tr);
     }
     

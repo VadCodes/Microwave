@@ -871,10 +871,20 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case TRONCON:
-                            m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
-                            agrandirAfficheur();
+                            try
+                            {
+                                m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
+                                miseAjourSelectionTronconsAjout();
+                            }
+                            catch (RuntimeException e)
+                            {
+                                afficheurReseau.setToolTipText(e.getMessage());
+                                
+                                //JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+                            }
+                            
                             miseAjourSelectionIntersectionsAjout();
-                            miseAjourSelectionTronconsAjout();
+                            agrandirAfficheur();
 
                             break;
 

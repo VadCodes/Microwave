@@ -211,7 +211,7 @@ public class ReseauTransport {
         return supprTotalOK;
     }
     
-    public Boolean arretsConnectes(Arret arr1, Arret arr2){
+    public Boolean arretSontConnectables(Arret arr1, Arret arr2){
         Intersection inter1;
         Intersection inter2;
         if (arr1.getEmplacement().estSurTroncon()){
@@ -246,8 +246,32 @@ public class ReseauTransport {
         return false;
     }
     
-        public LinkedList<Troncon> dijkstra(Intersection debut, Intersection fin){
+    public LinkedList<Troncon> dijkstra(Arret arretInitial, Arret arretFinal){
         
+        //preparation pour passer de arret a intersection
+        Intersection debut;
+        Intersection fin;
+        Troncon trc_debut = null;
+        Troncon trc_fin = null;
+        LinkedList<Troncon> dijk = new LinkedList<>();
+        
+        if (arretInitial.getEmplacement().estSurTroncon()) {
+            debut = arretInitial.getEmplacement().getTroncon().getDestination();
+            trc_debut = arretInitial.getEmplacement().getTroncon();
+        }
+        else{
+            debut = arretInitial.getEmplacement().getIntersection();
+        }
+        
+        if (arretFinal.getEmplacement().estSurTroncon()) {
+            fin = arretFinal.getEmplacement().getTroncon().getOrigine();
+            trc_fin = arretFinal.getEmplacement().getTroncon();
+        }
+        else{
+            fin = arretFinal.getEmplacement().getIntersection();
+        }
+                  
+            
         //declarations des structures
         LinkedList<Intersection> noeuds = m_reseauRoutier.getIntersections(); 
         LinkedList<Intersection> pasEncoreVu = new LinkedList<>();
@@ -307,6 +331,13 @@ public class ReseauTransport {
             n = precedent.get(n);
             chemin.addFirst(m_reseauRoutier.getTronconParIntersections(n, n_dest));
         }        
+        
+        if (trc_debut != null){
+            chemin.addFirst(trc_debut);
+        }
+        if (trc_fin != null){
+            chemin.addLast(trc_fin);
+        }
         
         return chemin;
     }
