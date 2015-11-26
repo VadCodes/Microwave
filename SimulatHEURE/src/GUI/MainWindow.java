@@ -116,24 +116,8 @@ public class MainWindow extends javax.swing.JFrame {
         zoomTitre = new javax.swing.JLabel();
         zoom = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        afficheurCommandes = new javax.swing.JLayeredPane();
-        defilementAfficheur = new javax.swing.JScrollPane();
-        afficheurReseau = new GUI.AfficheurReseau(this);
-        jPanel8 = new javax.swing.JPanel();
-        coordonnees = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        boutonsRoutier = new javax.swing.JPanel();
-        selectionRoutier = new javax.swing.JToggleButton();
-        ajoutIntersection = new javax.swing.JToggleButton();
-        constructionTroncon = new javax.swing.JToggleButton();
-        editerRoutier = new javax.swing.JToggleButton();
-        suppressionRoutier = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
@@ -142,23 +126,25 @@ public class MainWindow extends javax.swing.JFrame {
         ajoutSource = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         editerTransport = new javax.swing.JToggleButton();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
+        ralentirSimulation = new javax.swing.JButton();
         recommancerSimulation = new javax.swing.JButton();
         arreterSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
         avancerSimulation = new javax.swing.JButton();
-        ralentirSimulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         facteurMultiplicatif = new javax.swing.JLabel();
-        boutonsSelectionRoutier = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<String>();
-        jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<String>();
+        boutonsRoutier = new javax.swing.JPanel();
+        selectionRoutier = new javax.swing.JToggleButton();
+        ajoutIntersection = new javax.swing.JToggleButton();
+        constructionTroncon = new javax.swing.JToggleButton();
+        editerRoutier = new javax.swing.JToggleButton();
+        suppressionRoutier = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         comboBoxArrets = new javax.swing.JComboBox<String>();
@@ -171,7 +157,18 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
-        jPanel11 = new javax.swing.JPanel();
+        boutonsSelectionRoutier = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
+        jLabel5 = new javax.swing.JLabel();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        afficheurCommandes = new javax.swing.JLayeredPane();
+        defilementAfficheur = new javax.swing.JScrollPane();
+        afficheurReseau = new GUI.AfficheurReseau(this);
+        jPanel8 = new javax.swing.JPanel();
+        coordonnees = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -303,172 +300,19 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.BorderLayout());
 
-        jPanel9.setLayout(new java.awt.BorderLayout());
-
-        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
-        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurReseauMouseWheelMoved(evt);
-            }
-        });
-        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurReseauMousePressed(evt);
-            }
-        });
-
-        defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
-        defilementAfficheur.setWheelScrollingEnabled(false);
-
-        afficheurReseau.setEnabled(false);
-        afficheurReseau.setPreferredSize(new java.awt.Dimension(1600, 900));
-        afficheurReseau.setBackground(Color.WHITE);
-        afficheurReseau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseMoved(evt);
-            }
-        });
-        afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                afficheurReseauMouseWheelMoved(evt);
-            }
-        });
-        afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                afficheurReseauMousePressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
-        afficheurReseau.setLayout(afficheurReseauLayout);
-        afficheurReseauLayout.setHorizontalGroup(
-            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1600, Short.MAX_VALUE)
-        );
-        afficheurReseauLayout.setVerticalGroup(
-            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
-        );
-
-        defilementAfficheur.setViewportView(afficheurReseau);
-
-        javax.swing.GroupLayout afficheurCommandesLayout = new javax.swing.GroupLayout(afficheurCommandes);
-        afficheurCommandes.setLayout(afficheurCommandesLayout);
-        afficheurCommandesLayout.setHorizontalGroup(
-            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
-        );
-        afficheurCommandesLayout.setVerticalGroup(
-            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-        );
-        afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        jPanel9.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
-
-        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
-        jPanel8.setLayout(new java.awt.BorderLayout());
-
-        coordonnees.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        coordonnees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel8.add(coordonnees, java.awt.BorderLayout.CENTER);
-
-        jPanel9.add(jPanel8, java.awt.BorderLayout.SOUTH);
-
-        jPanel6.add(jPanel9, java.awt.BorderLayout.CENTER);
-
-        jPanel10.setPreferredSize(new java.awt.Dimension(130, 900));
+        jPanel10.setPreferredSize(new java.awt.Dimension(35, 35));
         jPanel10.setLayout(new java.awt.BorderLayout());
 
-        jPanel7.setPreferredSize(new java.awt.Dimension(130, 900));
+        jPanel7.setPreferredSize(new java.awt.Dimension(40, 40));
         jPanel7.setRequestFocusEnabled(false);
         jPanel7.setVerifyInputWhenFocusTarget(false);
-
-        boutonsRoutier.setAlignmentX(1.0F);
-        boutonsRoutier.setAlignmentY(1.0F);
-        boutonsRoutier.setOpaque(false);
-        boutonsRoutier.setPreferredSize(new java.awt.Dimension(116, 360));
-        boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
-
-        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        selectionRoutier.setText("Sélectionner");
-        selectionRoutier.setEnabled(false);
-        selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(selectionRoutier);
-
-        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ajoutIntersection.setText("Intersection");
-        ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutIntersectionActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(ajoutIntersection);
-
-        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        constructionTroncon.setText("Tronçon");
-        constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                constructionTronconActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(constructionTroncon);
-
-        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        editerRoutier.setText("Éditer sélection");
-        editerRoutier.setToolTipText("");
-        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(editerRoutier);
-
-        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        suppressionRoutier.setText("Supprimer");
-        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(suppressionRoutier);
-
-        jSeparator1.setEnabled(false);
-        boutonsRoutier.add(jSeparator1);
-
-        jSeparator2.setEnabled(false);
-        boutonsRoutier.add(jSeparator2);
-
-        jSeparator3.setEnabled(false);
-        boutonsRoutier.add(jSeparator3);
-
-        jSeparator4.setEnabled(false);
-        boutonsRoutier.add(jSeparator4);
 
         boutonsTransport.setAlignmentX(1.0F);
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setMinimumSize(new java.awt.Dimension(116, 360));
         boutonsTransport.setOpaque(false);
         boutonsTransport.setPreferredSize(new java.awt.Dimension(116, 360));
-        boutonsTransport.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
+        boutonsTransport.setLayout(new java.awt.GridLayout());
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionTransport.setText("Sélectionner");
@@ -540,18 +384,17 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(editerTransport);
 
-        jSeparator5.setEnabled(false);
-        boutonsTransport.add(jSeparator5);
+        boutonsSimulation.setLayout(new java.awt.GridLayout());
 
-        jSeparator6.setEnabled(false);
-        boutonsTransport.add(jSeparator6);
-
-        boutonsSimulation.setAlignmentX(1.0F);
-        boutonsSimulation.setAlignmentY(1.0F);
-        boutonsSimulation.setMinimumSize(new java.awt.Dimension(116, 360));
-        boutonsSimulation.setOpaque(false);
-        boutonsSimulation.setPreferredSize(new java.awt.Dimension(116, 360));
-        boutonsSimulation.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
+        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ralentirSimulation.setText("Ralentir / 2");
+        ralentirSimulation.setEnabled(false);
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
 
         recommancerSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         recommancerSimulation.setText("Recommencer");
@@ -592,16 +435,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(avancerSimulation);
 
-        ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        ralentirSimulation.setText("Ralentir / 2");
-        ralentirSimulation.setEnabled(false);
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(ralentirSimulation);
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Heure :");
         boutonsSimulation.add(jLabel1);
@@ -612,33 +445,95 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.add(jLabel2);
         boutonsSimulation.add(facteurMultiplicatif);
 
-        boutonsSelectionRoutier.setAlignmentX(1.0F);
-        boutonsSelectionRoutier.setAlignmentY(1.0F);
-        boutonsSelectionRoutier.setOpaque(false);
-        boutonsSelectionRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
-        boutonsSelectionRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+        boutonsRoutier.setLayout(new java.awt.GridLayout());
 
-        jLabel4.setText("Tronçons :");
-        boutonsSelectionRoutier.add(jLabel4);
-
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
-        comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
+        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        selectionRoutier.setText("Sélectionner");
+        selectionRoutier.setEnabled(false);
+        selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxTronconsActionPerformed(evt);
+                selectionRoutierActionPerformed(evt);
             }
         });
-        boutonsSelectionRoutier.add(comboBoxTroncons);
+        boutonsRoutier.add(selectionRoutier);
 
-        jLabel5.setText("Intersections :");
-        boutonsSelectionRoutier.add(jLabel5);
-
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
-        comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
+        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        ajoutIntersection.setText("Intersection");
+        ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxIntersectionsActionPerformed(evt);
+                ajoutIntersectionActionPerformed(evt);
             }
         });
-        boutonsSelectionRoutier.add(comboBoxIntersections);
+        boutonsRoutier.add(ajoutIntersection);
+
+        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        constructionTroncon.setText("Tronçon");
+        constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                constructionTronconActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(constructionTroncon);
+
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        editerRoutier.setText("Éditer sélection");
+        editerRoutier.setToolTipText("");
+        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(editerRoutier);
+
+        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        suppressionRoutier.setText("Supprimer");
+        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(suppressionRoutier);
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 579, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(730, Short.MAX_VALUE)))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(569, Short.MAX_VALUE)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(boutonsRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(boutonsSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+        );
+
+        jPanel10.add(jPanel7, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel10, java.awt.BorderLayout.NORTH);
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(400, 400));
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        jPanel12.setPreferredSize(new java.awt.Dimension(150, 400));
+        jPanel12.setLayout(new java.awt.BorderLayout());
+
+        jPanel14.setPreferredSize(new java.awt.Dimension(150, 400));
 
         boutonsSelectionTransport.setAlignmentX(1.0F);
         boutonsSelectionTransport.setAlignmentY(1.0F);
@@ -703,80 +598,179 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         boutonsSelectionSimulation.add(comboBoxPietons);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        boutonsSelectionRoutier.setAlignmentX(1.0F);
+        boutonsSelectionRoutier.setAlignmentY(1.0F);
+        boutonsSelectionRoutier.setOpaque(false);
+        boutonsSelectionRoutier.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsSelectionRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        jLabel4.setText("Tronçons :");
+        boutonsSelectionRoutier.add(jLabel4);
+
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTronconsActionPerformed(evt);
+            }
+        });
+        boutonsSelectionRoutier.add(comboBoxTroncons);
+
+        jLabel5.setText("Intersections :");
+        boutonsSelectionRoutier.add(jLabel5);
+
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIntersectionsActionPerformed(evt);
+            }
+        });
+        boutonsSelectionRoutier.add(comboBoxIntersections);
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                     .addContainerGap()))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(422, Short.MAX_VALUE)
-                .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                .addContainerGap(148, Short.MAX_VALUE)
+                .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(342, Short.MAX_VALUE)
-                    .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(222, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(222, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(222, Short.MAX_VALUE)))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(413, Short.MAX_VALUE)
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                    .addContainerGap(228, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(22, 22, 22)))
+                    .addContainerGap()))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                    .addContainerGap(228, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
-        jPanel10.add(jPanel7, java.awt.BorderLayout.CENTER);
+        jPanel12.add(jPanel14, java.awt.BorderLayout.SOUTH);
 
-        jPanel11.setPreferredSize(new java.awt.Dimension(20, 20));
-        jPanel11.setLayout(new java.awt.BorderLayout());
-        jPanel10.add(jPanel11, java.awt.BorderLayout.SOUTH);
+        jPanel13.setPreferredSize(new java.awt.Dimension(130, 400));
 
-        jPanel6.add(jPanel10, java.awt.BorderLayout.EAST);
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        jPanel12.add(jPanel13, java.awt.BorderLayout.NORTH);
+
+        jPanel11.add(jPanel12, java.awt.BorderLayout.EAST);
+
+        jPanel9.setLayout(new java.awt.BorderLayout());
+
+        afficheurCommandes.setPreferredSize(new java.awt.Dimension(1300, 800));
+        afficheurCommandes.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurReseauMouseWheelMoved(evt);
+            }
+        });
+        afficheurCommandes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurReseauMousePressed(evt);
+            }
+        });
+
+        defilementAfficheur.setPreferredSize(new java.awt.Dimension(1300, 800));
+        defilementAfficheur.setWheelScrollingEnabled(false);
+
+        afficheurReseau.setEnabled(false);
+        afficheurReseau.setPreferredSize(new java.awt.Dimension(1600, 900));
+        afficheurReseau.setBackground(Color.WHITE);
+        afficheurReseau.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseMoved(evt);
+            }
+        });
+        afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                afficheurReseauMouseWheelMoved(evt);
+            }
+        });
+        afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                afficheurReseauMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout afficheurReseauLayout = new javax.swing.GroupLayout(afficheurReseau);
+        afficheurReseau.setLayout(afficheurReseauLayout);
+        afficheurReseauLayout.setHorizontalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1600, Short.MAX_VALUE)
+        );
+        afficheurReseauLayout.setVerticalGroup(
+            afficheurReseauLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+        );
+
+        defilementAfficheur.setViewportView(afficheurReseau);
+
+        javax.swing.GroupLayout afficheurCommandesLayout = new javax.swing.GroupLayout(afficheurCommandes);
+        afficheurCommandes.setLayout(afficheurCommandesLayout);
+        afficheurCommandesLayout.setHorizontalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1436, Short.MAX_VALUE)
+        );
+        afficheurCommandesLayout.setVerticalGroup(
+            afficheurCommandesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(defilementAfficheur, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
+        );
+        afficheurCommandes.setLayer(defilementAfficheur, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        jPanel9.add(afficheurCommandes, java.awt.BorderLayout.CENTER);
+
+        jPanel8.setPreferredSize(new java.awt.Dimension(1445, 15));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        coordonnees.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        coordonnees.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(coordonnees, java.awt.BorderLayout.CENTER);
+
+        jPanel9.add(jPanel8, java.awt.BorderLayout.SOUTH);
+
+        jPanel11.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(jPanel11, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
@@ -786,11 +780,11 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 961, Short.MAX_VALUE)
+            .addGap(0, 1736, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 615, Short.MAX_VALUE)
+            .addGap(0, 936, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -1774,6 +1768,9 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1783,12 +1780,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
