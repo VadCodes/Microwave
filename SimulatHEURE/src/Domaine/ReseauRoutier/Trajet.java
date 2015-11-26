@@ -45,8 +45,20 @@ public class Trajet {
     }
     
     public Troncon getNextTroncon(Emplacement emplacement){
+        if(!emplacement.estSurTroncon()){
+              ListIterator<Troncon> troncon1= m_listTroncons.listIterator();
+                while (troncon1.hasNext()) {
+                    ListIterator<Troncon> troncon2 = emplacement.getIntersection().getTroncons().listIterator();
+                    Troncon tr1 = troncon1.next();
+                        while (troncon2.hasNext()) {
+                                if(troncon2.next().equals(tr1)){
+                                    return tr1;
+                                }
+                        }
+                }
+        
+        }
         boolean trg= false;
-
         ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();
         while (troncon_it.hasNext()) {
 

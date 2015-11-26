@@ -146,6 +146,10 @@ public class Simulatheure {
     public void deselectionnerTransport() {
         m_arretsNouveauCircuit.clear();
         m_tronconsNouveauTrajet.clear();
+        m_reseauRoutier.desuggererTout();
+        m_trajet_temp = new Trajet();
+        m_arret_temp = new Arret();
+        m_modeNouvelArret = true;
         m_reseauTransport.deselectionnerTout();
     }
 
@@ -266,7 +270,7 @@ public class Simulatheure {
 
     public void cancellerCircuit() {
         deselectionnerRoutier();
-        //deselectionnerTransport();
+
         m_reseauRoutier.desuggererTout();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
@@ -436,7 +440,7 @@ public class Simulatheure {
             }
             Arret nouvArret = (Arret) nouvET;
 
-            if(m_reseauTransport.arretSontConnectables(arretPrecedent, nouvArret)){
+            if(!m_reseauTransport.arretSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
                 throw new RuntimeException("L'arrêt n'est pas atteignable", new Throwable("Construction impossible"));
             }
