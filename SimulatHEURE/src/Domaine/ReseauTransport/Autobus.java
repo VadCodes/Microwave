@@ -34,7 +34,6 @@ public class Autobus {
     private PaireArretTrajet m_paireActuelle;
     private boolean m_asTerminer = false;
     private Boolean m_boucle = false;
-   
 
     public final static float LARGEUR = 48;
     public final static float HAUTEUR = 16;
@@ -59,14 +58,29 @@ public class Autobus {
          */
         float pourcentageInitiale = 0;
         Temps tempsTransit;
+        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
+            if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getArret().getEmplacement().getTroncon())) {
+                if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getArret().getEmplacement().getPourcentageParcouru()) {
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(0), this);
+                }
+            }
+        }
+        if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
+            if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getArret().getEmplacement().getIntersection())) {
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(0), this);
+            }
+        }
         if (m_emplacementActuel.estSurTroncon()) {
             tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
             pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
         } else {
+            pourcentageInitiale = 0;
             Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
             m_emplacementActuel.setTroncon(troncon);
+            m_emplacementActuel.setEstSurTroncon(true);
             m_emplacementActuel.setPourcentageParcouru(pourcentageInitiale);
-            tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitAutobus();
+            miseAJourEmplacement(deltatT);
+            return;
         }
         float pourcentage = (float) (pourcentageInitiale + deltatT.getTemps() / tempsTransit.getTemps());
         m_emplacementActuel.setPourcentageParcouru(pourcentage);
@@ -108,8 +122,8 @@ public class Autobus {
         float pourcentageFinal;
         if ((m_paireActuelle.getTrajet().getListeTroncons().getFirst().equals(m_paireActuelle.getTrajet().getListeTroncons().getLast())
                 && m_paireActuelle.getTrajet().getListeTroncons().size() > 1)
-                && (m_emplacementActuel.getPourcentageParcouru()< m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
-                || m_emplacementActuel.getPourcentageParcouru()>= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
+                && (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
+                || m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
             return false;
         }
         if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
@@ -143,6 +157,7 @@ public class Autobus {
                         m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
                     }
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
                     miseAJourEmplacement(tmp);
                     return true;
                 } else {
@@ -190,10 +205,71 @@ public class Autobus {
         for (ListIterator<PaireArretTrajet> paires = listeArretTrajet.listIterator(); paires.hasNext();) {
             m_paireActuelle = paires.next();
             m_iterateur.next();
-            if (m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
-                boolean a = m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon().equals(m_emplacementActuel.getTroncon());
-                boolean b = m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon().equals(m_emplacementActuel.getTroncon());
-                if (!a && !b) {
+            //Est sur arret
+            if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
+                if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getArret().getEmplacement().getTroncon())) {
+                    if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getArret().getEmplacement().getPourcentageParcouru()) {
+                        return;
+                    }
+                }
+            }
+            if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
+                if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getArret().getEmplacement().getIntersection())) {
+                    return;
+                }
+            }
+            if(!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
+                 if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
+                     if(m_iterateur.hasNext()){
+                         m_paireActuelle = m_iterateur.next();
+                         return;
+                     }
+                     else{
+                         m_asTerminer = true;
+                         return;
+                     }
+                }
+            }
+            if (m_emplacementActuel.estSurTroncon()) {
+                if (m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
+                    boolean a = m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon().equals(m_emplacementActuel.getTroncon());
+                    boolean b = m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon().equals(m_emplacementActuel.getTroncon());
+                    if (!a && !b) {
+                        for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
+                            Troncon troncon = troncons.next();
+                            if (m_emplacementActuel.estSurTroncon()) {
+                                if (troncon.equals(m_emplacementActuel.getTroncon())) {
+                                    return;
+                                }
+                            }
+                        }
+                    } else if (a && b) {
+                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
+                                && (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
+                            if (m_paireActuelle.getTrajet().getListeTroncons().size() == 1) {
+                                return;
+                            }
+                        }
+                        if (a) {
+                            if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
+                                return;
+                            }
+                        }
+                        if (b) {
+                            if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
+                                return;
+                            }
+                        }
+                    } else if (a) {
+                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
+                            return;
+                        }
+                    } else if (b) {
+                        if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
+                            return;
+                        }
+                    }
+                } else {
                     for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
                         Troncon troncon = troncons.next();
                         if (m_emplacementActuel.estSurTroncon()) {
@@ -201,51 +277,41 @@ public class Autobus {
                                 return;
                             }
                         } else {
-                            //TODO source sur intersectio
+
                         }
-                    }
-                } else if (a && b) {
-                    if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()
-                            && (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru())) {
-                        if (m_paireActuelle.getTrajet().getListeTroncons().size() == 1) {
-                            return;
-                        }
-                    }
-                    if (a) {
-                        if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
-                            return;
-                        }
-                    }
-                    if (b) {
-                        if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
-                            return;
-                        }
-                    }
-                } else if (a) {
-                    if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
-                        return;
-                    }
-                } else if (b) {
-                    if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru()) {
-                        return;
                     }
                 }
             } else {
+                //est Sur intersection
+                Intersection interMax1 = null;
+                if (!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
+                    interMax1 = m_paireActuelle.getTrajet().getEmplacementInitial().getIntersection();
+                }
+                Intersection interMax2 = null;
+                if (!m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
+                    interMax2 = m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection();
+                }
+                if (interMax1 != null) {
+                    if (m_emplacementActuel.getIntersection().equals(interMax1)) {
+                        return;
+                    }
+                }
+                if (interMax2 != null) {
+                    if (m_emplacementActuel.getIntersection().equals(interMax2)) {
+                        return;
+                    }
+                }
                 for (ListIterator<Troncon> troncons = m_paireActuelle.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
                     Troncon troncon = troncons.next();
-                    if (m_emplacementActuel.estSurTroncon()) {
-                        if (troncon.equals(m_emplacementActuel.getTroncon())) {
+                    if (m_emplacementActuel.getIntersection().equals(troncon.getDestination())) {
+                        if (troncons.hasNext()) {
                             return;
                         }
-                    } else {
-                        //TODO source sur intersectio
                     }
                 }
             }
         }
     }
-
-    
 
     public Emplacement getEmplacement() {
         return m_emplacementActuel;
