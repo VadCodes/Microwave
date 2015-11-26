@@ -327,10 +327,14 @@ public class Simulatheure {
                             m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
                             estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
                         }
-                    } else {
+                    } 
+                    else 
+                    {
                         estConstructible = m_tronconsNouveauTrajet.getLast().getDestination() == arretFinale.getEmplacement().getIntersection();
                     }
-                } else {
+                } 
+                else 
+                {
                     for (Troncon troncon : arretInitiale.getEmplacement().getIntersection().getTroncons()) {
                         troncon.setEstSuggere(true);
                     }
@@ -340,22 +344,25 @@ public class Simulatheure {
                         estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
                     }
                 }
+                
                 if (!estConstructible)
                 {                
                     if (!m_reseauTransport.arretSontConnectables(arretInitiale, arretFinale))
                     {
                         m_arretsNouveauCircuit.removeLast();
                         arretFinale.changerStatutSelection();
+                        
                         if (arretFinale.getEmplacement().estSurTroncon())
                             m_tronconsNouveauTrajet.removeLast();
+                        
                         m_reseauRoutier.desuggererTout();
-                        throw new RuntimeException("L'arrêt n'est pas atteignable", new Throwable("Construction impossible"));
+                        //deselectionnerTout();
+                        throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
                     else if(m_dijkstra)
                     {
                         m_reseauRoutier.desuggererTout();
-                        estConstructible = construireCircuit(p_x, p_y, p_echelle);
-                        return estConstructible;
+                        return construireCircuit(p_x, p_y, p_echelle);
                     }
                 }
             }
@@ -452,8 +459,11 @@ public class Simulatheure {
                 return;
             }
             Arret nouvArret = (Arret) nouvET;
-
-            m_reseauTransport.arretSontConnectables(arretPrecedent, nouvArret);
+            
+            if (!m_reseauTransport.arretSontConnectables(arretPrecedent, nouvArret))
+            {
+                throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+            }
             
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
             Boolean premier = true;
