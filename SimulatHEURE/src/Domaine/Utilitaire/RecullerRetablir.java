@@ -12,28 +12,28 @@ import java.io.StringReader;
  *
  * @author ns222
  */
-public class Simulatheure_log {
-    private String m_log = "";
+public class RecullerRetablir {
+    private String m_annuler = "";
     private String m_retablir = "";
-    public Simulatheure_log(){}
+    public RecullerRetablir(){}
     public void ajouterAction(String p_action){
             
         p_action = p_action.concat("\n");
-        m_log = p_action.concat(m_log);
+        m_annuler = p_action.concat(m_annuler);
         
     }     
     public String getLastAction(){
-        if(m_log.equals("")){
+        if(m_annuler.equals("")){
             return null;
         }
         else{
-        BufferedReader reader = new BufferedReader(new StringReader(m_log));
+        BufferedReader reader = new BufferedReader(new StringReader(m_annuler));
         String action = null;
         try{
             action = reader.readLine();
             m_retablir = m_retablir.concat(action.concat("\n"));
             if(!action.isEmpty()){
-                m_log = m_log.substring(m_log.indexOf("\n") + 1);
+                m_annuler = m_annuler.substring(m_annuler.indexOf("\n") + 1);
             }
         }
         catch (Exception e){
@@ -43,3 +43,4 @@ public class Simulatheure_log {
         }
     }
 }
+

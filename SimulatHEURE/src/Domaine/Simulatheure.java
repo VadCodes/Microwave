@@ -24,6 +24,7 @@ public class Simulatheure {
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, AJOUTERCIRCUIT, EDITERCIRCUIT
     }
     private Simulatheure_log m_log = new Simulatheure_log();
+    private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
     private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList<>();
@@ -99,7 +100,7 @@ public class Simulatheure {
                 selectionnerElementRoutier(p_x, p_y, p_echelle);
             }
         }
-
+        m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
         return er;
     }
 
@@ -168,6 +169,8 @@ public class Simulatheure {
         m_reseauRoutier.ajouterIntersection(xReel, yReel);
         String action = "ajouterIntersection\t".concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString());
         m_log.ajouterAction(action);
+        m_reculelrRetablir.ajouterAction(action);
+
     }
 
     public void construireTroncon(Integer p_x, Integer p_y, Float p_echelle) {
@@ -202,6 +205,10 @@ public class Simulatheure {
 
                 m_parametresTroncon.removeFirst();
                 origine.changerStatutSelection();
+                Integer positionx = ((int) origine.getPosition().x);
+                Integer positiony = (int) origine.getPosition().y;
+                String action = "construireTroncon".concat("\t").concat(positionx.toString()).concat("\t").concat(positiony.toString()).concat("\t").concat("1");
+            m_reculelrRetablir.ajouterAction(action);
             }
         }
     }
@@ -665,24 +672,32 @@ public class Simulatheure {
     }
 
     public void annulerDerniereAction() {
-        String str = m_log.getLastAction();
+        String str = m_reculelrRetablir.getLastAction();
         if (str != null) {
             String[] parts = str.split(Pattern.quote("\t"));
             if (parts.length == 4) {
                 String action = parts[0];
-                String p_x = parts[1];
-                String p_y = parts[2];
-                String p_echelle = parts[3];
-
+                int x = Integer.parseInt(parts[1]);
+                int y = Integer.parseInt(parts[2]);
+                float echelle = Float.parseFloat(parts[3]);
                 switch (action) {
                     case "ajouterIntersection":
                         deselectionnerRoutier();
-                        int x = Integer.parseInt(p_x);
-                        int y = Integer.parseInt(p_y);
-                        float echelle = Float.parseFloat(p_echelle);
                         selectionnerElementRoutier(x, y, echelle);
                         supprimerSelectionRoutier();
                         break;
+                    case "construireTroncon":
+                        deselectionnerRoutier();
+                        selectionnerElementRoutier(x, y, echelle);
+                        for (ListIterator<Intersection> intersections = m_reseauRoutier.getIntersections().listIterator(); intersections.hasNext();) {
+                            Intersection intersection = intersections.next();
+                            if(intersection.estSelectionne()){
+                                intersection.getTroncons().getFirst().changerStatutSelection();
+                                intersection.changerStatutSelection();
+                                break;
+                            }
+                        }
+                        supprimerSelectionRoutier();
                 }
             }
         }
