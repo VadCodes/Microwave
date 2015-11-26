@@ -36,7 +36,7 @@ public class Simulatheure {
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
-    private Boolean m_dijkstra = true;
+    private Boolean m_dijkstra = false;
 
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
 
@@ -266,7 +266,7 @@ public class Simulatheure {
 
     public void cancellerCircuit() {
         deselectionnerRoutier();
-        deselectionnerTransport();
+        //deselectionnerTransport();
         m_reseauRoutier.desuggererTout();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
