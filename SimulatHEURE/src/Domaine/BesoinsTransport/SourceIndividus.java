@@ -20,17 +20,22 @@ public class SourceIndividus {
     private String m_nom;
     private Itineraire m_itineraire;
     private Temps m_tempsAvantApparition;
-    private int m_nbIndividusGeneres = 0;
     
     
     
-    public SourceIndividus(Temps p_tempsInitial, Temps p_tempsAvantApparition, Distribution p_distributionFrequence, Emplacement p_emplacement, String p_nom
+    public SourceIndividus(Temps p_tempsInitial, Distribution p_distributionFrequence, Emplacement p_emplacement, String p_nom
    , Itineraire p_itineraire){
         m_tempsInitial = p_tempsInitial;
         m_distributionFrequence = p_distributionFrequence;
         m_emplacement = p_emplacement;
         m_nom = p_nom;
-        m_tempsAvantApparition = p_tempsAvantApparition;
+        m_tempsAvantApparition = m_tempsInitial;
+    }
+    
+    public void miseAJourTempsRestant(Temps p_deltatT){
+        // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
+        double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
+        m_tempsAvantApparition = new Temps(tmp);       
     }
 
     public void initSourceIndividu(){
@@ -38,17 +43,13 @@ public class SourceIndividus {
 
     }
     
-    private String genererBusID(){
-        m_nbIndividusGeneres++;
-        String tmp = m_nom.concat("A" +Integer.toString(m_nbIndividusGeneres));
-        return tmp;
-    }
-    
     public void setNom(String nom){
         m_nom = nom;
     }
+    public void setEmplacement(Emplacement emplacement){
+        m_emplacement = emplacement;
+    }
     public void setDefault() {
-        m_nbIndividusGeneres = 0;
         m_tempsAvantApparition = m_tempsInitial;
     }
     public void setTempsAttenteInitial(Temps temps){
@@ -64,4 +65,20 @@ public class SourceIndividus {
     public Distribution getDistribution(){
         return m_distributionFrequence;
     }
+    public void genererIndividus(Temps p_deltatT){
+        while(m_tempsAvantApparition.getTemps() <= 0){
+            Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
+            Temps tempsAvantApparition = new Temps ( p_deltatT.getTemps() + m_tempsAvantApparition.getTemps());
+           // Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, estSurArret());
+            //m_itineraire.ajouterIndividu(nouvelIndividu);
+         //   m_itineraire.assignerItineraire(nouvelIndividu);
+            //On update le temps avant apparition. On l'addition de la frequence.
+            double tmp = m_tempsAvantApparition.getTemps() + m_frequence.getTemps();
+            m_tempsAvantApparition = new Temps(tmp);
+            initSourceIndividu();
+        }
+    }
+   // public Boolean estSurArret(){
+       // return m_emplacement.equals(m_itineraire.getListeParcoursBusTrajet().getFirst().getArret().getEmplacement()); 
+   // }
 }

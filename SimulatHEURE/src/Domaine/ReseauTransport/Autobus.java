@@ -249,6 +249,8 @@ public class Autobus {
                             if (m_paireActuelle.getTrajet().getListeTroncons().size() == 1) {
                                 return;
                             }
+                        } else {
+                           // TODO source sur intersection
                         }
                         if (a) {
                             if (m_emplacementActuel.getPourcentageParcouru() < m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
