@@ -5,6 +5,8 @@
  */
 package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Intersection;
+import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.Utilitaire.Distribution;
 import java.util.LinkedList;
@@ -13,6 +15,7 @@ import Domaine.Utilitaire.Temps;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -25,7 +28,11 @@ public class ReseauTransport {
     private int m_conteurArrets = 1;
     private int m_conteurCircuits = 1;
     private int m_conteurSources = 1;
-    public ReseauTransport(){}
+    private ReseauRoutier m_reseauRoutier;
+    
+    public ReseauTransport(ReseauRoutier rr){
+        m_reseauRoutier = rr;
+    }
     
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;
@@ -202,5 +209,105 @@ public class ReseauTransport {
             }
         }
         return supprTotalOK;
+    }
+    
+    public Boolean arretSontConnectables(Arret arr1, Arret arr2){
+        Intersection inter1;
+        Intersection inter2;
+        if (arr1.getEmplacement().estSurTroncon()){
+            inter1 = arr1.getEmplacement().getTroncon().getDestination();
+        }
+        else{
+            inter1 = arr1.getEmplacement().getIntersection();
+        }
+        if (arr2.getEmplacement().estSurTroncon()){
+            inter2 = arr2.getEmplacement().getTroncon().getOrigine();
+        }
+        else{
+            inter2 = arr2.getEmplacement().getIntersection();
+        }
+        
+        LinkedList<Intersection> intersectionsVerifiees = new LinkedList<>();
+        return arretsConnectesRec(inter1, inter2, intersectionsVerifiees);
+    }
+    
+    public Boolean arretsConnectesRec(Intersection inter1, Intersection inter2, LinkedList<Intersection> intersectionsVerifiees){
+        for (Intersection intr : inter1.getEnfants()){
+            if (intr.equals(inter2)){
+                return true;
+            }
+            else{
+                if (!intersectionsVerifiees.contains(intr)){
+                    intersectionsVerifiees.add(intr);
+                    return arretsConnectesRec(intr, inter2, intersectionsVerifiees);
+                }
+            }
+        }
+        return false;
+    }
+    
+        public LinkedList<Troncon> dijkstra(Intersection debut, Intersection fin){
+        
+        //declarations des structures
+        LinkedList<Intersection> noeuds = m_reseauRoutier.getIntersections(); 
+        LinkedList<Intersection> pasEncoreVu = new LinkedList<>();
+        LinkedHashMap<Intersection, Float> parcouru = new LinkedHashMap<>();
+        LinkedHashMap<Intersection, Intersection> precedent = new LinkedHashMap<>();
+        
+        //initialisation
+        for (Intersection intrsct : noeuds){
+            if(intrsct.equals(debut)){
+                parcouru.put(intrsct, 0.0f);
+            }
+            else{
+                parcouru.put(intrsct, Float.MAX_VALUE);
+            }
+            
+            precedent.put(intrsct, null);
+            
+            //shallow copy de chaque element de noeuds
+            pasEncoreVu.add(intrsct);
+        }
+        
+        Intersection n1; 
+        Float n1_parcouru;
+        Float n2_parcouru;
+        Float min;
+        while(!pasEncoreVu.isEmpty()){
+            //trouver min de pasEncoreVu
+            n1_parcouru = Float.MAX_VALUE;
+            n1 = pasEncoreVu.getFirst();
+            for (Intersection intr : pasEncoreVu){
+                min = parcouru.get(intr);
+                if (min < n1_parcouru){
+                    n1_parcouru = min;
+                    n1 = intr;
+                }
+            }
+            
+            pasEncoreVu.remove(n1);
+            
+            for(Intersection n2 : n1.getEnfants()){
+                Troncon arc = m_reseauRoutier.getTronconParIntersections(n1, n2);
+                Float distance_n1_n2 = (float) arc.getDistribution().getTempsPlusFrequent().getTemps();
+                n2_parcouru = parcouru.get(n2);
+                if (n2_parcouru > n1_parcouru + distance_n1_n2) { //min = parcouru.get(n1)
+                    n2_parcouru = n1_parcouru + distance_n1_n2;
+                    parcouru.put(n2, n2_parcouru);
+                    precedent.replace(n2, n1);
+                }
+            }
+        }
+        
+        LinkedList<Troncon> chemin = new LinkedList<>();
+        Intersection n = fin;
+        Intersection n_dest;
+        while (n != debut){
+            n_dest = n;
+            n = precedent.get(n);
+            chemin.addFirst(m_reseauRoutier.getTronconParIntersections(n, n_dest));
+        }        
+        
+        return chemin;
     }
 }

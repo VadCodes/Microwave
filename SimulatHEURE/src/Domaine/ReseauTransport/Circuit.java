@@ -10,15 +10,19 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
+import Domaine.ReseauRoutier.Intersection;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
+import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import java.awt.Font;
 import java.awt.font.GlyphVector;
 import java.awt.font.FontRenderContext;
+import java.util.AbstractMap;
+import java.util.LinkedHashMap;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -29,15 +33,13 @@ public class Circuit extends ElementTransport{
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
     private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
-    private ReseauRoutier m_reseauRoutier;
     private Temps tempsDepart;
     private Boolean m_boucle = false;
     private Boolean m_veutBoucler = false;
     
-    public Circuit(LinkedList<PaireArretTrajet> listeArrTraj, ReseauRoutier resRoutier){
+    public Circuit(LinkedList<PaireArretTrajet> listeArrTraj){
         //assert listeArrTraj doit avoir les 2 premiers
         m_listeArretTrajet = listeArrTraj;
-        m_reseauRoutier = resRoutier;
     }
     
 //    public Circuit(){
@@ -161,4 +163,5 @@ public class Circuit extends ElementTransport{
     public Boolean getVeutBoucler(){
         return m_veutBoucler;
     }
+    
 }
