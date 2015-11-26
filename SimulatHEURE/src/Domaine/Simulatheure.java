@@ -34,8 +34,8 @@ public class Simulatheure {
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
     
-    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();   
-    
+    private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
+
     public Simulatheure() {}  
     public void arreterSimulation() {
         for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator() ;arrets.hasNext() ; ){

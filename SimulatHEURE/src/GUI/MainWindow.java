@@ -37,6 +37,11 @@ public class MainWindow extends javax.swing.JFrame {
     public double m_tempsDebutSimulation;
     public double m_tempsFinSimulation;
     private boolean m_simulationEstLancer = false;
+    private volatile int screenX = 0;
+    private volatile int screenY = 0;
+    private volatile int myX = 0;
+    private volatile int myY = 0;
+    
 
     /**
      * Creates new form MainWindow
@@ -931,6 +936,8 @@ public class MainWindow extends javax.swing.JFrame {
                             afficheurReseau.setDimension(intersectionAjoutee);
                             defilementAfficheur.setViewportView(afficheurReseau);
                             miseAjourSelectionIntersectionsAjout();
+                            
+                            
                             break;
 
                         case TRONCON:
@@ -1032,7 +1039,7 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
-
+    
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
