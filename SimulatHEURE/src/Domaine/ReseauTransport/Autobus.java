@@ -201,7 +201,7 @@ public class Autobus {
                                 return;
                             }
                         } else {
-                            //TODO source sur intersectio
+                           // TODO source sur intersection
                         }
                     }
                 } else if (a && b) {
