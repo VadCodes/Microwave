@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import java.util.*;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Vinny
@@ -37,6 +36,11 @@ public class MainWindow extends javax.swing.JFrame {
     public double m_tempsDebutSimulation;
     public double m_tempsFinSimulation;
     private boolean m_simulationEstLancer = false;
+    private volatile int screenX = 0;
+    private volatile int screenY = 0;
+    private volatile int myX = 0;
+    private volatile int myY = 0;
+    
 
     /**
      * Creates new form MainWindow
@@ -45,6 +49,7 @@ public class MainWindow extends javax.swing.JFrame {
         changeLookAndFeel();
         m_controleur = new Simulatheure();
         initComponents();
+        annuler.setEnabled(true);
         routier.doClick();
         this.afficheurReseau.setDimension(false);
     }
@@ -123,8 +128,8 @@ public class MainWindow extends javax.swing.JFrame {
         selectionRoutier = new javax.swing.JToggleButton();
         ajoutIntersection = new javax.swing.JToggleButton();
         constructionTroncon = new javax.swing.JToggleButton();
-        suppressionRoutier = new javax.swing.JButton();
         editerRoutier = new javax.swing.JToggleButton();
+        suppressionRoutier = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -399,7 +404,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsRoutier.setPreferredSize(new java.awt.Dimension(116, 360));
         boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
-        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         selectionRoutier.setText("Sélectionner");
         selectionRoutier.setEnabled(false);
         selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +414,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(selectionRoutier);
 
-        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ajoutIntersection.setText("Intersection");
         ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,9 +423,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(ajoutIntersection);
 
-        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         constructionTroncon.setText("Tronçon");
-        constructionTroncon.setEnabled(false);
         constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 constructionTronconActionPerformed(evt);
@@ -428,17 +432,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
-        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        suppressionRoutier.setText("Supprimer");
-        suppressionRoutier.setEnabled(false);
-        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(suppressionRoutier);
-
-        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         editerRoutier.setText("Éditer sélection");
         editerRoutier.setToolTipText("");
         editerRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -447,6 +441,15 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsRoutier.add(editerRoutier);
+
+        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        suppressionRoutier.setText("Supprimer");
+        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(suppressionRoutier);
 
         jSeparator1.setEnabled(false);
         boutonsRoutier.add(jSeparator1);
@@ -824,7 +827,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.setMode(Modes.ROUTIER);
         boutonsRoutier.setVisible(true);
         boutonsSelectionRoutier.setVisible(true);
-        ajoutIntersection.doClick();
+        constructionTroncon.doClick();
     }//GEN-LAST:event_routierActionPerformed
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
@@ -847,7 +850,14 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);   
     }//GEN-LAST:event_simulationActionPerformed
-        
+
+    private void agrandirAfficheur()
+    {
+        boolean intersectionAjoutee = true;
+        afficheurReseau.setDimension(intersectionAjoutee);
+        defilementAfficheur.setViewportView(afficheurReseau);
+    }
+    
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         float echelle = afficheurReseau.getEchelle();
         if (SwingUtilities.isLeftMouseButton(evt)) {
@@ -857,25 +867,23 @@ public class MainWindow extends javax.swing.JFrame {
 
                     switch (m_commande_courante) {
                         case SELECTIONNER:
-                            if (evt.isControlDown()) {
-                                ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
-                            } else {
-                                ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            }
-
+                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                             break;
 
                         case INTERSECTION:
                             m_controleur.ajouterIntersection(evt.getX(), evt.getY(), echelle);
-                            boolean intersectionAjoutee = true;
-                            afficheurReseau.setDimension(intersectionAjoutee);
-                            defilementAfficheur.setViewportView(afficheurReseau);
+                            agrandirAfficheur();
                             miseAjourSelectionIntersectionsAjout();
+                            
+                            
                             break;
 
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
+                            agrandirAfficheur();
+                            miseAjourSelectionIntersectionsAjout();
                             miseAjourSelectionTronconsAjout();
+
                             break;
 
                         default:
@@ -909,9 +917,9 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case SOURCE:
-                            ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutie != null) {
-                                if (elemRoutie.getClass() == Troncon.class) {
+                            ElementRoutier elementRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
+                            if (elementRoutier != null) {
+                                if (elementRoutier.getClass() == Troncon.class) {
                                     m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionSourcesAjout();
@@ -919,17 +927,11 @@ public class MainWindow extends javax.swing.JFrame {
                             }
                             break;
                         case ARRET:
-                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                             if (elemRoutier != null) {
-                                if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class) {
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionArretsAjout();
-                                } else if (elemRoutier.getClass() == Intersection.class) {
-                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                    m_controleur.deselectionnerRoutier();
-                                    miseAjourSelectionArretsAjout();
-                                }
                             }
                             break;
 
@@ -947,7 +949,7 @@ public class MainWindow extends javax.swing.JFrame {
             switch (m_mode_courant) {
                 case ROUTIER:
                     m_controleur.deselectionnerTout();
-                    ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                    ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                     if (elemRoutier != null) {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
@@ -972,7 +974,7 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
-
+    
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
@@ -987,6 +989,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAjourComboBoxTotal() {
+        Commandes cmdTemp = this.m_commande_courante;  // wtf la commande change..
+        
         comboBoxCircuits.removeAllItems();
         comboBoxSources.removeAllItems();
         comboBoxArrets.removeAllItems();
@@ -997,6 +1001,9 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxArrets.addItem("Aucun");
         comboBoxIntersections.addItem("Aucun");
         comboBoxTroncons.addItem("Aucun");
+        
+        m_commande_courante = cmdTemp;  // wtf la commande change..
+        
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
             comboBoxCircuits.addItem(circuit.getNom());
@@ -1151,6 +1158,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
         zoom.setText(Integer.toString((int) (afficheurReseau.getEchelle() * 100)) + " %");
+        
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
@@ -1159,10 +1167,14 @@ public class MainWindow extends javax.swing.JFrame {
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
         coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseMoved
 
     private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
         coordonnees.setText("");
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void selectionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionRoutierActionPerformed
@@ -1185,28 +1197,27 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_constructionTronconActionPerformed
 
-    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {
-
+    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionRoutierActionPerformed
         boolean suppressionOK = false;
-        switch (m_commande_courante) {
-            case SELECTIONNER:
+//        switch (m_commande_courante) {
+//            case SELECTIONNER:
                 suppressionOK = m_controleur.supprimerSelectionRoutier();
                 if (!suppressionOK){
                     JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
                 }
-                break;
-
-            default:
-                break;
-        }
+//                break;
+//
+//            default:
+//                break;
+//        }
 
         //afficheurReseau.setDimension(intersectionSupprimee);
         //defilementAfficheur.setViewportView(afficheurReseau);
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
-    }
-
+    }//GEN-LAST:event_suppressionRoutierActionPerformed
+    
     private void editage() {
         switch (m_mode_courant) {
             case ROUTIER:
@@ -1272,7 +1283,7 @@ public class MainWindow extends javax.swing.JFrame {
                 //assert(elementsRoutiersSelectionnes.size() == 1);
                 //ElementRoutier elemR = elementsRoutiersSelectionnes.getFirst();
 
-                selectionRoutier.doClick();
+                //selectionRoutier.doClick();
                 suppressionRoutier.doClick();
                 break;
 
@@ -1302,8 +1313,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
 
         this.setCommande(Commandes.ARRET);
-        m_controleur.deselectionnerRoutier();
-        m_controleur.deselectionnerTransport();
+        m_controleur.deselectionnerTout();
 
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
@@ -1311,8 +1321,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
 
         this.setCommande(Commandes.AJOUTERCIRCUIT);
-        m_controleur.deselectionnerRoutier();
-        m_controleur.deselectionnerTransport();
+        m_controleur.deselectionnerTout();
 
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
@@ -1330,9 +1339,7 @@ public class MainWindow extends javax.swing.JFrame {
             default:
                 break;
         }
-
-        //afficheurReseau.setDimension(intersectionSupprimee);
-        //defilementAfficheur.setViewportView(afficheurReseau);   
+        
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
@@ -1350,7 +1357,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMouseClicked
 
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
-        // TODO add your handling code here:
+        m_controleur.annulerDerniereAction();
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_annulerActionPerformed
 
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
@@ -1650,16 +1658,13 @@ public class MainWindow extends javax.swing.JFrame {
                 if (comboBoxIntersections.getItemCount() > 2) {
                     selectionRoutier.setEnabled(true);
                     suppressionRoutier.setEnabled(true);
-                    constructionTroncon.setEnabled(true);
                 } else if (comboBoxIntersections.getItemCount() > 1) {
                     selectionRoutier.setEnabled(true);
                     suppressionRoutier.setEnabled(true);
-                    constructionTroncon.setEnabled(false);
                 } else {
                     selectionRoutier.setEnabled(false);
                     suppressionRoutier.setEnabled(false);
-                    constructionTroncon.setEnabled(false);
-                    ajoutIntersection.doClick();
+                    constructionTroncon.doClick();
                 }
 
                 if (comboBoxTroncons.getItemCount() > 1) {

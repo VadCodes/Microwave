@@ -12,7 +12,7 @@ public class Intersection extends ElementRoutier{
     private Point2D.Float m_position;
     private LinkedList<Troncon> m_listeTroncons = new LinkedList<>();
     
-    public final static float RAYON = 10;
+    public final static float RAYON = 12;
     
     public Intersection(Point2D.Float p_position){
         m_position = p_position;
