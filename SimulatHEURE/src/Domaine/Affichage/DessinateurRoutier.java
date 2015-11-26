@@ -35,7 +35,8 @@ public class DessinateurRoutier
     public void dessiner(Graphics2D p_g)
     {
         float echelle = (float)p_g.getTransform().getScaleX();
-        if (echelle > 1){
+        if (echelle > 1)
+        {
             dessinerTroncons(p_g, echelle);
             dessinerIntersections(p_g, echelle);
         }
@@ -71,7 +72,6 @@ public class DessinateurRoutier
 
     private void dessinerTroncons(Graphics2D p_g, float p_echelle)
     {
-        p_g.setColor(Color.LIGHT_GRAY);
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
 
         LinkedList<Intersection> intersections = m_reseau.getIntersections();

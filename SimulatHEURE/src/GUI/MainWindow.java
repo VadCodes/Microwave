@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import java.util.*;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Vinny
@@ -399,7 +398,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsRoutier.setPreferredSize(new java.awt.Dimension(116, 360));
         boutonsRoutier.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
-        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         selectionRoutier.setText("Sélectionner");
         selectionRoutier.setEnabled(false);
         selectionRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +408,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(selectionRoutier);
 
-        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        ajoutIntersection.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         ajoutIntersection.setText("Intersection");
         ajoutIntersection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -418,7 +417,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(ajoutIntersection);
 
-        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        constructionTroncon.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         constructionTroncon.setText("Tronçon");
         constructionTroncon.setEnabled(false);
         constructionTroncon.addActionListener(new java.awt.event.ActionListener() {
@@ -428,9 +427,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
-        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        suppressionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         suppressionRoutier.setText("Supprimer");
-        suppressionRoutier.setEnabled(false);
         suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suppressionRoutierActionPerformed(evt);
@@ -438,7 +436,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(suppressionRoutier);
 
-        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        editerRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         editerRoutier.setText("Éditer sélection");
         editerRoutier.setToolTipText("");
         editerRoutier.addActionListener(new java.awt.event.ActionListener() {
@@ -847,7 +845,14 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);   
     }//GEN-LAST:event_simulationActionPerformed
-        
+
+    private void agrandirAfficheur()
+    {
+        boolean intersectionAjoutee = true;
+        afficheurReseau.setDimension(intersectionAjoutee);
+        defilementAfficheur.setViewportView(afficheurReseau);
+    }
+    
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         float echelle = afficheurReseau.getEchelle();
         if (SwingUtilities.isLeftMouseButton(evt)) {
@@ -857,25 +862,21 @@ public class MainWindow extends javax.swing.JFrame {
 
                     switch (m_commande_courante) {
                         case SELECTIONNER:
-                            if (evt.isControlDown()) {
-                                ElementRoutier plusieursEr = m_controleur.selectionnerPlusieursElementRoutier(evt.getX(), evt.getY(), echelle);
-                            } else {
-                                ElementRoutier er = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            }
-
+                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                             break;
 
                         case INTERSECTION:
                             m_controleur.ajouterIntersection(evt.getX(), evt.getY(), echelle);
-                            boolean intersectionAjoutee = true;
-                            afficheurReseau.setDimension(intersectionAjoutee);
-                            defilementAfficheur.setViewportView(afficheurReseau);
+                            agrandirAfficheur();
                             miseAjourSelectionIntersectionsAjout();
                             break;
 
                         case TRONCON:
                             m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
+                            agrandirAfficheur();
+                            miseAjourSelectionIntersectionsAjout();
                             miseAjourSelectionTronconsAjout();
+
                             break;
 
                         default:
@@ -909,9 +910,9 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case SOURCE:
-                            ElementRoutier elemRoutie = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
-                            if (elemRoutie != null) {
-                                if (elemRoutie.getClass() == Troncon.class) {
+                            ElementRoutier elementRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
+                            if (elementRoutier != null) {
+                                if (elementRoutier.getClass() == Troncon.class) {
                                     m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionSourcesAjout();
@@ -919,17 +920,11 @@ public class MainWindow extends javax.swing.JFrame {
                             }
                             break;
                         case ARRET:
-                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                             if (elemRoutier != null) {
-                                if (elemRoutier.getClass() == Troncon.class || elemRoutier.getClass() == Intersection.class) {
                                     m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
                                     m_controleur.deselectionnerRoutier();
                                     miseAjourSelectionArretsAjout();
-                                } else if (elemRoutier.getClass() == Intersection.class) {
-                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                    m_controleur.deselectionnerRoutier();
-                                    miseAjourSelectionArretsAjout();
-                                }
                             }
                             break;
 
@@ -947,7 +942,7 @@ public class MainWindow extends javax.swing.JFrame {
             switch (m_mode_courant) {
                 case ROUTIER:
                     m_controleur.deselectionnerTout();
-                    ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle);
+                    ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                     if (elemRoutier != null) {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
@@ -1159,6 +1154,8 @@ public class MainWindow extends javax.swing.JFrame {
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
         coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
+        
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_afficheurReseauMouseMoved
 
     private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
@@ -1185,8 +1182,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_constructionTronconActionPerformed
 
-    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {
-
+    private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionRoutierActionPerformed
         boolean suppressionOK = false;
         switch (m_commande_courante) {
             case SELECTIONNER:
@@ -1205,8 +1201,8 @@ public class MainWindow extends javax.swing.JFrame {
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();
-    }
-
+    }//GEN-LAST:event_suppressionRoutierActionPerformed
+    
     private void editage() {
         switch (m_mode_courant) {
             case ROUTIER:
@@ -1302,8 +1298,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
 
         this.setCommande(Commandes.ARRET);
-        m_controleur.deselectionnerRoutier();
-        m_controleur.deselectionnerTransport();
+        m_controleur.deselectionnerTout();
 
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutArretActionPerformed
@@ -1311,8 +1306,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
 
         this.setCommande(Commandes.AJOUTERCIRCUIT);
-        m_controleur.deselectionnerRoutier();
-        m_controleur.deselectionnerTransport();
+        m_controleur.deselectionnerTout();
 
         this.afficheurCommandes.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
@@ -1330,9 +1324,7 @@ public class MainWindow extends javax.swing.JFrame {
             default:
                 break;
         }
-
-        //afficheurReseau.setDimension(intersectionSupprimee);
-        //defilementAfficheur.setViewportView(afficheurReseau);   
+        
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         this.afficheurCommandes.repaint();

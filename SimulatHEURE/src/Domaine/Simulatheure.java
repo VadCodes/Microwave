@@ -25,7 +25,6 @@ public class Simulatheure {
     
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
-    private LinkedList<ElementRoutier> m_parametresElementRoutier = new LinkedList<>();
     
     private ReseauTransport m_reseauTransport = new ReseauTransport();
     private LinkedList<Arret> m_arretsNouveauCircuit = new LinkedList<>();
@@ -58,12 +57,15 @@ public class Simulatheure {
             circuit.getListeAutobus().clear();
         }
     }
-    public void copier(Simulatheure p_simulatheure){
-       // p_simulatheure.m_arret_temp = p_simulatheure.m_reseauTransport.this.m_arret_temp;
-    }
+    
     public ReseauRoutier getRoutier()
     {
         return m_reseauRoutier;
+    }
+    
+    public LinkedList<Intersection> getParametresTroncon()
+    {
+        return m_parametresTroncon;
     }
     
     public ReseauTransport getTransport(){
@@ -82,31 +84,17 @@ public class Simulatheure {
         m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
     
-    public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
-        ElementRoutier er = obtenirElementRoutier(p_x, p_y, p_echelle);
-        if (er != null){
-            er.changerStatutSelection(); 
-            m_parametresElementRoutier.add(er); 
-            if (m_parametresElementRoutier.size() == 2)
-            {
-                ElementRoutier premierElement = m_parametresElementRoutier.getFirst();
-                ElementRoutier deuxiemeElement = m_parametresElementRoutier.getLast();
+    public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle, Boolean p_estMultiple){
+        ElementRoutier elementRoutier = obtenirElementRoutier(p_x, p_y, p_echelle);
+        if (elementRoutier != null){
+            if (!p_estMultiple)
                 deselectionnerRoutier();
-                selectionnerElementRoutier(p_x, p_y, p_echelle);
-            }
+            
+            elementRoutier.changerStatutSelection();
         }
         
-        return er;
+        return elementRoutier;
     }
-    public ElementRoutier selectionnerPlusieursElementRoutier(Integer p_x, Integer p_y, Float p_echelle){
-        ElementRoutier plusieursEr = obtenirElementRoutier(p_x, p_y, p_echelle);
-        if (plusieursEr != null){
-            plusieursEr.changerStatutSelection(); 
-                   
-        }
-        return plusieursEr;
-    }
-    
     
     public ElementRoutier obtenirElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
     {
@@ -150,15 +138,9 @@ public class Simulatheure {
         }
     }
     
-    public void deselectionnerTout(){
-        deselectionnerRoutier();
-        deselectionnerTransport();
-    }
-    
     public void deselectionnerRoutier()
     {
         m_parametresTroncon.clear();
-        m_parametresElementRoutier.clear();
         m_reseauRoutier.deselectionnerTout();
     }
         
@@ -167,6 +149,11 @@ public class Simulatheure {
         m_arretsNouveauCircuit.clear();
         m_tronconsNouveauTrajet.clear();
         m_reseauTransport.deselectionnerTout();
+    }
+    
+    public void deselectionnerTout(){
+        deselectionnerRoutier();
+        deselectionnerTransport();
     }
     
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle)
@@ -180,7 +167,7 @@ public class Simulatheure {
     {
         float xReel;
         float yReel;        
-        float largeurSelection;        
+        float largeurSelection;
         
         if (p_echelle > 1)
         {
@@ -196,14 +183,25 @@ public class Simulatheure {
         }
         
         Intersection intersection = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
-        if (intersection != null)
+        if (intersection == null)
+        {
+            ajouterIntersection(p_x, p_y, p_echelle);
+            m_parametresTroncon.add(m_reseauRoutier.getIntersections().getLast());
+            m_reseauRoutier.getIntersections().getLast().changerStatutSelection();
+        }
+        else
         {
             if (intersection.estSelectionne())
+            {
                 m_parametresTroncon.add(intersection);
+            }
             else
+            {
                 m_parametresTroncon.removeFirst();
-            
-            if (m_parametresTroncon.size() == 2)
+            }
+        }
+        
+        if (m_parametresTroncon.size() == 2)
             {
                 Intersection origine = m_parametresTroncon.getFirst();
                 Intersection destination = m_parametresTroncon.getLast();
@@ -214,7 +212,6 @@ public class Simulatheure {
                 m_parametresTroncon.removeFirst();
                 origine.changerStatutSelection();
             }
-        }
     }
     
     public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle){
@@ -287,7 +284,6 @@ public class Simulatheure {
                 }
             }
         }
-//        m_circuit_temp = new Circuit();
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
         m_modeNouvelArret = true;
