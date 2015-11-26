@@ -312,7 +312,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.setMinimumSize(new java.awt.Dimension(116, 360));
         boutonsTransport.setOpaque(false);
         boutonsTransport.setPreferredSize(new java.awt.Dimension(116, 360));
-        boutonsTransport.setLayout(new java.awt.GridLayout());
+        boutonsTransport.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionTransport.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         selectionTransport.setText("Sélectionner");
@@ -384,7 +384,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(editerTransport);
 
-        boutonsSimulation.setLayout(new java.awt.GridLayout());
+        boutonsSimulation.setLayout(new java.awt.GridLayout(1, 0));
 
         ralentirSimulation.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         ralentirSimulation.setText("Ralentir / 2");
@@ -445,7 +445,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.add(jLabel2);
         boutonsSimulation.add(facteurMultiplicatif);
 
-        boutonsRoutier.setLayout(new java.awt.GridLayout());
+        boutonsRoutier.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionRoutier.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         selectionRoutier.setText("Sélectionner");
@@ -503,24 +503,22 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(0, 579, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(730, Short.MAX_VALUE)))
+                    .addComponent(boutonsRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 730, Short.MAX_VALUE)))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 1005, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(569, Short.MAX_VALUE)))
+                    .addComponent(boutonsSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 569, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boutonsTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(boutonsRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                .addComponent(boutonsRoutier, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(boutonsSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                .addComponent(boutonsSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
         );
 
         jPanel10.add(jPanel7, java.awt.BorderLayout.CENTER);
