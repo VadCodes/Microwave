@@ -515,7 +515,19 @@ public class Simulatheure {
                 }
             }
         }
-        else{ //mode trajet           
+        else{ //mode trajet     
+            if(true){ //a changer bien sur
+                System.out.println("ss");
+                m_trajet_temp.setListeTroncons(circuit.dijkstra(arretPrecedent.getEmplacement().getIntersection(), m_arret_temp.getEmplacement().getIntersection()));
+                System.out.println("d");
+                m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
+                circuit.ajouterPaire(m_arret_temp, null);
+                circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
+
+                cancellerCircuit();
+                return;
+            }
+            
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
             if (nouvER == null || nouvER.getClass() != Troncon.class){
                 return;
@@ -717,6 +729,14 @@ public class Simulatheure {
             }
         }
         return null;
+    }
+    
+    public void miseAJourPositionsSouris(Point2D.Float delta){
+        for (Intersection intrsct : m_reseauRoutier.getIntersections()){
+            if (intrsct.estSelectionne()){
+                intrsct.getPosition().setLocation(delta);
+            }
+        }
     }
     
 }
