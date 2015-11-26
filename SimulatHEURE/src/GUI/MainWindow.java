@@ -44,6 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
         changeLookAndFeel();
         m_controleur = new Simulatheure();
         initComponents();
+        annuler.setEnabled(true);
         routier.doClick();
         this.afficheurReseau.setDimension(false);
     }
@@ -1349,7 +1350,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMouseClicked
 
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
-        // TODO add your handling code here:
+        m_controleur.annulerDerniereAction();
+        this.afficheurCommandes.repaint();
     }//GEN-LAST:event_annulerActionPerformed
 
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
