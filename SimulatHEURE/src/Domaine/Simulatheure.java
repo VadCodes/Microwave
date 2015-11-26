@@ -485,14 +485,11 @@ public class Simulatheure {
             }
         }
         else{ //mode trajet     
-            if(m_dijkstra){ //a changer bien sur
-                System.out.println("ss");
+            if(m_dijkstra){
                 m_trajet_temp.setListeTroncons(circuit.dijkstra(arretPrecedent.getEmplacement().getIntersection(), m_arret_temp.getEmplacement().getIntersection()));
-                System.out.println("d");
                 m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                 circuit.ajouterPaire(m_arret_temp, null);
                 circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
-
                 cancellerCircuit();
                 return;
             }
