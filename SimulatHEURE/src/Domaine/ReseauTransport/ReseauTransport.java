@@ -241,6 +241,8 @@ public class ReseauTransport {
                 if (!intersectionsVerifiees.contains(intr)){
                     intersectionsVerifiees.add(intr);
                     est_connecte =  arretsConnectesRec(intr, inter2, intersectionsVerifiees);
+                    if (est_connecte)
+                        return est_connecte;
                 }
             }
         }
