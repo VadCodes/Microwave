@@ -39,9 +39,7 @@ public class SourceAutobus extends ElementTransport{
     public void miseAJourTempsRestant(Temps p_deltatT){
         // Le temps avant le prochain ajout d'autobus diminu selon le deltatT
         double tmp = m_tempsAvantApparition.getTemps() - p_deltatT.getTemps();
-        m_tempsAvantApparition = new Temps(tmp);
-        
-        
+        m_tempsAvantApparition = new Temps(tmp);       
     }
     public void genererAutobus(Temps p_deltatT){
         //Tant que le temps est négatif ou égale a zéro on pop des autobus pour remettre le temps d'apparition > 0;
