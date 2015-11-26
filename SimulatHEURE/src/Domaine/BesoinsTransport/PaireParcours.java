@@ -6,26 +6,27 @@
 package Domaine.BesoinsTransport;
 
 import java.util.LinkedList;
+import Domaine.ReseauRoutier.*;
 
 /**
  *
  * @author vadimcote
  */
 public class PaireParcours {
-    private ParcoursPieton m_parcoursPieton;
     private ParcoursBus m_parcoursBus;
-    public PaireParcours(ParcoursPieton p_parcoursPieton, ParcoursBus p_parcoursBus){
-        m_parcoursPieton = p_parcoursPieton;
+    private Trajet m_trajet;
+    public PaireParcours( Trajet p_trajet, ParcoursBus p_parcoursBus){
+        m_trajet = p_trajet;
         m_parcoursBus = p_parcoursBus;
     }
-    public ParcoursPieton getParcoursPieton(){
-        return m_parcoursPieton;
+    public Trajet getTrajet(){
+        return m_trajet;
     }
     public ParcoursBus getParcoursBus(){
         return m_parcoursBus;
     }
-    public void setParcoursPieton(ParcoursPieton parcoursPieton){
-        m_parcoursPieton = parcoursPieton;
+    public void setParcoursPieton(Trajet p_trajet){
+        m_trajet = p_trajet;
     }
     public void setParcoursBus(ParcoursBus parcoursBus){
         m_parcoursBus = parcoursBus;
