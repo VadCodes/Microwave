@@ -10,15 +10,19 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
+import Domaine.ReseauRoutier.Intersection;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
+import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import java.awt.Font;
 import java.awt.font.GlyphVector;
 import java.awt.font.FontRenderContext;
+import java.util.AbstractMap;
+import java.util.LinkedHashMap;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -160,5 +164,70 @@ public class Circuit extends ElementTransport{
     }
     public Boolean getVeutBoucler(){
         return m_veutBoucler;
+    }
+    
+    public LinkedList<Troncon> dijkstra(Intersection debut, Intersection fin){
+        
+        //declarations des structures
+        LinkedList<Intersection> noeuds = m_reseauRoutier.getIntersections(); 
+        LinkedList<Intersection> pasEncoreVu = new LinkedList<>();
+        LinkedHashMap<Intersection, Float> parcouru = new LinkedHashMap<>();
+        LinkedHashMap<Intersection, Intersection> precedent = new LinkedHashMap<>();
+        
+        //initialisation
+        for (Intersection intrsct : noeuds){
+            if(intrsct.equals(debut)){
+                parcouru.put(intrsct, 0.0f);
+            }
+            else{
+                parcouru.put(intrsct, Float.MAX_VALUE);
+            }
+            
+            precedent.put(intrsct, null);
+            
+            //shallow copy de chaque element de noeuds
+            pasEncoreVu.add(intrsct);
+        }
+        
+        Intersection n1; 
+        Float n1_parcouru;
+        Float n2_parcouru;
+        Float min;
+        while(!pasEncoreVu.isEmpty()){
+            //trouver min de pasEncoreVu
+            n1_parcouru = Float.MAX_VALUE;
+            n1 = pasEncoreVu.getFirst();
+            for (Intersection intr : pasEncoreVu){
+                min = parcouru.get(intr);
+                if (min < n1_parcouru){
+                    n1_parcouru = min;
+                    n1 = intr;
+                }
+            }
+            
+            pasEncoreVu.remove(n1);
+            
+            for(Intersection n2 : n1.getEnfants()){
+                Troncon arc = m_reseauRoutier.getTronconParIntersections(n1, n2);
+                Float distance_n1_n2 = (float) arc.getDistribution().getTempsPlusFrequent().getTemps();
+                n2_parcouru = parcouru.get(n2);
+                if (n2_parcouru > n1_parcouru + distance_n1_n2) { //min = parcouru.get(n1)
+                    n2_parcouru = n1_parcouru + distance_n1_n2;
+                    parcouru.put(n2, n2_parcouru);
+                    precedent.replace(n2, n1);
+                }
+            }
+        }
+        
+        LinkedList<Troncon> chemin = new LinkedList<>();
+        Intersection n = fin;
+        Intersection n_dest;
+        while (n != debut){
+            n_dest = n;
+            n = precedent.get(n);
+            chemin.addFirst(m_reseauRoutier.getTronconParIntersections(n, n_dest));
+        }        
+        
+        return chemin;
     }
 }

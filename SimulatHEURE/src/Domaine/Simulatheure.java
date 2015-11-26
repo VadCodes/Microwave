@@ -34,7 +34,7 @@ public class Simulatheure {
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
-
+    private Boolean m_dijkstra = false;
 
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
 
@@ -483,7 +483,17 @@ public class Simulatheure {
                     }
                 }
             }
-        } else { //mode trajet           
+        }
+        else{ //mode trajet     
+            if(m_dijkstra){
+                m_trajet_temp.setListeTroncons(circuit.dijkstra(arretPrecedent.getEmplacement().getIntersection(), m_arret_temp.getEmplacement().getIntersection()));
+                m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
+                circuit.ajouterPaire(m_arret_temp, null);
+                circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size()-2).setTrajet(m_trajet_temp);
+                cancellerCircuit();
+                return;
+            }
+            
             ElementRoutier nouvER = obtenirElementRoutier(p_x, p_y, p_echelle);
             if (nouvER == null || nouvER.getClass() != Troncon.class) {
                 return;

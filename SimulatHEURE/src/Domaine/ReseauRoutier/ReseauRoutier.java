@@ -206,4 +206,15 @@ public class ReseauRoutier {
             }
         }
     }
+    
+    public Troncon getTronconParIntersections(Intersection orig, Intersection dest){
+        if (m_listeIntersections.contains(orig)){
+            for (Troncon trc : orig.getTroncons()){
+                if (trc.getDestination().equals(dest)){
+                    return trc;
+                }
+            }
+        }
+        return null;
+    }
 }

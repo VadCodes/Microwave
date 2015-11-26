@@ -37,4 +37,12 @@ public class Intersection extends ElementRoutier{
      public void ajouterTroncon(Troncon troncon ){
          m_listeTroncons.add(troncon);
     }
+     
+    public LinkedList<Intersection> getEnfants(){
+        LinkedList<Intersection> listeRetour = new LinkedList<>();
+        for (Troncon trc : m_listeTroncons){
+            listeRetour.add(trc.getDestination());
+        }
+        return listeRetour;
+    }
 }
