@@ -35,11 +35,11 @@ public class Simulatheure {
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
 
+
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
 
     public Simulatheure() {
     }
-
     public void arreterSimulation() {
         for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
@@ -98,7 +98,7 @@ public class Simulatheure {
             elementRoutier.changerStatutSelection();
         }
         m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
-        return er;
+        return elementRoutier;
     }
     
     public ElementRoutier obtenirElementRoutier(Integer p_x, Integer p_y, Float p_echelle)
@@ -683,12 +683,12 @@ public class Simulatheure {
                 switch (action) {
                     case "ajouterIntersection":
                         deselectionnerRoutier();
-                        selectionnerElementRoutier(x, y, echelle);
+                        selectionnerElementRoutier(x, y, echelle, false);
                         supprimerSelectionRoutier();
                         break;
                     case "construireTroncon":
                         deselectionnerRoutier();
-                        selectionnerElementRoutier(x, y, echelle);
+                        selectionnerElementRoutier(x, y, echelle, false);
                         for (ListIterator<Intersection> intersections = m_reseauRoutier.getIntersections().listIterator(); intersections.hasNext();) {
                             Intersection intersection = intersections.next();
                             if(intersection.estSelectionne()){
