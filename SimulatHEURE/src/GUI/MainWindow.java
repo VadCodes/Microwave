@@ -891,7 +891,14 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case AJOUTERCIRCUIT:
-                            if (m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle)) {
+                            Boolean circuitConstruit = false;
+                            try{
+                                circuitConstruit = m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle);
+                            }
+                            catch(RuntimeException e){
+                                JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+                            }
+                            if (circuitConstruit){
                                 miseAjourSelectionCircuitsAjout();
                                 comboBoxCircuits.setSelectedIndex(comboBoxCircuits.getItemCount() - 1);
                                 allongerCircuit.setEnabled(true);
@@ -904,7 +911,12 @@ public class MainWindow extends javax.swing.JFrame {
                         case EDITERCIRCUIT:
                             Circuit circ = m_controleur.obtenirCircuitSelectionne();
                             if (circ != null) {
-                                m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
+                                try{
+                                    m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
+                                }
+                                catch(RuntimeException e){
+                                    JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+                                }
                             }
                             break;
 
