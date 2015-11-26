@@ -540,21 +540,9 @@
                                       <Font name="Tahoma" size="11" style="0"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Tron&#xe7;on"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="constructionTronconActionPerformed"/>
-                                  </Events>
-                                </Component>
-                                <Component class="javax.swing.JButton" name="suppressionRoutier">
-                                  <Properties>
-                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                                      <Font name="Tahoma" size="11" style="0"/>
-                                    </Property>
-                                    <Property name="text" type="java.lang.String" value="Supprimer"/>
-                                  </Properties>
-                                  <Events>
-                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="suppressionRoutierActionPerformed"/>
                                   </Events>
                                 </Component>
                                 <Component class="javax.swing.JToggleButton" name="editerRoutier">
@@ -567,6 +555,17 @@
                                   </Properties>
                                   <Events>
                                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editerRoutierActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="suppressionRoutier">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="11" style="0"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Supprimer"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="suppressionRoutierActionPerformed"/>
                                   </Events>
                                 </Component>
                                 <Component class="javax.swing.JSeparator" name="jSeparator1">

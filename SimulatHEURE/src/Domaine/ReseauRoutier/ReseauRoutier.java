@@ -92,7 +92,6 @@ public class ReseauRoutier {
                 PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
                 Float ajX = pAj.getFloat1();
                 Float ajY = pAj.getFloat2();
-
                 Line2D.Float segment = new Line2D.Float(new Point2D.Float(p1.x + ajX, p1.y + ajY), new Point2D.Float(p2.x + ajX, p2.y + ajY));
                 
                 if (segment.intersects(zoneApproximative))

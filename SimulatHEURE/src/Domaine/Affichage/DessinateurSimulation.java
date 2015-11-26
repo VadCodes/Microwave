@@ -9,6 +9,7 @@ import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauTransport.*;
 
 //import java.awt.Dimension;
+
 import java.awt.Color;
 
 import java.awt.Graphics2D;
@@ -38,11 +39,11 @@ public class DessinateurSimulation {
 
     public void dessiner(Graphics2D p_g) {
         float echelle = (float) p_g.getTransform().getScaleX();
-        if (echelle > 1) {
+        if (echelle > 1)
             dessinerAutobus(p_g, echelle);
-        } else {
+            
+        else
             dessinerAutobus(p_g, 1);
-        }
     }
 
     private void dessinerAutobus(Graphics2D p_g, float p_echelle) {

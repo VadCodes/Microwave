@@ -47,11 +47,18 @@ public class AfficheurReseau extends JPanel implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier(), m_dimension);
+            DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier());
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport());
+            DessinateurChantier dessinateurChantierRoutier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
+            
+            if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
+            {
+                dessinateurChantierRoutier.dessiner(graphic2D, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
+            }
+            
             dessinateurRoutier.dessiner(graphic2D);
-            dessinateurTransport .dessiner(graphic2D);
+            dessinateurTransport.dessiner(graphic2D);
             dessinateurSimulation.dessiner(graphic2D);
         }
     }
@@ -92,8 +99,8 @@ public class AfficheurReseau extends JPanel implements Serializable {
             LinkedList<Intersection> intersections = m_fenetrePrincipale.m_controleur.getRoutier().getIntersections();
             for (Intersection intersection: intersections)
             {
-                m_xMax = java.lang.Math.max(m_xMax, (int)intersection.getPosition().getX());
-                m_yMax = java.lang.Math.max(m_yMax, (int)intersection.getPosition().getY());
+                m_xMax = java.lang.Math.max(m_xMax, (int)intersection.getPosition().x);
+                m_yMax = java.lang.Math.max(m_yMax, (int)intersection.getPosition().y);
             }
         }
         l = (int)(1.065 * m_echelle * m_xMax + 0.3 * l);

@@ -3,8 +3,9 @@ package Domaine.Affichage;
 import Domaine.Utilitaire.PaireFloats;
 import Domaine.ReseauRoutier.*;
 
+//import java.awt.Dimension;
+
 import java.awt.Color;
-import java.awt.Dimension;
 
 import java.awt.BasicStroke;
 
@@ -22,14 +23,14 @@ import java.util.LinkedList;
  */
 public class DessinateurRoutier
 {
-    private final Dimension m_dimensionInitiale;
+    //private final Dimension m_dimensionInitiale;
     
     private final ReseauRoutier m_reseau;
 
-    public DessinateurRoutier(ReseauRoutier p_reseau, Dimension p_dimensionInitiale)
+    public DessinateurRoutier(ReseauRoutier p_reseau) //, Dimension p_dimensionInitiale)
     {
-        this.m_reseau = p_reseau;
-        this.m_dimensionInitiale = p_dimensionInitiale;
+        m_reseau = p_reseau;
+        //this.m_dimensionInitiale = p_dimensionInitiale;
     }
 
     public void dessiner(Graphics2D p_g)
@@ -52,15 +53,13 @@ public class DessinateurRoutier
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
         {
-            if (!intersection.estSelectionne())
-            {
-                p_g.setColor(Color.BLACK);
-            }
-            else 
-            {
+//            if (intersection.estSuggere())
+//                p_g.setColor(Color.ORANGE);          
+            if (intersection.estSelectionne())
                 p_g.setColor(Color.BLUE);
-            }
-            
+            else 
+                p_g.setColor(Color.BLACK);
+
             Point2D.Float position = intersection.getPosition();
             float x = position.x - Intersection.RAYON / p_echelle;
             float y = position.y - Intersection.RAYON / p_echelle;
@@ -106,7 +105,7 @@ public class DessinateurRoutier
                 p_g.draw(fleche);
 
                 float d = (float)p2.distance(p1);
-                float dx = p2.x - p1x;
+                float dx = p2x - p1x;
                 float dy = p2y - p1y;
 
                 if(troncon.estDoubleSens()){
