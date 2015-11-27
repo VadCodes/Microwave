@@ -79,13 +79,4 @@ public class Trajet {
     public void setListeTroncons(LinkedList<Troncon> listeTroncons){
         m_listTroncons = listeTroncons;
     }
-    
-    static public Boolean estConstructible(Emplacement p_initial, Emplacement p_final, LinkedList<Troncon> p_listeTroncons)
-    {
-        
-        
-        
-    return false;
-    }
-    
 }
