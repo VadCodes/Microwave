@@ -330,7 +330,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(selectionRoutier);
 
-        ajoutIntersection.setText("Intersection");
+        ajoutIntersection.setText("Inter. (for noob)");
         ajoutIntersection.setMaximumSize(new java.awt.Dimension(32767, 32767));
         ajoutIntersection.setMinimumSize(new java.awt.Dimension(100, 35));
         ajoutIntersection.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -413,7 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(selectionTransport);
 
-        ajoutArret.setText("Arrêt");
+        ajoutArret.setText("Arrêt (for noob)");
         ajoutArret.setToolTipText("");
         ajoutArret.setPreferredSize(new java.awt.Dimension(100, 35));
         ajoutArret.addActionListener(new java.awt.event.ActionListener() {
@@ -424,7 +424,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.add(ajoutArret);
 
         ajoutCircuit.setText("Circuit");
-        ajoutCircuit.setEnabled(false);
         ajoutCircuit.setPreferredSize(new java.awt.Dimension(100, 35));
         ajoutCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -814,7 +813,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.setMode(Modes.TRANSPORT);
         boutonsTransport.setVisible(true);
         boutonsSelectionTransport.setVisible(true);
-        ajoutArret.doClick();
+        ajoutCircuit.doClick();
     }//GEN-LAST:event_transportActionPerformed
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
@@ -1674,16 +1673,13 @@ public class MainWindow extends javax.swing.JFrame {
                 if (comboBoxArrets.getItemCount() > 2) {
                     selectionTransport.setEnabled(true);
                     suppressionTransport.setEnabled(true);
-                    ajoutCircuit.setEnabled(true);
                 } else if (comboBoxArrets.getItemCount() > 1) {
                     selectionTransport.setEnabled(true);
                     suppressionTransport.setEnabled(true);
-                    ajoutCircuit.setEnabled(false);
                 } else {
                     selectionTransport.setEnabled(false);
                     suppressionTransport.setEnabled(false);
-                    ajoutCircuit.setEnabled(false);
-                    ajoutArret.doClick();
+                    ajoutCircuit.doClick();
                 }
 
                 if (comboBoxCircuits.getItemCount() > 1) {
