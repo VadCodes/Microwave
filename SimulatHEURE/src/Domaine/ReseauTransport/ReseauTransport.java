@@ -211,7 +211,7 @@ public class ReseauTransport {
         return supprTotalOK;
     }
     
-    public Boolean arretSontConnectables(Arret arr1, Arret arr2){
+    public Boolean arretsSontConnectables(Arret arr1, Arret arr2){
         Intersection inter1;
         Intersection inter2;
         if (arr1.getEmplacement().estSurTroncon()){

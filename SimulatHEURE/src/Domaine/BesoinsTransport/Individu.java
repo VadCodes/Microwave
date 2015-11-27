@@ -75,7 +75,7 @@ public class Individu {
         changementPaireParcoursAVerifier = m_emplacementActuel.equals(m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement());
         
         if (changementPaireParcoursAVerifier) {
-            changementiterator = changerPaireArretTrajet(pourcentageInitiale, deltatT);
+            //changementiterator = changerPaireArretTrajet(pourcentageInitiale, deltatT);
         }
         if (m_paireActuelle.getTrajet().getEmplacementFinal().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement())){
                    
@@ -97,6 +97,6 @@ public class Individu {
             }
  */       }
     }
-            
+    }   
     
 }

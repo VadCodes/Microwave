@@ -346,21 +346,16 @@ public class Simulatheure {
                 
                 if (!estConstructible)
                 {                
-                    if (!m_reseauTransport.arretSontConnectables(arretInitiale, arretFinale))
+                    if (!m_reseauTransport.arretsSontConnectables(arretInitiale, arretFinale))
                     {
+                        m_reseauRoutier.desuggererTout();
                         m_arretsNouveauCircuit.removeLast();
                         arretFinale.changerStatutSelection();
-                        
-                        if (arretFinale.getEmplacement().estSurTroncon())
-                            m_tronconsNouveauTrajet.removeLast();
-                        
-                        m_reseauRoutier.desuggererTout();
-                        //deselectionnerTout();
+                        m_tronconsNouveauTrajet.clear();
                         throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
                     else if(m_dijkstra)
                     {
-                        m_reseauRoutier.desuggererTout();
                         return construireCircuit(p_x, p_y, p_echelle);
                     }
                 }
@@ -440,10 +435,6 @@ public class Simulatheure {
             }
             Arret nouvArret = (Arret) nouvET;
 
-            if(!m_reseauTransport.arretSontConnectables(arretPrecedent, nouvArret)){
-                cancellerCircuit();
-                throw new RuntimeException("L'arrêt n'est pas atteignable", new Throwable("Construction impossible"));
-            }
             
             
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
@@ -482,6 +473,11 @@ public class Simulatheure {
                 return;
             }
 
+            if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
+                cancellerCircuit();
+                throw new RuntimeException("L'arrêt n'est pas atteignable", new Throwable("Construction impossible"));
+            }
+            
             //mettre en couleur le troncon partiel apres l'arret precedent
             if (circuit.getListeArretTrajet().getLast().getArret().getEmplacement().estSurTroncon()) {
                 Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
