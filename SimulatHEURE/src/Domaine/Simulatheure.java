@@ -597,8 +597,9 @@ public class Simulatheure {
                     Circuit circuit = circuits.next();
                     if (circuit.estSelectionne()) {
                         m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                        return;
                     }
-                    return;
+                    
 
                 }
             }
@@ -703,15 +704,12 @@ public class Simulatheure {
                                                 }
                                             }
                                         }
-                                        if (avantArret1 || apresArret2) {
-                                            return;
-                                        } else {
-                                            Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
-                                            Distribution distributionDefault = new Distribution();
-                                            distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
-                                            m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
-                                            return;
-                                        }
+                                        Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
+                                        Distribution distributionDefault = new Distribution();
+                                        distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
+                                        m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                        return;
+
                                     }
                                 }
                             }
