@@ -220,19 +220,34 @@ public class Autobus {
             }
             if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
                 if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getArret().getEmplacement().getIntersection())) {
-                    return;
+                          return;
                 }
             }
             if(!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
                  if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
-                     if(m_iterateur.hasNext()){
-                         m_paireActuelle = m_iterateur.next();
+                     if(paires.hasNext()){
+                         m_paireActuelle = paires.next();
+                         m_iterateur.next();
+                         if(paires.hasNext()){
+                             return;
+                         }
+                         else{
+                              m_asTerminer = true;
                          return;
+                         }
+                         
                      }
-                     else{
-                         m_asTerminer = true;
+                }
+            }
+              if(m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()){
+                 if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())) {
+                         if(paires.hasNext()){
+                             return;
+                         }
+                         else{
+                              m_asTerminer = true;
                          return;
-                     }
+                         }
                 }
             }
             if (m_emplacementActuel.estSurTroncon()) {
