@@ -434,17 +434,16 @@ public class Simulatheure {
             }
             Arret nouvArret = (Arret) nouvET;
 
-            
-            
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
             Boolean premier = true;
             for (PaireArretTrajet pat : circuit.getListeArretTrajet()) {
                 if (pat.getArret() == nouvArret && premier) {
                     circuit.setBoucle(true);
-                    premier = false;
-                } else if (pat.getArret() == nouvArret) {
+                } 
+                else if (pat.getArret() == nouvArret) {
                     return;
                 }
+                 premier = false;
             }
 
             Emplacement emplPrec = arretPrecedent.getEmplacement();
