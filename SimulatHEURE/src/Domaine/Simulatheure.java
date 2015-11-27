@@ -271,8 +271,7 @@ public class Simulatheure {
     }
 
     public void cancellerCircuit() {
-        deselectionnerRoutier();
-        m_reseauRoutier.desuggererTout();
+        deselectionnerRoutier();  // ça "désuggère" aussi
         m_trajet_temp = new Trajet();
         m_arret_temp = new Arret();
         m_modeNouvelArret = true;
