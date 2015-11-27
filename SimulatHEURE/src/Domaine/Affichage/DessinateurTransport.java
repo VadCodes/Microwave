@@ -56,7 +56,7 @@ public class DessinateurTransport {
     
     public void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
-        LinkedList<Arret> arrets = m_reseau.getListArrets();
+        LinkedList<Arret> arrets = m_reseau.getListeArrets();
         for (Arret arret :arrets){
             if (!arret.estSelectionne())
                 p_g.setColor(Color.GREEN);
@@ -154,10 +154,10 @@ public class DessinateurTransport {
                 Emplacement em = source.getEmplacement();                
                 Point2D.Float position = em.calculPosition(p_echelle);
  
-                float y1 = position.y + source.LARGUEUR / 2 / p_echelle;
-                float x1 = position.x + source.LARGUEUR / 2 / p_echelle;
-                float y2 = y1 - source.LARGUEUR / p_echelle;
-                float x2 = x1 - source.LARGUEUR / p_echelle;
+                float y1 = position.y - SourceAutobus.LARGEUR / 2 / p_echelle;
+                float x1 = position.x + SourceAutobus.LARGEUR / 2 / p_echelle;
+                float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
+                float x2 = x1 - SourceAutobus.LARGEUR / p_echelle;
                 
                 losange.moveTo(position.x, y1);
                 losange.lineTo(x1, position.y);

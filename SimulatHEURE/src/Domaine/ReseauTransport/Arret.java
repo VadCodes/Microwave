@@ -15,7 +15,6 @@ import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Temps;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.PriorityQueue;
 
 public class Arret extends ElementTransport{
     private Emplacement m_emplacement;

@@ -14,7 +14,7 @@ import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.RoundRectangle2D;
+import java.awt.geom.Path2D;
 import java.util.LinkedHashMap;
 
 /**
@@ -37,7 +37,7 @@ public class ReseauTransport {
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;
     }
-    public LinkedList<Arret> getListArrets (){
+    public LinkedList<Arret> getListeArrets (){
         return m_listeArrets;
     }
     public void ajouterArret(Arret p_arret){
@@ -87,7 +87,13 @@ public class ReseauTransport {
    
     public SourceAutobus selectionnerSourceAutobus(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
        
-        RoundRectangle2D.Float zoneSelection = new RoundRectangle2D.Float(p_x, p_y, p_largeur, p_largeur, p_largeur/2, p_largeur/2);
+        Path2D.Float zoneSelection = new Path2D.Float();
+        
+        zoneSelection.moveTo(p_x, p_y - p_largeur / 2);
+        zoneSelection.lineTo(p_x + p_largeur / 2, p_y);
+        zoneSelection.lineTo(p_x, p_y + p_largeur / 2);
+        zoneSelection.lineTo(p_x - p_largeur / 2, p_y);
+        zoneSelection.closePath();
 
         for (Circuit circ : m_listeCircuits){
             for (SourceAutobus src : circ.getListeSourceAutobus()){
@@ -112,6 +118,7 @@ public class ReseauTransport {
        p_circuit.ajouterSource(src);
        return src;
    }
+   
    public Arret creerArret(Emplacement emplacement, String nom){
        return new Arret(emplacement, nom);
    }

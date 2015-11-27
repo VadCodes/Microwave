@@ -899,6 +899,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 allongerCircuit.setEnabled(true);
                                 allongerCircuit.doClick();
                             }
+                            miseAjourSelectionArretsAjout();
                             break;
 
                         case EDITERCIRCUIT:
@@ -914,23 +915,20 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case SOURCE:
-                            ElementRoutier elementRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
+                            ElementRoutier elementRoutierS = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                             ElementTransport elementTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
-                              if (elementTransport!= null || elementRoutier != null) {
-                                     m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
-                                    m_controleur.deselectionnerRoutier();
-                                    miseAjourSelectionSourcesAjout();
+                            if (elementTransport!= null || elementRoutierS != null) {
+                                m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
+                                m_controleur.deselectionnerRoutier();
+                                miseAjourSelectionSourcesAjout();
                                     
                                 
                               }
                             break;
                         case ARRET:
-                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
-                            if (elemRoutier != null) {
-                                    m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle);
-                                    m_controleur.deselectionnerRoutier();
-                                    miseAjourSelectionArretsAjout();
-                            }
+                            if (m_controleur.ajouterArret(evt.getX(), evt.getY(), echelle))
+                                miseAjourSelectionArretsAjout();
+                            
                             break;
 
                         default:
@@ -1014,7 +1012,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
 
         }
-        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             comboBoxArrets.addItem(arret.getNom());
         }
@@ -1070,7 +1068,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void miseAjourSelectionArretsAjout() {
-        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             boolean add = true;
             String name = arret.getNom();
@@ -1512,7 +1510,7 @@ public class MainWindow extends javax.swing.JFrame {
         int index = comboBoxArrets.getSelectedIndex();
         String name = comboBoxArrets.getItemAt(index);
         m_controleur.deselectionnerTout();
-        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListArrets().listIterator(); arrets.hasNext();) {
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             if (arret.getNom().equals(name)) {
                 arret.changerStatutSelection();

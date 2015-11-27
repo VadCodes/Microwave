@@ -24,8 +24,8 @@ public class Simulatheure {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, AJOUTERCIRCUIT, EDITERCIRCUIT
     }
-    private Simulatheure_log m_log = new Simulatheure_log();
-    private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
+    //private Simulatheure_log m_log = new Simulatheure_log();
+    //private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
 
@@ -45,7 +45,7 @@ public class Simulatheure {
     }
 
     public void arreterSimulation() {
-        for (ListIterator<Arret> arrets = m_reseauTransport.getListArrets().listIterator(); arrets.hasNext();) {
+        for (ListIterator<Arret> arrets = m_reseauTransport.getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             arret.viderFile();
         }
@@ -100,7 +100,7 @@ public class Simulatheure {
 
             elementRoutier.changerStatutSelection();
         }
-        m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
+        //m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
         return elementRoutier;
     }
 
@@ -161,9 +161,9 @@ public class Simulatheure {
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;
         m_reseauRoutier.ajouterIntersection(xReel, yReel);
-        String action = "ajouterIntersection\t".concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString());
-        m_log.ajouterAction(action);
-        m_reculelrRetablir.ajouterAction(action);
+        //String action = "ajouterIntersection\t".concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString());
+        //m_log.ajouterAction(action);
+        //m_reculelrRetablir.ajouterAction(action);
 
     }
 
@@ -212,17 +212,15 @@ public class Simulatheure {
     }
 
     public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle) {
-        float xReel;
-        float yReel;
+        
+        float xReel = p_x / p_echelle;
+        float yReel = p_y / p_echelle;
         float largeurSelection;
+        
         if (p_echelle > 1) {
-            xReel = (p_x - Arret.RAYON) / p_echelle;
-            yReel = (p_y - Arret.RAYON) / p_echelle;
-            largeurSelection = 2 * Arret.RAYON / p_echelle;
+            largeurSelection = SourceAutobus.LARGEUR / p_echelle;
         } else {
-            xReel = p_x / p_echelle - Arret.RAYON;
-            yReel = p_y / p_echelle - Arret.RAYON;
-            largeurSelection = 2 * Arret.RAYON;
+            largeurSelection = SourceAutobus.LARGEUR;
         }
 
         SourceAutobus src = m_reseauTransport.selectionnerSourceAutobus(xReel, yReel, largeurSelection, p_echelle);
@@ -242,38 +240,34 @@ public class Simulatheure {
         }
     }
 
-    public void ajouterArret(Integer p_x, Integer p_y, Float p_echelle) {
-        float xReel = p_x / p_echelle;
-        float yReel = p_y / p_echelle;
-        for (ListIterator<Intersection> intersection = m_reseauRoutier.getIntersections().listIterator(); intersection.hasNext();) {
-            Intersection intersectionOrigin = intersection.next();
-            if (intersectionOrigin.estSelectionne()) {
-                for (Arret arret : m_reseauTransport.getListArrets()) {
-                    if (!arret.getEmplacement().estSurTroncon()) {
-                        if (arret.getEmplacement().getIntersection() == intersectionOrigin) {
-                            return;
-                        }
-                    }
-                }
-                Point2D.Float p2 = new Point2D.Float(xReel, yReel);
-                Emplacement arretSurIntersection = new Emplacement(false, 0, null, intersectionOrigin);
-                m_reseauTransport.ajouterArret(new Arret(arretSurIntersection, ""));
-                return;
+    public Boolean ajouterArret(Integer p_x, Integer p_y, Float p_echelle) {
+        
+        ElementRoutier elementRoutier = obtenirElementRoutier(p_x, p_y, p_echelle);
+        if (elementRoutier != null)
+        {
+            Emplacement emplacementDesire;
+            if (elementRoutier.getClass() == Intersection.class)
+            {
+                emplacementDesire = new Emplacement(false, 0, null, (Intersection)elementRoutier);
             }
-
-            for (ListIterator<Troncon> troncons = intersectionOrigin.getTroncons().listIterator(); troncons.hasNext();) {
-                Troncon troncon = troncons.next();
-                if (troncon.estSelectionne()) {
-                    Point2D.Float p1 = new Point2D.Float(xReel, yReel);
-                    double distance1 = intersectionOrigin.getPosition().distance(p1);
-                    double distance2 = troncon.getLongueurTroncon();
-                    float pourcentage = (float) (distance1 / distance2);
-                    Emplacement emplacement = new Emplacement(true, pourcentage, troncon, intersectionOrigin);
-                    m_reseauTransport.ajouterArret(new Arret(emplacement, ""));
-                    return;
-                }
+            else
+            {
+                Troncon tronconObtenu = (Troncon)elementRoutier;
+                Point2D.Float p2 = new Point2D.Float(p_x / p_echelle, p_y / p_echelle);
+                float d1 = (float)tronconObtenu.getOrigine().getPosition().distance(p2);
+                float d2 = tronconObtenu.getLongueurTroncon();
+                emplacementDesire = new Emplacement(true, d1 / d2, tronconObtenu, tronconObtenu.getOrigine());
             }
+            
+            for (Arret arret : m_reseauTransport.getListeArrets())
+                if (arret.getEmplacement().equals(emplacementDesire))
+                    return false;
+            
+            m_reseauTransport.ajouterArret(new Arret(emplacementDesire, ""));
+            return true; 
         }
+        else 
+            return false;
     }
 
     public void cancellerCircuit() {
@@ -291,6 +285,7 @@ public class Simulatheure {
         Boolean estConstructible = false;
         Arret arretInitiale;
         Arret arretFinale;
+        Boolean arretEstNouvelle = false;
 
         if (m_arretsNouveauCircuit.size() < 2) {
             if (p_echelle > 1) {
@@ -304,7 +299,14 @@ public class Simulatheure {
             }
 
             Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
-            if (arret != null) {
+            if (arret == null) {
+                arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
+                if (arretEstNouvelle) {
+                    m_arretsNouveauCircuit.add(this.m_reseauTransport.getListeArrets().getLast());
+                    m_arretsNouveauCircuit.getLast().changerStatutSelection();
+                }
+            }
+            else {
                 if (arret.estSelectionne()) {
                     m_arretsNouveauCircuit.add(arret);
                 } else {
@@ -359,6 +361,9 @@ public class Simulatheure {
                         m_arretsNouveauCircuit.removeLast();
                         arretFinale.changerStatutSelection();
                         m_tronconsNouveauTrajet.clear();
+                        if (arretEstNouvelle)
+                            this.m_reseauTransport.getListeArrets().removeLast();
+                            
                         throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
                     else if(m_dijkstra)
@@ -737,7 +742,7 @@ public class Simulatheure {
     }
 
     public Boolean supprimerSelectionRoutier() {
-        for (Arret arr : m_reseauTransport.getListArrets()) {
+        for (Arret arr : m_reseauTransport.getListeArrets()) {
             if (arr.getEmplacement().estSurTroncon()) {
                 Troncon trc_arr = arr.getEmplacement().getTroncon();
                 if (trc_arr.estSelectionne() || trc_arr.getDestination().estSelectionne()
