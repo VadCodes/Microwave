@@ -1570,13 +1570,17 @@ public class MainWindow extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     private void changeLookAndFeel() {
+        /*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("javax.swing.plaf.nimbus.NimbusLookAndFeel".equals(info.getClassName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
-            }
+        */
+        try {
+            // select Look and Feel
+              javax.swing.UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
