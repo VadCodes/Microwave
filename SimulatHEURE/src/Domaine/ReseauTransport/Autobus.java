@@ -26,6 +26,7 @@ public class Autobus {
     private Emplacement m_emplacementActuel;
     private final int m_capaciteMax;
     private int m_nbPassagers = 0;
+    private Circuit m_circuit;
     private String m_id;
     private Temps m_tempsApparition;
     private LinkedList<PaireArretTrajet> m_list;
@@ -185,6 +186,9 @@ public class Autobus {
         return false;
     }
 
+    public Circuit getCircuit(){
+        return m_circuit;
+    }
     public Point2D.Float getPosition(Float p_echelle) {
         return m_emplacementActuel.calculPosition(p_echelle);
     }
@@ -197,7 +201,8 @@ public class Autobus {
         m_paireActuelle = m_iterateur.next();
     }
 
-    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet, Boolean boucle) {
+    public void assignerTrajet(LinkedList<PaireArretTrajet> listeArretTrajet, Boolean boucle, Circuit circuit) {
+        m_circuit = circuit;
         //Assigne l'iterateur a la premiere paire du trajet du circuit
         m_list = listeArretTrajet;
         m_boucle = boucle;
@@ -342,4 +347,13 @@ public class Autobus {
         }
     }
 
+    public void setPlusUnIndividu(){
+        m_nbPassagers++;
+    }
+       public int getnbPassager(){
+        return m_nbPassagers;
+    }
+    public int getCapaciteMax(){
+        return m_capaciteMax;
+    }
 }

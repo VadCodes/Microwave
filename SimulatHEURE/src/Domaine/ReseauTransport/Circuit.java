@@ -141,7 +141,7 @@ public class Circuit extends ElementTransport{
     }
     
     public void assignerTrajetAutobus(Autobus bus){
-        bus.assignerTrajet(m_listeArretTrajet, (m_boucle && m_veutBoucler));
+        bus.assignerTrajet(m_listeArretTrajet, (m_boucle && m_veutBoucler), this);
     }
     
     public void initCircuit(){

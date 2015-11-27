@@ -9,9 +9,12 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
+import Domaine.BesoinsTransport.Individu;
+import Domaine.BesoinsTransport.TempsArriverPietons;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Temps;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.PriorityQueue;
 
 public class Arret extends ElementTransport{
@@ -19,6 +22,7 @@ public class Arret extends ElementTransport{
     private String m_nom = "";
     private int m_nombreIndividu = 0;
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
+     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
     public final static float RAYON = 10;
     
     public Arret(Emplacement emplacement, String nom){
@@ -33,7 +37,9 @@ public class Arret extends ElementTransport{
     public void viderFile(){
         m_fileAutobus.clear();
     }
-    
+    public void ajouterPieton(Temps tempsArrivee, Individu individu){
+        m_filePietons.add(new TempsArriverPietons(tempsArrivee, individu));
+    }
     public void ajouterAutobus(Temps tempsArrivee, Autobus autobus)
     {
         m_fileAutobus.offer(new TempsArriveeAutobus(tempsArrivee, autobus));
@@ -66,5 +72,25 @@ public class Arret extends ElementTransport{
     
     public int getNbreIndividu(){
         return m_nombreIndividu;
+    }
+    public void miseAJourArret(){
+          for (ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator(); tmppietons.hasNext();) {
+            TempsArriverPietons tmppieton = tmppietons.next();
+            Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
+            for (ListIterator<TempsArriveeAutobus> tmpbuss = m_fileAutobus.listIterator(); tmpbuss.hasNext();) {
+                TempsArriveeAutobus tmpbus = tmpbuss.next();
+                Circuit circuitBus = tmpbus.getAutobus().getCircuit();
+                if(circuitPieton.equals(circuitBus)){
+                    if(tmppieton.getTempsArrivee().getTemps() < tmpbus.getTempsArrivee().getTemps()){
+                        if(tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()){
+                             tmppieton.getPieton().setIndividuEstDansBus(true);
+                              tmpbus.getAutobus().setPlusUnIndividu();
+                              tmppietons.remove();
+                        }
+                       
+                    }
+                }
+            }
+    }
     }
 }
