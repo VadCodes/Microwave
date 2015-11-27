@@ -33,22 +33,22 @@ public class DessinateurRoutier
         //this.m_dimensionInitiale = p_dimensionInitiale;
     }
 
-    public void dessiner(Graphics2D p_g)
-    {
-        float echelle = (float)p_g.getTransform().getScaleX();
-        if (echelle > 1)
-        {
-            dessinerTroncons(p_g, echelle);
-            dessinerIntersections(p_g, echelle);
-        }
-        else
-        {
-            dessinerTroncons(p_g, 1);
-            dessinerIntersections(p_g, 1);
-        }
-    }
+//    public void dessiner(Graphics2D p_g)
+//    {
+//        float echelle = (float)p_g.getTransform().getScaleX();
+//        if (echelle > 1)
+//        {
+//            dessinerTroncons(p_g, echelle);
+//            dessinerIntersections(p_g, echelle);
+//        }
+//        else
+//        {
+//            dessinerTroncons(p_g, 1);
+//            dessinerIntersections(p_g, 1);
+//        }
+//    }
 
-    private void dessinerIntersections(Graphics2D p_g, float p_echelle)
+    public void dessinerIntersections(Graphics2D p_g, float p_echelle)
     {
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
@@ -69,7 +69,7 @@ public class DessinateurRoutier
         }
     }
 
-    private void dessinerTroncons(Graphics2D p_g, float p_echelle)
+    public void dessinerTroncons(Graphics2D p_g, float p_echelle)
     {
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
 

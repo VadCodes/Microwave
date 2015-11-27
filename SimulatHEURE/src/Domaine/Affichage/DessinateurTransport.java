@@ -19,7 +19,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.RoundRectangle2D;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -39,23 +38,42 @@ public class DessinateurTransport {
         //m_dimensionInitiale = p_dimensionInitiale;
     }
     
-    public void dessiner(Graphics2D p_g)
+//    public void dessiner(Graphics2D p_g)
+//    {
+//        float echelle = (float)p_g.getTransform().getScaleX();
+//        if (echelle > 1){
+//            dessinerCircuit(p_g, echelle);
+//            dessinerArrets(p_g, echelle);
+//            dessinerSourceAutobus(p_g, echelle);
+//        }
+//        else
+//        {
+//            dessinerCircuit(p_g, 1);
+//            dessinerArrets(p_g, 1);
+//            dessinerSourceAutobus(p_g, 1);
+//        }
+//    }
+    
+    public void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
-        float echelle = (float)p_g.getTransform().getScaleX();
-        if (echelle > 1){
-            dessinerCircuit(p_g, echelle);
-            dessinerArrets(p_g, echelle);
-            dessinerSourceAutobus(p_g, echelle);
-        }
-        else
-        {
-            dessinerCircuit(p_g, 1);
-            dessinerArrets(p_g, 1);
-            dessinerSourceAutobus(p_g, 1);
+        LinkedList<Arret> arrets = m_reseau.getListArrets();
+        for (Arret arret :arrets){
+            if (!arret.estSelectionne())
+                p_g.setColor(Color.GREEN);
+            else 
+                p_g.setColor(Color.BLUE);
+
+            Emplacement em = arret.getEmplacement();
+
+            Point2D.Float position = em.calculPosition(p_echelle);
+            float x = position.x -   arret.RAYON / p_echelle;
+            float y = position.y -   arret.RAYON / p_echelle;
+            float diametre = 2 *   arret.RAYON / p_echelle;
+            p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
     
-    private void dessinerCircuit(Graphics2D p_g, float p_echelle)
+    public void dessinerCircuit(Graphics2D p_g, float p_echelle)
     {
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
         
@@ -120,45 +138,37 @@ public class DessinateurTransport {
         }
 
     }
-      private void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)
+      public void dessinerSourceAutobus(Graphics2D p_g, float p_echelle)
     {
           for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
                 for (ListIterator<SourceAutobus> sources =circuit.getListeSourceAutobus().listIterator(); sources.hasNext() ; ){
                     SourceAutobus source  = sources.next();
                     if (!source.estSelectionne())
-                        p_g.setColor(Color.CYAN);
+                        p_g.setColor(Color.MAGENTA);
                     else 
                         p_g.setColor(Color.BLUE);
+                    
+                Path2D.Float losange = new Path2D.Float();  
 
-                Emplacement em = source.getEmplacement();
-                
+                Emplacement em = source.getEmplacement();                
                 Point2D.Float position = em.calculPosition(p_echelle);
-                float x = position.x - source.LARGUEUR / 2 / p_echelle;
-                float y = position.y - source.LARGUEUR / 2 / p_echelle;
-                float largeur = source.LARGUEUR / p_echelle;
-                p_g.fill(new RoundRectangle2D.Float(x,y, largeur, largeur, largeur / 2, largeur / 2));
+ 
+                float y1 = position.y + source.LARGUEUR / 2 / p_echelle;
+                float x1 = position.x + source.LARGUEUR / 2 / p_echelle;
+                float y2 = y1 - source.LARGUEUR / p_echelle;
+                float x2 = x1 - source.LARGUEUR / p_echelle;
+                
+                losange.moveTo(position.x, y1);
+                losange.lineTo(x1, position.y);
+                losange.lineTo(position.x, y2);
+                losange.lineTo(x2, position.y);
+                losange.closePath();
+                
+                p_g.fill(losange);
             }
         }
     }
-      private void dessinerArrets(Graphics2D p_g, float p_echelle)
-    {
-         LinkedList<Arret> arrets = m_reseau.getListArrets();
-        for (Arret arret :arrets){
-                if (!arret.estSelectionne())
-                    p_g.setColor(Color.GREEN);
-                else 
-                    p_g.setColor(Color.BLUE);
-
-                Emplacement em = arret.getEmplacement();
-                
-                Point2D.Float position = em.calculPosition(p_echelle);
-                float x = position.x -   arret.RAYON / p_echelle;
-                float y = position.y -   arret.RAYON / p_echelle;
-                float diametre = 2 *   arret.RAYON / p_echelle;
-                p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
-            }
-        }
     }
 
 

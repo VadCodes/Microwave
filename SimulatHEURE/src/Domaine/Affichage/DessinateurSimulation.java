@@ -37,16 +37,16 @@ public class DessinateurSimulation {
         //m_dimensionInitiale = p_dimensionInitiale;
     }
 
-    public void dessiner(Graphics2D p_g) {
-        float echelle = (float) p_g.getTransform().getScaleX();
-        if (echelle > 1)
-            dessinerAutobus(p_g, echelle);
-            
-        else
-            dessinerAutobus(p_g, 1);
-    }
+//    public void dessiner(Graphics2D p_g) {
+//        float echelle = (float) p_g.getTransform().getScaleX();
+//        if (echelle > 1)
+//            dessinerAutobus(p_g, echelle);
+//            
+//        else
+//            dessinerAutobus(p_g, 1);
+//    }
 
-    private void dessinerAutobus(Graphics2D p_g, float p_echelle) {
+    public void dessinerAutobus(Graphics2D p_g, float p_echelle) {
         LinkedList<Circuit> circuits = m_reseau.getListeCircuits();
         for (Circuit circuit : circuits) {
             GlyphVector noCircuit = circuit.getRepresentationNom();

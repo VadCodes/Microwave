@@ -5,8 +5,6 @@
  */
 package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
-import Domaine.Utilitaire.Temps;
-import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 
@@ -25,7 +23,7 @@ public class SourceAutobus extends ElementTransport{
     private Temps m_frequence;
     private Temps m_tempsAttenteinitial;
     private Temps m_tempsAvantApparition;
-    public final static float LARGUEUR = 16;
+    public final static float LARGUEUR = 20;
     
     public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
         m_emplacement = p_emplacement;
@@ -62,7 +60,7 @@ public class SourceAutobus extends ElementTransport{
     }
     private String genererBusID(){
         m_nbAutobusGeneres++;
-        String tmp = m_nomSource.concat("A" +Integer.toString(m_nbAutobusGeneres));
+        String tmp = m_nomSource.concat("AU" +Integer.toString(m_nbAutobusGeneres));
         return tmp;
     }
         

@@ -51,15 +51,32 @@ public class AfficheurReseau extends JPanel implements Serializable {
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurChantier dessinateurChantierRoutier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
-            
+
             if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
             {
                 dessinateurChantierRoutier.dessiner(graphic2D, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
             }
             
-            dessinateurRoutier.dessiner(graphic2D);
-            dessinateurTransport.dessiner(graphic2D);
-            dessinateurSimulation.dessiner(graphic2D);
+            if (m_echelle > 1)
+            {
+                dessinateurRoutier.dessinerTroncons(graphic2D, m_echelle);
+                dessinateurTransport.dessinerCircuit(graphic2D, m_echelle);
+                dessinateurRoutier.dessinerIntersections(graphic2D, m_echelle);
+                dessinateurTransport.dessinerArrets(graphic2D, m_echelle);
+                dessinateurTransport.dessinerSourceAutobus(graphic2D, m_echelle);
+                dessinateurSimulation.dessinerAutobus(graphic2D, m_echelle);
+            }
+            else
+            {
+                dessinateurRoutier.dessinerTroncons(graphic2D, 1);
+                dessinateurTransport.dessinerCircuit(graphic2D, 1);
+                dessinateurRoutier.dessinerIntersections(graphic2D, 1);
+                dessinateurTransport.dessinerArrets(graphic2D, 1);
+                dessinateurTransport.dessinerSourceAutobus(graphic2D, 1);
+                dessinateurSimulation.dessinerAutobus(graphic2D, 1);
+            }
+            
+
         }
     }
     

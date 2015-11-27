@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -36,7 +35,7 @@ public class Simulatheure {
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
     private Arret m_arret_temp = new Arret();
-    private Boolean m_dijkstra = false;
+    private Boolean m_dijkstra = true;
 
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
 
@@ -230,6 +229,15 @@ public class Simulatheure {
         if (src != null) {
             return src;
         } else {
+            if (p_echelle > 1) {
+                xReel = (p_x - Arret.RAYON) / p_echelle;
+                yReel = (p_y - Arret.RAYON) / p_echelle;
+            largeurSelection = 2 * Arret.RAYON / p_echelle;
+            } else {
+                xReel = p_x / p_echelle - Arret.RAYON;
+                yReel = p_y / p_echelle - Arret.RAYON;
+                largeurSelection = 2 * Arret.RAYON;
+            }
             return m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
         }
     }
@@ -473,7 +481,7 @@ public class Simulatheure {
 
             if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
-                throw new RuntimeException("L'arrêt n'est pas atteignable", new Throwable("Construction impossible"));
+                throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
             }
             
             //mettre en couleur le troncon partiel apres l'arret precedent
@@ -782,37 +790,41 @@ public class Simulatheure {
         }
         return null;
     }
-
-    public void annulerDerniereAction() {
-        String str = m_reculelrRetablir.getLastAction();
-        if (str != null) {
-            String[] parts = str.split(Pattern.quote("\t"));
-            if (parts.length == 4) {
-                String action = parts[0];
-                int x = Integer.parseInt(parts[1]);
-                int y = Integer.parseInt(parts[2]);
-                float echelle = Float.parseFloat(parts[3]);
-                switch (action) {
-                    case "ajouterIntersection":
-                        deselectionnerRoutier();
-                        selectionnerElementRoutier(x, y, echelle, false);
-                        supprimerSelectionRoutier();
-                        break;
-                    case "construireTroncon":
-                        deselectionnerRoutier();
-                        selectionnerElementRoutier(x, y, echelle, false);
-                        for (ListIterator<Intersection> intersections = m_reseauRoutier.getIntersections().listIterator(); intersections.hasNext();) {
-                            Intersection intersection = intersections.next();
-                            if (intersection.estSelectionne()) {
-                                intersection.getTroncons().getFirst().changerStatutSelection();
-                                intersection.changerStatutSelection();
-                                break;
-                            }
-                        }
-                        supprimerSelectionRoutier();
-                }
-            }
-        }
+    
+    public void changerStatutDijkstra() {
+        m_dijkstra = !m_dijkstra;
     }
+
+//    public void annulerDerniereAction() {
+//        String str = m_reculelrRetablir.getLastAction();
+//        if (str != null) {
+//            String[] parts = str.split(Pattern.quote("\t"));
+//            if (parts.length == 4) {
+//                String action = parts[0];
+//                int x = Integer.parseInt(parts[1]);
+//                int y = Integer.parseInt(parts[2]);
+//                float echelle = Float.parseFloat(parts[3]);
+//                switch (action) {
+//                    case "ajouterIntersection":
+//                        deselectionnerRoutier();
+//                        selectionnerElementRoutier(x, y, echelle, false);
+//                        supprimerSelectionRoutier();
+//                        break;
+//                    case "construireTroncon":
+//                        deselectionnerRoutier();
+//                        selectionnerElementRoutier(x, y, echelle, false);
+//                        for (ListIterator<Intersection> intersections = m_reseauRoutier.getIntersections().listIterator(); intersections.hasNext();) {
+//                            Intersection intersection = intersections.next();
+//                            if (intersection.estSelectionne()) {
+//                                intersection.getTroncons().getFirst().changerStatutSelection();
+//                                intersection.changerStatutSelection();
+//                                break;
+//                            }
+//                        }
+//                        supprimerSelectionRoutier();
+//                }
+//            }
+//        }
+//    }
 
 }
