@@ -20,6 +20,7 @@ import java.awt.font.FontRenderContext;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.awt.Color;
 
 public class Circuit extends ElementTransport{
     private String m_nom = "";
@@ -30,6 +31,7 @@ public class Circuit extends ElementTransport{
     private Temps tempsDepart;
     private Boolean m_boucle = false;
     private Boolean m_veutBoucler = false;
+    private Color m_couleur = Color.RED;
     
     public Circuit(LinkedList<PaireArretTrajet> listeArrTraj){
         //assert listeArrTraj doit avoir les 2 premiers
@@ -167,5 +169,13 @@ public class Circuit extends ElementTransport{
                 tronconsCircuit.addAll(paire.getTrajet().getListeTroncons());  // Obtient certains troncons en double, mais on s'en calis.
         }
         return tronconsCircuit;
+    }
+    
+    public Color getCouleur(){
+        return m_couleur;
+    }
+    
+    public void setCouleur(Color couleur){
+        m_couleur = couleur;
     }
 }

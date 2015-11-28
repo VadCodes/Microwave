@@ -825,6 +825,15 @@ public class Simulatheure {
             m_reseauTransport.optimiserCircuitsAffectes(circuitsAffectes, p_tronconModifie);
     }
     
+    public Circuit obtenirCircuitDeSource(SourceAutobus src) {
+        for (Circuit circ : m_reseauTransport.getListeCircuits()) {
+            if (circ.getListeSources().contains(src)) {
+                return circ;
+            }
+        }
+        return null;
+    }
+    
 //    public void annulerDerniereAction() {
 //        String str = m_reculelrRetablir.getLastAction();
 //        if (str != null) {

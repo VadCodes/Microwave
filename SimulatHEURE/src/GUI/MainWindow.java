@@ -51,7 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         annuler.setEnabled(true);
         routier.doClick();
-        disparaitrePanels();
+        initialiserPanels();
         this.afficheurReseau.setDimension(false);
     }
 
@@ -177,6 +177,9 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxIntersections = new javax.swing.JComboBox<String>();
         panelIntersection1 = new GUI.PanelIntersection();
         panelTroncon1 = new GUI.PanelTroncon();
+        panelArret1 = new GUI.PanelArret();
+        panelCircuit1 = new GUI.PanelCircuit();
+        panelSourceAutobus1 = new GUI.PanelSourceAutobus();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -747,7 +750,18 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel12.add(panelIntersection1, java.awt.BorderLayout.CENTER);
 
         panelTroncon1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tronçon"));
-        jPanel12.add(panelTroncon1, java.awt.BorderLayout.LINE_START);
+        jPanel12.add(panelTroncon1, java.awt.BorderLayout.PAGE_START);
+
+        panelArret1.setBorder(javax.swing.BorderFactory.createTitledBorder("Arrêt"));
+        panelArret1.setName(""); // NOI18N
+        jPanel12.add(panelArret1, java.awt.BorderLayout.CENTER);
+
+        panelCircuit1.setBorder(javax.swing.BorderFactory.createTitledBorder("Circuit"));
+        jPanel12.add(panelCircuit1, java.awt.BorderLayout.CENTER);
+
+        panelSourceAutobus1.setBorder(javax.swing.BorderFactory.createTitledBorder("Source d'autobus"));
+        panelSourceAutobus1.setPreferredSize(new java.awt.Dimension(163, 400));
+        jPanel12.add(panelSourceAutobus1, java.awt.BorderLayout.LINE_START);
 
         jPanel3.add(jPanel12, java.awt.BorderLayout.EAST);
 
@@ -840,17 +854,7 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante) {
                         case SELECTIONNER:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                            
-                            if (elemRoutier != null){
-                                if (elemRoutier.getClass() == Troncon.class) {
-                                    panelTroncon1.setVisible(true);
-                                    panelTroncon1.afficheInfo((Troncon) elemRoutier);
-                                }
-                                else if (elemRoutier.getClass() == Intersection.class) {
-                                    panelIntersection1.setVisible(true);
-                                    panelIntersection1.afficheInfo((Intersection) elemRoutier);
-                                }
-                            }
+                            afficherPanelRoutier(elemRoutier);
                             
                             break;
 
@@ -888,6 +892,8 @@ public class MainWindow extends javax.swing.JFrame {
                         case SELECTIONNER:
                             m_controleur.deselectionnerRoutier();
                             ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
+                            afficherPanelTransport(et);
+                            
                             break;
 
                         case AJOUTERCIRCUIT:
@@ -975,11 +981,7 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
-    
-    private void disparaitrePanels(){
-        panelTroncon1.setVisible(false);
-        panelIntersection1.setVisible(false);
-    }
+
     
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
@@ -1283,8 +1285,16 @@ public class MainWindow extends javax.swing.JFrame {
         editerElement();
     }//GEN-LAST:event_editerClicDroitActionPerformed
 
+    public void supprimerElementPanel(){
+        suppression();
+    }
+    
     private void supprimerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supprimerClicDroitActionPerformed
-        switch (m_mode_courant) {
+        suppression();
+    }//GEN-LAST:event_supprimerClicDroitActionPerformed
+
+    private void suppression(){
+                switch (m_mode_courant) {
             case ROUTIER:
                 suppressionRoutier.doClick();
                 break;
@@ -1306,8 +1316,59 @@ public class MainWindow extends javax.swing.JFrame {
                 break;
         }
         this.afficheurReseau.repaint();
-    }//GEN-LAST:event_supprimerClicDroitActionPerformed
-
+    }
+    
+    private void initialiserPanels(){
+        panelIntersection1.setMainWindow(m_this);
+        panelTroncon1.setMainWindow(m_this);
+        panelArret1.setMainWindow(m_this);
+        panelCircuit1.setMainWindow(m_this);
+        panelSourceAutobus1.setMainWindow(m_this);
+        disparaitrePanels();
+    }
+    
+    private void disparaitrePanels(){
+        panelTroncon1.setVisible(false);
+        panelIntersection1.setVisible(false);
+        panelArret1.setVisible(false);
+        panelCircuit1.setVisible(false);
+        panelSourceAutobus1.setVisible(false);
+    }
+    
+    private void afficherPanelRoutier(ElementRoutier elemRoutier){
+        disparaitrePanels();
+        if (elemRoutier != null){
+            if (elemRoutier.getClass() == Troncon.class) {
+                panelTroncon1.setVisible(true);
+                panelTroncon1.afficheInfo((Troncon) elemRoutier);
+            }
+            else if (elemRoutier.getClass() == Intersection.class) {
+                panelIntersection1.setVisible(true);
+                panelIntersection1.afficheInfo((Intersection) elemRoutier);
+            }
+        }
+    }
+    
+    private void afficherPanelTransport(ElementTransport elemTransport){
+        disparaitrePanels();
+        if (elemTransport != null){
+            if (elemTransport.getClass() == Arret.class) {
+                panelArret1.setVisible(true);
+                panelArret1.afficheInfo((Arret) elemTransport);
+            }
+            else if (elemTransport.getClass() == SourceAutobus.class) {
+                panelSourceAutobus1.setVisible(true);
+                SourceAutobus src = (SourceAutobus) elemTransport;
+                Circuit circ = m_controleur.obtenirCircuitDeSource(src);
+                panelSourceAutobus1.afficheInfo(src, circ);
+            }
+            else if (elemTransport.getClass() == Circuit.class){
+                panelCircuit1.setVisible(true);
+                panelCircuit1.afficheInfo((Circuit) elemTransport);
+            }
+        }
+    }
+    
     private void selectionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionTransportActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
     }//GEN-LAST:event_selectionTransportActionPerformed
@@ -1532,6 +1593,7 @@ public class MainWindow extends javax.swing.JFrame {
             Intersection intersection = intersections.next();
             if (intersection.getName().equals(name)) {
                 intersection.changerStatutSelection();
+                afficherPanelRoutier(intersection);
                 break;
             }
         }
@@ -1549,13 +1611,13 @@ public class MainWindow extends javax.swing.JFrame {
                 Troncon troncon = troncons.next();
                 if (troncon.getNom().equals(name)) {
                     troncon.changerStatutSelection();
+                    afficherPanelRoutier(troncon);
                     break;
                 }
             }
             this.afficheurReseau.repaint();
         }
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
-
 
     private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
@@ -1569,9 +1631,11 @@ public class MainWindow extends javax.swing.JFrame {
                     ElementTransport arret = ArretTrajet.getArret();
                     if (!arret.estSelectionne()) {
                         arret.changerStatutSelection();
+
                     }
                 }
                 circuit.changerStatutSelection();
+                afficherPanelTransport(circuit);
                 break;
             }
         }
@@ -1589,6 +1653,7 @@ public class MainWindow extends javax.swing.JFrame {
                 SourceAutobus source = sources.next();
                 if (source.getNom().equals(name)) {
                     source.changerStatutSelection();
+                    afficherPanelTransport(source);
                     break;
                 }
             }
@@ -1605,11 +1670,13 @@ public class MainWindow extends javax.swing.JFrame {
             Arret arret = arrets.next();
             if (arret.getNom().equals(name)) {
                 arret.changerStatutSelection();
+                afficherPanelTransport(arret);
                 break;
             }
         }
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_comboBoxArretsActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1817,7 +1884,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private GUI.PanelArret panelArret1;
+    private GUI.PanelCircuit panelCircuit1;
     private GUI.PanelIntersection panelIntersection1;
+    private GUI.PanelSourceAutobus panelSourceAutobus1;
     private GUI.PanelTroncon panelTroncon1;
     private javax.swing.JPanel panneauCommandes;
     private javax.swing.JPanel panneauModes;

@@ -85,7 +85,7 @@ public class DessinateurTransport {
             }
             else
             {
-                p_g.setColor(Color.RED);
+                p_g.setColor(circuit.getCouleur());
             }
             
             Path2D.Float chemin = new Path2D.Float();

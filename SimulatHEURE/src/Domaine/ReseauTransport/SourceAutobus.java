@@ -73,6 +73,10 @@ public class SourceAutobus extends ElementTransport{
         m_capaciteMax = capacite;
     }
     
+    public int getCapaciteMax(){
+        return m_capaciteMax;
+    }
+    
     public void initSourceAutobus(){
         m_frequence  = m_distributionFrequence.pigerTemps();
     }
