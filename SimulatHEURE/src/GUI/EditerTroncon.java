@@ -6,7 +6,9 @@
 package GUI;
 
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauTransport.Trajet;
 import Domaine.Utilitaire.Temps;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -188,17 +190,16 @@ public class EditerTroncon extends javax.swing.JFrame {
             max = Double.parseDouble(jTextField4.getText());
             m_troncon.getDistribution().setDistribution(new Temps(60 * min), new Temps(60 * freq), new Temps(60 * max));
             m_mainWindow.miseAjourComboBoxTotal();
-            double nouveauTempsMoyen = m_troncon.getDistribution().getTempsMoyen().getTemps();
-            if (ancienTempsMoyen < nouveauTempsMoyen)
+            if (ancienTempsMoyen != m_troncon.getDistribution().getTempsMoyen().getTemps())
             {
-                m_mainWindow.m_controleur
-                JOptionPane.showConfirmDialog(null, "Le temps moyen de la distribution a augmenté. Voulez-vous optimiser les circuits affectés ?", 
-                        "Temps moyen augmenté", JOptionPane.YES_NO_OPTION);
-                //m_mainWindow.m_controleur.
-
+                LinkedList<Trajet> trajetsAffectes = m_mainWindow.m_controleur.obtenirTrajetsAffectes(m_troncon);
+                if (!trajetsAffectes.isEmpty())
+                    if (JOptionPane.showConfirmDialog(null, "Le temps moyen de la distribution a changé. Voulez-vous optimiser les circuits affectés ?", 
+                            "Temps moyen augmenté", JOptionPane.YES_NO_OPTION) == 0)
+                    {
+                        m_mainWindow.m_controleur.optimiserCircuitsAffectes(trajetsAffectes);
+                    }
             }
-                
-                
             this.dispose();
         }
         catch(NumberFormatException e){

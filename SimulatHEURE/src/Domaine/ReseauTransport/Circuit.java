@@ -11,7 +11,6 @@ package Domaine.ReseauTransport;
  * @author louis
  */
 import Domaine.Utilitaire.Temps;
-import Domaine.ReseauRoutier.Trajet;
 import java.awt.geom.Point2D;
 
 import java.awt.Font;

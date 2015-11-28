@@ -5,6 +5,7 @@
  */
 package Domaine.BesoinsTransport;
 
+import Domaine.ReseauTransport.Trajet;
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.*;
 

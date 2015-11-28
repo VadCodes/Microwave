@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domaine.ReseauRoutier;
+package Domaine.ReseauTransport;
 
 /**
  *
  * @author Nathaniel
  */
+import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Troncon;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;

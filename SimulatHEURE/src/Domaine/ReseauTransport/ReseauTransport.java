@@ -266,7 +266,7 @@ public class ReseauTransport {
         return est_connecte;
     }
     
-    public LinkedList<Troncon> dijkstra(Arret arretInitial, Arret arretFinal){
+    public LinkedList<Troncon> dijkstra(Emplacement emplacementInitial, Emplacement emplacementFinal){
         
         //preparation pour passer de arret a intersection
         Intersection debut;
@@ -275,20 +275,20 @@ public class ReseauTransport {
         Troncon trc_fin = null;
         LinkedList<Troncon> dijk = new LinkedList<>();
         
-        if (arretInitial.getEmplacement().estSurTroncon()) {
-            debut = arretInitial.getEmplacement().getTroncon().getDestination();
-            trc_debut = arretInitial.getEmplacement().getTroncon();
+        if (emplacementInitial.estSurTroncon()) {
+            debut = emplacementInitial.getTroncon().getDestination();
+            trc_debut = emplacementInitial.getTroncon();
         }
         else{
-            debut = arretInitial.getEmplacement().getIntersection();
+            debut = emplacementInitial.getIntersection();
         }
         
-        if (arretFinal.getEmplacement().estSurTroncon()) {
-            fin = arretFinal.getEmplacement().getTroncon().getOrigine();
-            trc_fin = arretFinal.getEmplacement().getTroncon();
+        if (emplacementFinal.estSurTroncon()) {
+            fin = emplacementFinal.getTroncon().getOrigine();
+            trc_fin = emplacementFinal.getTroncon();
         }
         else{
-            fin = arretFinal.getEmplacement().getIntersection();
+            fin = emplacementFinal.getIntersection();
         }
                   
             
@@ -333,7 +333,7 @@ public class ReseauTransport {
             
             for(Intersection n2 : n1.getEnfants()){
                 Troncon arc = m_reseauRoutier.getTronconParIntersections(n1, n2);
-                Float distance_n1_n2 = (float) arc.getDistribution().getTempsPlusFrequent().getTemps();
+                Float distance_n1_n2 = (float) arc.getDistribution().getTempsMoyen().getTemps();
                 n2_parcouru = parcouru.get(n2);
                 if (n2_parcouru > n1_parcouru + distance_n1_n2) { //min = parcouru.get(n1)
                     n2_parcouru = n1_parcouru + distance_n1_n2;
@@ -364,16 +364,29 @@ public class ReseauTransport {
     
     public LinkedList<Trajet> obtenirTrajetsAffectes(Troncon p_tronconModifie)
     {
-        LinkedList<Trajet> circuitsAffectes = new LinkedList<>();
+        LinkedList<Trajet> trajetsAffectes = new LinkedList<>();
         for (Circuit circuit : m_listeCircuits)
         {
             for (PaireArretTrajet paire : circuit.getListeArretTrajet())
             {
-                for (Troncon troncon : paire.getTrajet().getListeTroncons())
+                if (paire.getTrajet() != null)
                 {
-                    
+                    for (Troncon troncon : paire.getTrajet().getListeTroncons())
+                    {
+                        if (troncon == p_tronconModifie)
+                            trajetsAffectes.add(paire.getTrajet());
+                    }
                 }
             }
+        }
+        return trajetsAffectes;
+    }
+    
+    public void optimiserCircuitsAffectes(LinkedList<Trajet> trajetsAffectes)
+    {
+        for (Trajet trajet : trajetsAffectes)
+        {
+            trajet.setListeTroncons(dijkstra(trajet.getEmplacementInitial(), trajet.getEmplacementFinal()));
         }
     }
 }

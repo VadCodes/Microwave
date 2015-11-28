@@ -1,5 +1,6 @@
 package Domaine;
 
+import Domaine.ReseauTransport.Trajet;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
@@ -378,7 +379,7 @@ public class Simulatheure {
             
             if(m_dijkstra){
                 estConstructible = true;
-                m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale, arretFinale);
+                m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
             }
             else
             {   
@@ -528,7 +529,7 @@ public class Simulatheure {
             }
         } else { //mode trajet     
             if (m_dijkstra) {     
-                m_trajet_temp.setListeTroncons(m_reseauTransport.dijkstra(arretPrecedent, m_arret_temp));
+                m_trajet_temp.setListeTroncons(m_reseauTransport.dijkstra(arretPrecedent.getEmplacement(), m_arret_temp.getEmplacement()));
                 m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                 circuit.ajouterPaire(m_arret_temp, null);
                 circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size() - 2).setTrajet(m_trajet_temp);
@@ -796,10 +797,17 @@ public class Simulatheure {
         m_dijkstra = !m_dijkstra;
     }
     
-    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
+    public LinkedList<Trajet> obtenirTrajetsAffectes(Troncon p_tronconModifie)
     {
-        return m_reseauTransport.obtenirCircuitsAffectes(p_tronconModifie);
+        return m_reseauTransport.obtenirTrajetsAffectes(p_tronconModifie);
     }
+    
+    public void optimiserCircuitsAffectes(LinkedList<Trajet> trajetsAffectes)
+    {
+        if (m_dijkstra)
+            m_reseauTransport.optimiserCircuitsAffectes(trajetsAffectes);
+    }
+    
 //    public void annulerDerniereAction() {
 //        String str = m_reculelrRetablir.getLastAction();
 //        if (str != null) {
