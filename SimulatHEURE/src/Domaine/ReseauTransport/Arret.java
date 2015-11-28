@@ -10,6 +10,7 @@ package Domaine.ReseauTransport;
  * @author louis
  */
 import Domaine.BesoinsTransport.Individu;
+import Domaine.BesoinsTransport.PairePietonBus;
 import Domaine.BesoinsTransport.TempsArriverPietons;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Temps;
@@ -21,7 +22,8 @@ public class Arret extends ElementTransport{
     private String m_nom = "";
     private int m_nombreIndividu = 0;
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
-     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
+    private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
+    private LinkedList<PairePietonBus> m_pietonEnAttenteDeSortir = new LinkedList<>();
     public final static float RAYON = 10;
     
     public Arret(Emplacement emplacement, String nom){
@@ -32,7 +34,9 @@ public class Arret extends ElementTransport{
     public Arret(){
         
     }
-    
+    public void addPietonAttenteDeSortirBus(PairePietonBus p_paire){
+        m_pietonEnAttenteDeSortir.add(p_paire);
+    }
     public void viderFile(){
         m_fileAutobus.clear();
     }
@@ -82,7 +86,7 @@ public class Arret extends ElementTransport{
                 if(circuitPieton.equals(circuitBus)){
                     if(tmppieton.getTempsArrivee().getTemps() < tmpbus.getTempsArrivee().getTemps()){
                         if(tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()){
-                             tmppieton.getPieton().setIndividuEstDansBus(true);
+                             tmppieton.getPieton().setIndividuEstDansBus(true,tmpbus.getAutobus());
                               tmpbus.getAutobus().setPlusUnIndividu();
                               tmppietons.remove();
                         }
@@ -90,6 +94,21 @@ public class Arret extends ElementTransport{
                     }
                 }
             }
+        }
+        sortieAutobus();
     }
+    private void sortieAutobus(){
+        for (ListIterator<PairePietonBus> tmppietons = m_pietonEnAttenteDeSortir.listIterator(); tmppietons.hasNext();) {
+            PairePietonBus tmppieton = tmppietons.next();
+            for (ListIterator<TempsArriveeAutobus> tmpbuss = m_fileAutobus.listIterator(); tmpbuss.hasNext();) {
+                TempsArriveeAutobus tmpbus = tmpbuss.next();
+                if(tmpbus.getAutobus().equals(tmppieton.getBus())){
+                    tmppieton.getPieton().setIndividuEstDansBus(false, null);
+                    tmppieton.getPieton().setTempsApparition(tmpbus.getTempsArrivee());
+                    tmpbus.getAutobus().setmoinsUnIndividu();
+                }
+            }
+        }
     }
+    
 }

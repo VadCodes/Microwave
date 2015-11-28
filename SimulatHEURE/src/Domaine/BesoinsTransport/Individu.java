@@ -8,6 +8,7 @@ import Domaine.ReseauRoutier.Emplacement;
 import java.util.ListIterator;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauTransport.Autobus;
 import Domaine.ReseauTransport.Circuit;
 
 /**
@@ -49,6 +50,12 @@ public class Individu {
             m_tempsApparition = tmp;
         }
     }  
+    public void setTempsApparition(Temps p_temps){
+        m_tempsApparition = p_temps;
+    }
+            
+            
+            
     
     public void miseAJourEmplacement(Temps deltatT) {
         /*
@@ -56,6 +63,13 @@ public class Individu {
          */
         float pourcentageInitiale = 0;
         Temps tempsTransit;
+         if(m_estEnBus){
+             estDansBus();
+             if(!m_estEnBus){
+                 miseAJourIndividu(deltatT);
+                 return;
+             }
+         }
         if (m_emplacementActuel.estSurTroncon()) {
             tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitPieton();
             pourcentageInitiale = m_emplacementActuel.getPourcentageParcouru();
@@ -135,9 +149,16 @@ public class Individu {
        public Circuit getProchaineCircuit(){
            return m_paireActuelle.getParcoursBus().getCircuit();
        }
-       public void setIndividuEstDansBus(boolean b){
+       public void setIndividuEstDansBus(boolean b, Autobus p_bus){
            m_estEnBus = b;
+           if(b){
+           PairePietonBus paire = new PairePietonBus(this,p_bus );
+           m_paireActuelle.getParcoursBus().getArretFinal().addPietonAttenteDeSortirBus(paire);
            m_estSurArret = false;
+           }
+       }
+       private void estDansBus(){
+           m_paireActuelle.getParcoursBus().getArretFinal().miseAJourArret();
        }
             
 }

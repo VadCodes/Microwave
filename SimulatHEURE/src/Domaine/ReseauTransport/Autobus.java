@@ -365,6 +365,9 @@ public class Autobus {
     public void setPlusUnIndividu(){
         m_nbPassagers++;
     }
+    public void setmoinsUnIndividu(){
+        m_nbPassagers--;
+    }
        public int getnbPassager(){
         return m_nbPassagers;
     }
