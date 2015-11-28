@@ -31,11 +31,11 @@ public class Distribution {
         
         if (tFreq > tMax)
         {
-            throw new RuntimeException("Le temps maximal doit être supérieur ou égal au temps le plus fréquent.", new Throwable("Champs invalides"));
+            throw new IllegalArgumentException("Le temps maximal doit être supérieur ou égal au temps le plus fréquent.", new Throwable("Champs invalides"));
         }        
         else if (tFreq < tMin)
         {
-            throw new RuntimeException("Le temps minimal doit être inférieur ou égal au temps le plus fréquent.", new Throwable("Champs invalides"));
+            throw new IllegalArgumentException("Le temps minimal doit être inférieur ou égal au temps le plus fréquent.", new Throwable("Champs invalides"));
         }        
         
         m_tempsMinimum = p_tempsMinimum;

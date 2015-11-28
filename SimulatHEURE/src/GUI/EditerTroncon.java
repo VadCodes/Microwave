@@ -205,7 +205,7 @@ public class EditerTroncon extends javax.swing.JFrame {
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
         }
-        catch (RuntimeException e)
+        catch (IllegalArgumentException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
         }

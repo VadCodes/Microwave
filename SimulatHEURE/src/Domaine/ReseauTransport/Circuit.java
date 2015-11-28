@@ -163,7 +163,8 @@ public class Circuit extends ElementTransport{
         LinkedList<Troncon> tronconsCircuit = new LinkedList<>();
         for (PaireArretTrajet paire : m_listeArretTrajet)
         {
-            tronconsCircuit.addAll(paire.getTrajet().getListeTroncons());  // Obtient certains troncons en double, mais on s'en calis.
+            if (paire.getTrajet() != null)
+                tronconsCircuit.addAll(paire.getTrajet().getListeTroncons());  // Obtient certains troncons en double, mais on s'en calis.
         }
         return tronconsCircuit;
     }

@@ -140,10 +140,10 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
-        ralentirSimulation = new javax.swing.JButton();
-        recommancerSimulation = new javax.swing.JButton();
-        arreterSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
+        arreterSimulation = new javax.swing.JButton();
+        recommancerSimulation = new javax.swing.JButton();
+        ralentirSimulation = new javax.swing.JButton();
         avancerSimulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
@@ -316,7 +316,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         boutonsRoutier.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsRoutier.setPreferredSize(new java.awt.Dimension(1200, 35));
-        boutonsRoutier.setLayout(new java.awt.GridLayout());
+        boutonsRoutier.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionRoutier.setText("Sélectionner");
         selectionRoutier.setEnabled(false);
@@ -401,7 +401,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsTransport.setPreferredSize(new java.awt.Dimension(1200, 35));
-        boutonsTransport.setLayout(new java.awt.GridLayout());
+        boutonsTransport.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionTransport.setText("Sélectionner");
         selectionTransport.setEnabled(false);
@@ -490,23 +490,13 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(1200, 35));
         boutonsSimulation.setLayout(new java.awt.GridLayout(1, 0));
 
-        ralentirSimulation.setText("Ralentir / 2");
-        ralentirSimulation.setEnabled(false);
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+        playPauseSimulation.setText("Lancer!");
+        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
+                playPauseSimulationActionPerformed(evt);
             }
         });
-        boutonsSimulation.add(ralentirSimulation);
-
-        recommancerSimulation.setText("Recommencer");
-        recommancerSimulation.setEnabled(false);
-        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recommancerSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(recommancerSimulation);
+        boutonsSimulation.add(playPauseSimulation);
 
         arreterSimulation.setText("Arrêter");
         arreterSimulation.setEnabled(false);
@@ -517,13 +507,23 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(arreterSimulation);
 
-        playPauseSimulation.setText("Lancer!");
-        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
+        recommancerSimulation.setText("Recommencer");
+        recommancerSimulation.setEnabled(false);
+        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playPauseSimulationActionPerformed(evt);
+                recommancerSimulationActionPerformed(evt);
             }
         });
-        boutonsSimulation.add(playPauseSimulation);
+        boutonsSimulation.add(recommancerSimulation);
+
+        ralentirSimulation.setText("Ralentir / 2");
+        ralentirSimulation.setEnabled(false);
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
 
         avancerSimulation.setText("Avancer X 2");
         avancerSimulation.setEnabled(false);
@@ -862,7 +862,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                                 miseAjourSelectionTronconsAjout();
                             }
-                            catch (RuntimeException e)
+                            catch (IllegalArgumentException e)
                             {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
@@ -889,7 +889,7 @@ public class MainWindow extends javax.swing.JFrame {
                             try{
                                 circuitConstruit = m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle);
                             }
-                            catch(RuntimeException e){
+                            catch(IllegalArgumentException e){
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
                             if (circuitConstruit){
@@ -907,7 +907,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 try{
                                     m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
                                 }
-                                catch(RuntimeException e){
+                                catch(IllegalArgumentException e){
                                     JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                                 }
                             }

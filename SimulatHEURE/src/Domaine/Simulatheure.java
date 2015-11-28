@@ -364,7 +364,7 @@ public class Simulatheure {
                         if (arretEstNouvelle)
                             this.m_reseauTransport.getListeArrets().removeLast();
                             
-                        throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+                        throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
                     else if(m_dijkstra)
                     {
@@ -486,7 +486,7 @@ public class Simulatheure {
 
             if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
-                throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+                throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
             }
             
             //mettre en couleur le troncon partiel apres l'arret precedent
