@@ -586,22 +586,12 @@
                             <Property name="rows" type="int" value="1"/>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JButton" name="ralentirSimulation">
+                            <Component class="javax.swing.JToggleButton" name="playPauseSimulation">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Ralentir / 2"/>
-                                <Property name="enabled" type="boolean" value="false"/>
+                                <Property name="text" type="java.lang.String" value="Lancer!"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ralentirSimulationActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Component class="javax.swing.JButton" name="recommancerSimulation">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Recommencer"/>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommancerSimulationActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playPauseSimulationActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="arreterSimulation">
@@ -613,12 +603,22 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="arreterSimulationActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JToggleButton" name="playPauseSimulation">
+                            <Component class="javax.swing.JButton" name="recommancerSimulation">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Lancer!"/>
+                                <Property name="text" type="java.lang.String" value="Recommencer"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playPauseSimulationActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="recommancerSimulationActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="ralentirSimulation">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Ralentir / 2"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ralentirSimulationActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="avancerSimulation">

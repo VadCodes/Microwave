@@ -68,18 +68,28 @@ public class ReseauTransport {
             crc.calculCirculationGlobal(deltaT);
         }
     }
-   public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+    
+    public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+       
+        Arret arret = obtenirArret(p_x, p_y, p_diametre, p_echelle);
+        if (arret != null)
+        {
+            arret.changerStatutSelection();
+        }
+        return arret;
+    }
+    
+    
+   public Arret obtenirArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
        
        Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
-        for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
-            Emplacement em = arrets.next().getEmplacement();
-            Point2D.Float p = em.calculPosition(p_echelle);
+        for (Arret arret : m_listeArrets){
+            Point2D.Float p = arret.getEmplacement().calculPosition(p_echelle);
             
             if (zoneSelection.contains(p))
             {
-                arrets.previous().changerStatutSelection();
-                return arrets.next();
+                return arret;
             }
         }
         return null;
@@ -96,7 +106,7 @@ public class ReseauTransport {
         zoneSelection.closePath();
 
         for (Circuit circ : m_listeCircuits){
-            for (SourceAutobus src : circ.getListeSourceAutobus()){
+            for (SourceAutobus src : circ.getListeSources()){
                 Emplacement em = src.getEmplacement();
                 Point2D.Float p = em.calculPosition(p_echelle);
                 
@@ -136,7 +146,7 @@ public class ReseauTransport {
            }
        }
        for(Circuit circ : m_listeCircuits){
-                for(SourceAutobus sa : circ.getListeSourceAutobus()){
+                for(SourceAutobus sa : circ.getListeSources()){
                     if(sa.estSelectionne()){
                         sa.changerStatutSelection();
                     }
@@ -155,7 +165,7 @@ public class ReseauTransport {
                 listeRetour.add(circ);
             }
             
-            for (SourceAutobus src: circ.getListeSourceAutobus())
+            for (SourceAutobus src: circ.getListeSources())
             {   
                 if (src.estSelectionne())
                 {
@@ -179,12 +189,12 @@ public class ReseauTransport {
             Circuit circuit = circ.next();
             if (circuit.estSelectionne())
             {
-                circuit.getListeSourceAutobus().clear();
+                circuit.getListeSources().clear();
                 circ.remove();
             }
             else
             {
-                for (ListIterator<SourceAutobus> src = circuit.getListeSourceAutobus().listIterator() ; src.hasNext() ; )
+                for (ListIterator<SourceAutobus> src = circuit.getListeSources().listIterator() ; src.hasNext() ; )
                 {
                     if (src.next().estSelectionne())
                     {
@@ -256,7 +266,7 @@ public class ReseauTransport {
         return est_connecte;
     }
     
-    public LinkedList<Troncon> dijkstra(Arret arretInitial, Arret arretFinal){
+    public LinkedList<Troncon> dijkstra(Emplacement emplacementInitial, Emplacement emplacementFinal){
         
         //preparation pour passer de arret a intersection
         Intersection debut;
@@ -265,20 +275,20 @@ public class ReseauTransport {
         Troncon trc_fin = null;
         LinkedList<Troncon> dijk = new LinkedList<>();
         
-        if (arretInitial.getEmplacement().estSurTroncon()) {
-            debut = arretInitial.getEmplacement().getTroncon().getDestination();
-            trc_debut = arretInitial.getEmplacement().getTroncon();
+        if (emplacementInitial.estSurTroncon()) {
+            debut = emplacementInitial.getTroncon().getDestination();
+            trc_debut = emplacementInitial.getTroncon();
         }
         else{
-            debut = arretInitial.getEmplacement().getIntersection();
+            debut = emplacementInitial.getIntersection();
         }
         
-        if (arretFinal.getEmplacement().estSurTroncon()) {
-            fin = arretFinal.getEmplacement().getTroncon().getOrigine();
-            trc_fin = arretFinal.getEmplacement().getTroncon();
+        if (emplacementFinal.estSurTroncon()) {
+            fin = emplacementFinal.getTroncon().getOrigine();
+            trc_fin = emplacementFinal.getTroncon();
         }
         else{
-            fin = arretFinal.getEmplacement().getIntersection();
+            fin = emplacementFinal.getIntersection();
         }
                   
             
@@ -323,7 +333,7 @@ public class ReseauTransport {
             
             for(Intersection n2 : n1.getEnfants()){
                 Troncon arc = m_reseauRoutier.getTronconParIntersections(n1, n2);
-                Float distance_n1_n2 = (float) arc.getDistribution().getTempsPlusFrequent().getTemps();
+                Float distance_n1_n2 = (float) arc.getDistribution().getTempsMoyen().getTemps();
                 n2_parcouru = parcouru.get(n2);
                 if (n2_parcouru > n1_parcouru + distance_n1_n2) { //min = parcouru.get(n1)
                     n2_parcouru = n1_parcouru + distance_n1_n2;
@@ -350,5 +360,74 @@ public class ReseauTransport {
         }
         
         return chemin;
+    }
+    
+    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
+    {
+        LinkedList<Circuit> circuitsAffectes = new LinkedList<>();
+        for (Circuit circuit : m_listeCircuits)
+        {
+            for (PaireArretTrajet paire : circuit.getListeArretTrajet())
+            {
+                if (paire.getTrajet() != null)
+                {
+                    if (paire.getTrajet().getListeTroncons().contains(p_tronconModifie))
+                        circuitsAffectes.add(circuit);
+                }
+            }
+        }
+        return circuitsAffectes;
+    }
+    
+    public void optimiserCircuitsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon tronconModifie)
+    {
+        LinkedList<Trajet> trajetsAffectes = obtenirTrajetsAffectes(circuitsAffectes, tronconModifie);
+        for (Trajet trajet : trajetsAffectes)
+        {
+            trajet.setListeTroncons(dijkstra(trajet.getEmplacementInitial(), trajet.getEmplacementFinal()));
+        }
+        
+        supprimerSourcesOrphelines(circuitsAffectes);
+
+    }
+    
+    public LinkedList<Trajet> obtenirTrajetsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon tronconModifie)
+    {
+        LinkedList<Trajet> trajetsAffectes = new LinkedList<>();
+        for (Circuit circuit : circuitsAffectes)
+        {
+            for (PaireArretTrajet paire : circuit.getListeArretTrajet())
+            {
+                if (paire.getTrajet() != null)
+                {
+                    if (paire.getTrajet().getListeTroncons().contains(tronconModifie))
+                        trajetsAffectes.add(paire.getTrajet());
+                }
+            }
+        }
+        return trajetsAffectes;
+    }
+    
+    public void supprimerSourcesOrphelines(LinkedList<Circuit> circuitsAffectes)
+    {
+        for (Circuit circuit : circuitsAffectes)
+        {
+            LinkedList<Troncon> tronconsCircuit = circuit.obtenirTroncons();
+            LinkedList<Intersection> interCircuit = ReseauRoutier.obtenirInterContigues(tronconsCircuit);
+            for (ListIterator<SourceAutobus> itSource = circuit.getListeSources().listIterator() ; itSource.hasNext() ; )
+            {
+                SourceAutobus source = itSource.next();
+                if (source.getEmplacement().estSurTroncon())
+                {
+                    if (!tronconsCircuit.contains(source.getEmplacement().getTroncon()))
+                        itSource.remove();
+                }
+                else
+                {
+                    if (!interCircuit.contains(source.getEmplacement().getIntersection()))
+                        itSource.remove();
+                }
+            }
+        }
     }
 }

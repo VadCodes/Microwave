@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domaine.ReseauRoutier;
+package Domaine.ReseauTransport;
 
 /**
  *
  * @author Nathaniel
  */
-import java.util.Iterator;
+import Domaine.ReseauRoutier.Emplacement;
+import Domaine.ReseauRoutier.Troncon;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -44,19 +45,19 @@ public class Trajet {
         m_emplacementFinal = empl;
     }
     
-    public Troncon getNextTroncon(Emplacement emplacement){
-        if(!emplacement.estSurTroncon()){
-              ListIterator<Troncon> troncon1= m_listTroncons.listIterator();
-                while (troncon1.hasNext()) {
-                    ListIterator<Troncon> troncon2 = emplacement.getIntersection().getTroncons().listIterator();
-                    Troncon tr1 = troncon1.next();
-                        while (troncon2.hasNext()) {
-                                if(troncon2.next().equals(tr1)){
-                                    return tr1;
-                                }
-                        }
+    public Troncon getNextTroncon(Emplacement emplacement) {
+        if (!emplacement.estSurTroncon()) {
+            ListIterator<Troncon> troncon1 = m_listTroncons.listIterator();
+            while (troncon1.hasNext()) {
+                ListIterator<Troncon> troncon2 = emplacement.getIntersection().getTroncons().listIterator();
+                Troncon tr1 = troncon1.next();
+                while (troncon2.hasNext()) {
+                    if (troncon2.next().equals(tr1)) {
+                        return tr1;
+                    }
                 }
-        
+            }
+
         }
         boolean trg= false;
         ListIterator<Troncon> troncon_it = m_listTroncons.listIterator();

@@ -164,7 +164,7 @@ public class ReseauRoutier {
         //on s'assure qu'il n'y a pas deux tronçons de origine à destination
         for(Troncon trc : p_origine.getTroncons()){
             if (trc.getDestination()==p_destination){
-                throw new RuntimeException("Un même tronçon est déjà présent présent.", new Throwable("Ajout impossible")); 
+                throw new IllegalArgumentException("Un même tronçon est déjà présent présent.", new Throwable("Ajout impossible")); 
             }
         }
         Troncon tr = m_factory.creerTroncon(p_origine, p_destination);
@@ -221,5 +221,16 @@ public class ReseauRoutier {
             }
         }
         return null;
+    }
+    
+    public static LinkedList<Intersection> obtenirInterContigues(LinkedList<Troncon> tronconsContigues)
+    {
+        LinkedList<Intersection> interContigues = new LinkedList<>();
+        interContigues.add(tronconsContigues.getFirst().getOrigine());
+        for (Troncon troncon : tronconsContigues)
+        {
+            interContigues.add(troncon.getDestination());  // Obtient certaines intersections en double si plusieurs fois le même troncon
+        } 
+        return interContigues;
     }
 }

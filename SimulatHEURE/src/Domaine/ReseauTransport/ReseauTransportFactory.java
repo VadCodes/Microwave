@@ -7,7 +7,6 @@ package Domaine.ReseauTransport;
 
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.ReseauRoutier;
-import Domaine.ReseauRoutier.Trajet;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;

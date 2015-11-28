@@ -10,19 +10,13 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
-import Domaine.ReseauRoutier.Intersection;
-import Domaine.Utilitaire.Temps;
-import Domaine.ReseauRoutier.ReseauRoutier;
-import Domaine.ReseauRoutier.Trajet;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.Temps;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 import java.awt.Font;
 import java.awt.font.GlyphVector;
 import java.awt.font.FontRenderContext;
-import java.util.AbstractMap;
-import java.util.LinkedHashMap;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -49,7 +43,7 @@ public class Circuit extends ElementTransport{
     public LinkedList<Autobus> getListeAutobus(){
         return m_listeAutobus;
     }
-    public LinkedList<SourceAutobus> getListeSourceAutobus(){
+    public LinkedList<SourceAutobus> getListeSources(){
         return m_listeSources;
     }
     public void updateSourceAutobus(Temps deltatT){
@@ -164,4 +158,14 @@ public class Circuit extends ElementTransport{
         return m_veutBoucler;
     }
     
+    public LinkedList<Troncon> obtenirTroncons()
+    {
+        LinkedList<Troncon> tronconsCircuit = new LinkedList<>();
+        for (PaireArretTrajet paire : m_listeArretTrajet)
+        {
+            if (paire.getTrajet() != null)
+                tronconsCircuit.addAll(paire.getTrajet().getListeTroncons());  // Obtient certains troncons en double, mais on s'en calis.
+        }
+        return tronconsCircuit;
+    }
 }

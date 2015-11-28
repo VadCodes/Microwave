@@ -9,6 +9,7 @@ package Domaine.BesoinsTransport;
  *
  * @author vadimcote
  */
+import Domaine.ReseauTransport.Trajet;
 import java.util.ListIterator;
 import java.util.LinkedList;
 import Domaine.Utilitaire.Temps;

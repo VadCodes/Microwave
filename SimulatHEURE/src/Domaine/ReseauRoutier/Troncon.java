@@ -18,6 +18,7 @@ public class Troncon extends ElementRoutier{
     private double m_longueur;
     
     public final static float LARGEUR = 7;
+    public final static float LARGEUR_TERREPLEIN = 5;
     public final static float GROSSEUR_FLECHE = 40;
 
 
@@ -99,8 +100,8 @@ public class Troncon extends ElementRoutier{
             float dx = p2.x - p1.x;
             float dy = p2.y - p1.y;
 
-            ajX = (LARGEUR * -dy / d) / p_echelle;
-            ajY = (LARGEUR * dx / d) / p_echelle;
+            ajX = (LARGEUR_TERREPLEIN * -dy / d) / p_echelle;
+            ajY = (LARGEUR_TERREPLEIN * dx / d) / p_echelle;
         }
         
         return new PaireFloats(ajX, ajY);

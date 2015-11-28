@@ -1,4 +1,4 @@
-package GUI;
+ package GUI;
 
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Modes;
@@ -24,8 +24,8 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     
     public Simulatheure m_controleur;
-    public Simulatheure m_controleurSimulation;
-    public Simulatheure m_contoleurReseau;
+    //public Simulatheure m_controleurSimulation;
+    //public Simulatheure m_contoleurReseau;
     
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
@@ -141,10 +141,10 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
-        ralentirSimulation = new javax.swing.JButton();
-        recommancerSimulation = new javax.swing.JButton();
-        arreterSimulation = new javax.swing.JButton();
         playPauseSimulation = new javax.swing.JToggleButton();
+        arreterSimulation = new javax.swing.JButton();
+        recommancerSimulation = new javax.swing.JButton();
+        ralentirSimulation = new javax.swing.JButton();
         avancerSimulation = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
@@ -492,23 +492,13 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(1200, 35));
         boutonsSimulation.setLayout(new java.awt.GridLayout(1, 0));
 
-        ralentirSimulation.setText("Ralentir / 2");
-        ralentirSimulation.setEnabled(false);
-        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+        playPauseSimulation.setText("Lancer!");
+        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ralentirSimulationActionPerformed(evt);
+                playPauseSimulationActionPerformed(evt);
             }
         });
-        boutonsSimulation.add(ralentirSimulation);
-
-        recommancerSimulation.setText("Recommencer");
-        recommancerSimulation.setEnabled(false);
-        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                recommancerSimulationActionPerformed(evt);
-            }
-        });
-        boutonsSimulation.add(recommancerSimulation);
+        boutonsSimulation.add(playPauseSimulation);
 
         arreterSimulation.setText("Arrêter");
         arreterSimulation.setEnabled(false);
@@ -519,13 +509,23 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(arreterSimulation);
 
-        playPauseSimulation.setText("Lancer!");
-        playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
+        recommancerSimulation.setText("Recommencer");
+        recommancerSimulation.setEnabled(false);
+        recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playPauseSimulationActionPerformed(evt);
+                recommancerSimulationActionPerformed(evt);
             }
         });
-        boutonsSimulation.add(playPauseSimulation);
+        boutonsSimulation.add(recommancerSimulation);
+
+        ralentirSimulation.setText("Ralentir / 2");
+        ralentirSimulation.setEnabled(false);
+        ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ralentirSimulationActionPerformed(evt);
+            }
+        });
+        boutonsSimulation.add(ralentirSimulation);
 
         avancerSimulation.setText("Avancer X 2");
         avancerSimulation.setEnabled(false);
@@ -868,7 +868,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 m_controleur.construireTroncon(evt.getX(), evt.getY(), echelle);
                                 miseAjourSelectionTronconsAjout();
                             }
-                            catch (RuntimeException e)
+                            catch (IllegalArgumentException e)
                             {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
@@ -895,7 +895,7 @@ public class MainWindow extends javax.swing.JFrame {
                             try{
                                 circuitConstruit = m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle);
                             }
-                            catch(RuntimeException e){
+                            catch(IllegalArgumentException e){
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
                             if (circuitConstruit){
@@ -913,7 +913,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 try{
                                     m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
                                 }
-                                catch(RuntimeException e){
+                                catch(IllegalArgumentException e){
                                     JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                                 }
                             }
@@ -1016,7 +1016,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 comboBoxSources.addItem(source.getNom());
             }
@@ -1059,7 +1059,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void miseAjourSelectionSourcesAjout() {
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 boolean add = true;
 
@@ -1240,8 +1240,9 @@ public class MainWindow extends javax.swing.JFrame {
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 } else if (elemRoutier.getClass() == Troncon.class) {
+                    double ancienTempsMoyen = ((Troncon)elemRoutier).getDistribution().getTempsMoyen().getTemps();
                     EditerTroncon fenetre = new EditerTroncon();
-                    fenetre.setTroncon((Troncon) elemRoutier, this);
+                    fenetre.getTroncon((Troncon) elemRoutier, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1425,6 +1426,57 @@ public class MainWindow extends javax.swing.JFrame {
         m_crono.ralentirX2();
     }//GEN-LAST:event_ralentirSimulationActionPerformed
 
+    private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {                                                
+
+        /*int index = comboBoxAutobus.getSelectedIndex();
+         String name =(String) comboBoxAutobus.getItemAt(index);
+         m_controleur.deselectionnerTout();
+         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+         Circuit circuit = circuits.next();
+         for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
+         Autobus autobus = autobuss.next();
+         if (autobus.getID().equals(name)){
+         autobusachangerStatutSelection();
+         break;
+         }
+         }
+         this.afficheurReseau.repaint();
+         */
+    }                                               
+
+    // private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    //     this.setCommande(Commandes.SELECTIONNER);
+    //     int index = comboBoxSources.getSelectedIndex();
+    //     String name = comboBoxSources.getItemAt(index);
+    //     m_controleur.deselectionnerTout();
+    //     for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+    //         Circuit circuit = circuits.next();
+    //         for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
+    //             SourceAutobus source = sources.next();
+    //             if (source.getNom().equals(name)) {
+    //                 source.changerStatutSelection();
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     this.afficheurReseau.repaint();
+    // }                                               
+
+    // private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    //     this.setCommande(Commandes.SELECTIONNER);
+    //     int index = comboBoxArrets.getSelectedIndex();
+    //     String name = comboBoxArrets.getItemAt(index);
+    //     m_controleur.deselectionnerTout();
+    //     for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
+    //         Arret arret = arrets.next();
+    //         if (arret.getNom().equals(name)) {
+    //             arret.changerStatutSelection();
+    //             break;
+    //         }
+    //     }
+    //     this.afficheurReseau.repaint();
+    // }                                              
+
     private void editerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerRoutierActionPerformed
         
         editerRoutier.setSelected(false);  // fix temporaire
@@ -1504,23 +1556,6 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
-    private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
-
-        /*int index = comboBoxAutobus.getSelectedIndex();
-        String name =(String) comboBoxAutobus.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
-            Circuit circuit = circuits.next();
-            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
-                Autobus autobus = autobuss.next();
-                if (autobus.getID().equals(name)){
-                    autobusachangerStatutSelection();
-                    break;
-                }
-            }
-            this.afficheurReseau.repaint();
-            */
-    }//GEN-LAST:event_comboBoxAutobusActionPerformed
 
     private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
         this.setCommande(Commandes.SELECTIONNER);
@@ -1550,7 +1585,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur.deselectionnerTout();
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 if (source.getNom().equals(name)) {
                     source.changerStatutSelection();

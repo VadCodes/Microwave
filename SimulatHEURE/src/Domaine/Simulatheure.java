@@ -1,5 +1,6 @@
 package Domaine;
 
+import Domaine.ReseauTransport.Trajet;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
@@ -51,14 +52,14 @@ public class Simulatheure {
         }
         for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 source.setDefault();
             }
         }
         for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 source.setDefault();
             }
@@ -301,7 +302,7 @@ public class Simulatheure {
             if (arret == null) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle) {
-                    m_arretsNouveauCircuit.add(this.m_reseauTransport.getListeArrets().getLast());
+                    m_arretsNouveauCircuit.add(m_reseauTransport.getListeArrets().getLast());
                     m_arretsNouveauCircuit.getLast().changerStatutSelection();
                 }
             }
@@ -361,9 +362,9 @@ public class Simulatheure {
                         arretFinale.changerStatutSelection();
                         m_tronconsNouveauTrajet.clear();
                         if (arretEstNouvelle)
-                            this.m_reseauTransport.getListeArrets().removeLast();
+                            m_reseauTransport.getListeArrets().removeLast();
                             
-                        throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+                        throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
                     else if(m_dijkstra)
                     {
@@ -378,7 +379,7 @@ public class Simulatheure {
             
             if(m_dijkstra){
                 estConstructible = true;
-                m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale, arretFinale);
+                m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
             }
             else
             {   
@@ -433,18 +434,31 @@ public class Simulatheure {
 
     public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle) {
         Arret arretPrecedent = circuit.getListeArretTrajet().getLast().getArret();
+        Boolean arretEstNouvelle = false;
 
         if (m_modeNouvelArret) {
 
             if (circuit.getBoucle()) {
                 return;
             }
-
+            Arret nouvArret;
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
             if (nouvET == null || nouvET.getClass() != Arret.class) {
-                return;
+                arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
+                if (arretEstNouvelle)
+                {
+                    nouvArret = m_reseauTransport.getListeArrets().getLast();
+                    nouvArret.changerStatutSelection();
+                }
+                else
+                {
+                    return;
+                }
             }
-            Arret nouvArret = (Arret) nouvET;
+            else
+            {
+                nouvArret = (Arret) nouvET;
+            }
 
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
             Boolean premier = true;
@@ -485,20 +499,24 @@ public class Simulatheure {
 
             if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
-                throw new RuntimeException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+                nouvArret.changerStatutSelection();
+                if (arretEstNouvelle)
+                    m_reseauTransport.getListeArrets().removeLast();
+                throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
             }
             
             //mettre en couleur le troncon partiel apres l'arret precedent
-            if (circuit.getListeArretTrajet().getLast().getArret().getEmplacement().estSurTroncon()) {
-                Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
-                trc.changerStatutSelection();
-            }
+//            if (circuit.getListeArretTrajet().getLast().getArret().getEmplacement().estSurTroncon()) {
+//                Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
 
             //mettre en couleur le troncon partiel avant le nouvel arret
-            if (nouvArret.getEmplacement().estSurTroncon()) {
-                Troncon trc = nouvArret.getEmplacement().getTroncon();
-                trc.changerStatutSelection();
-            }
+//            if (nouvArret.getEmplacement().estSurTroncon()) {
+//                Troncon trc = nouvArret.getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
+            
             m_modeNouvelArret = false;
 
             m_arret_temp = nouvArret;
@@ -528,7 +546,7 @@ public class Simulatheure {
             }
         } else { //mode trajet     
             if (m_dijkstra) {     
-                m_trajet_temp.setListeTroncons(m_reseauTransport.dijkstra(arretPrecedent, m_arret_temp));
+                m_trajet_temp.setListeTroncons(m_reseauTransport.dijkstra(arretPrecedent.getEmplacement(), m_arret_temp.getEmplacement()));
                 m_trajet_temp.setEmplacementFinal(m_arret_temp.getEmplacement());
                 circuit.ajouterPaire(m_arret_temp, null);
                 circuit.getListeArretTrajet().get(circuit.getListeArretTrajet().size() - 2).setTrajet(m_trajet_temp);
@@ -721,7 +739,6 @@ public class Simulatheure {
                                         distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                                         m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                                         return;
-
                                     }
                                 }
                             }
@@ -796,7 +813,18 @@ public class Simulatheure {
     public void changerStatutDijkstra() {
         m_dijkstra = !m_dijkstra;
     }
-
+    
+    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
+    {
+        return m_reseauTransport.obtenirCircuitsAffectes(p_tronconModifie);
+    }
+    
+    public void optimiserCircuitsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon p_tronconModifie)
+    {
+        if (m_dijkstra)
+            m_reseauTransport.optimiserCircuitsAffectes(circuitsAffectes, p_tronconModifie);
+    }
+    
 //    public void annulerDerniereAction() {
 //        String str = m_reculelrRetablir.getLastAction();
 //        if (str != null) {
