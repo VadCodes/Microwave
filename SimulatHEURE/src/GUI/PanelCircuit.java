@@ -12,8 +12,7 @@ import javax.swing.JFrame;
  *
  * @author louis
  */
-public class PanelCircuit extends javax.swing.JPanel {
-    MainWindow m_mainWindow;
+public class PanelCircuit extends PanelEdition {
     Circuit m_circuit;
     
     /**
@@ -139,9 +138,6 @@ public class PanelCircuit extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setMainWindow(MainWindow p_mainWindow){
-        m_mainWindow = p_mainWindow;
-    }
     
     public void afficheInfo(Circuit circ){
         m_circuit = circ;

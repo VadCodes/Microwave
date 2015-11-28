@@ -11,8 +11,7 @@ import Domaine.ReseauRoutier.Intersection;
  *
  * @author louis
  */
-public class PanelIntersection extends javax.swing.JPanel {
-    MainWindow m_mainWindow;
+public class PanelIntersection extends PanelEdition {
     Intersection m_intersection;
     
     /**
@@ -20,10 +19,6 @@ public class PanelIntersection extends javax.swing.JPanel {
      */
     public PanelIntersection() {
         initComponents();
-    }
-
-    public void setMainWindow(MainWindow p_mainWindow){
-        m_mainWindow = p_mainWindow;
     }
     
     public void afficheInfo(Intersection intrsct){

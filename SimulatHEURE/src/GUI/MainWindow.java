@@ -175,11 +175,7 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
-        panelIntersection1 = new GUI.PanelIntersection();
-        panelTroncon1 = new GUI.PanelTroncon();
-        panelArret1 = new GUI.PanelArret();
-        panelCircuit1 = new GUI.PanelCircuit();
-        panelSourceAutobus1 = new GUI.PanelSourceAutobus();
+        panelEdition1 = new GUI.PanelEdition();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -575,11 +571,11 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                afficheurReseauMouseExited(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 afficheurReseauMousePressed(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseExited(evt);
             }
         });
 
@@ -614,7 +610,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel12.setPreferredSize(new java.awt.Dimension(150, 400));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jPanel14.setPreferredSize(new java.awt.Dimension(150, 300));
+        jPanel14.setPreferredSize(new java.awt.Dimension(150, 250));
 
         boutonsSelectionTransport.setAlignmentX(1.0F);
         boutonsSelectionTransport.setAlignmentY(1.0F);
@@ -677,6 +673,11 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionSimulation.add(jLabel11);
 
         comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxPietons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxPietonsActionPerformed(evt);
+            }
+        });
         boutonsSelectionSimulation.add(comboBoxPietons);
 
         boutonsSelectionRoutier.setAlignmentX(1.0F);
@@ -734,34 +735,30 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(128, Short.MAX_VALUE)
+                    .addContainerGap(92, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(128, Short.MAX_VALUE)
+                    .addContainerGap(92, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
-        panelIntersection1.setBorder(javax.swing.BorderFactory.createTitledBorder("Intersection"));
-        jPanel12.add(panelIntersection1, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout panelEdition1Layout = new javax.swing.GroupLayout(panelEdition1);
+        panelEdition1.setLayout(panelEdition1Layout);
+        panelEdition1Layout.setHorizontalGroup(
+            panelEdition1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        panelEdition1Layout.setVerticalGroup(
+            panelEdition1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
-        panelTroncon1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tronçon"));
-        jPanel12.add(panelTroncon1, java.awt.BorderLayout.PAGE_START);
-
-        panelArret1.setBorder(javax.swing.BorderFactory.createTitledBorder("Arrêt"));
-        panelArret1.setName(""); // NOI18N
-        jPanel12.add(panelArret1, java.awt.BorderLayout.CENTER);
-
-        panelCircuit1.setBorder(javax.swing.BorderFactory.createTitledBorder("Circuit"));
-        jPanel12.add(panelCircuit1, java.awt.BorderLayout.CENTER);
-
-        panelSourceAutobus1.setBorder(javax.swing.BorderFactory.createTitledBorder("Source d'autobus"));
-        panelSourceAutobus1.setPreferredSize(new java.awt.Dimension(163, 400));
-        jPanel12.add(panelSourceAutobus1, java.awt.BorderLayout.LINE_START);
+        jPanel12.add(panelEdition1, java.awt.BorderLayout.PAGE_START);
 
         jPanel3.add(jPanel12, java.awt.BorderLayout.EAST);
 
@@ -1677,6 +1674,10 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_comboBoxArretsActionPerformed
 
+    private void comboBoxPietonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPietonsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxPietonsActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1884,11 +1885,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
-    private GUI.PanelArret panelArret1;
-    private GUI.PanelCircuit panelCircuit1;
-    private GUI.PanelIntersection panelIntersection1;
-    private GUI.PanelSourceAutobus panelSourceAutobus1;
-    private GUI.PanelTroncon panelTroncon1;
+    private GUI.PanelEdition panelEdition1;
     private javax.swing.JPanel panneauCommandes;
     private javax.swing.JPanel panneauModes;
     private javax.swing.JToggleButton playPauseSimulation;

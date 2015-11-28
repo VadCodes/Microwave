@@ -14,8 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author louis
  */
-public class PanelTroncon extends javax.swing.JPanel {
-    MainWindow m_mainWindow;
+public class PanelTroncon extends PanelEdition {
     Troncon m_troncon;
 
     /**
@@ -23,10 +22,6 @@ public class PanelTroncon extends javax.swing.JPanel {
      */
     public PanelTroncon() {
         initComponents();
-    }
-    
-    public void setMainWindow(MainWindow p_mainWindow){
-        m_mainWindow = p_mainWindow;
     }
 
     public void afficheInfo(Troncon trc){

@@ -12,8 +12,7 @@ import Domaine.ReseauTransport.Arret;
  *
  * @author louis
  */
-public class PanelArret extends javax.swing.JPanel {
-    MainWindow m_mainWindow;
+public class PanelArret extends PanelEdition {
     Arret m_arret;
     
     /**
@@ -21,10 +20,6 @@ public class PanelArret extends javax.swing.JPanel {
      */
     public PanelArret() {
         initComponents();
-    }
-
-    public void setMainWindow(MainWindow p_mainWindow){
-        m_mainWindow = p_mainWindow;
     }
     
     public void afficheInfo(Arret arr){
