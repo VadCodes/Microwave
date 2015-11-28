@@ -68,18 +68,28 @@ public class ReseauTransport {
             crc.calculCirculationGlobal(deltaT);
         }
     }
-   public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+    
+    public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+       
+        Arret arret = obtenirArret(p_x, p_y, p_diametre, p_echelle);
+        if (arret != null)
+        {
+            arret.changerStatutSelection();
+        }
+        return arret;
+    }
+    
+    
+   public Arret obtenirArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
        
        Ellipse2D.Float zoneSelection = new Ellipse2D.Float(p_x, p_y, p_diametre, p_diametre);
 
-        for (ListIterator<Arret> arrets = m_listeArrets.listIterator() ; arrets.hasNext() ; ){
-            Emplacement em = arrets.next().getEmplacement();
-            Point2D.Float p = em.calculPosition(p_echelle);
+        for (Arret arret : m_listeArrets){
+            Point2D.Float p = arret.getEmplacement().calculPosition(p_echelle);
             
             if (zoneSelection.contains(p))
             {
-                arrets.previous().changerStatutSelection();
-                return arrets.next();
+                return arret;
             }
         }
         return null;
@@ -350,5 +360,20 @@ public class ReseauTransport {
         }
         
         return chemin;
+    }
+    
+    public LinkedList<Trajet> obtenirTrajetsAffectes(Troncon p_tronconModifie)
+    {
+        LinkedList<Trajet> circuitsAffectes = new LinkedList<>();
+        for (Circuit circuit : m_listeCircuits)
+        {
+            for (PaireArretTrajet paire : circuit.getListeArretTrajet())
+            {
+                for (Troncon troncon : paire.getTrajet().getListeTroncons())
+                {
+                    
+                }
+            }
+        }
     }
 }

@@ -10,19 +10,13 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
-import Domaine.ReseauRoutier.Intersection;
 import Domaine.Utilitaire.Temps;
-import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Trajet;
-import Domaine.ReseauRoutier.Troncon;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 import java.awt.Font;
 import java.awt.font.GlyphVector;
 import java.awt.font.FontRenderContext;
-import java.util.AbstractMap;
-import java.util.LinkedHashMap;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

@@ -721,7 +721,6 @@ public class Simulatheure {
                                         distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                                         m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                                         return;
-
                                     }
                                 }
                             }
@@ -796,7 +795,11 @@ public class Simulatheure {
     public void changerStatutDijkstra() {
         m_dijkstra = !m_dijkstra;
     }
-
+    
+    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
+    {
+        return m_reseauTransport.obtenirCircuitsAffectes(p_tronconModifie);
+    }
 //    public void annulerDerniereAction() {
 //        String str = m_reculelrRetablir.getLastAction();
 //        if (str != null) {

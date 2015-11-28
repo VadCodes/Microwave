@@ -24,8 +24,8 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     
     public Simulatheure m_controleur;
-    public Simulatheure m_controleurSimulation;
-    public Simulatheure m_contoleurReseau;
+    //public Simulatheure m_controleurSimulation;
+    //public Simulatheure m_contoleurReseau;
     
     public Modes m_mode_courant;
     public Commandes m_commande_courante;
@@ -1229,8 +1229,9 @@ public class MainWindow extends javax.swing.JFrame {
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 } else if (elemRoutier.getClass() == Troncon.class) {
+                    double ancienTempsMoyen = ((Troncon)elemRoutier).getDistribution().getTempsMoyen().getTemps();
                     EditerTroncon fenetre = new EditerTroncon();
-                    fenetre.setTroncon((Troncon) elemRoutier, this);
+                    fenetre.getTroncon((Troncon) elemRoutier, this);
                     fenetre.setResizable(false);
                     fenetre.setLocationRelativeTo(null); //pour centrer
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

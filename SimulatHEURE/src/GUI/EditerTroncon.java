@@ -6,7 +6,6 @@
 package GUI;
 
 import Domaine.ReseauRoutier.Troncon;
-import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 import javax.swing.JOptionPane;
 
@@ -24,7 +23,7 @@ public class EditerTroncon extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void setTroncon(Troncon trc, MainWindow p_mainWindow){
+    public void getTroncon(Troncon trc, MainWindow p_mainWindow){
         m_mainWindow = p_mainWindow;
         m_troncon = trc;
         jTextField1.setText(m_troncon.getNom());
@@ -178,31 +177,37 @@ public class EditerTroncon extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
         double min,freq,max;
-        try{
+        
+        double ancienTempsMoyen = m_troncon.getDistribution().getTempsMoyen().getTemps();
+        
+        try
+        {
+            m_troncon.setNom(jTextField1.getText());
             min = Double.parseDouble(jTextField2.getText());
             freq = Double.parseDouble(jTextField3.getText());
             max = Double.parseDouble(jTextField4.getText());
+            m_troncon.getDistribution().setDistribution(new Temps(60 * min), new Temps(60 * freq), new Temps(60 * max));
+            m_mainWindow.miseAjourComboBoxTotal();
+            double nouveauTempsMoyen = m_troncon.getDistribution().getTempsMoyen().getTemps();
+            if (ancienTempsMoyen < nouveauTempsMoyen)
+            {
+                m_mainWindow.m_controleur
+                JOptionPane.showConfirmDialog(null, "Le temps moyen de la distribution a augmenté. Voulez-vous optimiser les circuits affectés ?", 
+                        "Temps moyen augmenté", JOptionPane.YES_NO_OPTION);
+                //m_mainWindow.m_controleur.
+
+            }
+                
+                
+            this.dispose();
         }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
         }
-        if  (min > freq){
-            JOptionPane.showMessageDialog(null, "Le temps minimal doit être inférieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
+        catch (RuntimeException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
         }
-        if (freq > max){
-            JOptionPane.showMessageDialog(null, "Le temps maximal doit être supérieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        Distribution dist = new Distribution();
-        dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
-        m_troncon.setDistribution(dist);
-        
-        m_troncon.setNom(jTextField1.getText());
-        m_mainWindow.miseAjourComboBoxTotal();
-        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
