@@ -51,6 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         annuler.setEnabled(true);
         routier.doClick();
+        disparaitrePanels();
         this.afficheurReseau.setDimension(false);
     }
 
@@ -174,7 +175,8 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
-        jPanel13 = new javax.swing.JPanel();
+        panelIntersection1 = new GUI.PanelIntersection();
+        panelTroncon1 = new GUI.PanelTroncon();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -316,7 +318,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         boutonsRoutier.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsRoutier.setPreferredSize(new java.awt.Dimension(1200, 35));
-        boutonsRoutier.setLayout(new java.awt.GridLayout());
+        boutonsRoutier.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionRoutier.setText("Sélectionner");
         selectionRoutier.setEnabled(false);
@@ -401,7 +403,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.setAlignmentY(1.0F);
         boutonsTransport.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsTransport.setPreferredSize(new java.awt.Dimension(1200, 35));
-        boutonsTransport.setLayout(new java.awt.GridLayout());
+        boutonsTransport.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionTransport.setText("Sélectionner");
         selectionTransport.setEnabled(false);
@@ -609,7 +611,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel12.setPreferredSize(new java.awt.Dimension(150, 400));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
-        jPanel14.setPreferredSize(new java.awt.Dimension(150, 400));
+        jPanel14.setPreferredSize(new java.awt.Dimension(150, 300));
 
         boutonsSelectionTransport.setAlignmentX(1.0F);
         boutonsSelectionTransport.setAlignmentY(1.0F);
@@ -724,37 +726,28 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(147, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(227, Short.MAX_VALUE)
+                    .addContainerGap(128, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(227, Short.MAX_VALUE)
+                    .addContainerGap(128, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
-        jPanel12.add(jPanel14, java.awt.BorderLayout.SOUTH);
+        jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
-        jPanel13.setPreferredSize(new java.awt.Dimension(130, 400));
+        panelIntersection1.setBorder(javax.swing.BorderFactory.createTitledBorder("Intersection"));
+        jPanel12.add(panelIntersection1, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-
-        jPanel12.add(jPanel13, java.awt.BorderLayout.NORTH);
+        panelTroncon1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tronçon"));
+        jPanel12.add(panelTroncon1, java.awt.BorderLayout.LINE_START);
 
         jPanel3.add(jPanel12, java.awt.BorderLayout.EAST);
 
@@ -764,11 +757,11 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1332, Short.MAX_VALUE)
+            .addGap(0, 1595, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 605, Short.MAX_VALUE)
+            .addGap(0, 874, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
@@ -838,6 +831,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         float echelle = afficheurReseau.getEchelle();
+        disparaitrePanels();
         if (SwingUtilities.isLeftMouseButton(evt)) {
 
             switch (m_mode_courant) {
@@ -845,7 +839,19 @@ public class MainWindow extends javax.swing.JFrame {
 
                     switch (m_commande_courante) {
                         case SELECTIONNER:
-                            m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
+                            ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
+                            
+                            if (elemRoutier != null){
+                                if (elemRoutier.getClass() == Troncon.class) {
+                                    panelTroncon1.setVisible(true);
+                                    panelTroncon1.afficheInfo((Troncon) elemRoutier);
+                                }
+                                else if (elemRoutier.getClass() == Intersection.class) {
+                                    panelIntersection1.setVisible(true);
+                                    panelIntersection1.afficheInfo((Intersection) elemRoutier);
+                                }
+                            }
+                            
                             break;
 
                         case INTERSECTION:
@@ -969,6 +975,11 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
+    
+    private void disparaitrePanels(){
+        panelTroncon1.setVisible(false);
+        panelIntersection1.setVisible(false);
+    }
     
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
@@ -1351,42 +1362,6 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_retablirActionPerformed
 
-    private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
-        int index = comboBoxCircuits.getSelectedIndex();
-        String name = comboBoxCircuits.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
-            Circuit circuit = circuits.next();
-            if (circuit.getNom().equals(name)) {
-                for (PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()) {
-                    ElementTransport arret = ArretTrajet.getArret();
-                    if (!arret.estSelectionne()) {
-                        arret.changerStatutSelection();
-                    }
-                }
-                circuit.changerStatutSelection();
-                break;
-            }
-        }
-        this.afficheurReseau.repaint();
-    }//GEN-LAST:event_comboBoxCircuitsActionPerformed
-
-    private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
-        int index = comboBoxIntersections.getSelectedIndex();
-        String name = comboBoxIntersections.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
-            Intersection intersection = intersections.next();
-            if (intersection.getName().equals(name)) {
-                intersection.changerStatutSelection();
-                break;
-            }
-        }
-        this.afficheurReseau.repaint();
-    }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
-
     private void allongerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allongerCircuitActionPerformed
         if(m_commande_courante != Commandes.EDITERCIRCUIT){
             m_controleur.cancellerCircuit();
@@ -1394,24 +1369,6 @@ public class MainWindow extends javax.swing.JFrame {
         }
         this.setCommande(Commandes.EDITERCIRCUIT);
     }//GEN-LAST:event_allongerCircuitActionPerformed
-
-    private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
-        int index = comboBoxTroncons.getSelectedIndex();
-        String name = comboBoxTroncons.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
-            Intersection intersection = intersections.next();
-            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
-                Troncon troncon = troncons.next();
-                if (troncon.getNom().equals(name)) {
-                    troncon.changerStatutSelection();
-                    break;
-                }
-            }
-            this.afficheurReseau.repaint();
-        }
-    }//GEN-LAST:event_comboBoxTronconsActionPerformed
     
     private void alalEditSimulation() {
         EditerSimulation fenetre= new EditerSimulation();{
@@ -1468,57 +1425,6 @@ public class MainWindow extends javax.swing.JFrame {
         m_crono.ralentirX2();
     }//GEN-LAST:event_ralentirSimulationActionPerformed
 
-    private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
-
-        /*int index = comboBoxAutobus.getSelectedIndex();
-         String name =(String) comboBoxAutobus.getItemAt(index);
-         m_controleur.deselectionnerTout();
-         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
-         Circuit circuit = circuits.next();
-         for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
-         Autobus autobus = autobuss.next();
-         if (autobus.getID().equals(name)){
-         autobusachangerStatutSelection();
-         break;
-         }
-         }
-         this.afficheurReseau.repaint();
-         */
-    }//GEN-LAST:event_comboBoxAutobusActionPerformed
-
-    private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
-        int index = comboBoxSources.getSelectedIndex();
-        String name = comboBoxSources.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
-            Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
-                SourceAutobus source = sources.next();
-                if (source.getNom().equals(name)) {
-                    source.changerStatutSelection();
-                    break;
-                }
-            }
-        }
-        this.afficheurReseau.repaint();
-    }//GEN-LAST:event_comboBoxSourcesActionPerformed
-
-    private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
-        int index = comboBoxArrets.getSelectedIndex();
-        String name = comboBoxArrets.getItemAt(index);
-        m_controleur.deselectionnerTout();
-        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
-            Arret arret = arrets.next();
-            if (arret.getNom().equals(name)) {
-                arret.changerStatutSelection();
-                break;
-            }
-        }
-        this.afficheurReseau.repaint();
-    }//GEN-LAST:event_comboBoxArretsActionPerformed
-
     private void editerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerRoutierActionPerformed
         
         editerRoutier.setSelected(false);  // fix temporaire
@@ -1564,6 +1470,111 @@ public class MainWindow extends javax.swing.JFrame {
     private void checkBoxDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDijkstraActionPerformed
         m_controleur.changerStatutDijkstra();
     }//GEN-LAST:event_checkBoxDijkstraActionPerformed
+
+    private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxIntersections.getSelectedIndex();
+        String name = comboBoxIntersections.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            if (intersection.getName().equals(name)) {
+                intersection.changerStatutSelection();
+                break;
+            }
+        }
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
+
+    private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxTroncons.getSelectedIndex();
+        String name = comboBoxTroncons.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
+            Intersection intersection = intersections.next();
+            for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
+                Troncon troncon = troncons.next();
+                if (troncon.getNom().equals(name)) {
+                    troncon.changerStatutSelection();
+                    break;
+                }
+            }
+            this.afficheurReseau.repaint();
+        }
+    }//GEN-LAST:event_comboBoxTronconsActionPerformed
+
+    private void comboBoxAutobusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxAutobusActionPerformed
+
+        /*int index = comboBoxAutobus.getSelectedIndex();
+        String name =(String) comboBoxAutobus.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator() ;circuits.hasNext() ; ){
+            Circuit circuit = circuits.next();
+            for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator() ;autobuss.hasNext() ; ){
+                Autobus autobus = autobuss.next();
+                if (autobus.getID().equals(name)){
+                    autobusachangerStatutSelection();
+                    break;
+                }
+            }
+            this.afficheurReseau.repaint();
+            */
+    }//GEN-LAST:event_comboBoxAutobusActionPerformed
+
+    private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxCircuits.getSelectedIndex();
+        String name = comboBoxCircuits.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            if (circuit.getNom().equals(name)) {
+                for (PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()) {
+                    ElementTransport arret = ArretTrajet.getArret();
+                    if (!arret.estSelectionne()) {
+                        arret.changerStatutSelection();
+                    }
+                }
+                circuit.changerStatutSelection();
+                break;
+            }
+        }
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_comboBoxCircuitsActionPerformed
+
+    private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxSources.getSelectedIndex();
+        String name = comboBoxSources.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                if (source.getNom().equals(name)) {
+                    source.changerStatutSelection();
+                    break;
+                }
+            }
+        }
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_comboBoxSourcesActionPerformed
+
+    private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
+        this.setCommande(Commandes.SELECTIONNER);
+        int index = comboBoxArrets.getSelectedIndex();
+        String name = comboBoxArrets.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
+            Arret arret = arrets.next();
+            if (arret.getNom().equals(name)) {
+                arret.changerStatutSelection();
+                break;
+            }
+        }
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_comboBoxArretsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1752,7 +1763,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1772,6 +1782,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private GUI.PanelIntersection panelIntersection1;
+    private GUI.PanelTroncon panelTroncon1;
     private javax.swing.JPanel panneauCommandes;
     private javax.swing.JPanel panneauModes;
     private javax.swing.JToggleButton playPauseSimulation;
