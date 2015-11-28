@@ -175,7 +175,13 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
-        panelEdition1 = new GUI.PanelEdition();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        panelArret1 = new GUI.PanelArret();
+        panelCircuit1 = new GUI.PanelCircuit();
+        panelIntersection1 = new GUI.PanelIntersection();
+        panelSourceAutobus1 = new GUI.PanelSourceAutobus();
+        panelTroncon1 = new GUI.PanelTroncon();
         jPanel4 = new javax.swing.JPanel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -747,18 +753,37 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
-        javax.swing.GroupLayout panelEdition1Layout = new javax.swing.GroupLayout(panelEdition1);
-        panelEdition1.setLayout(panelEdition1Layout);
-        panelEdition1Layout.setHorizontalGroup(
-            panelEdition1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel2.setLayout(new java.awt.CardLayout());
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 150, Short.MAX_VALUE)
         );
-        panelEdition1Layout.setVerticalGroup(
-            panelEdition1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
 
-        jPanel12.add(panelEdition1, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(jPanel7, "card7");
+
+        panelArret1.setBorder(javax.swing.BorderFactory.createTitledBorder("Arrêt"));
+        jPanel2.add(panelArret1, "card2");
+
+        panelCircuit1.setBorder(javax.swing.BorderFactory.createTitledBorder("Circuit"));
+        jPanel2.add(panelCircuit1, "card3");
+
+        panelIntersection1.setBorder(javax.swing.BorderFactory.createTitledBorder("Intersection"));
+        jPanel2.add(panelIntersection1, "card4");
+
+        panelSourceAutobus1.setBorder(javax.swing.BorderFactory.createTitledBorder("Source d'autobus"));
+        jPanel2.add(panelSourceAutobus1, "card5");
+
+        panelTroncon1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tronçon"));
+        jPanel2.add(panelTroncon1, "card6");
+
+        jPanel12.add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel12, java.awt.BorderLayout.EAST);
 
@@ -1325,6 +1350,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void disparaitrePanels(){
+        jPanel7.setVisible(false);
         panelTroncon1.setVisible(false);
         panelIntersection1.setVisible(false);
         panelArret1.setVisible(false);
@@ -1867,10 +1893,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
@@ -1885,7 +1913,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
-    private GUI.PanelEdition panelEdition1;
+    private GUI.PanelArret panelArret1;
+    private GUI.PanelCircuit panelCircuit1;
+    private GUI.PanelIntersection panelIntersection1;
+    private GUI.PanelSourceAutobus panelSourceAutobus1;
+    private GUI.PanelTroncon panelTroncon1;
     private javax.swing.JPanel panneauCommandes;
     private javax.swing.JPanel panneauModes;
     private javax.swing.JToggleButton playPauseSimulation;
