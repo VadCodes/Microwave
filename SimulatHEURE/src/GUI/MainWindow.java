@@ -1005,7 +1005,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 comboBoxSources.addItem(source.getNom());
             }
@@ -1048,7 +1048,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void miseAjourSelectionSourcesAjout() {
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 boolean add = true;
 
@@ -1494,7 +1494,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur.deselectionnerTout();
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 if (source.getNom().equals(name)) {
                     source.changerStatutSelection();

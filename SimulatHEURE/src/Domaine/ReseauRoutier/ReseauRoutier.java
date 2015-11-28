@@ -222,4 +222,17 @@ public class ReseauRoutier {
         }
         return null;
     }
+    
+    public static LinkedList<Intersection> obtenirInterContigues(LinkedList<Troncon> tronconsContigues)
+    {
+        LinkedList<Intersection> interContigues = new LinkedList<>();
+        for (Troncon troncon : tronconsContigues)
+        {
+            interContigues.add(troncon.getDestination());  // Obtient certaines intersections en double si plusieurs fois le même troncon
+        }
+        
+        interContigues.removeLast();  // N'inclue pas les intersections aux extrémités. Voir Vinny avant de modifier 
+        return interContigues;
+        
+    }
 }

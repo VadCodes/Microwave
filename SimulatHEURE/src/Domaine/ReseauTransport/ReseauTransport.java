@@ -106,7 +106,7 @@ public class ReseauTransport {
         zoneSelection.closePath();
 
         for (Circuit circ : m_listeCircuits){
-            for (SourceAutobus src : circ.getListeSourceAutobus()){
+            for (SourceAutobus src : circ.getListeSources()){
                 Emplacement em = src.getEmplacement();
                 Point2D.Float p = em.calculPosition(p_echelle);
                 
@@ -146,7 +146,7 @@ public class ReseauTransport {
            }
        }
        for(Circuit circ : m_listeCircuits){
-                for(SourceAutobus sa : circ.getListeSourceAutobus()){
+                for(SourceAutobus sa : circ.getListeSources()){
                     if(sa.estSelectionne()){
                         sa.changerStatutSelection();
                     }
@@ -165,7 +165,7 @@ public class ReseauTransport {
                 listeRetour.add(circ);
             }
             
-            for (SourceAutobus src: circ.getListeSourceAutobus())
+            for (SourceAutobus src: circ.getListeSources())
             {   
                 if (src.estSelectionne())
                 {
@@ -189,12 +189,12 @@ public class ReseauTransport {
             Circuit circuit = circ.next();
             if (circuit.estSelectionne())
             {
-                circuit.getListeSourceAutobus().clear();
+                circuit.getListeSources().clear();
                 circ.remove();
             }
             else
             {
-                for (ListIterator<SourceAutobus> src = circuit.getListeSourceAutobus().listIterator() ; src.hasNext() ; )
+                for (ListIterator<SourceAutobus> src = circuit.getListeSources().listIterator() ; src.hasNext() ; )
                 {
                     if (src.next().estSelectionne())
                     {
@@ -362,31 +362,72 @@ public class ReseauTransport {
         return chemin;
     }
     
-    public LinkedList<Trajet> obtenirTrajetsAffectes(Troncon p_tronconModifie)
+    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
     {
-        LinkedList<Trajet> trajetsAffectes = new LinkedList<>();
+        LinkedList<Circuit> circuitsAffectes = new LinkedList<>();
         for (Circuit circuit : m_listeCircuits)
         {
             for (PaireArretTrajet paire : circuit.getListeArretTrajet())
             {
                 if (paire.getTrajet() != null)
                 {
-                    for (Troncon troncon : paire.getTrajet().getListeTroncons())
-                    {
-                        if (troncon == p_tronconModifie)
-                            trajetsAffectes.add(paire.getTrajet());
-                    }
+                    if (paire.getTrajet().getListeTroncons().contains(p_tronconModifie))
+                        circuitsAffectes.add(circuit);
+                }
+            }
+        }
+        return circuitsAffectes;
+    }
+    
+    public void optimiserCircuitsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon tronconModifie)
+    {
+        LinkedList<Trajet> trajetsAffectes = obtenirTrajetsAffectes(circuitsAffectes, tronconModifie);
+        for (Trajet trajet : trajetsAffectes)
+        {
+            trajet.setListeTroncons(dijkstra(trajet.getEmplacementInitial(), trajet.getEmplacementFinal()));
+        }
+        
+        supprimerSourcesOrphelines(circuitsAffectes);
+
+    }
+    
+    public LinkedList<Trajet> obtenirTrajetsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon tronconModifie)
+    {
+        LinkedList<Trajet> trajetsAffectes = new LinkedList<>();
+        for (Circuit circuit : circuitsAffectes)
+        {
+            for (PaireArretTrajet paire : circuit.getListeArretTrajet())
+            {
+                if (paire.getTrajet() != null)
+                {
+                    if (paire.getTrajet().getListeTroncons().contains(tronconModifie))
+                        trajetsAffectes.add(paire.getTrajet());
                 }
             }
         }
         return trajetsAffectes;
     }
     
-    public void optimiserCircuitsAffectes(LinkedList<Trajet> trajetsAffectes)
+    public void supprimerSourcesOrphelines(LinkedList<Circuit> circuitsAffectes)
     {
-        for (Trajet trajet : trajetsAffectes)
+        for (Circuit circuit : circuitsAffectes)
         {
-            trajet.setListeTroncons(dijkstra(trajet.getEmplacementInitial(), trajet.getEmplacementFinal()));
+            LinkedList<Troncon> tronconsCircuit = circuit.obtenirTroncons();
+            LinkedList<Intersection> interCircuit = this.m_reseauRoutier.obtenirInterContigues(tronconsCircuit);
+            for (ListIterator<SourceAutobus> itSource = circuit.getListeSources().listIterator() ; itSource.hasNext() ; )
+            {
+                SourceAutobus source = itSource.next();
+                if (source.getEmplacement().estSurTroncon())
+                {
+                    if (!tronconsCircuit.contains(source.getEmplacement().getTroncon()))
+                        itSource.remove();
+                }
+                else
+                {
+                    if (!interCircuit.contains(source.getEmplacement().getIntersection()))
+                        itSource.remove();
+                }
+            }
         }
     }
 }

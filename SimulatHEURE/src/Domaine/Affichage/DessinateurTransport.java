@@ -142,7 +142,7 @@ public class DessinateurTransport {
     {
           for (ListIterator<Circuit> circuits = m_reseau.getListeCircuits().listIterator() ; circuits.hasNext() ; ){
             Circuit circuit = circuits.next();
-                for (ListIterator<SourceAutobus> sources =circuit.getListeSourceAutobus().listIterator(); sources.hasNext() ; ){
+                for (ListIterator<SourceAutobus> sources =circuit.getListeSources().listIterator(); sources.hasNext() ; ){
                     SourceAutobus source  = sources.next();
                     if (!source.estSelectionne())
                         p_g.setColor(Color.MAGENTA);

@@ -52,14 +52,14 @@ public class Simulatheure {
         }
         for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 source.setDefault();
             }
         }
         for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSourceAutobus().listIterator(); sources.hasNext();) {
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 source.setDefault();
             }
@@ -797,15 +797,15 @@ public class Simulatheure {
         m_dijkstra = !m_dijkstra;
     }
     
-    public LinkedList<Trajet> obtenirTrajetsAffectes(Troncon p_tronconModifie)
+    public LinkedList<Circuit> obtenirCircuitsAffectes(Troncon p_tronconModifie)
     {
-        return m_reseauTransport.obtenirTrajetsAffectes(p_tronconModifie);
+        return m_reseauTransport.obtenirCircuitsAffectes(p_tronconModifie);
     }
     
-    public void optimiserCircuitsAffectes(LinkedList<Trajet> trajetsAffectes)
+    public void optimiserCircuitsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon p_tronconModifie)
     {
         if (m_dijkstra)
-            m_reseauTransport.optimiserCircuitsAffectes(trajetsAffectes);
+            m_reseauTransport.optimiserCircuitsAffectes(circuitsAffectes, p_tronconModifie);
     }
     
 //    public void annulerDerniereAction() {
