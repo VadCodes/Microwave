@@ -413,7 +413,7 @@ public class ReseauTransport {
         for (Circuit circuit : circuitsAffectes)
         {
             LinkedList<Troncon> tronconsCircuit = circuit.obtenirTroncons();
-            LinkedList<Intersection> interCircuit = this.m_reseauRoutier.obtenirInterContigues(tronconsCircuit);
+            LinkedList<Intersection> interCircuit = ReseauRoutier.obtenirInterContigues(tronconsCircuit);
             for (ListIterator<SourceAutobus> itSource = circuit.getListeSources().listIterator() ; itSource.hasNext() ; )
             {
                 SourceAutobus source = itSource.next();

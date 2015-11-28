@@ -302,7 +302,7 @@ public class Simulatheure {
             if (arret == null) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle) {
-                    m_arretsNouveauCircuit.add(this.m_reseauTransport.getListeArrets().getLast());
+                    m_arretsNouveauCircuit.add(m_reseauTransport.getListeArrets().getLast());
                     m_arretsNouveauCircuit.getLast().changerStatutSelection();
                 }
             }
@@ -362,7 +362,7 @@ public class Simulatheure {
                         arretFinale.changerStatutSelection();
                         m_tronconsNouveauTrajet.clear();
                         if (arretEstNouvelle)
-                            this.m_reseauTransport.getListeArrets().removeLast();
+                            m_reseauTransport.getListeArrets().removeLast();
                             
                         throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
@@ -434,18 +434,31 @@ public class Simulatheure {
 
     public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle) {
         Arret arretPrecedent = circuit.getListeArretTrajet().getLast().getArret();
+        Boolean arretEstNouvelle = false;
 
         if (m_modeNouvelArret) {
 
             if (circuit.getBoucle()) {
                 return;
             }
-
+            Arret nouvArret;
             ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
             if (nouvET == null || nouvET.getClass() != Arret.class) {
-                return;
+                arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
+                if (arretEstNouvelle)
+                {
+                    nouvArret = m_reseauTransport.getListeArrets().getLast();
+                    nouvArret.changerStatutSelection();
+                }
+                else
+                {
+                    return;
+                }
             }
-            Arret nouvArret = (Arret) nouvET;
+            else
+            {
+                nouvArret = (Arret) nouvET;
+            }
 
             //verifier que l'arret n'est pas deja dans le circuit ou si premier boucler
             Boolean premier = true;
@@ -486,20 +499,24 @@ public class Simulatheure {
 
             if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
+                nouvArret.changerStatutSelection();
+                if (arretEstNouvelle)
+                    m_reseauTransport.getListeArrets().removeLast();
                 throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
             }
             
             //mettre en couleur le troncon partiel apres l'arret precedent
-            if (circuit.getListeArretTrajet().getLast().getArret().getEmplacement().estSurTroncon()) {
-                Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
-                trc.changerStatutSelection();
-            }
+//            if (circuit.getListeArretTrajet().getLast().getArret().getEmplacement().estSurTroncon()) {
+//                Troncon trc = circuit.getListeArretTrajet().getLast().getArret().getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
 
             //mettre en couleur le troncon partiel avant le nouvel arret
-            if (nouvArret.getEmplacement().estSurTroncon()) {
-                Troncon trc = nouvArret.getEmplacement().getTroncon();
-                trc.changerStatutSelection();
-            }
+//            if (nouvArret.getEmplacement().estSurTroncon()) {
+//                Troncon trc = nouvArret.getEmplacement().getTroncon();
+//                trc.changerStatutSelection();
+//            }
+            
             m_modeNouvelArret = false;
 
             m_arret_temp = nouvArret;

@@ -226,13 +226,11 @@ public class ReseauRoutier {
     public static LinkedList<Intersection> obtenirInterContigues(LinkedList<Troncon> tronconsContigues)
     {
         LinkedList<Intersection> interContigues = new LinkedList<>();
+        interContigues.add(tronconsContigues.getFirst().getOrigine());
         for (Troncon troncon : tronconsContigues)
         {
             interContigues.add(troncon.getDestination());  // Obtient certaines intersections en double si plusieurs fois le même troncon
-        }
-        
-        interContigues.removeLast();  // N'inclue pas les intersections aux extrémités. Voir Vinny avant de modifier 
+        } 
         return interContigues;
-        
     }
 }
