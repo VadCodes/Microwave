@@ -703,6 +703,7 @@ public class Simulatheure {
                                     Troncon trc1 = null;
                                     Troncon trc2 = null;
                                     if (arret1 != null) {
+                                        boolean add =true;
                                         if (arret1.getEmplacement().estSurTroncon()) {
                                             trc1 = arret1.getEmplacement().getTroncon();
                                             if (troncon.equals(trc1)) {
@@ -733,12 +734,28 @@ public class Simulatheure {
                                                     }
                                                 }
                                             }
+                                             else{
+                                            if(trc1!= null){
+                                                if(avantArret1){
+                                                    add = false;
+                                                }
+                                            }
+                                            if (trc2!= null){
+                                                if(apresArret2){
+                                                    add = false;
+                                                }
+                                            }
+                                            }
                                         }
-                                        Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
-                                        Distribution distributionDefault = new Distribution();
-                                        distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
-                                        m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
-                                        return;
+                                        if(add){
+                                            Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
+                                            Distribution distributionDefault = new Distribution();
+                                            distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
+                                            m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                            return;
+                                        }
+                                            
+                                        
                                     }
                                 }
                             }
