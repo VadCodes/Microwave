@@ -10,20 +10,20 @@ package Domaine.ReseauRoutier;
  * @author louis
  */
 public class ElementRoutier {
-    private Boolean m_estSelectionne = false;
+    //private Boolean m_estSelectionne = false;
     private Boolean m_estSuggere = false;
     
-    public Boolean estSelectionne(){
-        return m_estSelectionne;
-    }
+    //public Boolean estSelectionne(){
+    //    return m_estSelectionne;
+    //}
     
     public Boolean estSuggere(){
         return m_estSuggere;
     }
     
-    public void changerStatutSelection(){
-        m_estSelectionne = !m_estSelectionne;
-    }
+//    public void changerStatutSelection(){
+//        m_estSelectionne = !m_estSelectionne;
+//    }
     
     public void setEstSuggere(Boolean p_estSuggere){
         m_estSuggere = p_estSuggere;

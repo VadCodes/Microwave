@@ -65,7 +65,7 @@ public class DessinateurTransport {
             float x = position.x -   arret.RAYON / p_echelle;
             float y = position.y -   arret.RAYON / p_echelle;
             float diametre = 2 *   arret.RAYON / p_echelle;
-            if (arret.estSelectionne()){
+            if (m_reseau.getPileSelection().contient(arret)){
                 float grossisement = 1.35f;
                 float sx = position.x -   grossisement*arret.RAYON / p_echelle;
                 float sy = position.y -   grossisement*arret.RAYON / p_echelle;
@@ -84,7 +84,7 @@ public class DessinateurTransport {
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {
-            if(circuit.estSelectionne())
+            if(m_reseau.getPileSelection().contient(circuit))
             {
                 p_g.setColor(Color.BLUE);
             }
@@ -153,7 +153,7 @@ public class DessinateurTransport {
 
                 Emplacement em = source.getEmplacement();                
                 Point2D.Float position = em.calculPosition(p_echelle);
-                if (source.estSelectionne()){
+                if (m_reseau.getPileSelection().contient(source)){
                     Path2D.Float slosange = new Path2D.Float();  
                     float grossisement = 1.4f;
                     float sy1 = position.y - grossisement*SourceAutobus.LARGEUR / 2 / p_echelle;

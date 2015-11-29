@@ -29,6 +29,7 @@ public class ReseauTransport {
     private int m_conteurCircuits = 1;
     private int m_conteurSources = 1;
     private ReseauRoutier m_reseauRoutier;
+    private PileSelectionTransport m_pileSelection = new PileSelectionTransport();
     
     public ReseauTransport(ReseauRoutier rr){
         m_reseauRoutier = rr;
@@ -69,17 +70,14 @@ public class ReseauTransport {
         }
     }
     
-    public Arret selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+    public Boolean selectionnerArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
        
         Arret arret = obtenirArret(p_x, p_y, p_diametre, p_echelle);
-        if (arret != null)
-        {
-            arret.changerStatutSelection();
-        }
-        return arret;
+        m_pileSelection.ajouter(arret);
+        return (arret!=null);
     }
     
-    public Circuit selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle){
+    public Boolean selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle){
         Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
         if (trc!=null){
             Float pourcentageClic = trc.getPourcentageClic(xReel, yReel, p_echelle);
@@ -154,8 +152,8 @@ public class ReseauTransport {
                                 }
 
                                 if (circuitSelectionne){
-                                    circ.changerStatutSelection();
-                                    return circ;
+                                    m_pileSelection.ajouter(circ);
+                                    return true;
                                 }
 
                                 empl_deb = null;
@@ -167,7 +165,7 @@ public class ReseauTransport {
             }
         }
         
-        return null;
+        return false;
     }
     
    public Arret obtenirArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
@@ -185,7 +183,7 @@ public class ReseauTransport {
         return null;
     }
    
-    public SourceAutobus selectionnerSourceAutobus(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
+    public Boolean selectionnerSourceAutobus(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
        
         Path2D.Float zoneSelection = new Path2D.Float();
         
@@ -202,13 +200,13 @@ public class ReseauTransport {
                 
                 if (zoneSelection.contains(p))
                 {
-                    src.changerStatutSelection();
-                    return src;
+                    m_pileSelection.ajouter(src);
+                    return true;
                 }
             }
         }
        
-        return null;
+        return false;
     }
    
    public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
@@ -224,51 +222,11 @@ public class ReseauTransport {
    }
    
    public void deselectionnerTout(){
-       for(Arret arr : m_listeArrets){
-           if (arr.estSelectionne())
-            {
-                arr.changerStatutSelection();
-            }
-       }
-       for(Circuit circ : m_listeCircuits){
-           if (circ.estSelectionne()){
-                circ.changerStatutSelection();
-           }
-       }
-       for(Circuit circ : m_listeCircuits){
-                for(SourceAutobus sa : circ.getListeSources()){
-                    if(sa.estSelectionne()){
-                        sa.changerStatutSelection();
-                    }
-                }
-           }
+       m_pileSelection.vider();
    }
    
     public LinkedList<ElementTransport> getElementsSelectionnes(){
-        
-        LinkedList<ElementTransport> listeRetour = new LinkedList<>();
-                
-        for (Circuit circ: m_listeCircuits)
-        {
-            if (circ.estSelectionne())
-            {
-                listeRetour.add(circ);
-            }
-            
-            for (SourceAutobus src: circ.getListeSources())
-            {   
-                if (src.estSelectionne())
-                {
-                    listeRetour.add(src);
-                }
-            }
-        }
-        for (Arret arr : m_listeArrets){
-            if (arr.estSelectionne()){
-                listeRetour.add(arr);
-            }
-        }
-        return listeRetour;
+        return m_pileSelection.getListe();
     }
     
     public Boolean supprimerSelection()
@@ -277,7 +235,7 @@ public class ReseauTransport {
         for (ListIterator<Circuit> circ = m_listeCircuits.listIterator() ; circ.hasNext(); )
         {
             Circuit circuit = circ.next();
-            if (circuit.estSelectionne())
+            if (m_pileSelection.contient(circuit))
             {
                 circuit.getListeSources().clear();
                 circ.remove();
@@ -286,7 +244,7 @@ public class ReseauTransport {
             {
                 for (ListIterator<SourceAutobus> src = circuit.getListeSources().listIterator() ; src.hasNext() ; )
                 {
-                    if (src.next().estSelectionne())
+                    if (m_pileSelection.contient(src.next()))
                     {
                         src.remove();
                     }
@@ -299,7 +257,7 @@ public class ReseauTransport {
         for (ListIterator<Arret> arrIt = m_listeArrets.listIterator() ; arrIt.hasNext() ; )
         {
             Arret arr = arrIt.next();
-            if (arr.estSelectionne())
+            if (m_pileSelection.contient(arr))
             {
                 for (Circuit circ : m_listeCircuits) {
                     for (PaireArretTrajet pat : circ.getListeArretTrajet()){
@@ -519,5 +477,9 @@ public class ReseauTransport {
                 }
             }
         }
+    }
+    
+    public PileSelectionTransport getPileSelection(){
+        return m_pileSelection;
     }
 }

@@ -57,7 +57,7 @@ public class DessinateurRoutier
             float x = position.x - Intersection.RAYON / p_echelle;
             float y = position.y - Intersection.RAYON / p_echelle;
             float diametre = 2 * Intersection.RAYON / p_echelle;
-            if (intersection.estSelectionne()){
+            if (m_reseau.getPileSelection().contient(intersection)){
                 float grossisement = 1.35f;
                 float sx = position.x -   grossisement*Intersection.RAYON / p_echelle;
                 float sy = position.y -   grossisement*Intersection.RAYON / p_echelle;
@@ -83,7 +83,7 @@ public class DessinateurRoutier
             {   
                 if (troncon.estSuggere())
                     p_g.setColor(Color.ORANGE);          
-                else if (troncon.estSelectionne())
+                else if (m_reseau.getPileSelection().contient(troncon))
                     p_g.setColor(Color.BLUE);
                 else 
                     p_g.setColor(Color.LIGHT_GRAY);

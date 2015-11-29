@@ -99,7 +99,7 @@ public class Simulatheure {
                 deselectionnerRoutier();
             }
 
-            elementRoutier.changerStatutSelection();
+            m_reseauRoutier.getPileSelection().ajouter(elementRoutier);
         }
         //m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
         return elementRoutier;
@@ -183,15 +183,17 @@ public class Simulatheure {
             largeurSelection = 2 * Intersection.RAYON;
         }
 
-        Intersection intersection = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
-        if (intersection == null) {
+        Boolean intersectionSelect = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
+
+        if (!intersectionSelect) {
             ajouterIntersection(p_x, p_y, p_echelle);
             m_parametresTroncon.add(m_reseauRoutier.getIntersections().getLast());
-            m_parametresTroncon.getLast().changerStatutSelection();
+            m_reseauRoutier.getPileSelection().ajouter(m_parametresTroncon.getLast());
         }
         else
         {
-            if (intersection.estSelectionne())
+            Intersection intersection = (Intersection) m_reseauRoutier.getPileSelection().getDessus();
+            if (m_reseauRoutier.getPileSelection().contient(intersection))
             {
                 m_parametresTroncon.add(intersection);
             } else {
@@ -205,14 +207,26 @@ public class Simulatheure {
                 Intersection destination = m_parametresTroncon.getLast();
                 
                 m_parametresTroncon.removeFirst();
-                origine.changerStatutSelection();
+                m_reseauRoutier.getPileSelection().enlever(origine);
 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
                 ajusterDoubleSens();
             }
     }
 
-    public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle) {
+    public ElementTransport selectionnerElementTransport(Integer p_x, Integer p_y, Float p_echelle, Boolean p_estMultiple){
+        ElementTransport elementTransport = obtenirElementTransport(p_x, p_y, p_echelle);
+        if (elementTransport != null) {
+            if (!p_estMultiple) {
+                deselectionnerTransport();
+            }
+
+            m_reseauTransport.getPileSelection().ajouter(elementTransport);
+        }
+        return elementTransport;
+    }
+    
+    public ElementTransport obtenirElementTransport(Integer p_x, Integer p_y, Float p_echelle) {
         
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;
@@ -224,9 +238,9 @@ public class Simulatheure {
             largeurSelection = SourceAutobus.LARGEUR;
         }
 
-        SourceAutobus src = m_reseauTransport.selectionnerSourceAutobus(xReel, yReel, largeurSelection, p_echelle);
-        if (src != null) {
-            return src;
+        Boolean srcSelect = m_reseauTransport.selectionnerSourceAutobus(xReel, yReel, largeurSelection, p_echelle);
+        if (srcSelect) {
+            return m_reseauTransport.getPileSelection().getDessus();
         } else {
             if (p_echelle > 1) {
                 xReel = (p_x - Arret.RAYON) / p_echelle;
@@ -237,9 +251,9 @@ public class Simulatheure {
                 yReel = p_y / p_echelle - Arret.RAYON;
                 largeurSelection = 2 * Arret.RAYON;
             }
-            Arret arr = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
-            if (arr != null){
-                return arr;
+            Boolean arrSelect = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
+            if (arrSelect){
+                return m_reseauTransport.getPileSelection().getDessus();
             }
             else{
                 if (p_echelle > 1) {
@@ -251,7 +265,13 @@ public class Simulatheure {
                     yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
                     largeurSelection = Troncon.LARGEUR;
                 }
-                return m_reseauTransport.selectionnerCircuit(xReel, yReel, largeurSelection, p_echelle);
+                Boolean circSelect = m_reseauTransport.selectionnerCircuit(xReel, yReel, largeurSelection, p_echelle);
+                if (circSelect){
+                    return m_reseauTransport.getPileSelection().getDessus();
+                }
+                else{
+                    return null;
+                }
             }
         }
     }
@@ -313,16 +333,17 @@ public class Simulatheure {
                 largeurSelection = 2 * Arret.RAYON;
             }
 
-            Arret arret = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
-            if (arret == null) {
+            Boolean arrSelect = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
+            if (!arrSelect) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle) {
                     m_arretsNouveauCircuit.add(m_reseauTransport.getListeArrets().getLast());
-                    m_arretsNouveauCircuit.getLast().changerStatutSelection();
+                    m_reseauTransport.getPileSelection().ajouter(m_arretsNouveauCircuit.getLast());
                 }
             }
             else {
-                if (arret.estSelectionne()) {
+                Arret arret = (Arret) m_reseauTransport.getPileSelection().getDessus();
+                if (m_reseauTransport.getPileSelection().contient(arret)) {
                     m_arretsNouveauCircuit.add(arret);
                 } else {
                     m_arretsNouveauCircuit.clear();
@@ -374,7 +395,7 @@ public class Simulatheure {
                     {
                         m_reseauRoutier.desuggererTout();
                         m_arretsNouveauCircuit.removeLast();
-                        arretFinale.changerStatutSelection();
+                        m_reseauTransport.getPileSelection().enlever(arretFinale);
                         m_tronconsNouveauTrajet.clear();
                         if (arretEstNouvelle)
                             m_reseauTransport.getListeArrets().removeLast();
@@ -423,7 +444,7 @@ public class Simulatheure {
 
                 if (!estConstructible) {
                     m_reseauRoutier.desuggererTout();
-                    tronconSelectionne.changerStatutSelection();
+                    m_reseauRoutier.getPileSelection().ajouter(tronconSelectionne);
                     for (Troncon troncon : tronconSelectionne.getDestination().getTroncons()) {
                         if (!m_tronconsNouveauTrajet.contains(troncon)) {
                             troncon.setEstSuggere(true);
@@ -457,13 +478,13 @@ public class Simulatheure {
                 return;
             }
             Arret nouvArret;
-            ElementTransport nouvET = selectionnerElementTransport(p_x, p_y, p_echelle);
+            ElementTransport nouvET = obtenirElementTransport(p_x, p_y, p_echelle);
             if (nouvET == null || nouvET.getClass() != Arret.class) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle)
                 {
                     nouvArret = m_reseauTransport.getListeArrets().getLast();
-                    nouvArret.changerStatutSelection();
+                    m_reseauTransport.getPileSelection().ajouter(nouvArret);
                 }
                 else
                 {
@@ -514,7 +535,7 @@ public class Simulatheure {
 
             if(!m_reseauTransport.arretsSontConnectables(arretPrecedent, nouvArret)){
                 cancellerCircuit();
-                nouvArret.changerStatutSelection();
+                m_reseauTransport.getPileSelection().enlever(nouvArret);
                 if (arretEstNouvelle)
                     m_reseauTransport.getListeArrets().removeLast();
                 throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
@@ -591,7 +612,7 @@ public class Simulatheure {
                 return;
             }
 
-            nouvTroncon.changerStatutSelection();
+            m_reseauRoutier.getPileSelection().ajouter(nouvTroncon);
             m_trajet_temp.getListeTroncons().add(nouvTroncon);
 
             for (Intersection intrsct : m_reseauRoutier.getIntersections()) {
@@ -630,7 +651,7 @@ public class Simulatheure {
         float yReel = p_y / p_echelle;
 
         ElementRoutier elementRoutier = selectionnerElementRoutier(p_x, p_y, p_echelle, false);
-        ElementTransport elementTransport = selectionnerElementTransport(p_x, p_y, p_echelle);
+        ElementTransport elementTransport = obtenirElementTransport(p_x, p_y, p_echelle);
         if (elementTransport != null && elementTransport.getClass() != Circuit.class) {
             if (elementTransport.getClass() == Arret.class) {
                 Arret arret = (Arret) elementTransport;
@@ -640,7 +661,7 @@ public class Simulatheure {
                 distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
-                    if (circuit.estSelectionne()) {
+                    if (m_reseauTransport.getPileSelection().contient(circuit)) {
                         m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                         return;
                     }
@@ -654,7 +675,7 @@ public class Simulatheure {
                 distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
-                    if (circuit.estSelectionne()) {
+                    if (m_reseauTransport.getPileSelection().contient(circuit)) {
                         for (ListIterator<PaireArretTrajet> paires = circuit.getListeArretTrajet().listIterator(); paires.hasNext();) {
                             PaireArretTrajet paire = paires.next();
                             if (paire.getTrajet() == null) {
@@ -696,7 +717,7 @@ public class Simulatheure {
             } else if (elementRoutier.getClass() == Troncon.class) {
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
-                    if (circuit.estSelectionne()) {
+                    if (m_reseauTransport.getPileSelection().contient(circuit)) {
                         Arret arret1 = circuit.getListeArretTrajet().getFirst().getArret();
                         Arret arret2 = circuit.getListeArretTrajet().getLast().getArret();
                         for (ListIterator<PaireArretTrajet> paires = circuit.getListeArretTrajet().listIterator(); paires.hasNext();) {
@@ -706,7 +727,7 @@ public class Simulatheure {
                             }
                             for (ListIterator<Troncon> troncons = paire.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
                                 Troncon troncon = troncons.next();
-                                if (troncon.estSelectionne()) {
+                                if (m_reseauRoutier.getPileSelection().contient(troncon)) {
                                     Point2D.Float p1 = new Point2D.Float(xReel, yReel);
                                     double distance1 = troncon.getOrigine().getPosition().distance(p1);
                                     double distance2 = troncon.getLongueurTroncon();
@@ -788,14 +809,15 @@ public class Simulatheure {
     }
 
     public Boolean supprimerSelectionRoutier() {
+        PileSelectionRoutier pile = m_reseauRoutier.getPileSelection();
         for (Arret arr : m_reseauTransport.getListeArrets()) {
             if (arr.getEmplacement().estSurTroncon()) {
                 Troncon trc_arr = arr.getEmplacement().getTroncon();
-                if (trc_arr.estSelectionne() || trc_arr.getDestination().estSelectionne()
-                        || trc_arr.getOrigine().estSelectionne()) {
+                if (pile.contient(trc_arr) || pile.contient(trc_arr.getDestination())
+                        || pile.contient(trc_arr.getOrigine())){
                     return false;
                 }
-            } else if (arr.getEmplacement().getIntersection().estSelectionne()) {
+            } else if (pile.contient(arr.getEmplacement().getIntersection())) {
                 return false;
             }
         }
@@ -804,8 +826,8 @@ public class Simulatheure {
                 Trajet traj = pat.getTrajet();
                 if (traj != null) {
                     for (Troncon trc : traj.getListeTroncons()) {
-                        if (trc.estSelectionne() || trc.getOrigine().estSelectionne()
-                                || trc.getDestination().estSelectionne()) {
+                        if (pile.contient(trc) || pile.contient(trc.getOrigine())
+                                || pile.contient(trc.getDestination())) {
                             return false;
                         }
                     }
@@ -813,9 +835,9 @@ public class Simulatheure {
             }
         }
 
-        Boolean supprimee = m_reseauRoutier.supprimerSelection();
+        m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
-        return supprimee;
+        return true;
     }
 
     public Boolean supprimerSelectionTransport() {
@@ -833,7 +855,7 @@ public class Simulatheure {
 
     public Circuit obtenirCircuitSelectionne() {
         for (Circuit circ : m_reseauTransport.getListeCircuits()) {
-            if (circ.estSelectionne()) {
+            if (m_reseauTransport.getPileSelection().contient(circ)) {
                 return circ;
             }
         }

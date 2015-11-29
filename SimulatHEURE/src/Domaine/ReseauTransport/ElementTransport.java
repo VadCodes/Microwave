@@ -10,13 +10,13 @@ package Domaine.ReseauTransport;
  * @author Nathaniel
  */
 public class ElementTransport {
-    private Boolean m_estSelectionne = false;
-    
-    public Boolean estSelectionne(){
-        return m_estSelectionne;
-    }
-    
-    public void changerStatutSelection(){
-        m_estSelectionne = !m_estSelectionne;
-    }
+//    private Boolean m_estSelectionne = false;
+//    
+//    public Boolean estSelectionne(){
+//        return m_estSelectionne;
+//    }
+//    
+//    public void changerStatutSelection(){
+//        m_estSelectionne = !m_estSelectionne;
+//    }
 }

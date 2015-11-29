@@ -900,7 +900,7 @@ public class MainWindow extends javax.swing.JFrame {
 
                         case SELECTIONNER:
                             m_controleur.deselectionnerRoutier();
-                            ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
+                            ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                             afficherPanelTransport(et);
                             
                             break;
@@ -936,12 +936,16 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
 
                         case SOURCEAUTOBUS:
-                            ElementTransport elementTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
-                            if (elementTransport!= null) {
+                            ElementTransport elemSelectionne = m_controleur.getTransport().getPileSelection().getDessus();
+                            
+                            if (elemSelectionne == null || elemSelectionne.getClass() != Circuit.class) break;
+                            
+                            ElementTransport elementTransport = m_controleur.obtenirElementTransport(evt.getX(), evt.getY(), echelle);
+                            if (elementTransport!= null && elementTransport.getClass()!=SourceAutobus.class) {
                                 m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                 m_controleur.deselectionnerRoutier();
                                 miseAjourSelectionSourcesAjout();
-                                    
+                                m_controleur.getTransport().getPileSelection().ajouter(elemSelectionne);
                                 
                               }
                             break;
@@ -968,7 +972,6 @@ public class MainWindow extends javax.swing.JFrame {
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
                     
                     if (elemRoutier != null) {
-                        afficherPanelRoutier(elemRoutier);
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
                     break;
@@ -983,13 +986,13 @@ public class MainWindow extends javax.swing.JFrame {
                             break;
                     }
                     m_controleur.deselectionnerTout();
-                    ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
+                    ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle, false);
                     if (elemTransport != null) {
-                        afficherPanelTransport(elemTransport);
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
             }
         }
+        miseAJourPanels();
         miseAJourPermissionsBoutons();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
@@ -1219,22 +1222,14 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void suppressionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionRoutierActionPerformed
         boolean suppressionOK = false;
-//        switch (m_commande_courante) {
-//            case SELECTIONNER:
-                suppressionOK = m_controleur.supprimerSelectionRoutier();
-                if (!suppressionOK){
-                    JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
-                }
-//                break;
-//
-//            default:
-//                break;
-//        }
+        suppressionOK = m_controleur.supprimerSelectionRoutier();
+        if (!suppressionOK){
+            JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+        }
 
-        //afficheurReseau.setDimension(intersectionSupprimee);
-        //defilementAfficheur.setViewportView(afficheurReseau);
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
+        miseAJourPanels();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_suppressionRoutierActionPerformed
     
@@ -1306,7 +1301,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_supprimerClicDroitActionPerformed
 
     private void suppression(){
-                switch (m_mode_courant) {
+        switch (m_mode_courant) {
             case ROUTIER:
                 suppressionRoutier.doClick();
                 break;
@@ -1337,6 +1332,26 @@ public class MainWindow extends javax.swing.JFrame {
         panelCircuit1.setMainWindow(m_this);
         panelSourceAutobus1.setMainWindow(m_this);
         disparaitrePanels();
+    }
+    
+    private void miseAJourPanels(){
+        disparaitrePanels();
+        switch(m_mode_courant){
+            case ROUTIER:
+                ElementRoutier er = m_controleur.getRoutier().getPileSelection().getDessus();
+                if(er!=null)
+                    afficherPanelRoutier(er);
+                break;
+            
+            case TRANSPORT:
+                ElementTransport et = m_controleur.getTransport().getPileSelection().getDessus();
+                if(et!=null)
+                    afficherPanelTransport(et);
+                break;
+                
+            default:
+                break;
+        }
     }
     
     private void disparaitrePanels(){
@@ -1406,20 +1421,15 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
         boolean elementTransportSupprime = false;
-        switch (m_commande_courante) {
-            case SELECTIONNER:
-                elementTransportSupprime = m_controleur.supprimerSelectionTransport();
-                if (!elementTransportSupprime) {
-                    JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
-                }
-                break;
 
-            default:
-                break;
+        elementTransportSupprime = m_controleur.supprimerSelectionTransport();
+        if (!elementTransportSupprime) {
+            JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
         }
         
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
+        miseAJourPanels();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
@@ -1606,7 +1616,7 @@ public class MainWindow extends javax.swing.JFrame {
         for (ListIterator<Intersection> intersections = m_controleur.getRoutier().getIntersections().listIterator(); intersections.hasNext();) {
             Intersection intersection = intersections.next();
             if (intersection.getName().equals(name)) {
-                intersection.changerStatutSelection();
+                m_controleur.getRoutier().getPileSelection().ajouter(intersection);
                 afficherPanelRoutier(intersection);
                 break;
             }
@@ -1624,7 +1634,7 @@ public class MainWindow extends javax.swing.JFrame {
             for (ListIterator<Troncon> troncons = intersection.getTroncons().listIterator(); troncons.hasNext();) {
                 Troncon troncon = troncons.next();
                 if (troncon.getNom().equals(name)) {
-                    troncon.changerStatutSelection();
+                    m_controleur.getRoutier().getPileSelection().ajouter(troncon);
                     afficherPanelRoutier(troncon);
                     break;
                 }
@@ -1643,12 +1653,9 @@ public class MainWindow extends javax.swing.JFrame {
             if (circuit.getNom().equals(name)) {
                 for (PaireArretTrajet ArretTrajet : circuit.getListeArretTrajet()) {
                     ElementTransport arret = ArretTrajet.getArret();
-                    if (!arret.estSelectionne()) {
-                        arret.changerStatutSelection();
-
-                    }
+                    m_controleur.getTransport().getPileSelection().ajouter(arret);
                 }
-                circuit.changerStatutSelection();
+                m_controleur.getTransport().getPileSelection().ajouter(circuit);
                 afficherPanelTransport(circuit);
                 break;
             }
@@ -1666,7 +1673,7 @@ public class MainWindow extends javax.swing.JFrame {
             for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
                 SourceAutobus source = sources.next();
                 if (source.getNom().equals(name)) {
-                    source.changerStatutSelection();
+                    m_controleur.getTransport().getPileSelection().ajouter(source);
                     afficherPanelTransport(source);
                     break;
                 }
@@ -1683,7 +1690,7 @@ public class MainWindow extends javax.swing.JFrame {
         for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
             if (arret.getNom().equals(name)) {
-                arret.changerStatutSelection();
+                m_controleur.getTransport().getPileSelection().ajouter(arret);
                 afficherPanelTransport(arret);
                 break;
             }
@@ -1765,6 +1772,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setVisible(false);
         boutonsSelectionSimulation.setVisible(false);
         m_controleur.deselectionnerTout();
+        disparaitrePanels();
         this.afficheurReseau.repaint();
     }
 

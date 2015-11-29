@@ -18,6 +18,7 @@ public class ReseauRoutier {
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     private int m_compteurTroncon = 1;
     private int m_compteurIntersection = 1;
+    private PileSelectionRoutier m_pileSelection = new PileSelectionRoutier();
     
     public final static double VITESSE_PIETON = 4;
     
@@ -49,12 +50,10 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public Intersection selectionnerIntersection(Float p_x, Float p_y, Float p_diametre){
+    public Boolean selectionnerIntersection(Float p_x, Float p_y, Float p_diametre){
         Intersection inter = obtenirIntersection(p_x, p_y, p_diametre);
-        if (inter != null){
-            inter.changerStatutSelection();
-        }
-        return inter;
+        m_pileSelection.ajouter(inter);
+        return (inter != null);
     }
     
     public Intersection obtenirIntersection(Float p_x, Float p_y, Float p_diametre)
@@ -106,21 +105,7 @@ public class ReseauRoutier {
     public void deselectionnerTout()
     {
         desuggererTout();
-        for (Intersection intersection: m_listeIntersections)
-        {
-            if (intersection.estSelectionne())
-            {
-                intersection.changerStatutSelection();
-            }
-            
-            for (Troncon troncon: intersection.getTroncons())
-            {   
-                if (troncon.estSelectionne())
-                {
-                    troncon.changerStatutSelection();
-                }
-            }
-        }
+        m_pileSelection.vider();
     }
     
     public void desuggererTout()
@@ -137,26 +122,7 @@ public class ReseauRoutier {
     }
     
     public LinkedList<ElementRoutier> getElementsSelectionnes(){
-        
-        LinkedList<ElementRoutier> listeRetour = new LinkedList<>();
-        
-        for (Intersection intersection: m_listeIntersections)
-        {
-            if (intersection.estSelectionne())
-            {
-                listeRetour.add(intersection);
-            }
-            
-            for (Troncon troncon: intersection.getTroncons())
-            {   
-                if (troncon.estSelectionne())
-                {
-                    listeRetour.add(troncon);
-                }
-            }
-        }
-        
-        return listeRetour;
+        return m_pileSelection.getListe();
     }
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
@@ -173,13 +139,22 @@ public class ReseauRoutier {
         p_origine.ajouterTroncon(tr);
     }
     
-    public Boolean supprimerSelection()
+    public void supprimerSelection()
     {        
+//        for (ListIterator<ElementRoutier> erIt = m_pileSelection.getListe().listIterator(); erIt.hasNext() ; ){
+//            ElementRoutier er = erIt.next();
+//            if (er.getClass() == Intersection.class){
+//                Intersection inter = (Intersection) er;
+//                inter.getTroncons().clear();
+//            }
+//            erIt.remove();
+//        }
+        
         for (ListIterator<Intersection> intersectionIt = m_listeIntersections.listIterator() ; intersectionIt.hasNext() ; )
         {
             Intersection intersection = intersectionIt.next();
             
-            if (intersection.estSelectionne())
+            if (m_pileSelection.contient(intersection))
             {
                 intersection.getTroncons().clear();
                 intersectionIt.remove();
@@ -188,7 +163,7 @@ public class ReseauRoutier {
             {
                 for (ListIterator<Troncon> troncon = intersection.getTroncons().listIterator() ; troncon.hasNext() ; )
                 {
-                    if (troncon.next().estSelectionne() || troncon.previous().getDestination().estSelectionne())
+                    if (m_pileSelection.contient(troncon.next()) || m_pileSelection.contient(troncon.previous().getDestination()))
                     {
                         troncon.remove();
                     }
@@ -199,7 +174,6 @@ public class ReseauRoutier {
                 }
             }
         }
-        return true; //useless
     }
     
     public void initReseauRoutier(){
@@ -233,4 +207,9 @@ public class ReseauRoutier {
         } 
         return interContigues;
     }
+    
+    public PileSelectionRoutier getPileSelection(){
+        return m_pileSelection;
+    }
+    
 }
