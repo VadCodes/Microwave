@@ -16,6 +16,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
@@ -58,17 +59,21 @@ public class DessinateurTransport {
     {
         LinkedList<Arret> arrets = m_reseau.getListeArrets();
         for (Arret arret :arrets){
-            if (!arret.estSelectionne())
-                p_g.setColor(Color.GREEN);
-            else 
-                p_g.setColor(Color.BLUE);
-
             Emplacement em = arret.getEmplacement();
 
             Point2D.Float position = em.calculPosition(p_echelle);
             float x = position.x -   arret.RAYON / p_echelle;
             float y = position.y -   arret.RAYON / p_echelle;
             float diametre = 2 *   arret.RAYON / p_echelle;
+            if (arret.estSelectionne()){
+                float grossisement = 1.35f;
+                float sx = position.x -   grossisement*arret.RAYON / p_echelle;
+                float sy = position.y -   grossisement*arret.RAYON / p_echelle;
+                float sdiametre = grossisement*2 *   arret.RAYON / p_echelle;
+                p_g.setColor(new Color(50,200,255 , 200));
+                p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+            }
+            p_g.setColor(Color.red);
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
@@ -144,16 +149,28 @@ public class DessinateurTransport {
             Circuit circuit = circuits.next();
                 for (ListIterator<SourceAutobus> sources =circuit.getListeSources().listIterator(); sources.hasNext() ; ){
                     SourceAutobus source  = sources.next();
-                    if (!source.estSelectionne())
-                        p_g.setColor(Color.MAGENTA);
-                    else 
-                        p_g.setColor(Color.BLUE);
-                    
                 Path2D.Float losange = new Path2D.Float();  
 
                 Emplacement em = source.getEmplacement();                
                 Point2D.Float position = em.calculPosition(p_echelle);
- 
+                if (source.estSelectionne()){
+                    Path2D.Float slosange = new Path2D.Float();  
+                    float grossisement = 1.4f;
+                    float sy1 = position.y - grossisement*SourceAutobus.LARGEUR / 2 / p_echelle;
+                    float sx1 = position.x + grossisement*SourceAutobus.LARGEUR / 2 / p_echelle;
+                    float sy2 = sy1 + grossisement*SourceAutobus.LARGEUR / p_echelle;
+                    float sx2 = sx1 - grossisement*SourceAutobus.LARGEUR / p_echelle;
+                    
+                    slosange.moveTo(position.x, sy1);
+                    slosange.lineTo(sx1, position.y);
+                    slosange.lineTo(position.x, sy2);
+                    slosange.lineTo(sx2, position.y);
+                    slosange.closePath();
+                
+                    p_g.setColor(new Color(50,200,255 , 200));
+                    p_g.fill(slosange);
+                }
+                p_g.setColor(new Color(200,0,200));
                 float y1 = position.y - SourceAutobus.LARGEUR / 2 / p_echelle;
                 float x1 = position.x + SourceAutobus.LARGEUR / 2 / p_echelle;
                 float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
@@ -166,6 +183,7 @@ public class DessinateurTransport {
                 losange.closePath();
                 
                 p_g.fill(losange);
+                
             }
         }
     }
