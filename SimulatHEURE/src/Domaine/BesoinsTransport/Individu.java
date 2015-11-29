@@ -10,6 +10,7 @@ import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Autobus;
 import Domaine.ReseauTransport.Circuit;
+import Domaine.Statistiques.StatistiqueBesoin;
 
 /**
  *
@@ -24,7 +25,11 @@ public class Individu {
     private Boolean m_estEnBus = false;
     private PaireParcours m_paireActuelle;
     private Boolean m_estSurArret = false;
-    public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret){
+    private double m_tempsDeVie = 0;
+    private StatistiqueBesoin m_stat;
+    public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret,
+            StatistiqueBesoin p_stat){
+        m_stat = p_stat;
         m_emplacementActuel = p_emplacementActuel;
         m_itineraire = p_itineraire;
         m_tempsApparition = p_tempsApparition;        
@@ -124,6 +129,7 @@ public class Individu {
             if (m_paireActuelle.getTrajet() == null) {
                     m_asTerminer = true;
                     float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
+                     m_stat.miseAJourStat(new Temps(m_tempsDeVie - p_deltatT.getTemps() +tempsParcourirResteTroncon));
                     return true;
 
             } else {

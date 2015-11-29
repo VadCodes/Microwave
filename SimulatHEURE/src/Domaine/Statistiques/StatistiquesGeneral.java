@@ -10,5 +10,8 @@ package Domaine.Statistiques;
  * @author louis
  */
 public class StatistiquesGeneral {
-    
+    StatistiquesGeneral(){
+        
+    }
+            
 }
