@@ -106,4 +106,13 @@ public class Troncon extends ElementRoutier{
         
         return new PaireFloats(ajX, ajY);
     }
+    
+    public Float getPourcentageClic(Float clicX, Float clicY, Float p_echelle){
+        Point2D.Float p1 = m_origine.getPosition();
+        Point2D.Float p2 = m_destination.getPosition();
+        
+        PaireFloats pAj = ajusterSiDoubleSens(p1, p2, p_echelle);
+        
+        return (clicX-p1.x-pAj.getFloat1())/(p2.x-p1.x);
+    }
 }

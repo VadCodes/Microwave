@@ -79,6 +79,96 @@ public class ReseauTransport {
         return arret;
     }
     
+    public Circuit selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle){
+        Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
+        if (trc!=null){
+            Float pourcentageClic = trc.getPourcentageClic(xReel, yReel, p_echelle);
+            Emplacement empl_deb = null;
+            Emplacement empl_fin = null;
+            Boolean circuitSelectionne = false;
+            for (Circuit circ : m_listeCircuits){
+                for (PaireArretTrajet pat : circ.getListeArretTrajet()){
+                    if (pat.getTrajet() != null){
+                        for (Troncon trc2 : pat.getTrajet().getListeTroncons()){
+                            if (trc2.equals(trc)){
+                                if (pat.getTrajet().getEmplacementInitial().estSurTroncon())
+                                    empl_deb = pat.getTrajet().getEmplacementInitial();
+                                if (pat.getTrajet().getEmplacementFinal().estSurTroncon())
+                                    empl_fin = pat.getTrajet().getEmplacementFinal();
+                                
+                                if (empl_deb != null && empl_fin != null){
+                                    if (empl_deb.getTroncon().equals(trc) && empl_fin.getTroncon().equals(trc)){
+                                        if (empl_deb.getPourcentageParcouru() < empl_fin.getPourcentageParcouru()){
+                                            //si entre
+                                            if (pourcentageClic > empl_deb.getPourcentageParcouru() && 
+                                                    pourcentageClic < empl_fin.getPourcentageParcouru()){
+                                                circuitSelectionne = true;
+                                            }
+                                        }
+                                        else{
+                                            //si avant ou apres
+                                            if (pourcentageClic > empl_deb.getPourcentageParcouru() ||
+                                                    pourcentageClic < empl_fin.getPourcentageParcouru()){
+                                                circuitSelectionne = true;
+                                            }
+                                        }
+                                    }
+                                    else if(empl_deb.getTroncon().equals(trc)){
+                                        // si apres
+                                        if (pourcentageClic > empl_deb.getPourcentageParcouru()){
+                                            circuitSelectionne = true;
+                                        }
+                                    }
+                                    else if(empl_fin.getTroncon().equals(trc)){
+                                        // si avant
+                                        if (pourcentageClic < empl_fin.getPourcentageParcouru()){
+                                            circuitSelectionne = true;
+                                        }
+                                    }
+                                    else{
+                                        circuitSelectionne = true;
+                                    }
+                                }
+                                else if(empl_deb != null){
+                                    if (empl_deb.getTroncon().equals(trc)){
+                                        if (pourcentageClic > empl_deb.getPourcentageParcouru()){
+                                            circuitSelectionne = true;
+                                        }
+                                    }
+                                    else{
+                                        circuitSelectionne = true;
+                                    }
+                                }
+                                else if(empl_fin != null){
+                                    if(empl_fin.getTroncon().equals(trc)){
+                                        if (pourcentageClic < empl_fin.getPourcentageParcouru()){
+                                            circuitSelectionne = true;
+                                        }
+                                    }
+                                    else{
+                                        circuitSelectionne = true;
+                                    }
+                                }
+                                else{
+                                    circuitSelectionne = true;
+                                }
+
+                                if (circuitSelectionne){
+                                    circ.changerStatutSelection();
+                                    return circ;
+                                }
+
+                                empl_deb = null;
+                                empl_fin = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
     
    public Arret obtenirArret(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
        

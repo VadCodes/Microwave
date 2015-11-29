@@ -23,7 +23,7 @@ public class Simulatheure {
 
     public enum Commandes {
 
-        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCE, AJOUTERCIRCUIT, EDITERCIRCUIT
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, AJOUTERCIRCUIT, EDITERCIRCUIT
     }
     //private Simulatheure_log m_log = new Simulatheure_log();
     //private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
@@ -237,7 +237,22 @@ public class Simulatheure {
                 yReel = p_y / p_echelle - Arret.RAYON;
                 largeurSelection = 2 * Arret.RAYON;
             }
-            return m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
+            Arret arr = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
+            if (arr != null){
+                return arr;
+            }
+            else{
+                if (p_echelle > 1) {
+                    xReel = (p_x - Troncon.LARGEUR / 2) / p_echelle;
+                    yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
+                    largeurSelection = Troncon.LARGEUR / p_echelle;
+                } else {
+                    xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
+                    yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
+                    largeurSelection = Troncon.LARGEUR;
+                }
+                return m_reseauTransport.selectionnerCircuit(xReel, yReel, largeurSelection, p_echelle);
+            }
         }
     }
 
@@ -616,7 +631,7 @@ public class Simulatheure {
 
         ElementRoutier elementRoutier = selectionnerElementRoutier(p_x, p_y, p_echelle, false);
         ElementTransport elementTransport = selectionnerElementTransport(p_x, p_y, p_echelle);
-        if (elementTransport != null) {
+        if (elementTransport != null && elementTransport.getClass() != Circuit.class) {
             if (elementTransport.getClass() == Arret.class) {
                 Arret arret = (Arret) elementTransport;
                 Emplacement emplacement = new Emplacement(false, 0, null, null);
@@ -629,8 +644,6 @@ public class Simulatheure {
                         m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
                         return;
                     }
-                    
-
                 }
             }
         } else if (elementRoutier != null) {

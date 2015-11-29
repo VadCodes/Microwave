@@ -134,7 +134,6 @@ public class MainWindow extends javax.swing.JFrame {
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
         allongerCircuit = new javax.swing.JButton();
-        ajoutSource = new javax.swing.JToggleButton();
         suppressionTransport = new javax.swing.JButton();
         editerTransport = new javax.swing.JToggleButton();
         checkBoxDijkstra = new javax.swing.JCheckBox();
@@ -197,7 +196,6 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(constructionTroncon);
 
         groupeModes.add(selectionTransport);
-        groupeModes.add(ajoutSource);
         groupeModes.add(ajoutArret);
         groupeModes.add(ajoutCircuit);
         groupeModes.add(suppressionTransport);
@@ -449,16 +447,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsTransport.add(allongerCircuit);
-
-        ajoutSource.setText("Source");
-        ajoutSource.setEnabled(false);
-        ajoutSource.setPreferredSize(new java.awt.Dimension(100, 35));
-        ajoutSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ajoutSourceActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(ajoutSource);
 
         suppressionTransport.setText("Supprimer");
         suppressionTransport.setEnabled(false);
@@ -939,6 +927,7 @@ public class MainWindow extends javax.swing.JFrame {
                             if (circ != null) {
                                 try{
                                     m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
+                                    panelCircuit1.afficheInfo(circ); //pour que boucle se mette enabled
                                 }
                                 catch(IllegalArgumentException e){
                                     JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
@@ -946,10 +935,9 @@ public class MainWindow extends javax.swing.JFrame {
                             }
                             break;
 
-                        case SOURCE:
-                            ElementRoutier elementRoutierS = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
+                        case SOURCEAUTOBUS:
                             ElementTransport elementTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
-                            if (elementTransport!= null || elementRoutierS != null) {
+                            if (elementTransport!= null) {
                                 m_controleur.ajouterSource(evt.getX(), evt.getY(), echelle);
                                 m_controleur.deselectionnerRoutier();
                                 miseAjourSelectionSourcesAjout();
@@ -1435,13 +1423,12 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_suppressionTransportActionPerformed
 
-    private void ajoutSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutSourceActionPerformed
         
+    public void ajoutSource(){
         m_controleur.cancellerCircuit();
         this.afficheurReseau.repaint();
-        this.setCommande(Commandes.SOURCE);
-    }//GEN-LAST:event_ajoutSourceActionPerformed
-
+        this.setCommande(Commandes.SOURCEAUTOBUS);
+    }
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
 //        m_controleur.annulerDerniereAction();
 //        this.afficheurReseau.repaint();
@@ -1828,10 +1815,10 @@ public class MainWindow extends javax.swing.JFrame {
 
                 if (comboBoxCircuits.getItemCount() > 1) {
                     allongerCircuit.setEnabled(true);
-                    ajoutSource.setEnabled(true);
+                   //ajoutSource.setEnabled(true);
                 } else {
                     allongerCircuit.setEnabled(false);
-                    ajoutSource.setEnabled(false);
+                    //ajoutSource.setEnabled(false);
                 }
 
                 if (comboBoxSources.getItemCount() > 1) {
@@ -1853,7 +1840,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutArret;
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
-    private javax.swing.JToggleButton ajoutSource;
     private javax.swing.JButton allongerCircuit;
     private javax.swing.JButton annuler;
     private javax.swing.JButton arreterSimulation;
