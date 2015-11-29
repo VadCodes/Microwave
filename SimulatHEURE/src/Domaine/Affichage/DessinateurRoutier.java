@@ -53,18 +53,19 @@ public class DessinateurRoutier
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
         for (Intersection intersection: intersections)
         {
-//            if (intersection.estSuggere())
-//                p_g.setColor(Color.ORANGE);          
-            if (intersection.estSelectionne())
-                p_g.setColor(Color.BLUE);
-            else 
-                p_g.setColor(Color.BLACK);
-
             Point2D.Float position = intersection.getPosition();
             float x = position.x - Intersection.RAYON / p_echelle;
             float y = position.y - Intersection.RAYON / p_echelle;
             float diametre = 2 * Intersection.RAYON / p_echelle;
-            
+            if (intersection.estSelectionne()){
+                float grossisement = 1.35f;
+                float sx = position.x -   grossisement*Intersection.RAYON / p_echelle;
+                float sy = position.y -   grossisement*Intersection.RAYON / p_echelle;
+                float sdiametre = grossisement*2 *   Intersection.RAYON / p_echelle;
+                p_g.setColor(new Color(50,200,255 , 200));
+                p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+            }
+               p_g.setColor(Color.BLACK);
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
