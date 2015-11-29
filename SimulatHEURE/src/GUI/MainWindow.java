@@ -867,7 +867,6 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
         float echelle = afficheurReseau.getEchelle();
-        disparaitrePanels();
         if (SwingUtilities.isLeftMouseButton(evt)) {
 
             switch (m_mode_courant) {
@@ -979,7 +978,9 @@ public class MainWindow extends javax.swing.JFrame {
                 case ROUTIER:
                     m_controleur.deselectionnerTout();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
+                    
                     if (elemRoutier != null) {
+                        afficherPanelRoutier(elemRoutier);
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
                     break;
@@ -996,6 +997,7 @@ public class MainWindow extends javax.swing.JFrame {
                     m_controleur.deselectionnerTout();
                     ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle);
                     if (elemTransport != null) {
+                        afficherPanelTransport(elemTransport);
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
             }
@@ -1359,8 +1361,9 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void afficherPanelRoutier(ElementRoutier elemRoutier){
-        disparaitrePanels();
+        
         if (elemRoutier != null){
+            disparaitrePanels();
             if (elemRoutier.getClass() == Troncon.class) {
                 panelTroncon1.setVisible(true);
                 panelTroncon1.afficheInfo((Troncon) elemRoutier);
@@ -1373,8 +1376,9 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void afficherPanelTransport(ElementTransport elemTransport){
-        disparaitrePanels();
+        
         if (elemTransport != null){
+            disparaitrePanels();
             if (elemTransport.getClass() == Arret.class) {
                 panelArret1.setVisible(true);
                 panelArret1.afficheInfo((Arret) elemTransport);
