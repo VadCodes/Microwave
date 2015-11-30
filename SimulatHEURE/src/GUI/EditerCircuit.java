@@ -26,7 +26,7 @@ public class EditerCircuit extends javax.swing.JFrame {
         m_circuit = circ;
         jTextField1.setText(m_circuit.getNom());
         
-        if (m_circuit.getBoucle()) {
+        if (m_circuit.getPeutBoucler()) {
             jCheckBox1.setEnabled(true);
             if (m_circuit.getVeutBoucler()){
                 jCheckBox1.setSelected(true);

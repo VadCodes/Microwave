@@ -31,7 +31,7 @@ public class Simulatheure {
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
 
     private ReseauTransport m_reseauTransport;
-    private LinkedList<Arret> m_arretsNouveauCircuit = new LinkedList<>();
+    private LinkedList<Arret> m_arretsNouveauTrajet = new LinkedList<>();
     private LinkedList<Troncon> m_tronconsNouveauTrajet = new LinkedList<>();
     private Trajet m_trajet_temp = new Trajet();
     private Boolean m_modeNouvelArret = true;
@@ -144,7 +144,7 @@ public class Simulatheure {
     }
 
     public void deselectionnerTransport() {
-        m_arretsNouveauCircuit.clear();
+        m_arretsNouveauTrajet.clear();
         m_tronconsNouveauTrajet.clear();
         m_reseauRoutier.desuggererTout();
         m_trajet_temp = new Trajet();
@@ -318,11 +318,13 @@ public class Simulatheure {
         float yReel;
         float largeurSelection;
         Boolean estConstructible = false;
+        
         Arret arretInitiale;
         Arret arretFinale;
         Boolean arretEstNouvelle = false;
+        Boolean succes = false;
 
-        if (m_arretsNouveauCircuit.size() < 2) {
+        if (m_arretsNouveauTrajet.size() < 2) {
             if (p_echelle > 1) {
                 xReel = (p_x - Arret.RAYON) / p_echelle;
                 yReel = (p_y - Arret.RAYON) / p_echelle;
@@ -337,133 +339,192 @@ public class Simulatheure {
             if (!arrSelect) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle) {
-                    m_arretsNouveauCircuit.add(m_reseauTransport.getListeArrets().getLast());
-                    m_reseauTransport.getPileSelection().ajouter(m_arretsNouveauCircuit.getLast());
+                    m_arretsNouveauTrajet.add(m_reseauTransport.getListeArrets().getLast());
+                    m_reseauTransport.getPileSelection().ajouter(m_arretsNouveauTrajet.getLast());
+                    succes = true;
                 }
             }
             else {
                 Arret arret = (Arret) m_reseauTransport.getPileSelection().getDessus();
                 if (m_reseauTransport.getPileSelection().contient(arret)) {
-                    m_arretsNouveauCircuit.add(arret);
+                    m_arretsNouveauTrajet.add(arret);
+                    succes = true;
                 } else {
-                    m_arretsNouveauCircuit.clear();
+                    m_arretsNouveauTrajet.clear();
                 }
             }
-
-            if (m_arretsNouveauCircuit.size() == 2) {
-                arretInitiale = m_arretsNouveauCircuit.getFirst();
-                arretFinale = m_arretsNouveauCircuit.getLast();
-                
-                if (arretInitiale.getEmplacement().estSurTroncon()) {
-                    m_tronconsNouveauTrajet.add(arretInitiale.getEmplacement().getTroncon());
-                    for (Troncon troncon : m_tronconsNouveauTrajet.getLast().getDestination().getTroncons()) {
-                        troncon.setEstSuggere(true);
-                    }
-
-                    if (arretFinale.getEmplacement().estSurTroncon()) {
-                        if (arretFinale.getEmplacement().getTroncon() == m_tronconsNouveauTrajet.getLast()) {
-                            if (arretInitiale.getEmplacement().getPourcentageParcouru() < arretFinale.getEmplacement().getPourcentageParcouru()) {
-                                estConstructible = true;
-                            } else {
-                                m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
-                            }
-                        } else {
-                            m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
-                            estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
-                        }
-                    } 
-                    else 
-                    {
-                        estConstructible = m_tronconsNouveauTrajet.getLast().getDestination() == arretFinale.getEmplacement().getIntersection();
-                    }
-                } 
-                else 
+            
+            Circuit circuitSelectionne = obtenirCircuitSelectionne();
+            if (circuitSelectionne != null && succes)
+            {
+                if (circuitSelectionne.getVeutBoucler())
                 {
-                    for (Troncon troncon : arretInitiale.getEmplacement().getIntersection().getTroncons()) {
-                        troncon.setEstSuggere(true);
-                    }
-
-                    if (arretFinale.getEmplacement().estSurTroncon()) {
-                        m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
-                        estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
-                    }
+                    m_arretsNouveauTrajet.clear();
+                    return false;
                 }
                 
+                else if (succes)
+                    m_arretsNouveauTrajet.addFirst(circuitSelectionne.getListeArretTrajet().getLast().getArret());
+            }
+            
+            if (m_arretsNouveauTrajet.size() == 2)
+            {
+                arretInitiale = m_arretsNouveauTrajet.getFirst();
+                arretFinale = m_arretsNouveauTrajet.getLast();
+                estConstructible = petitTrajetCircuitEstConstructible(arretInitiale, arretFinale);
                 if (!estConstructible)
                 {                
                     if (!m_reseauTransport.arretsSontConnectables(arretInitiale, arretFinale))
                     {
                         m_reseauRoutier.desuggererTout();
-                        m_arretsNouveauCircuit.removeLast();
+                        
                         m_reseauTransport.getPileSelection().enlever(arretFinale);
+                        
+                        if (circuitSelectionne != null)
+                            m_arretsNouveauTrajet.clear();
+                        else
+                            m_arretsNouveauTrajet.removeLast();                        
+                       
                         m_tronconsNouveauTrajet.clear();
+                        
                         if (arretEstNouvelle)
                             m_reseauTransport.getListeArrets().removeLast();
-                            
+
                         throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                     }
-                    else if(m_dijkstra)
-                    {
+                    else if (m_dijkstra)
                         return construireCircuit(p_x, p_y, p_echelle);
-                    }
-                }
-            }
-
-        } else {
-            arretInitiale = m_arretsNouveauCircuit.getFirst();
-            arretFinale = m_arretsNouveauCircuit.getLast();
-            
-            if(m_dijkstra){
-                estConstructible = true;
-                m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
-            }
-            else
-            {   
-                if (p_echelle > 1) {
-                    xReel = (p_x - Troncon.LARGEUR / 2) / p_echelle;
-                    yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
-                    largeurSelection = Troncon.LARGEUR / p_echelle;
-                } else {
-                    xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
-                    yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
-                    largeurSelection = Troncon.LARGEUR;
-                }
-
-                Troncon tronconSelectionne = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
-                if (tronconSelectionne == null || !tronconSelectionne.estSuggere()) {
-                    return estConstructible;
-                }
-
-                if (arretFinale.getEmplacement().estSurTroncon()) {
-                    m_tronconsNouveauTrajet.add(m_tronconsNouveauTrajet.size() - 1, tronconSelectionne);
-                    estConstructible = tronconSelectionne.getDestination() == m_tronconsNouveauTrajet.getLast().getOrigine();
-                } else {
-                    m_tronconsNouveauTrajet.add(tronconSelectionne);
-                    estConstructible = tronconSelectionne.getDestination() == arretFinale.getEmplacement().getIntersection();
-                }
-
-                if (!estConstructible) {
-                    m_reseauRoutier.desuggererTout();
-                    m_reseauRoutier.getPileSelection().ajouter(tronconSelectionne);
-                    for (Troncon troncon : tronconSelectionne.getDestination().getTroncons()) {
-                        if (!m_tronconsNouveauTrajet.contains(troncon)) {
-                            troncon.setEstSuggere(true);
-                        }
-                    }
                 }
             }
         }
-
-        if (estConstructible) {
-            arretInitiale = m_arretsNouveauCircuit.getFirst();
-            arretFinale = m_arretsNouveauCircuit.getLast();
+        else 
+        {
+            estConstructible = construireLongTrajetCircuit(p_x, p_y, p_echelle);
+        }
+        
+        if (estConstructible)
+        {
+            arretInitiale = m_arretsNouveauTrajet.getFirst();
+            arretFinale = m_arretsNouveauTrajet.getLast();
             Trajet trajet = new Trajet(arretInitiale.getEmplacement(), arretFinale.getEmplacement(), new LinkedList<>(m_tronconsNouveauTrajet));
+            
+            Circuit circuitSelectionne = obtenirCircuitSelectionne();
+            if (circuitSelectionne == null)
+            {
+                LinkedList<PaireArretTrajet> listePaires = new LinkedList<>();
+                listePaires.add(new PaireArretTrajet(arretInitiale, trajet));
+                listePaires.add(new PaireArretTrajet(arretFinale, null));
 
-            LinkedList<PaireArretTrajet> listePaires = new LinkedList<>();
-            listePaires.add(new PaireArretTrajet(arretInitiale, trajet));
-            listePaires.add(new PaireArretTrajet(arretFinale, null));
+                m_reseauTransport.ajouterCircuit(new Circuit(listePaires));
+                //m_reseauTransport.getListeCircuits().getLast(). wtf comment on fait pour sélectionner ??
+            }
+            else
+            {
+                circuitSelectionne.getListeArretTrajet().removeLast();
+                circuitSelectionne.getListeArretTrajet().add(new PaireArretTrajet(arretInitiale, trajet));
+                circuitSelectionne.getListeArretTrajet().add(new PaireArretTrajet(arretFinale, null));
+                if (circuitSelectionne.getListeArretTrajet().getFirst().getArret() == arretFinale)
+                    circuitSelectionne.setPeutBoucler(true);
+                else
+                    circuitSelectionne.setPeutBoucler(false);
+            }            
+            
+            m_arretsNouveauTrajet.clear();
+            m_tronconsNouveauTrajet.clear();
+        }
+        return estConstructible;
+    }
 
-            this.m_reseauTransport.ajouterCircuit(new Circuit(listePaires));
+    private Boolean petitTrajetCircuitEstConstructible(Arret arretInitiale, Arret arretFinale)
+    {
+        Boolean estConstructible = false;
+
+        if (arretInitiale.getEmplacement().estSurTroncon()) {
+            m_tronconsNouveauTrajet.add(arretInitiale.getEmplacement().getTroncon());
+            for (Troncon troncon : m_tronconsNouveauTrajet.getLast().getDestination().getTroncons()) {
+                troncon.setEstSuggere(true);
+            }
+
+            if (arretFinale.getEmplacement().estSurTroncon()) {
+                if (arretFinale.getEmplacement().getTroncon() == m_tronconsNouveauTrajet.getLast()) {
+                    if (arretInitiale.getEmplacement().getPourcentageParcouru() < arretFinale.getEmplacement().getPourcentageParcouru()) {
+                        estConstructible = true;
+                    } else {
+                        m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
+                    }
+                } else {
+                    m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
+                    estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
+                }
+            } 
+            else 
+            {
+                estConstructible = m_tronconsNouveauTrajet.getLast().getDestination() == arretFinale.getEmplacement().getIntersection();
+            }
+        } 
+        else 
+        {
+            for (Troncon troncon : arretInitiale.getEmplacement().getIntersection().getTroncons()) {
+                troncon.setEstSuggere(true);
+            }
+
+            if (arretFinale.getEmplacement().estSurTroncon()) {
+                m_tronconsNouveauTrajet.add(arretFinale.getEmplacement().getTroncon());
+                estConstructible = arretFinale.getEmplacement().getTroncon().estSuggere();
+            }
+        }
+        return estConstructible;
+    }
+        
+    private Boolean construireLongTrajetCircuit(Integer p_x, Integer p_y, Float p_echelle)
+    // Appeler seulement si les arrêt du nouveau trajet sont connectables.
+    {
+        float xReel;
+        float yReel;
+        float largeurSelection;
+        Arret arretFinale = m_arretsNouveauTrajet.getLast();
+        Boolean estConstructible = false;
+        
+        if(m_dijkstra)
+        {
+            estConstructible = true;
+            Arret arretInitiale = m_arretsNouveauTrajet.getFirst();
+            m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
+        }
+        else
+        {   
+            if (p_echelle > 1) {
+                xReel = (p_x - Troncon.LARGEUR / 2) / p_echelle;
+                yReel = (p_y - Troncon.LARGEUR / 2) / p_echelle;
+                largeurSelection = Troncon.LARGEUR / p_echelle;
+            } else {
+                xReel = p_x / p_echelle - Troncon.LARGEUR / 2;
+                yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
+                largeurSelection = Troncon.LARGEUR;
+            }
+
+            Troncon tronconSelectionne = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
+            if (tronconSelectionne == null || !tronconSelectionne.estSuggere()) {
+                return estConstructible;
+            }
+
+            if (arretFinale.getEmplacement().estSurTroncon()) {
+                m_tronconsNouveauTrajet.add(m_tronconsNouveauTrajet.size() - 1, tronconSelectionne);
+                estConstructible = tronconSelectionne.getDestination() == m_tronconsNouveauTrajet.getLast().getOrigine();
+            } else {
+                m_tronconsNouveauTrajet.add(tronconSelectionne);
+                estConstructible = tronconSelectionne.getDestination() == arretFinale.getEmplacement().getIntersection();
+            }
+
+            if (!estConstructible) {
+                m_reseauRoutier.desuggererTout();
+                m_reseauRoutier.getPileSelection().ajouter(tronconSelectionne);
+                for (Troncon troncon : tronconSelectionne.getDestination().getTroncons()) {
+                    if (!m_tronconsNouveauTrajet.contains(troncon)) {
+                        troncon.setEstSuggere(true);
+                    }
+                }
+            }
         }
         return estConstructible;
     }
@@ -474,7 +535,7 @@ public class Simulatheure {
 
         if (m_modeNouvelArret) {
 
-            if (circuit.getBoucle()) {
+            if (circuit.getPeutBoucler()) {
                 return;
             }
             Arret nouvArret;
@@ -500,7 +561,7 @@ public class Simulatheure {
             Boolean premier = true;
             for (PaireArretTrajet pat : circuit.getListeArretTrajet()) {
                 if (pat.getArret() == nouvArret && premier) {
-                    circuit.setBoucle(true);
+                    circuit.setPeutBoucler(true);
                 } 
                 else if (pat.getArret() == nouvArret) {
                     return;
@@ -758,7 +819,7 @@ public class Simulatheure {
                                         }
                                         if (trc1 != null && trc2 != null) {
                                             if (trc1.equals(trc2)) {
-                                                if (!circuit.getBoucle()) {
+                                                if (!circuit.getPeutBoucler()) {
                                                     if (arret1.getEmplacement().getPourcentageParcouru() > arret2.getEmplacement().getPourcentageParcouru()) {
                                                         if (avantArret1 && apresArret2) {
                                                             return;

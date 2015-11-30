@@ -907,18 +907,21 @@ public class MainWindow extends javax.swing.JFrame {
 
                         case AJOUTERCIRCUIT:
                             Boolean circuitConstruit = false;
-                            try{
+                            try {
                                 circuitConstruit = m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle);
                             }
-                            catch(IllegalArgumentException e){
+                            catch(IllegalArgumentException e) {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
-                            if (circuitConstruit){
+                            if (circuitConstruit)
+                            {
                                 miseAjourSelectionCircuitsAjout();
                                 comboBoxCircuits.setSelectedIndex(comboBoxCircuits.getItemCount() - 1);
-                                allongerCircuit.setEnabled(true);
-                                allongerCircuit.doClick();
+                                this.m_commande_courante = Commandes.AJOUTERCIRCUIT;  // temp fix
                             }
+                                //allongerCircuit.setEnabled(true);
+                                //allongerCircuit.doClick();
+                            
                             miseAjourSelectionArretsAjout();
                             break;
 
@@ -1414,7 +1417,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
 
         this.setCommande(Commandes.AJOUTERCIRCUIT);
-        m_controleur.deselectionnerTout();
+        //m_controleur.deselectionnerTout();
 
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_ajoutCircuitActionPerformed
