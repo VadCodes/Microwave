@@ -863,7 +863,6 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commande_courante) {
                         case SELECTIONNER:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                            afficherPanelRoutier(elemRoutier);
                             
                             break;
 
@@ -901,7 +900,6 @@ public class MainWindow extends javax.swing.JFrame {
                         case SELECTIONNER:
                             m_controleur.deselectionnerRoutier();
                             ElementTransport et = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                            afficherPanelTransport(et);
                             
                             break;
 
@@ -1237,7 +1235,7 @@ public class MainWindow extends javax.swing.JFrame {
         switch (m_mode_courant) {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
-                if (elementsRoutiersSelectionnes == null) return;
+                if (elementsRoutiersSelectionnes == null || elementsRoutiersSelectionnes.size() == 0) return;
                 ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
 
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
@@ -1334,7 +1332,7 @@ public class MainWindow extends javax.swing.JFrame {
         disparaitrePanels();
     }
     
-    private void miseAJourPanels(){
+    public void miseAJourPanels(){
         disparaitrePanels();
         switch(m_mode_courant){
             case ROUTIER:

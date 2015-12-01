@@ -142,6 +142,7 @@ public class EditerCircuit extends javax.swing.JFrame {
             m_circuit.setVeutBoucler(true);
         }
         m_mainWindow.miseAjourComboBoxTotal();
+        m_mainWindow.miseAJourPanels();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -109,6 +109,7 @@ public class EditerArret extends javax.swing.JFrame {
         // bouton OK
         m_arret.setNom(jTextField1.getText());
         m_mainWindow.miseAjourComboBoxTotal();
+        m_mainWindow.miseAJourPanels();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
