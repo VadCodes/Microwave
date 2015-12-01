@@ -25,17 +25,12 @@ public class Simulatheure {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT
     }
-    //private Simulatheure_log m_log = new Simulatheure_log();
-    //private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
     private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
 
     private ReseauTransport m_reseauTransport;
     private LinkedList<Arret> m_arretsNouveauTrajet = new LinkedList<>();
     private LinkedList<Troncon> m_tronconsNouveauTrajet = new LinkedList<>();
-//    private Trajet m_trajet_temp = new Trajet();
-//    private Boolean m_modeNouvelArret = true;
-//    private Arret m_arret_temp = new Arret();
     private Boolean m_dijkstra = true;
 
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
@@ -101,7 +96,6 @@ public class Simulatheure {
 
             m_reseauRoutier.getPileSelection().ajouter(elementRoutier);
         }
-        //m_log.ajouterAction("selectionnerElementRoutier".concat("\t").concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString()));
         return elementRoutier;
     }
 
