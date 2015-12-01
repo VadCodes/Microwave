@@ -77,6 +77,17 @@ public class ReseauTransport {
         return (arret!=null);
     }
     
+    public Arret selectionnerArretVinny(Float p_x, Float p_y, Float p_diametre, Float p_echelle){
+       
+        Arret arret = obtenirArret(p_x, p_y, p_diametre, p_echelle);
+        if (m_pileSelection.contient(arret))
+            m_pileSelection.enlever(arret);
+        else
+            m_pileSelection.ajouter(arret);
+        
+        return arret;
+    }
+    
     public Boolean selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle){
         Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
         if (trc!=null){

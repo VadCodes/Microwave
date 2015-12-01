@@ -29,7 +29,7 @@ public class Circuit extends ElementTransport{
     private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
     private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private Temps tempsDepart;
-    private Boolean m_boucle = false;
+    private Boolean m_peutBoucler = false;
     private Boolean m_veutBoucler = false;
     private Color m_couleur = Color.RED;
     
@@ -137,7 +137,7 @@ public class Circuit extends ElementTransport{
     }
     
     public void assignerTrajetAutobus(Autobus bus){
-        bus.assignerTrajet(m_listeArretTrajet, (m_boucle && m_veutBoucler), this);
+        bus.assignerTrajet(m_listeArretTrajet, (m_peutBoucler && m_veutBoucler), this);
     }
     
     public void initCircuit(){
@@ -147,11 +147,11 @@ public class Circuit extends ElementTransport{
         }
     }
     
-    public void setBoucle(Boolean boucle){
-        m_boucle = boucle;
+    public void setPeutBoucler(Boolean boucle){
+        m_peutBoucler = boucle;
     }
-    public Boolean getBoucle(){
-        return m_boucle;
+    public Boolean getPeutBoucler(){
+        return m_peutBoucler;
     }
     public void setVeutBoucler(Boolean veutBoucler){
         m_veutBoucler = veutBoucler;
