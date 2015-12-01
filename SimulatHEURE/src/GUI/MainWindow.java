@@ -133,12 +133,13 @@ public class MainWindow extends javax.swing.JFrame {
         selectionTransport = new javax.swing.JToggleButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
-        allongerCircuit = new javax.swing.JButton();
         suppressionTransport = new javax.swing.JButton();
         editerTransport = new javax.swing.JToggleButton();
         checkBoxDijkstra = new javax.swing.JCheckBox();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
         playPauseSimulation = new javax.swing.JToggleButton();
         arreterSimulation = new javax.swing.JButton();
@@ -437,17 +438,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        allongerCircuit.setText("Allonger Circuit");
-        allongerCircuit.setToolTipText("");
-        allongerCircuit.setEnabled(false);
-        allongerCircuit.setPreferredSize(new java.awt.Dimension(100, 35));
-        allongerCircuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                allongerCircuitActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(allongerCircuit);
-
         suppressionTransport.setText("Supprimer");
         suppressionTransport.setEnabled(false);
         suppressionTransport.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -478,6 +468,8 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.add(checkBoxDijkstra);
         boutonsTransport.add(jSeparator6);
         boutonsTransport.add(jSeparator7);
+        boutonsTransport.add(jSeparator9);
+        boutonsTransport.add(jSeparator10);
 
         panneauCommandes.add(boutonsTransport, "card3");
 
@@ -905,7 +897,7 @@ public class MainWindow extends javax.swing.JFrame {
                             
                             break;
 
-                        case AJOUTERCIRCUIT:
+                        case CIRCUIT:
                             Boolean circuitConstruit = false;
                             try {
                                 circuitConstruit = m_controleur.construireCircuit(evt.getX(), evt.getY(), echelle);
@@ -916,26 +908,10 @@ public class MainWindow extends javax.swing.JFrame {
                             if (circuitConstruit)
                             {
                                 miseAjourSelectionCircuitsAjout();
-                                comboBoxCircuits.setSelectedIndex(comboBoxCircuits.getItemCount() - 1);
-                                this.m_commande_courante = Commandes.AJOUTERCIRCUIT;  // temp fix
+                                panelCircuit1.afficheInfo((Circuit)m_controleur.getTransport().getPileSelection().getDessus());
                             }
-                                //allongerCircuit.setEnabled(true);
-                                //allongerCircuit.doClick();
                             
                             miseAjourSelectionArretsAjout();
-                            break;
-
-                        case EDITERCIRCUIT:
-                            Circuit circ = m_controleur.obtenirCircuitSelectionne();
-                            if (circ != null) {
-                                try{
-                                    m_controleur.editerCircuit(circ, evt.getX(), evt.getY(), echelle);
-                                    panelCircuit1.afficheInfo(circ); //pour que boucle se mette enabled
-                                }
-                                catch(IllegalArgumentException e){
-                                    JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
-                                }
-                            }
                             break;
 
                         case SOURCEAUTOBUS:
@@ -980,14 +956,6 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
 
                 case TRANSPORT:
-                    switch (m_commande_courante) {
-                        case AJOUTERCIRCUIT:
-                            m_controleur.cancellerCircuit();
-                            break;
-
-                        default:
-                            break;
-                    }
                     m_controleur.deselectionnerTout();
                     ElementTransport elemTransport = m_controleur.selectionnerElementTransport(evt.getX(), evt.getY(), echelle, false);
                     if (elemTransport != null) {
@@ -1416,7 +1384,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
 
-        this.setCommande(Commandes.AJOUTERCIRCUIT);
+        this.setCommande(Commandes.CIRCUIT);
         //m_controleur.deselectionnerTout();
 
         this.afficheurReseau.repaint();
@@ -1438,7 +1406,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         
     public void ajoutSource(){
-        m_controleur.cancellerCircuit();
+        m_controleur.deselectionnerRoutier();
         this.afficheurReseau.repaint();
         this.setCommande(Commandes.SOURCEAUTOBUS);
     }
@@ -1450,14 +1418,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_retablirActionPerformed
-
-    private void allongerCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allongerCircuitActionPerformed
-        if(m_commande_courante != Commandes.EDITERCIRCUIT){
-            m_controleur.cancellerCircuit();
-            this.afficheurReseau.repaint();
-        }
-        this.setCommande(Commandes.EDITERCIRCUIT);
-    }//GEN-LAST:event_allongerCircuitActionPerformed
     
     private void alalEditSimulation() {
         EditerSimulation fenetre= new EditerSimulation();{
@@ -1824,14 +1784,6 @@ public class MainWindow extends javax.swing.JFrame {
                     ajoutCircuit.doClick();
                 }
 
-                if (comboBoxCircuits.getItemCount() > 1) {
-                    allongerCircuit.setEnabled(true);
-                   //ajoutSource.setEnabled(true);
-                } else {
-                    allongerCircuit.setEnabled(false);
-                    //ajoutSource.setEnabled(false);
-                }
-
                 if (comboBoxSources.getItemCount() > 1) {
                     simulation.setEnabled(true);
                 } else {
@@ -1851,7 +1803,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutArret;
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
-    private javax.swing.JButton allongerCircuit;
     private javax.swing.JButton annuler;
     private javax.swing.JButton arreterSimulation;
     private javax.swing.JButton avancerSimulation;
@@ -1904,6 +1855,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1911,6 +1863,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;

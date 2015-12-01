@@ -23,7 +23,7 @@ public class Simulatheure {
 
     public enum Commandes {
 
-        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, AJOUTERCIRCUIT, EDITERCIRCUIT
+        SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT
     }
     //private Simulatheure_log m_log = new Simulatheure_log();
     //private RecullerRetablir m_reculelrRetablir = new RecullerRetablir();
@@ -144,12 +144,9 @@ public class Simulatheure {
     }
 
     public void deselectionnerTransport() {
+        m_reseauRoutier.desuggererTout();
         m_arretsNouveauTrajet.clear();
         m_tronconsNouveauTrajet.clear();
-        m_reseauRoutier.desuggererTout();
-//        m_trajet_temp = new Trajet();
-//        m_arret_temp = new Arret();
-//        m_modeNouvelArret = true;
         m_reseauTransport.deselectionnerTout();
     }
 
@@ -162,10 +159,6 @@ public class Simulatheure {
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;
         m_reseauRoutier.ajouterIntersection(xReel, yReel);
-        //String action = "ajouterIntersection\t".concat(p_x.toString()).concat("\t").concat(p_y.toString()).concat("\t").concat(p_echelle.toString());
-        //m_log.ajouterAction(action);
-        //m_reculelrRetablir.ajouterAction(action);
-
     }
 
     public void construireTroncon(Integer p_x, Integer p_y, Float p_echelle) {
@@ -183,7 +176,7 @@ public class Simulatheure {
             largeurSelection = 2 * Intersection.RAYON;
         }
 
-        Boolean intersectionSelect = m_reseauRoutier.selectionnerIntersection(xReel, yReel, largeurSelection);
+        Boolean intersectionSelect = m_reseauRoutier.selectionnerIntersectionVinny(xReel, yReel, largeurSelection);
 
         if (!intersectionSelect) {
             ajouterIntersection(p_x, p_y, p_echelle);
@@ -306,13 +299,6 @@ public class Simulatheure {
             return false;
     }
 
-    public void cancellerCircuit() {
-//        deselectionnerRoutier();  // ça "désuggère" aussi
-//        m_trajet_temp = new Trajet();
-//        m_arret_temp = new Arret();
-//        m_modeNouvelArret = true;
-    }
-
     public Boolean construireCircuit(Integer p_x, Integer p_y, Float p_echelle) {
         float xReel;
         float yReel;
@@ -322,7 +308,7 @@ public class Simulatheure {
         Arret arretInitiale;
         Arret arretFinale;
         Boolean arretEstNouvelle = false;
-        Boolean succes = false;
+        Boolean succesAjoutArret = false;
 
         if (m_arretsNouveauTrajet.size() < 2) {
             if (p_echelle > 1) {
@@ -335,20 +321,19 @@ public class Simulatheure {
                 largeurSelection = 2 * Arret.RAYON;
             }
 
-            Boolean arrSelect = m_reseauTransport.selectionnerArret(xReel, yReel, largeurSelection, p_echelle);
-            if (!arrSelect) {
+            Arret arret = m_reseauTransport.selectionnerArretVinny(xReel, yReel, largeurSelection, p_echelle);
+            if (arret == null) {
                 arretEstNouvelle = ajouterArret(p_x, p_y, p_echelle);
                 if (arretEstNouvelle) {
                     m_arretsNouveauTrajet.add(m_reseauTransport.getListeArrets().getLast());
                     m_reseauTransport.getPileSelection().ajouter(m_arretsNouveauTrajet.getLast());
-                    succes = true;
+                    succesAjoutArret = true;
                 }
             }
             else {
-                Arret arret = (Arret) m_reseauTransport.getPileSelection().getDessus();
                 if (m_reseauTransport.getPileSelection().contient(arret)) {
                     m_arretsNouveauTrajet.add(arret);
-                    succes = true;
+                    succesAjoutArret = true;
                 } else {
                     m_arretsNouveauTrajet.clear();
                 }
@@ -367,11 +352,17 @@ public class Simulatheure {
                     if (arretEstNouvelle)
                         m_reseauTransport.getListeArrets().removeLast();
                     
-                    throw new IllegalArgumentException("Le circuit boucle.", new Throwable("Construction impossible"));
+                    throw new IllegalArgumentException("Le circuit est configuré pour boucler.", new Throwable("Allongement impossible"));
                 }
                 
-                else if (succes)
-                    m_arretsNouveauTrajet.addFirst(circuitSelectionne.getListeArretTrajet().getLast().getArret());
+                else if (succesAjoutArret)
+                    if (circuitSelectionne.getListeArretTrajet().getLast().getArret() != m_arretsNouveauTrajet.getLast())
+                        m_arretsNouveauTrajet.addFirst(circuitSelectionne.getListeArretTrajet().getLast().getArret());
+                    else
+                    {
+                        m_arretsNouveauTrajet.clear();
+                        throw new IllegalArgumentException("Un trajet ne peut pas boucler sur la même arret.", new Throwable("Allongement impossible"));
+                    }
             }
             
             if (m_arretsNouveauTrajet.size() == 2)
@@ -423,7 +414,7 @@ public class Simulatheure {
                 listePaires.add(new PaireArretTrajet(arretFinale, null));
 
                 m_reseauTransport.ajouterCircuit(new Circuit(listePaires));
-                //m_reseauTransport.getListeCircuits().getLast(). wtf comment on fait pour sélectionner ??
+                m_reseauTransport.getPileSelection().ajouter(m_reseauTransport.getListeCircuits().getLast());
             }
             else
             {
@@ -434,8 +425,11 @@ public class Simulatheure {
                     circuitSelectionne.setPeutBoucler(true);
                 else
                     circuitSelectionne.setPeutBoucler(false);
+                m_reseauTransport.getPileSelection().ajouter(circuitSelectionne);
             }            
             
+            m_reseauTransport.getPileSelection().enlever(arretInitiale);
+            deselectionnerRoutier();
             m_arretsNouveauTrajet.clear();
             m_tronconsNouveauTrajet.clear();
         }
@@ -536,7 +530,7 @@ public class Simulatheure {
         return estConstructible;
     }
 
-    public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle) {
+//    public void editerCircuit(Circuit circuit, Integer p_x, Integer p_y, Float p_echelle) {
 //        Arret arretPrecedent = circuit.getListeArretTrajet().getLast().getArret();
 //        Boolean arretEstNouvelle = false;
 //
@@ -712,7 +706,7 @@ public class Simulatheure {
 //                cancellerCircuit();
 //            }
 //        }
-    }
+//    }
 
     public void ajouterSource(Integer p_x, Integer p_y, Float p_echelle) {
         float xReel = p_x / p_echelle;

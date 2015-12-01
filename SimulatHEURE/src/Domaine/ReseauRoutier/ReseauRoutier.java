@@ -50,9 +50,14 @@ public class ReseauRoutier {
         p_troncon.setNom(p_nom);
     }
     
-    public Boolean selectionnerIntersection(Float p_x, Float p_y, Float p_diametre){
+    public Boolean selectionnerIntersectionVinny(Float p_x, Float p_y, Float p_diametre){
+        // À utiliser pour contruire les tronçons
         Intersection inter = obtenirIntersection(p_x, p_y, p_diametre);
-        m_pileSelection.ajouter(inter);
+        if (m_pileSelection.contient(inter))
+            m_pileSelection.enlever(inter);
+        else
+            m_pileSelection.ajouter(inter);
+        
         return (inter != null);
     }
     
@@ -127,7 +132,6 @@ public class ReseauRoutier {
     
     public void ajouterTroncon(Intersection p_origine, Intersection p_destination)
     {        
-        //on s'assure qu'il n'y a pas deux tronçons de origine à destination
         for(Troncon trc : p_origine.getTroncons()){
             if (trc.getDestination()==p_destination){
                 throw new IllegalArgumentException("Un même tronçon est déjà présent présent.", new Throwable("Ajout impossible")); 
