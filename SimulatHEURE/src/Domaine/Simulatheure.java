@@ -1,6 +1,5 @@
 package Domaine;
 
-import Domaine.ReseauTransport.Trajet;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
@@ -25,7 +24,9 @@ public class Simulatheure {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT
     }
-    private ReseauRoutier m_reseauRoutier = new ReseauRoutier();
+    private Historique m_historique = new Historique();
+    
+    private ReseauRoutier m_reseauRoutier;
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
 
     private ReseauTransport m_reseauTransport;
@@ -36,30 +37,8 @@ public class Simulatheure {
     private LinkedList<BesoinTransport> m_listBesoins = new LinkedList<>();
 
     public Simulatheure() {
-        m_reseauRoutier = new ReseauRoutier();
+        m_reseauRoutier = m_historique.getRoutierCourant();
         m_reseauTransport = new ReseauTransport(m_reseauRoutier);
-    }
-
-    public void arreterSimulation() {
-        for (ListIterator<Arret> arrets = m_reseauTransport.getListeArrets().listIterator(); arrets.hasNext();) {
-            Arret arret = arrets.next();
-            arret.viderFile();
-        }
-        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
-            Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
-                SourceAutobus source = sources.next();
-                source.setDefault();
-            }
-        }
-        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
-            Circuit circuit = circuits.next();
-            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
-                SourceAutobus source = sources.next();
-                source.setDefault();
-            }
-            circuit.getListeAutobus().clear();
-        }
     }
 
     public ReseauRoutier getRoutier() {
@@ -72,19 +51,6 @@ public class Simulatheure {
 
     public ReseauTransport getTransport() {
         return m_reseauTransport;
-    }
-
-    public void demarrerSimulation() {
-        m_reseauRoutier.initReseauRoutier();
-        m_reseauTransport.initReseauTransport();
-        ListIterator<BesoinTransport> BesoinTransportItr = m_listBesoins.listIterator();
-        while (BesoinTransportItr.hasNext()) {
-            BesoinTransportItr.next().initBesoinTransport();
-        }
-    }
-
-    public void rafraichirSimulation(Temps m_deltaT) {
-        m_reseauTransport.calculEtatReseauTransport(m_deltaT);
     }
 
     public ElementRoutier selectionnerElementRoutier(Integer p_x, Integer p_y, Float p_echelle, Boolean p_estMultiple) {
@@ -150,6 +116,8 @@ public class Simulatheure {
     }
 
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle) {
+        m_historique.modifier();
+        
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;
         m_reseauRoutier.ajouterIntersection(xReel, yReel);
@@ -190,6 +158,8 @@ public class Simulatheure {
         
         if (m_parametresTroncon.size() == 2)
             {
+                m_historique.modifier();  // Watch out si ajouterTroncon lance une exception
+                
                 Intersection origine = m_parametresTroncon.getFirst();
                 Intersection destination = m_parametresTroncon.getLast();
                 
@@ -942,36 +912,56 @@ public class Simulatheure {
         return null;
     }
     
-//    public void annulerDerniereAction() {
-//        String str = m_reculelrRetablir.getLastAction();
-//        if (str != null) {
-//            String[] parts = str.split(Pattern.quote("\t"));
-//            if (parts.length == 4) {
-//                String action = parts[0];
-//                int x = Integer.parseInt(parts[1]);
-//                int y = Integer.parseInt(parts[2]);
-//                float echelle = Float.parseFloat(parts[3]);
-//                switch (action) {
-//                    case "ajouterIntersection":
-//                        deselectionnerRoutier();
-//                        selectionnerElementRoutier(x, y, echelle, false);
-//                        supprimerSelectionRoutier();
-//                        break;
-//                    case "construireTroncon":
-//                        deselectionnerRoutier();
-//                        selectionnerElementRoutier(x, y, echelle, false);
-//                        for (ListIterator<Intersection> intersections = m_reseauRoutier.getIntersections().listIterator(); intersections.hasNext();) {
-//                            Intersection intersection = intersections.next();
-//                            if (intersection.estSelectionne()) {
-//                                intersection.getTroncons().getFirst().changerStatutSelection();
-//                                intersection.changerStatutSelection();
-//                                break;
-//                            }
-//                        }
-//                        supprimerSelectionRoutier();
-//                }
-//            }
-//        }
-//    }
+    public void demarrerSimulation() {
+        m_reseauRoutier.initReseauRoutier();
+        m_reseauTransport.initReseauTransport();
+        ListIterator<BesoinTransport> BesoinTransportItr = m_listBesoins.listIterator();
+        while (BesoinTransportItr.hasNext()) {
+            BesoinTransportItr.next().initBesoinTransport();
+        }
+    }
 
+    public void rafraichirSimulation(Temps m_deltaT) {
+        m_reseauTransport.calculEtatReseauTransport(m_deltaT);
+    }
+    
+    public void arreterSimulation() {
+        for (ListIterator<Arret> arrets = m_reseauTransport.getListeArrets().listIterator(); arrets.hasNext();) {
+            Arret arret = arrets.next();
+            arret.viderFile();
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+        }
+        for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
+            Circuit circuit = circuits.next();
+            for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
+                SourceAutobus source = sources.next();
+                source.setDefault();
+            }
+            circuit.getListeAutobus().clear();
+        }
+    }
+    
+    public Historique getHistorique()
+    {
+        return m_historique;
+    }
+    
+    public void annuler()
+    {
+            m_historique.annuler();
+            m_reseauRoutier = m_historique.getRoutierCourant();
+    }
+    
+    public void retablir()
+    {
+            m_historique.retablir();
+            m_reseauRoutier = m_historique.getRoutierCourant();
+    }
+    
 }

@@ -54,6 +54,10 @@ public class Troncon extends ElementRoutier{
         return m_doubleSens;
     }
     
+    public void copierDoubleSens(Boolean p_doubleSens){
+        m_doubleSens = p_doubleSens;
+    }
+    
     public Temps getTempsTransitAutobus(){
         return m_tempsTransitAutobus;
     }

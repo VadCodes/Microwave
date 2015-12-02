@@ -34,7 +34,7 @@ public class ReseauRoutierFactory {
            if(p_troncon != null){
             Intersection intersectionOrigin = copyIntersection(p_troncon.getOrigine());
             Intersection intersectionDestination = copyIntersection(p_troncon.getDestination());
-            return creerTroncon(intersectionOrigin,intersectionDestination);
+            return troncon(intersectionOrigin,intersectionDestination);
            }
            else{
                return null;
@@ -67,7 +67,7 @@ public class ReseauRoutierFactory {
            }
            return null;
        }
-       public Troncon creerTroncon(Intersection p_origine, Intersection p_destination)
+       public Troncon troncon(Intersection p_origine, Intersection p_destination)
        {
            return new Troncon(p_origine, p_destination);
        }

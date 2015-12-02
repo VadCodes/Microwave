@@ -14,10 +14,13 @@ import java.awt.geom.Rectangle2D;
  * @author Nathaniel
  */
 public class ReseauRoutier {
-    private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
-    private int m_compteurTroncon = 1;
+    
+    private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
+    
     private int m_compteurIntersection = 1;
+    private int m_compteurTroncon = 1;
+    
     private PileSelectionRoutier m_pileSelection = new PileSelectionRoutier();
     
     public final static double VITESSE_PIETON = 4;
@@ -29,15 +32,35 @@ public class ReseauRoutier {
         return m_listeIntersections;
     }
     
-    public void copier(ReseauRoutier p_reseauRoutier){
-        p_reseauRoutier.m_compteurIntersection = this.m_compteurIntersection;
-        p_reseauRoutier.m_compteurTroncon = this.m_compteurTroncon;
-        p_reseauRoutier.m_listeIntersections  = new LinkedList<>();
-        for (ListIterator<Intersection> intersections = this.m_listeIntersections.listIterator() ;intersections.hasNext() ; ){
-           // Intersection inter = p_reseauRoutier.intersections.next();
+    public ReseauRoutier(ReseauRoutier p_reseauSource){
+        
+        for (Intersection interSource : p_reseauSource.m_listeIntersections)
+        {
+            this.m_listeIntersections.add(m_factory.intersection(interSource.getPosition()));
+            this.m_listeIntersections.getLast().setNom(interSource.getName());
         }
-               // Intersection intersection = p_reseauRoutier.copyIntersection(intersections.next());
+        
+        ListIterator<Intersection> itInterCopiee = this.m_listeIntersections.listIterator();
+        int i2;
+        for (Intersection interSource : p_reseauSource.m_listeIntersections)
+        {
+            Intersection interCopiee = itInterCopiee.next();
+            for (Troncon tronconSource : interSource.getTroncons())
+            {
+                i2 = p_reseauSource.m_listeIntersections.indexOf(tronconSource.getDestination());
+                interCopiee.ajouterTroncon(m_factory.troncon(interCopiee, m_listeIntersections.get(i2)));            
+                
+                interCopiee.getTroncons().getLast().setNom(tronconSource.getNom());
+                interCopiee.getTroncons().getLast().setDistribution(tronconSource.getDistribution());
+                interCopiee.getTroncons().getLast().copierDoubleSens(tronconSource.estDoubleSens());
+                
+            }
+        }
+        
+        this.m_compteurTroncon = p_reseauSource.m_compteurTroncon;
+        this.m_compteurIntersection = p_reseauSource.m_compteurIntersection;
     }
+    
     public void ajouterIntersection(float p_x, float p_y)
     {
         Intersection inter = m_factory.intersection(new Point2D.Float(p_x, p_y));
@@ -46,7 +69,7 @@ public class ReseauRoutier {
         m_listeIntersections.add(inter);
     }
     
-    public void setNameTroncon(Troncon p_troncon, String p_nom){
+    public void setNomTroncon(Troncon p_troncon, String p_nom){
         p_troncon.setNom(p_nom);
     }
     
@@ -54,7 +77,7 @@ public class ReseauRoutier {
         // À utiliser pour contruire les tronçons
         Intersection inter = obtenirIntersection(p_x, p_y, p_diametre);
         if (m_pileSelection.contient(inter))
-            m_pileSelection.enlever(inter);
+            m_pileSelection.getListe().remove(inter);
         else
             m_pileSelection.ajouter(inter);
         
@@ -72,14 +95,6 @@ public class ReseauRoutier {
         }
         return null;
     }
-    
-//    public Troncon selectionnerTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle){
-//        Troncon trc = obtenirTroncon(p_x, p_y, p_largeur, p_echelle); //sans selection
-//        if (trc != null){
-//            trc.changerStatutSelection();
-//        }
-//        return trc;
-//    }
     
     public Troncon obtenirTroncon(Float p_x, Float p_y, Float p_largeur, Float p_echelle)
     {
@@ -137,7 +152,7 @@ public class ReseauRoutier {
                 throw new IllegalArgumentException("Un même tronçon est déjà présent présent.", new Throwable("Ajout impossible")); 
             }
         }
-        Troncon tr = m_factory.creerTroncon(p_origine, p_destination);
+        Troncon tr = m_factory.troncon(p_origine, p_destination);
         tr.setNom( "T" +Integer.toString(m_compteurTroncon));
         m_compteurTroncon++;
         p_origine.ajouterTroncon(tr);
