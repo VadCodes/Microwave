@@ -5,6 +5,7 @@ import Domaine.Reseau;
 import Domaine.Utilitaire.PaireFloats;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.LinkedHashMap;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
@@ -28,11 +29,6 @@ public class ReseauRoutier extends Reseau{
     public final static double VITESSE_PIETON = 4;
     
     public ReseauRoutier(){}
-    
-    public LinkedList<Intersection> getIntersections()
-    {
-        return m_listeIntersections;
-    }
     
     public ReseauRoutier(ReseauRoutier p_reseauSource){
         
@@ -62,6 +58,11 @@ public class ReseauRoutier extends Reseau{
         this.m_compteurTroncon = p_reseauSource.m_compteurTroncon;
         this.m_compteurIntersection = p_reseauSource.m_compteurIntersection;
     }
+    
+    public LinkedList<Intersection> getIntersections()
+    {
+        return m_listeIntersections;
+    }    
     
     public void ajouterIntersection(float p_x, float p_y)
     {
@@ -216,6 +217,101 @@ public class ReseauRoutier extends Reseau{
             }
         }
         return null;
+    }
+    
+    public LinkedList<Troncon> dijkstra(Emplacement emplacementInitial, Emplacement emplacementFinal){
+        
+        //preparation pour passer de emplacement a intersection
+        Intersection debut;
+        Intersection fin;
+        Troncon trc_debut = null;
+        Troncon trc_fin = null;
+        
+        if (emplacementInitial.estSurTroncon()) {
+            debut = emplacementInitial.getTroncon().getDestination();
+            trc_debut = emplacementInitial.getTroncon();
+        }
+        else{
+            debut = emplacementInitial.getIntersection();
+        }
+        
+        if (emplacementFinal.estSurTroncon()) {
+            fin = emplacementFinal.getTroncon().getOrigine();
+            trc_fin = emplacementFinal.getTroncon();
+        }
+        else{
+            fin = emplacementFinal.getIntersection();
+        }
+                  
+            
+        //declarations des structures
+        LinkedList<Intersection> noeuds = getIntersections(); 
+        LinkedList<Intersection> pasEncoreVu = new LinkedList<>();
+        LinkedHashMap<Intersection, Float> parcouru = new LinkedHashMap<>();
+        LinkedHashMap<Intersection, Intersection> precedent = new LinkedHashMap<>();
+        
+        //initialisation
+        for (Intersection intrsct : noeuds){
+            if(intrsct.equals(debut)){
+                parcouru.put(intrsct, 0.0f);
+            }
+            else{
+                parcouru.put(intrsct, Float.MAX_VALUE);
+            }
+            
+            precedent.put(intrsct, null);
+            
+            //shallow copy de chaque element de noeuds
+            pasEncoreVu.add(intrsct);
+        }
+        
+        Intersection n1; 
+        Float n1_parcouru;
+        Float n2_parcouru;
+        Float min;
+        while(!pasEncoreVu.isEmpty()){
+            //trouver min de pasEncoreVu
+            n1_parcouru = Float.MAX_VALUE;
+            n1 = pasEncoreVu.getFirst();
+            for (Intersection intr : pasEncoreVu){
+                min = parcouru.get(intr);
+                if (min < n1_parcouru){
+                    n1_parcouru = min;
+                    n1 = intr;
+                }
+            }
+            
+            pasEncoreVu.remove(n1);
+            
+            for(Intersection n2 : n1.getEnfants()){
+                Troncon arc = getTronconParIntersections(n1, n2);
+                Float distance_n1_n2 = (float) arc.getDistribution().getTempsMoyen().getTemps();
+                n2_parcouru = parcouru.get(n2);
+                if (n2_parcouru > n1_parcouru + distance_n1_n2) { //min = parcouru.get(n1)
+                    n2_parcouru = n1_parcouru + distance_n1_n2;
+                    parcouru.put(n2, n2_parcouru);
+                    precedent.replace(n2, n1);
+                }
+            }
+        }
+        
+        LinkedList<Troncon> chemin = new LinkedList<>();
+        Intersection n = fin;
+        Intersection n_dest;
+        while (n != debut){
+            n_dest = n;
+            n = precedent.get(n);
+            chemin.addFirst(getTronconParIntersections(n, n_dest));
+        }        
+        
+        if (trc_debut != null){
+            chemin.addFirst(trc_debut);
+        }
+        if (trc_fin != null){
+            chemin.addLast(trc_fin);
+        }
+        
+        return chemin;
     }
     
     public static LinkedList<Intersection> obtenirInterContigues(LinkedList<Troncon> tronconsContigues)

@@ -38,7 +38,7 @@ public class Simulatheure {
 
     public Simulatheure() {
         m_reseauRoutier = m_historique.getRoutierCourant();
-        m_reseauTransport = new ReseauTransport(m_reseauRoutier);
+        m_reseauTransport = new ReseauTransport();
     }
 
     public ReseauRoutier getRoutier() {
@@ -466,7 +466,7 @@ public class Simulatheure {
         {
             estConstructible = true;
             Arret arretInitiale = m_arretsNouveauTrajet.getFirst();
-            m_tronconsNouveauTrajet = m_reseauTransport.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
+            m_tronconsNouveauTrajet = m_reseauRoutier.dijkstra(arretInitiale.getEmplacement(), arretFinale.getEmplacement());
         }
         else
         {   
@@ -914,7 +914,15 @@ public class Simulatheure {
     public void optimiserCircuitsAffectes(LinkedList<Circuit> circuitsAffectes, Troncon p_tronconModifie)
     {
         if (m_dijkstra)
-            m_reseauTransport.optimiserCircuitsAffectes(circuitsAffectes, p_tronconModifie);
+        {
+            LinkedList<Trajet> trajetsAffectes = m_reseauTransport.obtenirTrajetsAffectes(circuitsAffectes, p_tronconModifie);
+            for (Trajet trajet : trajetsAffectes)
+            {
+                trajet.setListeTroncons(m_reseauRoutier.dijkstra(trajet.getEmplacementInitial(), trajet.getEmplacementFinal()));
+            }
+
+            m_reseauTransport.supprimerSourcesOrphelines(circuitsAffectes);
+        }
     }
     
     public Circuit obtenirCircuitDeSource(SourceAutobus src) {
