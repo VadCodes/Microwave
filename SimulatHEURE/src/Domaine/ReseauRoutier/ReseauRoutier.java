@@ -1,5 +1,7 @@
 package Domaine.ReseauRoutier;
 
+import Domaine.Reseau;
+
 import Domaine.Utilitaire.PaireFloats;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -13,7 +15,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Nathaniel
  */
-public class ReseauRoutier {
+public class ReseauRoutier extends Reseau{
     public final ReseauRoutierFactory m_factory = new ReseauRoutierFactory();
     
     private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
@@ -122,12 +124,6 @@ public class ReseauRoutier {
         return null;
     }
     
-    public void deselectionnerTout()
-    {
-        desuggererTout();
-        m_pileSelection.vider();
-    }
-    
     public void desuggererTout()
     {
         for (Intersection intersection: m_listeIntersections)
@@ -139,6 +135,12 @@ public class ReseauRoutier {
                 troncon.setEstSuggere(false);
             }
         }
+    }
+    
+    public void deselectionnerTout()
+    {
+        desuggererTout();
+        m_pileSelection.vider();
     }
     
     public LinkedList<ElementRoutier> getElementsSelectionnes(){

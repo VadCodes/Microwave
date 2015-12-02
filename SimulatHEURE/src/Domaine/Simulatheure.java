@@ -114,13 +114,20 @@ public class Simulatheure {
         deselectionnerRoutier();
         deselectionnerTransport();
     }
+    
+    public void resilierConstruction()
+    {
+        m_parametresTroncon.clear();
+        m_arretsNouveauTrajet.clear();
+        m_tronconsNouveauTrajet.clear();
+    }
 
     public void ajouterIntersection(Integer p_x, Integer p_y, Float p_echelle) {
-        m_historique.modifier();
-        
         float xReel = p_x / p_echelle;
         float yReel = p_y / p_echelle;
         m_reseauRoutier.ajouterIntersection(xReel, yReel);
+        
+        m_historique.modifier();                                                // ANNULER-RÉTABLIR
     }
 
     public void construireTroncon(Integer p_x, Integer p_y, Float p_echelle) {
@@ -158,8 +165,6 @@ public class Simulatheure {
         
         if (m_parametresTroncon.size() == 2)
             {
-                m_historique.modifier();  // Watch out si ajouterTroncon lance une exception
-                
                 Intersection origine = m_parametresTroncon.getFirst();
                 Intersection destination = m_parametresTroncon.getLast();
                 
@@ -168,6 +173,8 @@ public class Simulatheure {
 
                 m_reseauRoutier.ajouterTroncon(origine, destination);
                 ajusterDoubleSens();
+        
+                m_historique.modifier();                                        // ANNULER-RÉTABLIR
             }
     }
 
@@ -222,7 +229,7 @@ public class Simulatheure {
                     yReel = p_y / p_echelle - Troncon.LARGEUR / 2;
                     largeurSelection = Troncon.LARGEUR;
                 }
-                Boolean circSelect = m_reseauTransport.selectionnerCircuit(xReel, yReel, largeurSelection, p_echelle);
+                Boolean circSelect = selectionnerCircuit(xReel, yReel, largeurSelection, p_echelle);
                 if (circSelect){
                     return m_reseauTransport.getPileSelection().getDessus();
                 }
@@ -231,6 +238,12 @@ public class Simulatheure {
                 }
             }
         }
+    }
+    
+    public Boolean selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle)
+    {
+        Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
+        return m_reseauTransport.selectionnerCircuit(xReel, yReel, p_echelle, trc);
     }
 
     public Boolean ajouterArret(Integer p_x, Integer p_y, Float p_echelle) {
@@ -394,8 +407,7 @@ public class Simulatheure {
             
             m_reseauTransport.getPileSelection().enlever(arretInitiale);
             deselectionnerRoutier();
-            m_arretsNouveauTrajet.clear();
-            m_tronconsNouveauTrajet.clear();
+            resilierConstruction();
         }
         return estConstructible;
     }
@@ -863,6 +875,8 @@ public class Simulatheure {
 
         m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
+        
+        m_historique.modifier();                                                // ANNULER-RÉTABLIR
         return true;
     }
 
@@ -956,12 +970,14 @@ public class Simulatheure {
     {
             m_historique.annuler();
             m_reseauRoutier = m_historique.getRoutierCourant();
+            resilierConstruction();
     }
     
     public void retablir()
     {
             m_historique.retablir();
             m_reseauRoutier = m_historique.getRoutierCourant();
+            resilierConstruction();
     }
     
 }

@@ -49,7 +49,6 @@ public class MainWindow extends javax.swing.JFrame {
         changeLookAndFeel();
         m_controleur = new Simulatheure();
         initComponents();
-        annuler.setEnabled(true);
         routier.doClick();
         initialiserPanels();
         this.afficheurReseau.setDimension(false);
@@ -733,6 +732,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(400, 624));
         jPanel2.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1409,12 +1409,17 @@ public class MainWindow extends javax.swing.JFrame {
         this.setCommande(Commandes.SOURCEAUTOBUS);
     }
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
-//        m_controleur.annulerDerniereAction();
-//        this.afficheurReseau.repaint();
+        m_controleur.annuler();
+        miseAJourPermissionsBoutons();
+        
+        this.afficheurReseau.repaint();        
     }//GEN-LAST:event_annulerActionPerformed
 
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
-        // TODO add your handling code here:
+        m_controleur.retablir();
+        miseAJourPermissionsBoutons();
+        
+        this.afficheurReseau.repaint();
     }//GEN-LAST:event_retablirActionPerformed
     
     private void alalEditSimulation() {
@@ -1746,6 +1751,17 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAJourPermissionsBoutons() {
+        if (m_controleur.getHistorique().peutAnnuler())
+            annuler.setEnabled(true);
+        else
+            annuler.setEnabled(false);
+        
+        if (m_controleur.getHistorique().peutRetablir())
+            retablir.setEnabled(true);
+        else
+            retablir.setEnabled(false);
+        
+        
         switch (m_mode_courant) {
             case ROUTIER:
 

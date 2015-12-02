@@ -1,27 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domaine.ReseauTransport;
+
+import Domaine.Reseau;
+
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Troncon;
+
 import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Temps;
+
 import java.util.LinkedList;
 import java.util.ListIterator;
-import Domaine.Utilitaire.Temps;
+import java.util.LinkedHashMap;
+
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Path2D;
-import java.util.LinkedHashMap;
+
 
 /**
  *
  * @author louis
  */
-public class ReseauTransport {
+public class ReseauTransport extends Reseau{
     public  ReseauTransportFactory m_factory = new ReseauTransportFactory();
     private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
     private LinkedList<Arret> m_listeArrets = new LinkedList<>();
@@ -88,8 +90,7 @@ public class ReseauTransport {
         return arret;
     }
     
-    public Boolean selectionnerCircuit(Float xReel, Float yReel, Float largeurSelection, Float p_echelle){
-        Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
+    public Boolean selectionnerCircuit(Float xReel, Float yReel, Float p_echelle, Troncon trc){
         if (trc!=null){
             Float pourcentageClic = trc.getPourcentageClic(xReel, yReel, p_echelle);
             Emplacement empl_deb = null;
