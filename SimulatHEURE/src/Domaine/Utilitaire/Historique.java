@@ -15,21 +15,25 @@ import java.util.ListIterator;
  */
 public class Historique {
 
-    private LinkedList<Reseau> m_reseauxRoutiers = new LinkedList<>();
-    private ListIterator<Reseau> m_curseurAvantRoutierCourant = m_reseauxRoutiers.listIterator();
-    private Reseau m_reseauRoutierCourant;
+    private LinkedList<Reseau> m_reseauxTransports = new LinkedList<>();
+    private ListIterator<Reseau> m_curseurAvantTransportCourant = m_reseauxTransports.listIterator();
+    private Reseau m_reseauTransportCourant;
 
     private Boolean m_peutAnnuler = false;
     private Boolean m_peutRetablir = false;
 
     public Historique() {
-        m_curseurAvantRoutierCourant.add(new ReseauRoutier());
-        m_curseurAvantRoutierCourant.add(new ReseauRoutier());  // Pour conserver un réseau vide
-        m_reseauRoutierCourant = m_curseurAvantRoutierCourant.previous();  // on replace le curseur avant le reseau courant
+        m_curseurAvantTransportCourant.add(new ReseauTransport());
+        m_curseurAvantTransportCourant.add(new ReseauTransport());  // Pour conserver un réseau vide
+        m_reseauTransportCourant = m_curseurAvantTransportCourant.previous();  // on replace le curseur avant le reseau courant
     }
 
     public ReseauRoutier getRoutierCourant() {
-        return (ReseauRoutier)m_reseauRoutierCourant;
+        return ((ReseauTransport)m_reseauTransportCourant).getRoutier();
+    }
+    
+    public ReseauTransport getTransportCourant() {
+        return (ReseauTransport)m_reseauTransportCourant;
     }
 
     public Boolean peutAnnuler() {
@@ -42,15 +46,15 @@ public class Historique {
 
     public void modifier() {
         
-        modifierSelon(m_reseauRoutierCourant, m_curseurAvantRoutierCourant);
+        modifierSelon(m_reseauTransportCourant, m_curseurAvantTransportCourant);
         m_peutAnnuler = true;
         m_peutRetablir = false;
     }
 
     private void modifierSelon(Reseau p_reseau, ListIterator<Reseau> p_curseur) {
         
-        if (p_reseau.getClass() == ReseauRoutier.class)
-            p_curseur.add(new ReseauRoutier((ReseauRoutier)m_reseauRoutierCourant));
+        //if (p_reseau.getClass() == ReseauTransport.class)
+            p_curseur.add(new ReseauTransport((ReseauTransport)m_reseauTransportCourant));
 
         p_curseur.next();
 
@@ -65,7 +69,7 @@ public class Historique {
 
     public void annuler() {
         
-        annulerSelon(m_reseauRoutierCourant, m_curseurAvantRoutierCourant);
+        annulerSelon(m_reseauTransportCourant, m_curseurAvantTransportCourant);
         m_peutRetablir = true;
     }
 
@@ -74,18 +78,18 @@ public class Historique {
         p_curseur.previous();
         p_curseur.remove();
         
-        if (p_reseau.getClass() == ReseauRoutier.class)
-            m_reseauRoutierCourant = p_curseur.previous();        
+        //if (p_reseau.getClass() == ReseauTransport.class)
+            m_reseauTransportCourant = p_curseur.previous();        
         
         m_peutAnnuler = p_curseur.hasPrevious();
 
-        if (p_reseau.getClass() == ReseauRoutier.class)
-            p_curseur.add(new ReseauRoutier((ReseauRoutier)m_reseauRoutierCourant));
+        //if (p_reseau.getClass() == ReseauTransport.class)
+            p_curseur.add(new ReseauTransport((ReseauTransport)m_reseauTransportCourant));
     }
 
     public void retablir() {
         
-        retablirSelon(m_reseauRoutierCourant, m_curseurAvantRoutierCourant);
+        retablirSelon(m_reseauTransportCourant, m_curseurAvantTransportCourant);
         m_peutAnnuler = true;
     }
     
@@ -94,14 +98,14 @@ public class Historique {
         p_curseur.next();
         p_curseur.remove();
         
-        if (p_reseau.getClass() == ReseauRoutier.class)
-            m_reseauRoutierCourant = p_curseur.next();
+        //if (p_reseau.getClass() == ReseauTransport.class)
+            m_reseauTransportCourant = p_curseur.next();
         
         m_peutRetablir = p_curseur.hasNext();
         p_curseur.previous();  // on replace le curseur en avant du courant
         
-        if (p_reseau.getClass() == ReseauRoutier.class)
-            p_curseur.add(new ReseauRoutier((ReseauRoutier)m_reseauRoutierCourant));
+        //if (p_reseau.getClass() == ReseauTransport.class)
+            p_curseur.add(new ReseauTransport((ReseauTransport)m_reseauTransportCourant));
     }
 
 }

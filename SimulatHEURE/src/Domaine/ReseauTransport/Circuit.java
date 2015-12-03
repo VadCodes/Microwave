@@ -23,24 +23,21 @@ import java.util.ListIterator;
 import java.awt.Color;
 
 public class Circuit extends ElementTransport{
+    private LinkedList<PaireArretTrajet> m_listeArretTrajet;
     private String m_nom = "";
     private GlyphVector m_representationNom;
-    private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
-    private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
-    private LinkedList<PaireArretTrajet> m_listeArretTrajet;
-    private Temps tempsDepart;
     private Boolean m_peutBoucler = false;
     private Boolean m_veutBoucler = false;
     private Color m_couleur = Color.RED;
+    
+    private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
+    
+    private LinkedList<Autobus> m_listeAutobus = new LinkedList<>();
     
     public Circuit(LinkedList<PaireArretTrajet> listeArrTraj){
         //assert listeArrTraj doit avoir les 2 premiers
         m_listeArretTrajet = listeArrTraj;
     }
-    
-//    public Circuit(){
-//        m_listeArretTrajet = new LinkedList<>();
-//    }
     
     public LinkedList<Autobus> getListeAutobus(){
         return m_listeAutobus;
@@ -150,13 +147,13 @@ public class Circuit extends ElementTransport{
     public void setPeutBoucler(Boolean boucle){
         m_peutBoucler = boucle;
     }
-    public Boolean getPeutBoucler(){
+    public Boolean peutBoucler(){
         return m_peutBoucler;
     }
     public void setVeutBoucler(Boolean veutBoucler){
         m_veutBoucler = veutBoucler;
     }
-    public Boolean getVeutBoucler(){
+    public Boolean veutBoucler(){
         return m_veutBoucler;
     }
     

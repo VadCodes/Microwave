@@ -14,13 +14,20 @@ public class Distribution {
     private double m_penteGauche;
     private double m_aireGauche;
     private double m_penteDroite;
-    //private double m_aireDroite;
     
-    //private Temps m_tempsPige = new Temps(0);
+    public enum Type {
 
-    public Distribution()
+        TRONCON, AUTOBUS, PIETON
+    }
+
+    public Distribution(Type p_type)
     {
-        setDistribution(new Temps(5 * 60), new Temps(5 * 60), new Temps(5 * 60));
+        if (p_type == Type.TRONCON)
+            setDistribution(new Temps(5 * 60), new Temps(5 * 60), new Temps(5 * 60));
+        else if (p_type == Type.AUTOBUS)
+            setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
+        else
+            setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
     }
     
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
@@ -48,7 +55,6 @@ public class Distribution {
         m_penteGauche = m_hauteur / (tFreq - tMin);
         m_aireGauche = m_hauteur * (tFreq - tMin) / 2;
         m_penteDroite = m_hauteur / (tMax - tFreq);
-        //m_aireDroite = m_hauteur * (tMax - tFreq) / 2;
         
         m_tempsMoyen = calculerTempsMoyen();
     }

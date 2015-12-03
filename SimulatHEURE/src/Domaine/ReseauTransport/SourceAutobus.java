@@ -13,25 +13,29 @@ import Domaine.Utilitaire.Temps;
  * @author louis
  */
 public class SourceAutobus extends ElementTransport{
-    private int m_nbMaxAutobus = Integer.MAX_VALUE;
-    private String m_nomSource;
-    private int m_nbAutobusGeneres = 0;
-    private Circuit m_circuit;
     private Emplacement m_emplacement;
+    private final Circuit m_circuit;
+    private String m_nomSource = "";
+    private Distribution m_distribution;
+    private Temps m_tempsAttenteInitial = new Temps(0);
+    private Temps m_tempsAvantApparition;  // wtf..
+    
+    private int m_nbMaxAutobus = Integer.MAX_VALUE;
+    
+    private int m_nbAutobusGeneres = 0;
+    
+    
     private int m_capaciteMax = 50;
-    private Distribution m_distributionFrequence;
     private Temps m_frequence;
-    private Temps m_tempsAttenteinitial;
-    private Temps m_tempsAvantApparition;
+    
     public final static float LARGEUR = 20;
     
-    public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
+    public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, Distribution p_distribution){
         m_emplacement = p_emplacement;
         m_circuit = p_circuit;
-        m_nomSource = p_nomSource;
-        m_distributionFrequence = p_distribution;
-        m_tempsAttenteinitial = p_tempsAttenteinitial;
-        m_tempsAvantApparition = m_tempsAttenteinitial;
+        m_distribution = p_distribution;
+        Distribution dist = new Distribution();
+        m_tempsAvantApparition = m_tempsAttenteInitial;
     }
     
     public void miseAJourTempsRestant(Temps p_deltatT){
@@ -78,7 +82,7 @@ public class SourceAutobus extends ElementTransport{
     }
     
     public void initSourceAutobus(){
-        m_frequence  = m_distributionFrequence.pigerTemps();
+        m_frequence  = m_distribution.pigerTemps();
     }
     private void miseAjourAvantAjout(){
         //met à jour le nombre d'autobus et on pige un nouveau temps de distribution
@@ -100,23 +104,23 @@ public class SourceAutobus extends ElementTransport{
         return m_nomSource;
     }
     public void setDistribution(Distribution dist){
-        m_distributionFrequence = dist;
+        m_distribution = dist;
     }
     public Distribution getDistribution(){
-        return m_distributionFrequence;
+        return m_distribution;
     }
 
     public void setDefault() {
        m_nbAutobusGeneres = 0;
-       m_tempsAvantApparition = m_tempsAttenteinitial;
+       m_tempsAvantApparition = m_tempsAttenteInitial;
     }
     
     public void setTempsAttenteInitial(Temps temps){
-        m_tempsAttenteinitial = temps;
+        m_tempsAttenteInitial = temps;
          setDefault() ;
     }
     
     public Temps getTempsAttenteInitial(){
-        return m_tempsAttenteinitial;
+        return m_tempsAttenteInitial;
     }
 }

@@ -20,20 +20,18 @@ import java.util.ListIterator;
 public class Arret extends ElementTransport{
     private Emplacement m_emplacement;
     private String m_nom = "";
-    private int m_nombreIndividu = 0;
+    
+    private int m_nombreIndividu = 0;    
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
     private LinkedList<PairePietonBus> m_pietonEnAttenteDeSortir = new LinkedList<>();
+    
     public final static float RAYON = 10;
     
-    public Arret(Emplacement emplacement, String nom){
+    public Arret(Emplacement emplacement){
         m_emplacement = emplacement;
-        m_nom = nom;
     }
     
-    public Arret(){
-        
-    }
     public void addPietonAttenteDeSortirBus(PairePietonBus p_paire){
         m_pietonEnAttenteDeSortir.add(p_paire);
     }

@@ -19,8 +19,8 @@ import java.util.LinkedList;
 public class ReseauTransportFactory {
     ReseauTransportFactory(){}
 
-    public Arret creerArret(Emplacement emplacement, String nom){
-        return new Arret(emplacement, nom);
+    public Arret creerArret(Emplacement emplacement){
+        return new Arret(emplacement);
     } 
     
     public Circuit creerCircuit(LinkedList<PaireArretTrajet> listeArrTraj){
@@ -34,8 +34,8 @@ public class ReseauTransportFactory {
     public Trajet creerTrajet(Emplacement emplacementInitial, Emplacement emplacementFinal, LinkedList<Troncon> listTroncons){
         return new Trajet (emplacementInitial, emplacementFinal, listTroncons);
     } 
-    public SourceAutobus creerSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
-        return new SourceAutobus(p_emplacement, p_circuit,p_nomSource,p_distribution,p_tempsAttenteinitial);
+    public SourceAutobus creerSource(Emplacement p_emplacement, Circuit p_circuit, Distribution p_distribution){
+        return new SourceAutobus(p_emplacement, p_circuit, p_distribution);
     }
     
     

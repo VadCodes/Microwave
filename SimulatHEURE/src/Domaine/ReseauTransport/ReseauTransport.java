@@ -23,15 +23,126 @@ import java.awt.geom.Path2D;
  * @author louis
  */
 public class ReseauTransport extends Reseau{
-    public  ReseauTransportFactory m_factory = new ReseauTransportFactory();
-    private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
+    public final ReseauTransportFactory m_factory = new ReseauTransportFactory();
+    
     private LinkedList<Arret> m_listeArrets = new LinkedList<>();
-    private int m_conteurArrets = 1;
-    private int m_conteurCircuits = 1;
-    private int m_conteurSources = 1;
+    private LinkedList<Circuit> m_listeCircuits = new LinkedList<>();
+    
+    private int m_compteurArrets;
+    private int m_compteurCircuits;
+    private int m_compteurSources;
+    
     private PileSelectionTransport m_pileSelection = new PileSelectionTransport();
     
-    public ReseauTransport(){}
+    private ReseauRoutier m_reseauRoutier;
+    
+    public ReseauTransport(){
+        m_compteurArrets = 1;
+        m_compteurCircuits = 1;
+        m_compteurSources = 1;
+        
+        m_reseauRoutier = new ReseauRoutier();
+    }
+    
+    public ReseauTransport(ReseauTransport p_reseauSource){
+        this.m_reseauRoutier = new ReseauRoutier(p_reseauSource.m_reseauRoutier);
+        
+        int indexInter;  
+        int indexTroncon;
+        for (Arret arretSource : p_reseauSource.getListeArrets())
+        {
+            if (arretSource.getEmplacement().estSurTroncon())
+            {
+                indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(arretSource.getEmplacement().getTroncon().getOrigine());
+                indexTroncon = p_reseauSource.m_reseauRoutier.getIntersections().get(indexInter).getTroncons().indexOf(arretSource.getEmplacement().getTroncon());
+                
+                Intersection interCopiee = this.m_reseauRoutier.getIntersections().get(indexInter);
+                this.m_listeArrets.add(new Arret(new Emplacement(true, arretSource.getEmplacement().getPourcentageParcouru(), 
+                        interCopiee.getTroncons().get(indexTroncon), interCopiee)));  // UNE TITE LIGNE LOUIS ?
+            }
+            else
+            {
+                indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(arretSource.getEmplacement().getIntersection());
+                
+                this.m_listeArrets.add(new Arret(new Emplacement(false, 0, null, this.m_reseauRoutier.getIntersections().get(indexInter))));
+            }
+            
+            this.m_listeArrets.getLast().setNom(arretSource.getNom());        
+        }
+        
+        //ListIterator<Circuit> itCircuitCopie = this.m_listeCircuits.listIterator();
+        int indexArretInitiale;
+        int indexArretFinale;        
+        for (Circuit circuitSource : p_reseauSource.m_listeCircuits)
+        {
+            LinkedList<PaireArretTrajet> pairesCopiees = new LinkedList<>();
+            for (ListIterator<PaireArretTrajet> itPaireSource = circuitSource.getListeArretTrajet().listIterator() ; itPaireSource.hasNext() ; )
+            {
+                PaireArretTrajet paireSource = itPaireSource.next();
+                
+                indexArretInitiale = p_reseauSource.m_listeArrets.indexOf(paireSource.getArret());
+                
+                if (itPaireSource.hasNext())
+                {
+                    Arret arretInitialeCopiee = this.m_listeArrets.get(indexArretInitiale);
+                    indexArretFinale = p_reseauSource.m_listeArrets.indexOf(itPaireSource.next().getArret());
+                    itPaireSource.previous();
+                    
+                    LinkedList<Troncon> tronconsTrajetCopie = new LinkedList<>();
+                    for (Troncon tronconSource : paireSource.getTrajet().getListeTroncons())
+                    {
+                        indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(tronconSource.getOrigine());
+                        indexTroncon = p_reseauSource.m_reseauRoutier.getIntersections().get(indexInter).getTroncons().indexOf(tronconSource);
+                        
+                        tronconsTrajetCopie.add(this.m_reseauRoutier.getIntersections().get(indexInter).getTroncons().get(indexTroncon));
+                    }
+                    
+                    pairesCopiees.add(new PaireArretTrajet(arretInitialeCopiee, new Trajet(arretInitialeCopiee.getEmplacement(), 
+                            this.m_listeArrets.get(indexArretFinale).getEmplacement(), tronconsTrajetCopie)));                
+                }
+                else
+                {
+                    pairesCopiees.add(new PaireArretTrajet(this.m_listeArrets.get(indexArretInitiale), null));
+                }
+            }
+            
+            this.m_listeCircuits.add(new Circuit(pairesCopiees));
+            this.m_listeCircuits.getLast().setNom(circuitSource.getNom());
+            this.m_listeCircuits.getLast().setPeutBoucler(circuitSource.peutBoucler());
+            this.m_listeCircuits.getLast().setVeutBoucler(circuitSource.veutBoucler());
+            this.m_listeCircuits.getLast().setCouleur(circuitSource.getCouleur());
+            
+            for (SourceAutobus sourceSource : circuitSource.getListeSources())
+            {
+                if (sourceSource.getEmplacement().estSurTroncon())
+                {
+                    indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(sourceSource.getEmplacement().getTroncon().getOrigine());
+                    indexTroncon = p_reseauSource.m_reseauRoutier.getIntersections().get(indexInter).getTroncons().indexOf(sourceSource.getEmplacement().getTroncon());
+
+                    Intersection interCopiee = this.m_reseauRoutier.getIntersections().get(indexInter);
+                    this.m_listeCircuits.getLast().getListeSources().add(new SourceAutobus(new Emplacement(true, sourceSource.getEmplacement().getPourcentageParcouru(), 
+                            interCopiee.getTroncons().get(indexTroncon), interCopiee)));  // UNE TITE LIGNE LOUIS ?
+                }
+                else
+                {
+                    indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(arretSource.getEmplacement().getIntersection());
+
+                    this.m_listeArrets.add(new Arret(new Emplacement(false, 0, null, this.m_reseauRoutier.getIntersections().get(indexInter))));
+                }
+
+                this.m_listeArrets.getLast().setNom(arretSource.getNom());        
+            }
+        }
+        
+        this.m_compteurArrets = p_reseauSource.m_compteurArrets;
+        this.m_compteurCircuits = p_reseauSource.m_compteurCircuits;
+        this.m_compteurSources = p_reseauSource.m_compteurSources;
+    }
+    
+    public ReseauRoutier getRoutier()
+    {
+        return m_reseauRoutier;
+    }
     
     public LinkedList<Circuit> getListeCircuits(){
         return m_listeCircuits;
@@ -40,16 +151,16 @@ public class ReseauTransport extends Reseau{
         return m_listeArrets;
     }
     public void ajouterArret(Arret p_arret){
-        p_arret.setNom("AR" + Integer.toString(m_conteurArrets));
-        m_conteurArrets++;
+        p_arret.setNom("AR" + Integer.toString(m_compteurArrets));
+        m_compteurArrets++;
         m_listeArrets.add(p_arret);
     }
     public void setListeCircuits(LinkedList<Circuit> listeCircuits){
         m_listeCircuits = listeCircuits;
     }
     public void ajouterCircuit(Circuit circ){
-        circ.setNom("C"+ Integer.toString(m_conteurCircuits));
-        m_conteurCircuits++;
+        circ.setNom("C"+ Integer.toString(m_compteurCircuits));
+        m_compteurCircuits++;
         m_listeCircuits.add(circ);
     }
             
@@ -217,16 +328,16 @@ public class ReseauTransport extends Reseau{
         return false;
     }
    
-   public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, String p_nomSource, Distribution p_distribution,  Temps p_tempsAttenteinitial){
-       SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit,p_nomSource,p_distribution,p_tempsAttenteinitial);
-       src.setNom("S" + Integer.toString(m_conteurSources));
-       m_conteurSources++;
+   public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, Distribution p_distribution){
+       SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit, p_distribution);
+       src.setNom("S" + Integer.toString(m_compteurSources));
+       m_compteurSources++;
        p_circuit.ajouterSource(src);
        return src;
    }
    
-   public Arret creerArret(Emplacement emplacement, String nom){
-       return new Arret(emplacement, nom);
+   public Arret creerArret(Emplacement emplacement){
+       return new Arret(emplacement);
    }
    
    public void deselectionnerTout(){

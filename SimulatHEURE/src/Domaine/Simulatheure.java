@@ -15,12 +15,12 @@ import java.util.ListIterator;
  */
 public class Simulatheure {
 
-    public enum Modes {
+    public enum Mode {
 
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
 
-    public enum Commandes {
+    public enum Commande {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT
     }
@@ -38,7 +38,7 @@ public class Simulatheure {
 
     public Simulatheure() {
         m_reseauRoutier = m_historique.getRoutierCourant();
-        m_reseauTransport = new ReseauTransport();
+        m_reseauTransport = m_historique.getTransportCourant();
     }
 
     public ReseauRoutier getRoutier() {
@@ -269,7 +269,9 @@ public class Simulatheure {
                 if (arret.getEmplacement().equals(emplacementDesire))
                     return false;
             
-            m_reseauTransport.ajouterArret(new Arret(emplacementDesire, ""));
+            m_reseauTransport.ajouterArret(new Arret(emplacementDesire));
+            
+            m_historique.modifier();                                            // ANNULER-RÉTABLIR
             return true; 
         }
         else 
@@ -320,7 +322,7 @@ public class Simulatheure {
             if (circuitSelectionne != null)
             {
                 // Reste à gérer les culs de sac.. Peut-être modifier canceller circuit pour la cause
-                if (circuitSelectionne.getVeutBoucler())
+                if (circuitSelectionne.veutBoucler())
                 {
                     m_reseauTransport.getPileSelection().enlever(m_arretsNouveauTrajet.getLast());
                     
@@ -408,6 +410,7 @@ public class Simulatheure {
             m_reseauTransport.getPileSelection().enlever(arretInitiale);
             deselectionnerRoutier();
             resilierConstruction();
+            m_historique.modifier();                                            // ANNULER-RÉTABLIR
         }
         return estConstructible;
     }
@@ -512,7 +515,7 @@ public class Simulatheure {
 //
 //        if (m_modeNouvelArret) {
 //
-//            if (circuit.getPeutBoucler()) {
+//            if (circuit.peutBoucler()) {
 //                return;
 //            }
 //            Arret nouvArret;
@@ -700,7 +703,7 @@ public class Simulatheure {
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
                     if (m_reseauTransport.getPileSelection().contient(circuit)) {
-                        m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                        m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
                         return;
                     }
                 }
@@ -729,13 +732,13 @@ public class Simulatheure {
                             }
                             if(interMax1 != null){
                                 if(intersection.equals(interMax1)){
-                                    m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                    m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
                                         return;
                                 }
                             }
                             if(interMax2 != null){
                                 if(intersection.equals(interMax2)){
-                                    m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                    m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
                                         return;
                                 }
                             }
@@ -743,7 +746,7 @@ public class Simulatheure {
                                 Troncon troncon = troncons.next();
                                 if(intersection.equals(troncon.getDestination())){
                                     if(troncons.hasNext()){
-                                        m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                        m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
                                         return;
                                     }
                                 }
@@ -796,7 +799,7 @@ public class Simulatheure {
                                         }
                                         if (trc1 != null && trc2 != null) {
                                             if (trc1.equals(trc2)) {
-                                                if (!circuit.getPeutBoucler()) {
+                                                if (!circuit.peutBoucler()) {
                                                     if (arret1.getEmplacement().getPourcentageParcouru() > arret2.getEmplacement().getPourcentageParcouru()) {
                                                         if (avantArret1 && apresArret2) {
                                                             return;
@@ -823,7 +826,7 @@ public class Simulatheure {
                                             Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
                                             Distribution distributionDefault = new Distribution();
                                             distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
-                                            m_reseauTransport.ajoutSource(emplacement, circuit, "Source", distributionDefault, new Temps(0));
+                                            m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
                                             return;
                                         }
                                             
@@ -882,6 +885,10 @@ public class Simulatheure {
 
     public Boolean supprimerSelectionTransport() {
         Boolean supprimee = m_reseauTransport.supprimerSelection();
+        
+        if (supprimee)
+            m_historique.modifier();                                            // ANNULER-RÉTABLIR
+        
         return supprimee;
     }
 
@@ -978,6 +985,7 @@ public class Simulatheure {
     {
             m_historique.annuler();
             m_reseauRoutier = m_historique.getRoutierCourant();
+            m_reseauTransport = m_historique.getTransportCourant();
             resilierConstruction();
     }
     
@@ -985,6 +993,7 @@ public class Simulatheure {
     {
             m_historique.retablir();
             m_reseauRoutier = m_historique.getRoutierCourant();
+            m_reseauTransport = m_historique.getTransportCourant();
             resilierConstruction();
     }
     

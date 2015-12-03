@@ -25,9 +25,9 @@ public class Trajet {
         m_listTroncons = listTroncons;
     }
     
-    public Trajet(){
-        m_listTroncons = new LinkedList<>();
-    }
+//    public Trajet(){
+//        m_listTroncons = new LinkedList<>();
+//    }
     
     public Emplacement getEmplacementInitial(){
         return m_emplacementInitial;
@@ -73,6 +73,7 @@ public class Trajet {
         }
         return null;
     }
+    
     public LinkedList<Troncon> getListeTroncons(){
         return m_listTroncons;
     }

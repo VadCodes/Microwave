@@ -21,32 +21,35 @@ public class ReseauRoutier extends Reseau{
     
     private LinkedList<Intersection> m_listeIntersections = new LinkedList<>();
     
-    private int m_compteurIntersection = 1;
-    private int m_compteurTroncon = 1;
+    private int m_compteurIntersection;
+    private int m_compteurTroncon;
     
     private PileSelectionRoutier m_pileSelection = new PileSelectionRoutier();
     
     public final static double VITESSE_PIETON = 4;
     
-    public ReseauRoutier(){}
+    public ReseauRoutier(){
+        m_compteurIntersection = 1;
+        m_compteurTroncon = 1;    
+    }
     
     public ReseauRoutier(ReseauRoutier p_reseauSource){
         
         for (Intersection interSource : p_reseauSource.m_listeIntersections)
         {
-            this.m_listeIntersections.add(m_factory.intersection(interSource.getPosition()));
+            this.m_listeIntersections.add(this.m_factory.intersection(interSource.getPosition()));
             this.m_listeIntersections.getLast().setNom(interSource.getName());
         }
         
         ListIterator<Intersection> itInterCopiee = this.m_listeIntersections.listIterator();
-        int i2;
+        int indexDestination;
         for (Intersection interSource : p_reseauSource.m_listeIntersections)
         {
             Intersection interCopiee = itInterCopiee.next();
             for (Troncon tronconSource : interSource.getTroncons())
             {
-                i2 = p_reseauSource.m_listeIntersections.indexOf(tronconSource.getDestination());
-                interCopiee.ajouterTroncon(m_factory.troncon(interCopiee, m_listeIntersections.get(i2)));            
+                indexDestination = p_reseauSource.m_listeIntersections.indexOf(tronconSource.getDestination());
+                interCopiee.ajouterTroncon(this.m_factory.troncon(interCopiee, this.m_listeIntersections.get(indexDestination)));            
                 
                 interCopiee.getTroncons().getLast().setNom(tronconSource.getNom());
                 interCopiee.getTroncons().getLast().setDistribution(tronconSource.getDistribution());
