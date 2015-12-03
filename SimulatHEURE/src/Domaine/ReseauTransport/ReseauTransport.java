@@ -70,7 +70,6 @@ public class ReseauTransport extends Reseau{
             this.m_listeArrets.getLast().setNom(arretSource.getNom());        
         }
         
-        //ListIterator<Circuit> itCircuitCopie = this.m_listeCircuits.listIterator();
         int indexArretInitiale;
         int indexArretFinale;        
         for (Circuit circuitSource : p_reseauSource.m_listeCircuits)
@@ -121,16 +120,19 @@ public class ReseauTransport extends Reseau{
 
                     Intersection interCopiee = this.m_reseauRoutier.getIntersections().get(indexInter);
                     this.m_listeCircuits.getLast().getListeSources().add(new SourceAutobus(new Emplacement(true, sourceSource.getEmplacement().getPourcentageParcouru(), 
-                            interCopiee.getTroncons().get(indexTroncon), interCopiee)));  // UNE TITE LIGNE LOUIS ?
+                            interCopiee.getTroncons().get(indexTroncon), interCopiee), this.m_listeCircuits.getLast()));  // UNE TITE LIGNE LOUIS ?
                 }
                 else
                 {
-                    indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(arretSource.getEmplacement().getIntersection());
+                    indexInter = p_reseauSource.m_reseauRoutier.getIntersections().indexOf(sourceSource.getEmplacement().getIntersection());
 
-                    this.m_listeArrets.add(new Arret(new Emplacement(false, 0, null, this.m_reseauRoutier.getIntersections().get(indexInter))));
+                    this.m_listeCircuits.getLast().getListeSources().add(new SourceAutobus(new Emplacement(false, 0, 
+                            null, this.m_reseauRoutier.getIntersections().get(indexInter)),  this.m_listeCircuits.getLast()));
                 }
-
-                this.m_listeArrets.getLast().setNom(arretSource.getNom());        
+                
+                this.m_listeCircuits.getLast().getListeSources().getLast().setNom(sourceSource.getNom());
+                this.m_listeCircuits.getLast().getListeSources().getLast().setDistribution(sourceSource.getDistribution());
+                // Je comprends pas le reste de source. Et je dois commencer algo !!
             }
         }
         
@@ -328,8 +330,8 @@ public class ReseauTransport extends Reseau{
         return false;
     }
    
-   public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit, Distribution p_distribution){
-       SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit, p_distribution);
+   public SourceAutobus ajoutSource(Emplacement p_emplacement, Circuit p_circuit){
+       SourceAutobus src = new SourceAutobus(p_emplacement, p_circuit);
        src.setNom("S" + Integer.toString(m_compteurSources));
        m_compteurSources++;
        p_circuit.ajouterSource(src);

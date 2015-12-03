@@ -96,9 +96,7 @@ public class PanelSourceAutobus extends PanelEdition {
             return;
         }
         
-        Distribution dist = new Distribution();
-        dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
-        m_source.setDistribution(dist);
+        m_source.getDistribution().setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         m_source.setTempsAttenteInitial(new Temps(delai*60));
         m_source.setNbMaxAutobus(nbBus);
         m_source.setCapaciteMax(capacite);

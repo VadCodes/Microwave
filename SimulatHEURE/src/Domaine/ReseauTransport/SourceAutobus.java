@@ -6,6 +6,7 @@
 package Domaine.ReseauTransport;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Distribution.Type;
 import Domaine.Utilitaire.Temps;
 
 /**
@@ -16,26 +17,22 @@ public class SourceAutobus extends ElementTransport{
     private Emplacement m_emplacement;
     private final Circuit m_circuit;
     private String m_nomSource = "";
-    private Distribution m_distribution;
+    private Distribution m_distribution = new Distribution(Type.AUTOBUS);
     private Temps m_tempsAttenteInitial = new Temps(0);
     private Temps m_tempsAvantApparition;  // wtf..
-    
     private int m_nbMaxAutobus = Integer.MAX_VALUE;
     
-    private int m_nbAutobusGeneres = 0;
-    
+    private int m_nbAutobusGeneres = 0;    
     
     private int m_capaciteMax = 50;
     private Temps m_frequence;
     
     public final static float LARGEUR = 20;
     
-    public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit, Distribution p_distribution){
+    public SourceAutobus(Emplacement p_emplacement, Circuit p_circuit){
         m_emplacement = p_emplacement;
         m_circuit = p_circuit;
-        m_distribution = p_distribution;
-        Distribution dist = new Distribution();
-        m_tempsAvantApparition = m_tempsAttenteInitial;
+        m_tempsAvantApparition = m_tempsAttenteInitial;  // wtf..
     }
     
     public void miseAJourTempsRestant(Temps p_deltatT){
@@ -117,7 +114,7 @@ public class SourceAutobus extends ElementTransport{
     
     public void setTempsAttenteInitial(Temps temps){
         m_tempsAttenteInitial = temps;
-         setDefault() ;
+        setDefault() ;
     }
     
     public Temps getTempsAttenteInitial(){

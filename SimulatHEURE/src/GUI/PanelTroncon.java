@@ -56,9 +56,7 @@ public class PanelTroncon extends PanelEdition {
             return;
         }
         
-        Distribution dist = new Distribution();
-        dist.setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
-        m_troncon.setDistribution(dist);
+        m_troncon.getDistribution().setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         
         m_troncon.setNom(jTextField1.getText());
         m_mainWindow.miseAjourComboBoxTotal();

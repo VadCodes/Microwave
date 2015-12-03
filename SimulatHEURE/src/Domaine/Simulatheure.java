@@ -698,12 +698,11 @@ public class Simulatheure {
                 Arret arret = (Arret) elementTransport;
                 Emplacement emplacement = new Emplacement(false, 0, null, null);
                 emplacement.copy(arret.getEmplacement());
-                Distribution distributionDefault = new Distribution();
-                distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
                     if (m_reseauTransport.getPileSelection().contient(circuit)) {
-                        m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
+                        m_reseauTransport.ajoutSource(emplacement, circuit);
+                        m_historique.modifier();                                // ANNULER-RÉTABLIR
                         return;
                     }
                 }
@@ -712,8 +711,6 @@ public class Simulatheure {
             if (elementRoutier.getClass() == Intersection.class) {
                 Intersection intersection = (Intersection) elementRoutier;
                 Emplacement emplacement = new Emplacement(false, 0, null, intersection);
-                Distribution distributionDefault = new Distribution();
-                distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
                     if (m_reseauTransport.getPileSelection().contient(circuit)) {
@@ -732,21 +729,24 @@ public class Simulatheure {
                             }
                             if(interMax1 != null){
                                 if(intersection.equals(interMax1)){
-                                    m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
-                                        return;
+                                    m_reseauTransport.ajoutSource(emplacement, circuit);
+                                    m_historique.modifier();                    // ANNULER-RÉTABLIR
+                                    return;
                                 }
                             }
                             if(interMax2 != null){
                                 if(intersection.equals(interMax2)){
-                                    m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
-                                        return;
+                                    m_reseauTransport.ajoutSource(emplacement, circuit);
+                                    m_historique.modifier();                    // ANNULER-RÉTABLIR
+                                    return;
                                 }
                             }
                             for (ListIterator<Troncon> troncons = paire.getTrajet().getListeTroncons().listIterator(); troncons.hasNext();) {
                                 Troncon troncon = troncons.next();
                                 if(intersection.equals(troncon.getDestination())){
                                     if(troncons.hasNext()){
-                                        m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
+                                        m_reseauTransport.ajoutSource(emplacement, circuit);
+                                        m_historique.modifier();                // ANNULER-RÉTABLIR
                                         return;
                                     }
                                 }
@@ -824,9 +824,8 @@ public class Simulatheure {
                                         }
                                         if(add){
                                             Emplacement emplacement = new Emplacement(true, pourcentage, troncon, troncon.getOrigine());
-                                            Distribution distributionDefault = new Distribution();
-                                            distributionDefault.setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
-                                            m_reseauTransport.ajoutSource(emplacement, circuit, distributionDefault);
+                                            m_reseauTransport.ajoutSource(emplacement, circuit);
+                                            m_historique.modifier();            // ANNULER-RÉTABLIR
                                             return;
                                         }
                                             

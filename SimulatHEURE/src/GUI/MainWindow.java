@@ -1,8 +1,8 @@
  package GUI;
 
 import Domaine.Simulatheure;
-import Domaine.Simulatheure.Modes;
-import Domaine.Simulatheure.Commandes;
+import Domaine.Simulatheure.Mode;
+import Domaine.Simulatheure.Commande;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +27,8 @@ public class MainWindow extends javax.swing.JFrame {
     //public Simulatheure m_controleurSimulation;
     //public Simulatheure m_contoleurReseau;
     
-    public Modes m_mode_courant;
-    public Commandes m_commande_courante;
+    public Mode m_mode_courant;
+    public Commande m_commande_courante;
     
     private Timer m_timer;
     private Chronometre m_crono;
@@ -811,7 +811,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void routierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routierActionPerformed
 
-        this.setMode(Modes.ROUTIER);
+        this.setMode(Mode.ROUTIER);
         boutonsRoutier.setVisible(true);
         boutonsSelectionRoutier.setVisible(true);
         constructionTroncon.doClick();
@@ -819,7 +819,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void transportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transportActionPerformed
 
-        this.setMode(Modes.TRANSPORT);
+        this.setMode(Mode.TRANSPORT);
         boutonsTransport.setVisible(true);
         boutonsSelectionTransport.setVisible(true);
         ajoutCircuit.doClick();
@@ -827,13 +827,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
         
-        this.setMode(Modes.BESOINS);
+        this.setMode(Mode.BESOINS);
         //boutonsBesoins.setVisible(true);
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
         
-        this.setMode(Modes.SIMULATION);
+        this.setMode(Mode.SIMULATION);
         boutonsSelectionSimulation.setVisible(true);
         boutonsSimulation.setVisible(true);   
     }//GEN-LAST:event_simulationActionPerformed
@@ -981,7 +981,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAjourComboBoxTotal() {
-        Commandes cmdTemp = this.m_commande_courante;  // wtf la commande change..
+        Commande cmdTemp = this.m_commande_courante;  // wtf la commande change..
         
         comboBoxCircuits.removeAllItems();
         comboBoxSources.removeAllItems();
@@ -1170,12 +1170,12 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void selectionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionRoutierActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionRoutierActionPerformed
 
     private void ajoutIntersectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutIntersectionActionPerformed
 
-        this.setCommande(Commandes.INTERSECTION);
+        this.setCommande(Commande.INTERSECTION);
         m_controleur.deselectionnerRoutier();
 
         this.afficheurReseau.repaint();
@@ -1183,7 +1183,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void constructionTronconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constructionTronconActionPerformed
 
-        this.setCommande(Commandes.TRONCON);
+        this.setCommande(Commande.TRONCON);
         m_controleur.deselectionnerRoutier();
 
         this.afficheurReseau.repaint();
@@ -1276,13 +1276,7 @@ public class MainWindow extends javax.swing.JFrame {
                 break;
 
             case TRANSPORT:
-                LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                assert (elementsTransportSelectionnes.size() == 1);
-                ElementTransport elemT = elementsTransportSelectionnes.getFirst();
-                Boolean suppr = m_controleur.supprimerSelectionTransport();
-                selectionTransport.doClick();
                 suppressionTransport.doClick();
-
                 break;
 
             case BESOINS:
@@ -1369,12 +1363,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void selectionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionTransportActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionTransportActionPerformed
 
     private void ajoutArretActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutArretActionPerformed
 
-        this.setCommande(Commandes.ARRET);
+        this.setCommande(Commande.ARRET);
         m_controleur.deselectionnerTout();
 
         this.afficheurReseau.repaint();
@@ -1382,7 +1376,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void ajoutCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutCircuitActionPerformed
 
-        this.setCommande(Commandes.CIRCUIT);
+        this.setCommande(Commande.CIRCUIT);
         //m_controleur.deselectionnerTout();
 
         this.afficheurReseau.repaint();
@@ -1406,7 +1400,7 @@ public class MainWindow extends javax.swing.JFrame {
     public void ajoutSource(){
         m_controleur.deselectionnerRoutier();
         this.afficheurReseau.repaint();
-        this.setCommande(Commandes.SOURCEAUTOBUS);
+        this.setCommande(Commande.SOURCEAUTOBUS);
     }
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
         m_controleur.annuler();
@@ -1496,7 +1490,7 @@ public class MainWindow extends javax.swing.JFrame {
     }                                               
 
     // private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {                                                
-    //     this.setCommande(Commandes.SELECTIONNER);
+    //     this.setCommande(Commande.SELECTIONNER);
     //     int index = comboBoxSources.getSelectedIndex();
     //     String name = comboBoxSources.getItemAt(index);
     //     m_controleur.deselectionnerTout();
@@ -1514,7 +1508,7 @@ public class MainWindow extends javax.swing.JFrame {
     // }                                               
 
     // private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {                                               
-    //     this.setCommande(Commandes.SELECTIONNER);
+    //     this.setCommande(Commande.SELECTIONNER);
     //     int index = comboBoxArrets.getSelectedIndex();
     //     String name = comboBoxArrets.getItemAt(index);
     //     m_controleur.deselectionnerTout();
@@ -1575,7 +1569,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxDijkstraActionPerformed
 
     private void comboBoxIntersectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntersectionsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
         int index = comboBoxIntersections.getSelectedIndex();
         String name = comboBoxIntersections.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1591,7 +1585,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxIntersectionsActionPerformed
 
     private void comboBoxTronconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTronconsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
         int index = comboBoxTroncons.getSelectedIndex();
         String name = comboBoxTroncons.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1610,7 +1604,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxTronconsActionPerformed
 
     private void comboBoxCircuitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCircuitsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
         int index = comboBoxCircuits.getSelectedIndex();
         String name = comboBoxCircuits.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1630,7 +1624,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxCircuitsActionPerformed
 
     private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSourcesActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
         int index = comboBoxSources.getSelectedIndex();
         String name = comboBoxSources.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1649,7 +1643,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxSourcesActionPerformed
 
     private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxArretsActionPerformed
-        this.setCommande(Commandes.SELECTIONNER);
+        this.setCommande(Commande.SELECTIONNER);
         int index = comboBoxArrets.getSelectedIndex();
         String name = comboBoxArrets.getItemAt(index);
         m_controleur.deselectionnerTout();
@@ -1729,7 +1723,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
 
-    public void setMode(Modes p_mode) {
+    public void setMode(Mode p_mode) {
         this.m_mode_courant = p_mode;
         boutonsRoutier.setVisible(false);
         boutonsSelectionRoutier.setVisible(false);
@@ -1742,7 +1736,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurReseau.repaint();
     }
 
-    public void setCommande(Commandes p_commande) {
+    public void setCommande(Commande p_commande) {
         this.m_commande_courante = p_commande;
     }
 

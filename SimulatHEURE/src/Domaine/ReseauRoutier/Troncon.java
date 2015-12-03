@@ -5,6 +5,7 @@ package Domaine.ReseauRoutier;
  * @author Nathaniel
  */
 import Domaine.Utilitaire.*;
+import Domaine.Utilitaire.Distribution.Type;
 import java.awt.geom.Point2D;
 
 public class Troncon extends ElementRoutier{
@@ -27,7 +28,7 @@ public class Troncon extends ElementRoutier{
         m_origine = p_origine;
         m_destination =  p_destination;
         
-        m_distribution = new Distribution();
+        m_distribution = new Distribution(Type.TRONCON);
         m_longueur = p_origine.getPosition().distance(p_destination.getPosition());
         m_tempsTransitPieton = new Temps(m_longueur / ReseauRoutier.VITESSE_PIETON);
        

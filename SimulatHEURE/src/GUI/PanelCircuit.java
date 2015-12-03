@@ -155,9 +155,9 @@ public class PanelCircuit extends PanelEdition {
         m_circuit = circ;
         jTextField1.setText(m_circuit.getNom());
         
-        if (m_circuit.getPeutBoucler()) {
+        if (m_circuit.peutBoucler()) {
             jCheckBox1.setEnabled(true);
-            if (m_circuit.getVeutBoucler()){
+            if (m_circuit.veutBoucler()){
                 jCheckBox1.setSelected(true);
             }
             else{
