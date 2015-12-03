@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package Domaine.BesoinsTransport;
+import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.Arret;
+import java.util.LinkedList;
 
 /**
  *
@@ -38,5 +40,6 @@ public class ParcoursBus {
     public void setArretDepart(Arret arretdepart){
         m_arretdepart = arretdepart;
     }
+
     
 }

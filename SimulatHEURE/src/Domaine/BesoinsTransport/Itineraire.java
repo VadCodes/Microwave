@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.*;
 
-public class Itineraire {
+public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
     private LinkedList<SourceIndividus> m_listSources = new LinkedList<>();
     private LinkedList<Individu> m_listIndividu = new LinkedList<>();

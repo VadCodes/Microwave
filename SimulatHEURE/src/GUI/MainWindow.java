@@ -1,5 +1,7 @@
  package GUI;
 
+import Domaine.BesoinsTransport.ElementBesoins;
+import Domaine.BesoinsTransport.Itineraire;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Mode;
 import Domaine.Simulatheure.Commande;
@@ -139,6 +141,16 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
+        boutonsBesoins = new javax.swing.JPanel();
+        selectionBesoins = new javax.swing.JToggleButton();
+        ajoutBesoin = new javax.swing.JToggleButton();
+        suppressionBesoins = new javax.swing.JButton();
+        editerBesoins = new javax.swing.JToggleButton();
+        checkBoxDijkstraBesoins = new javax.swing.JCheckBox();
+        jSeparator11 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        jSeparator13 = new javax.swing.JSeparator();
+        jSeparator14 = new javax.swing.JSeparator();
         boutonsSimulation = new javax.swing.JPanel();
         playPauseSimulation = new javax.swing.JToggleButton();
         arreterSimulation = new javax.swing.JButton();
@@ -159,21 +171,24 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<String>();
+        comboBoxArrets = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<String>();
+        comboBoxSources = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<String>();
+        comboBoxCircuits = new javax.swing.JComboBox<>();
+        boutonsSelectionBesoins = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        comboBoxBesoins = new javax.swing.JComboBox<>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<String>();
+        comboBoxAutobus = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<String>();
+        comboBoxTroncons = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<String>();
+        comboBoxIntersections = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -255,7 +270,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonModes.add(transport);
 
         besoins.setText("Besoins transport");
-        besoins.setEnabled(false);
         besoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 besoinsActionPerformed(evt);
@@ -472,6 +486,67 @@ public class MainWindow extends javax.swing.JFrame {
 
         panneauCommandes.add(boutonsTransport, "card3");
 
+        boutonsBesoins.setAlignmentX(1.0F);
+        boutonsBesoins.setAlignmentY(1.0F);
+        boutonsBesoins.setMinimumSize(new java.awt.Dimension(1200, 35));
+        boutonsBesoins.setPreferredSize(new java.awt.Dimension(1200, 35));
+        boutonsBesoins.setLayout(new java.awt.GridLayout());
+
+        selectionBesoins.setText("Sélectionner");
+        selectionBesoins.setEnabled(false);
+        selectionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
+        selectionBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectionBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(selectionBesoins);
+
+        ajoutBesoin.setText("Besoin");
+        ajoutBesoin.setToolTipText("");
+        ajoutBesoin.setPreferredSize(new java.awt.Dimension(100, 35));
+        ajoutBesoin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ajoutBesoinActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(ajoutBesoin);
+
+        suppressionBesoins.setText("Supprimer");
+        suppressionBesoins.setEnabled(false);
+        suppressionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
+        suppressionBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(suppressionBesoins);
+
+        editerBesoins.setText("Éditer sélection");
+        editerBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
+        editerBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editerBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(editerBesoins);
+
+        checkBoxDijkstraBesoins.setSelected(true);
+        checkBoxDijkstraBesoins.setText("Dijkstra");
+        checkBoxDijkstraBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
+        checkBoxDijkstraBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDijkstraBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(checkBoxDijkstraBesoins);
+        boutonsBesoins.add(jSeparator11);
+        boutonsBesoins.add(jSeparator12);
+        boutonsBesoins.add(jSeparator13);
+        boutonsBesoins.add(jSeparator14);
+
+        panneauCommandes.add(boutonsBesoins, "card3");
+
         boutonsSimulation.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(1200, 35));
         boutonsSimulation.setLayout(new java.awt.GridLayout(1, 0));
@@ -606,7 +681,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -617,7 +692,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -629,13 +704,30 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
             }
         });
         boutonsSelectionTransport.add(comboBoxCircuits);
+
+        boutonsSelectionBesoins.setAlignmentX(1.0F);
+        boutonsSelectionBesoins.setAlignmentY(1.0F);
+        boutonsSelectionBesoins.setOpaque(false);
+        boutonsSelectionBesoins.setPreferredSize(new java.awt.Dimension(90, 120));
+        boutonsSelectionBesoins.setLayout(new java.awt.GridLayout(0, 1, 0, 10));
+
+        jLabel7.setText("Besoins :");
+        boutonsSelectionBesoins.add(jLabel7);
+
+        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsSelectionBesoins.add(comboBoxBesoins);
 
         boutonsSelectionSimulation.setAlignmentX(1.0F);
         boutonsSelectionSimulation.setAlignmentY(1.0F);
@@ -646,7 +738,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -674,7 +766,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -685,7 +777,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -711,6 +803,11 @@ public class MainWindow extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(boutonsSelectionBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -728,6 +825,11 @@ public class MainWindow extends javax.swing.JFrame {
                     .addContainerGap(92, Short.MAX_VALUE)
                     .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
+            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel14Layout.createSequentialGroup()
+                    .addGap(132, 132, 132)
+                    .addComponent(boutonsSelectionBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(52, Short.MAX_VALUE)))
         );
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
@@ -828,7 +930,9 @@ public class MainWindow extends javax.swing.JFrame {
     private void besoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_besoinsActionPerformed
         
         this.setMode(Mode.BESOINS);
-        //boutonsBesoins.setVisible(true);
+        boutonsBesoins.setVisible(true);
+        boutonsSelectionBesoins.setVisible(true);
+        ajoutBesoin.doClick();
     }//GEN-LAST:event_besoinsActionPerformed
 
     private void simulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulationActionPerformed
@@ -935,6 +1039,37 @@ public class MainWindow extends javax.swing.JFrame {
                         default:
                             break;
                     }
+                    break;
+                case BESOINS:
+                    switch (m_commande_courante) {
+
+                        case SELECTIONNER:
+                            m_controleur.deselectionnerBesoins();
+                            ElementBesoins eb = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, evt.isControlDown());
+                         
+                            break;
+
+                        case BESOIN:
+                            Boolean besoinConstruit = false;
+                            try {
+                                //besoinConstruit = m_controleur.construireItineraire(evt.getX(), evt.getY(), echelle);
+                            }
+                            catch(IllegalArgumentException e) {
+                                JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+                            }
+                            if (besoinConstruit)
+                            {
+                                //miseAjourSelectionCircuitsAjout(); 
+                                //panelItineraire.afficheInfo((Itineraire)m_controleur.getBesoins().getPileSelection().getDessus());
+                            }
+                            
+                            miseAjourSelectionArretsAjout();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                    
                 case SIMULATION:
 
                     break;
@@ -1662,6 +1797,33 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxPietonsActionPerformed
 
+    private void selectionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectionBesoinsActionPerformed
+
+    private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
+        //
+        //
+        this.setCommande(Commande.BESOIN);
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_ajoutBesoinActionPerformed
+
+    private void suppressionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suppressionBesoinsActionPerformed
+
+    private void editerBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editerBesoinsActionPerformed
+
+    private void checkBoxDijkstraBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDijkstraBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxDijkstraBesoinsActionPerformed
+
+    private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxBesoinsActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1728,9 +1890,11 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsRoutier.setVisible(false);
         boutonsSelectionRoutier.setVisible(false);
         boutonsTransport.setVisible(false);
+        boutonsBesoins.setVisible(false);
         boutonsSelectionTransport.setVisible(false);
         boutonsSimulation.setVisible(false);
         boutonsSelectionSimulation.setVisible(false);
+        boutonsSelectionBesoins.setVisible(false);
         m_controleur.deselectionnerTout();
         disparaitrePanels();
         this.afficheurReseau.repaint();
@@ -1809,6 +1973,7 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private GUI.AfficheurReseau afficheurReseau;
     private javax.swing.JToggleButton ajoutArret;
+    private javax.swing.JToggleButton ajoutBesoin;
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
     private javax.swing.JButton annuler;
@@ -1816,15 +1981,19 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
     private javax.swing.JPanel boutonModes;
+    private javax.swing.JPanel boutonsBesoins;
     private javax.swing.JPanel boutonsRoutier;
+    private javax.swing.JPanel boutonsSelectionBesoins;
     private javax.swing.JPanel boutonsSelectionRoutier;
     private javax.swing.JPanel boutonsSelectionSimulation;
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JCheckBox checkBoxDijkstra;
+    private javax.swing.JCheckBox checkBoxDijkstraBesoins;
     private javax.swing.JComboBox<String> comboBoxArrets;
     private javax.swing.JComboBox<String> comboBoxAutobus;
+    private javax.swing.JComboBox<String> comboBoxBesoins;
     private javax.swing.JComboBox<String> comboBoxCircuits;
     private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxPietons;
@@ -1833,6 +2002,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
+    private javax.swing.JToggleButton editerBesoins;
     private javax.swing.JMenuItem editerClicDroit;
     private javax.swing.JToggleButton editerRoutier;
     private javax.swing.JToggleButton editerTransport;
@@ -1848,6 +2018,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1864,6 +2035,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1888,9 +2063,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
+    private javax.swing.JToggleButton selectionBesoins;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;
+    private javax.swing.JButton suppressionBesoins;
     private javax.swing.JButton suppressionRoutier;
     private javax.swing.JButton suppressionTransport;
     private javax.swing.JMenuItem supprimerClicDroit;
