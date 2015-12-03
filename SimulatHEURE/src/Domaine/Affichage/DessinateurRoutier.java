@@ -72,6 +72,9 @@ public class DessinateurRoutier
 
     public void dessinerTroncons(Graphics2D p_g, float p_echelle)
     {
+        Graphics2D select_g = (Graphics2D) p_g.create();
+        select_g.setColor(Color.LIGHT_GRAY);
+        select_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
 
         LinkedList<Intersection> intersections = m_reseau.getIntersections();
@@ -81,10 +84,13 @@ public class DessinateurRoutier
             
             for (Troncon troncon: intersection.getTroncons())
             {   
+                p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle));
+                
                 if (troncon.estSuggere())
                     p_g.setColor(Color.ORANGE);          
-                else if (m_reseau.getPileSelection().contient(troncon))
-                    p_g.setColor(Color.BLUE);
+                else if (m_reseau.getPileSelection().contient(troncon)){
+                    p_g.setColor(new Color(50,200,255 , 200));
+                }
                 else 
                     p_g.setColor(Color.LIGHT_GRAY);
                     
@@ -103,8 +109,15 @@ public class DessinateurRoutier
                 
                 fleche.moveTo(p1x, p1y);
                 fleche.lineTo(p2x, p2y);
+                
+                if(m_reseau.getPileSelection().contient(troncon)){
+                    p_g.setStroke(new BasicStroke(Troncon.LARGEUR*2.0f / p_echelle));
+                }
                 p_g.draw(fleche);
-
+                if(m_reseau.getPileSelection().contient(troncon)){
+                    select_g.draw(fleche);
+                }
+                
                 float d = (float)p2.distance(p1);
                 float dx = p2x - p1x;
                 float dy = p2y - p1y;
@@ -125,7 +138,11 @@ public class DessinateurRoutier
                             p1y + 0.5 * dy + ((Troncon.GROSSEUR_FLECHE / 2) * (-dx / d)) / p_echelle);
                 }
                 fleche.closePath();
-                p_g.fill(fleche);              
+                
+                p_g.fill(fleche);  
+                if(m_reseau.getPileSelection().contient(troncon)){
+                    select_g.fill(fleche);
+                }
             }
         }
     }
