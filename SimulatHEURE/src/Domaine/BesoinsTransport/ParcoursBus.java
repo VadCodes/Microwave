@@ -7,13 +7,9 @@ package Domaine.BesoinsTransport;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.Arret;
-<<<<<<< HEAD
-import java.util.LinkedList;
-=======
 import Domaine.ReseauTransport.PaireArretTrajet;
 import java.util.LinkedList;
 import java.util.ListIterator;
->>>>>>> 8f8051d53f218bcc167a16b38ffe8d3fd6332a64
 
 /**
  *
@@ -46,9 +42,7 @@ public class ParcoursBus {
     public void setArretDepart(Arret arretdepart){
         m_arretdepart = arretdepart;
     }
-<<<<<<< HEAD
 
-=======
     public LinkedList getTroncons(){
         boolean premierArret = false;
         LinkedList<Troncon> mesTroncons = new LinkedList<>();
@@ -71,6 +65,3 @@ public class ParcoursBus {
     }
 }
        
->>>>>>> 8f8051d53f218bcc167a16b38ffe8d3fd6332a64
-    
-        
