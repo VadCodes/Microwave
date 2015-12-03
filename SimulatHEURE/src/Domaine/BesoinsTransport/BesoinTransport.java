@@ -16,6 +16,8 @@ public class BesoinTransport {
     private LinkedList<Individu> m_listeIndividus;
     private Itineraire m_itineraire;
     private SourceIndividus m_source;
+    private PileSelectionBesoins m_pileSelection;
+    
     public BesoinTransport(LinkedList<Individu> p_listeIndividus, Itineraire p_itineraire, SourceIndividus p_source){
         m_listeIndividus = p_listeIndividus;
         m_itineraire = p_itineraire;
@@ -44,5 +46,8 @@ public class BesoinTransport {
         m_source.initSourceIndividu();      
     }
             
+    public PileSelectionBesoins getPileSelection(){
+        return m_pileSelection;
+    }
     
 }

@@ -43,7 +43,7 @@ public class ParcoursBus {
         m_arretdepart = arretdepart;
     }
 
-    public LinkedList getTroncons(){
+    public LinkedList<Troncon> getTroncons(){
         boolean premierArret = false;
         LinkedList<Troncon> mesTroncons = new LinkedList<>();
          for (ListIterator<PaireArretTrajet>  paires = m_circuit.getListeArretTrajet().listIterator(); paires.hasNext();) {
@@ -61,7 +61,7 @@ public class ParcoursBus {
                 }
         }
     }
-         return mesTroncons;
+        return mesTroncons;
     }
 }
        

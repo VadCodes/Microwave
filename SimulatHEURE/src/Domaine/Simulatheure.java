@@ -36,6 +36,8 @@ public class Simulatheure {
 
     
     private ReseauBesoins m_reseauBesoins;
+    private Emplacement m_emplacementInitialItn = null;
+    private Boolean m_emplacementInitSurArret = null;
 
     public Simulatheure() {
         m_reseauRoutier = m_historique.getRoutierCourant();
@@ -868,4 +870,86 @@ public class Simulatheure {
         Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
         return m_reseauBesoins.selectionnerItineraire(xReel, yReel, p_echelle, trc);
     }
+    
+    public Boolean construireItineraire(Integer p_x, Integer p_y, Float p_echelle) {
+        float xReel;
+        float yReel;
+        float largeurSelection;
+        Boolean estConstructible = false;
+        
+        Arret arretInitiale;
+        Arret arretFinale;
+        Boolean arretEstNouvelle = false;
+        Boolean succesAjoutArret = false;
+
+        if (p_echelle > 1) {
+            xReel = (p_x - Arret.RAYON) / p_echelle;
+            yReel = (p_y - Arret.RAYON) / p_echelle;
+            largeurSelection = 2 * Arret.RAYON / p_echelle;
+        } else {
+            xReel = p_x / p_echelle - Arret.RAYON;
+            yReel = p_y / p_echelle - Arret.RAYON;
+            largeurSelection = 2 * Arret.RAYON;
+        }
+        Arret arret = m_reseauTransport.selectionnerArretVinny(xReel, yReel, largeurSelection, p_echelle);
+        if(m_emplacementInitialItn==null){
+            if (arret == null) {
+                ElementRoutier elementRoutier = obtenirElementRoutier(p_x, p_y, p_echelle);
+                if (elementRoutier != null)
+                {
+                    Emplacement emplacementDesire;
+                    if (elementRoutier.getClass() == Intersection.class)
+                    {
+                        emplacementDesire = new Emplacement(false, 0, null, (Intersection)elementRoutier);
+                    }
+                    else
+                    {
+                        Troncon tronconObtenu = (Troncon)elementRoutier;
+                        Point2D.Float p2 = new Point2D.Float(p_x / p_echelle, p_y / p_echelle);
+                        float d1 = (float)tronconObtenu.getOrigine().getPosition().distance(p2);
+                        float d2 = tronconObtenu.getLongueurTroncon();
+                        emplacementDesire = new Emplacement(true, d1 / d2, tronconObtenu, tronconObtenu.getOrigine());
+                    }
+
+                    m_emplacementInitialItn = emplacementDesire;
+                    m_emplacementInitSurArret = false;
+
+                }
+                else{
+                    return false;
+                }
+            }
+            else {
+                m_emplacementInitialItn = arret.getEmplacement();
+                m_emplacementInitSurArret = true;
+            }
+        }
+        else{
+            if (arret==null)
+                return false;
+            
+            if(m_emplacementInitSurArret){
+                
+            }
+        }
+
+        return true;
+        //Clic sur un élément routier (si arret passer etape suivante)
+        //Ça fait l'emplacement initial de l'itinéraire
+        //
+        //Clic sur un arrêt (vérifier si atteignable)
+        //Dijkstra entre emplacement et arrêt
+        //Cliquer sur arrêt final du parcours bus
+        //
+        //On va chercher la première occurrence de l'arrêt final et on cherche backwards jusqu'à l'arrêt initial
+        //Si trouve pas rechercher avec les occurrence de l'arrêt final suivant
+        //Si marche pas dire qu'on peut pas arrêt initial vers arrêt final donc empêcher
+            //ca veut dire essayé de faire circuit backwards (ou deux arrets mauvais circuit)
+            //mais permettre si boucle
+        //
+        //Dès qu'on reclique sur un tronçon c'est fini
+        //Pour allonger il faut cliquer sur un arrêt et ça cancelle le dernier trajet pour le remplacer par un trajet qui se rend à l'arrêt
+    }
+        
+    
 }

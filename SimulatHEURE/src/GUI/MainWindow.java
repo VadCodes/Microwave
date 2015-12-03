@@ -1052,7 +1052,7 @@ public class MainWindow extends javax.swing.JFrame {
                         case BESOIN:
                             Boolean besoinConstruit = false;
                             try {
-                                //besoinConstruit = m_controleur.construireItineraire(evt.getX(), evt.getY(), echelle);
+                                besoinConstruit = m_controleur.construireItineraire(evt.getX(), evt.getY(), echelle);
                             }
                             catch(IllegalArgumentException e) {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
