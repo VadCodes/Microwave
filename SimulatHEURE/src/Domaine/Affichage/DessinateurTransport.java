@@ -78,19 +78,15 @@ public class DessinateurTransport {
     }
     
     public void dessinerCircuit(Graphics2D p_g, float p_echelle)
-    {
-        p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
+    {        
+        Graphics2D select_g = (Graphics2D) p_g.create();
+        select_g.setColor(new Color(50,200,255 , 200));
+        select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {
-            if(m_reseau.getPileSelection().contient(circuit))
-            {
-                p_g.setColor(Color.BLUE);
-            }
-            else
-            {
-                p_g.setColor(circuit.getCouleur());
-            }
+            p_g.setColor(circuit.getCouleur());
+            p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
             
             Path2D.Float chemin = new Path2D.Float();
             for (ListIterator<PaireArretTrajet> itPaire = circuit.getListeArretTrajet().listIterator() ; itPaire.hasNext() ; )
@@ -138,7 +134,10 @@ public class DessinateurTransport {
                     }
                 }
             }
+            if(m_reseau.getPileSelection().contient(circuit))
+                select_g.draw(chemin);
             p_g.draw(chemin); 
+            
         }
 
     }
