@@ -81,6 +81,7 @@ public class DessinateurTransport {
     {        
         Graphics2D select_g = (Graphics2D) p_g.create();
         select_g.setColor(new Color(50,200,255 , 200));
+        select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {
