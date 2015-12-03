@@ -34,6 +34,7 @@ public class BesoinTransport {
         m_listeIndividus = p_listeIndividus;
     }
     public void setItineraire(Itineraire p_itineraire){
+
         m_itineraire = p_itineraire;
     }
     public void setSourceIndividus(SourceIndividus p_source){
@@ -43,4 +44,5 @@ public class BesoinTransport {
         m_source.initSourceIndividu();      
     }
             
+    
 }

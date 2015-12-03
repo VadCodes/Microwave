@@ -8,6 +8,8 @@ package Domaine.BesoinsTransport;
 import Domaine.ReseauTransport.Trajet;
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.*;
+import Domaine.ReseauTransport.PaireArretTrajet;
+import java.util.ListIterator;
 
 /**
  *
@@ -32,4 +34,8 @@ public class PaireParcours {
     public void setParcoursBus(ParcoursBus parcoursBus){
         m_parcoursBus = parcoursBus;
     }
+    public LinkedList<Troncon> getTroncons(){
+        return m_parcoursBus.getTroncons();
+    }
 }
+    

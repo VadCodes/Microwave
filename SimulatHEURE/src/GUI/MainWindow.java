@@ -255,7 +255,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonModes.add(transport);
 
         besoins.setText("Besoins transport");
-        besoins.setEnabled(false);
         besoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 besoinsActionPerformed(evt);
@@ -1207,7 +1206,7 @@ public class MainWindow extends javax.swing.JFrame {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 if (elementsRoutiersSelectionnes == null || elementsRoutiersSelectionnes.size() == 0) return;
-                ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getFirst();
+                ElementRoutier elemRoutier = elementsRoutiersSelectionnes.getLast();
 
                 //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
                 if (elemRoutier.getClass() == Intersection.class) {
@@ -1231,7 +1230,7 @@ public class MainWindow extends javax.swing.JFrame {
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
                 if (elementsTransportSelectionnes.getFirst() == null) return;
-                ElementTransport elemTransport = elementsTransportSelectionnes.getFirst();
+                ElementTransport elemTransport = elementsTransportSelectionnes.getLast();
 
                 if (elemTransport.getClass() == SourceAutobus.class) {
                     EditerSource fenetre = new EditerSource();

@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 package Domaine.BesoinsTransport;
+import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.ReseauTransport.Arret;
+import Domaine.ReseauTransport.PaireArretTrajet;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  *
@@ -38,5 +42,27 @@ public class ParcoursBus {
     public void setArretDepart(Arret arretdepart){
         m_arretdepart = arretdepart;
     }
-    
+    public LinkedList getTroncons(){
+        boolean premierArret = false;
+        LinkedList<Troncon> mesTroncons = new LinkedList<>();
+         for (ListIterator<PaireArretTrajet>  paires = m_circuit.getListeArretTrajet().listIterator(); paires.hasNext();) {
+            PaireArretTrajet paire = paires.next();
+            if(m_arretdepart.equals(paire.getArret())){
+                premierArret = true;
+            }
+            else if(m_arretfinal.equals(paire.getArret())){
+                premierArret = false;
+            }
+            if(premierArret = true){
+                for (ListIterator<Troncon>  troncons = paire.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
+                    Troncon troncon = troncons.next();
+                    mesTroncons.add(troncon);
+                }
+        }
+    }
+         return mesTroncons;
+    }
 }
+       
+    
+        
