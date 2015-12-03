@@ -1404,6 +1404,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
     private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
         m_controleur.annuler();
+        miseAJourPanels();
+        miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         
         this.afficheurReseau.repaint();        
@@ -1411,6 +1413,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
         m_controleur.retablir();
+        miseAJourPanels();
+        miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
         
         this.afficheurReseau.repaint();

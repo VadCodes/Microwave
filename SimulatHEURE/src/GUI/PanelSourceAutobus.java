@@ -31,7 +31,7 @@ public class PanelSourceAutobus extends PanelEdition {
         jTextField1.setText(m_source.getNom());
         
         jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()/60));
-        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()/60));
+        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsFreq().getTemps()/60));
         jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()/60));
         jTextField5.setText(String.valueOf(m_source.getTempsAttenteInitial().getTemps()/60));
         int nbMaxBus = m_source.getNbMaxAutobus();
@@ -42,7 +42,7 @@ public class PanelSourceAutobus extends PanelEdition {
             jTextField6.setText(String.valueOf(m_source.getNbMaxAutobus()));
         }
         
-        jTextField7.setText(String.valueOf(m_source.getCapaciteMax()));
+        jTextField7.setText(String.valueOf(m_source.getCapaciteAutobus()));
         
         if(m_source.getEmplacement().estSurTroncon()){
             jLabel10.setText(m_source.getEmplacement().getTroncon().getNom());
@@ -99,9 +99,11 @@ public class PanelSourceAutobus extends PanelEdition {
         m_source.getDistribution().setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         m_source.setTempsAttenteInitial(new Temps(delai*60));
         m_source.setNbMaxAutobus(nbBus);
-        m_source.setCapaciteMax(capacite);
+        m_source.setCapaciteAutobus(capacite);
         
         m_source.setNom(jTextField1.getText());
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
     }
     

@@ -108,6 +108,8 @@ public class EditerIntersection extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // bouton OK
         m_intersection.setNom(jTextField1.getText());
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
         m_mainWindow.miseAJourPanels();
         this.dispose();

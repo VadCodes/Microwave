@@ -29,7 +29,7 @@ public class EditerSource extends javax.swing.JFrame {
         m_source = src;
         jTextField1.setText(m_source.getNom());
         jTextField2.setText(String.valueOf(m_source.getDistribution().getTempsMin().getTemps()/60));
-        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsPlusFrequent().getTemps()/60));
+        jTextField3.setText(String.valueOf(m_source.getDistribution().getTempsFreq().getTemps()/60));
         jTextField4.setText(String.valueOf(m_source.getDistribution().getTempsMax().getTemps()/60));
         jTextField5.setText(String.valueOf(m_source.getTempsAttenteInitial().getTemps()/60));
         int nbMaxBus = m_source.getNbMaxAutobus();
@@ -232,6 +232,8 @@ public class EditerSource extends javax.swing.JFrame {
         m_source.setNbMaxAutobus(nbBus);
         
         m_source.setNom(jTextField1.getText());
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
         m_mainWindow.miseAJourPanels();
         this.dispose();

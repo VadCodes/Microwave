@@ -995,5 +995,4 @@ public class Simulatheure {
             m_reseauTransport = m_historique.getTransportCourant();
             resilierConstruction();
     }
-    
 }

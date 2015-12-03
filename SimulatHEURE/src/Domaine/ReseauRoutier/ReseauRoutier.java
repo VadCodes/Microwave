@@ -53,8 +53,7 @@ public class ReseauRoutier extends Reseau{
                 
                 interCopiee.getTroncons().getLast().setNom(tronconSource.getNom());
                 interCopiee.getTroncons().getLast().setDistribution(tronconSource.getDistribution());
-                interCopiee.getTroncons().getLast().copierDoubleSens(tronconSource.estDoubleSens());
-                
+                interCopiee.getTroncons().getLast().copierDoubleSens(tronconSource.estDoubleSens());                
             }
         }
         

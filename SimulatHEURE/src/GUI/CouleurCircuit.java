@@ -13,8 +13,8 @@ import javax.swing.JPanel;
  * @author louis
  */
 public class CouleurCircuit extends javax.swing.JFrame {
-    Circuit m_circuit;
-    PanelCircuit m_panelParent;
+    private Circuit m_circuit;
+    private PanelCircuit m_panelParent;
     
     /**
      * Creates new form CouleurCircuit
@@ -95,6 +95,7 @@ public class CouleurCircuit extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         m_circuit.setCouleur(jColorChooser1.getColor());
         m_panelParent.setCouleurBouton();
+        m_panelParent.m_mainWindow.m_controleur.getHistorique().modifier();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
