@@ -776,10 +776,10 @@ public class Simulatheure implements java.io.Serializable {
     public void demarrerSimulation() {
         m_reseauRoutier.initReseauRoutier();
         m_reseauTransport.initReseauTransport();
-        ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
-        while (BesoinTransportItr.hasNext()) {
-           // BesoinTransportItr.next().initBesoinTransport();
-        }
+//        ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
+//        while (BesoinTransportItr.hasNext()) {
+//           // BesoinTransportItr.next().initBesoinTransport();
+//        }
     }
 
     public void rafraichirSimulation(Temps m_deltaT) {
@@ -805,6 +805,7 @@ public class Simulatheure implements java.io.Serializable {
                 source.setDefault();
             }
             circuit.getListeAutobus().clear();
+            circuit.clearRepresentation();
         }
     }
     
