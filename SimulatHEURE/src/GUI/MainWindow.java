@@ -1817,6 +1817,37 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxPietonsActionPerformed
 
+    private void selectionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_selectionBesoinsActionPerformed
+
+    private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
+        //
+        //
+        this.setCommande(Commande.BESOIN);
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_ajoutBesoinActionPerformed
+
+    private void suppressionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suppressionBesoinsActionPerformed
+
+    private void editerBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editerBesoinsActionPerformed
+
+    private void checkBoxDijkstraBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDijkstraBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkBoxDijkstraBesoinsActionPerformed
+
+    private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxBesoinsActionPerformed
+
+    private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
+       statistiques();
+    }//GEN-LAST:event_comboBoxStatActionPerformed
+    
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
     try
     {
