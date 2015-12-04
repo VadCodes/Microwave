@@ -9,7 +9,7 @@ package Domaine.ReseauRoutier;
  *
  * @author louis
  */
-public class ElementRoutier {
+public class ElementRoutier implements java.io.Serializable {
     //private Boolean m_estSelectionne = false;
     private Boolean m_estSuggere = false;
     

@@ -13,7 +13,7 @@ import java.util.ListIterator;
  *
  * @author Vinny
  */
-public class Historique {
+public class Historique implements java.io.Serializable {
 
     private LinkedList<Reseau> m_reseauxTransports = new LinkedList<>();
     private ListIterator<Reseau> m_curseurAvantTransportCourant = m_reseauxTransports.listIterator();

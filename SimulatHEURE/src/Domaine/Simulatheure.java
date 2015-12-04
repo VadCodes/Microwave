@@ -13,13 +13,13 @@ import java.util.ListIterator;
  *
  * @author vinny
  */
-public class Simulatheure {
+public class Simulatheure implements java.io.Serializable {
 
     public enum Mode {
 
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
-
+    
     public enum Commande {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT

@@ -9,7 +9,7 @@ package Domaine.ReseauTransport;
  *
  * @author Nathaniel
  */
-public class ElementTransport {
+public class ElementTransport implements java.io.Serializable {
 //    private Boolean m_estSelectionne = false;
 //    
 //    public Boolean estSelectionne(){

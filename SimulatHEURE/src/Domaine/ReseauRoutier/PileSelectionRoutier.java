@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  *
  * @author louis
  */
-public class PileSelectionRoutier {
+public class PileSelectionRoutier implements java.io.Serializable {
     private LinkedList<ElementRoutier> m_pile = new LinkedList<ElementRoutier>();
     
     public PileSelectionRoutier(){}

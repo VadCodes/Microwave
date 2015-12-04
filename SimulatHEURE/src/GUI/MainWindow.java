@@ -3,7 +3,10 @@
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Mode;
 import Domaine.Simulatheure.Commande;
-
+ 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
@@ -27,8 +30,8 @@ public class MainWindow extends javax.swing.JFrame {
     //public Simulatheure m_controleurSimulation;
     //public Simulatheure m_contoleurReseau;
     
-    public Mode m_mode_courant;
-    public Commande m_commande_courante;
+    public Mode m_modeCourant;
+    public Commande m_commandeCourante;
     
     private Timer m_timer;
     private Chronometre m_crono;
@@ -159,21 +162,21 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<String>();
+        comboBoxArrets = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<String>();
+        comboBoxSources = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<String>();
+        comboBoxCircuits = new javax.swing.JComboBox<>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<String>();
+        comboBoxAutobus = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<String>();
+        comboBoxTroncons = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<String>();
+        comboBoxIntersections = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -185,6 +188,7 @@ public class MainWindow extends javax.swing.JFrame {
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
+        sauvegarder = new javax.swing.JMenuItem();
 
         groupeModes.add(routier);
         groupeModes.add(transport);
@@ -606,7 +610,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -617,7 +621,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -629,7 +633,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
@@ -646,7 +650,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -674,7 +678,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -685,7 +689,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -797,6 +801,14 @@ public class MainWindow extends javax.swing.JFrame {
         });
         fichier.add(quitter);
 
+        sauvegarder.setText("Sauvegarder");
+        sauvegarder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sauvegarderActionPerformed(evt);
+            }
+        });
+        fichier.add(sauvegarder);
+
         menu.add(fichier);
 
         setJMenuBar(menu);
@@ -849,10 +861,10 @@ public class MainWindow extends javax.swing.JFrame {
         float echelle = afficheurReseau.getEchelle();
         if (SwingUtilities.isLeftMouseButton(evt)) {
 
-            switch (m_mode_courant) {
+            switch (m_modeCourant) {
                 case ROUTIER:
 
-                    switch (m_commande_courante) {
+                    switch (m_commandeCourante) {
                         case SELECTIONNER:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                             
@@ -887,7 +899,7 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                     break;
                 case TRANSPORT:
-                    switch (m_commande_courante) {
+                    switch (m_commandeCourante) {
 
                         case SELECTIONNER:
                             m_controleur.deselectionnerRoutier();
@@ -943,7 +955,7 @@ public class MainWindow extends javax.swing.JFrame {
                     break;
             }
         } else if (SwingUtilities.isRightMouseButton(evt)) {
-            switch (m_mode_courant) {
+            switch (m_modeCourant) {
                 case ROUTIER:
                     m_controleur.deselectionnerTout();
                     ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, false);
@@ -981,7 +993,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAjourComboBoxTotal() {
-        Commande cmdTemp = this.m_commande_courante;  // wtf la commande change..
+        Commande cmdTemp = this.m_commandeCourante;  // wtf la commande change..
         
         comboBoxCircuits.removeAllItems();
         comboBoxSources.removeAllItems();
@@ -994,7 +1006,7 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxIntersections.addItem("Aucun");
         comboBoxTroncons.addItem("Aucun");
         
-        m_commande_courante = cmdTemp;  // wtf la commande change..
+        m_commandeCourante = cmdTemp;  // wtf la commande change..
         
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
@@ -1203,7 +1215,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_suppressionRoutierActionPerformed
     
     private void editerElement() {
-        switch (m_mode_courant) {
+        switch (m_modeCourant) {
             case ROUTIER:
                 LinkedList<ElementRoutier> elementsRoutiersSelectionnes = m_controleur.getElementsSelectionnesRoutier();
                 if (elementsRoutiersSelectionnes == null || elementsRoutiersSelectionnes.size() == 0) return;
@@ -1270,7 +1282,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_supprimerClicDroitActionPerformed
 
     private void suppression(){
-        switch (m_mode_courant) {
+        switch (m_modeCourant) {
             case ROUTIER:
                 suppressionRoutier.doClick();
                 break;
@@ -1299,7 +1311,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     public void miseAJourPanels(){
         disparaitrePanels();
-        switch(m_mode_courant){
+        switch(m_modeCourant){
             case ROUTIER:
                 ElementRoutier er = m_controleur.getRoutier().getPileSelection().getDessus();
                 if(er!=null)
@@ -1446,6 +1458,8 @@ public class MainWindow extends javax.swing.JFrame {
         routier.setEnabled(false);
         transport.setEnabled(false);
         besoins.setEnabled(false);
+        annuler.setEnabled(false);
+        retablir.setEnabled(false);
         
         recommancerSimulation.setEnabled(true);
         arreterSimulation.setEnabled(true);
@@ -1558,7 +1572,9 @@ public class MainWindow extends javax.swing.JFrame {
         
         routier.setEnabled(true);
         transport.setEnabled(true);
-        //besoins.setEnabled(true);
+        besoins.setEnabled(true);
+        annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
+        retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
         
         recommancerSimulation.setEnabled(false);
         arreterSimulation.setEnabled(false);
@@ -1666,6 +1682,22 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxPietonsActionPerformed
 
+    private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
+    try
+    {
+        FileOutputStream fileOut = new FileOutputStream ("controleur.mw");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(m_controleur.getTransport());
+        out.close();
+        fileOut.close();
+        System.out.println("Ça marche !");
+    }
+    catch (IOException e)
+    {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_sauvegarderActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -1728,7 +1760,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void setMode(Mode p_mode) {
-        this.m_mode_courant = p_mode;
+        this.m_modeCourant = p_mode;
         boutonsRoutier.setVisible(false);
         boutonsSelectionRoutier.setVisible(false);
         boutonsTransport.setVisible(false);
@@ -1741,7 +1773,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void setCommande(Commande p_commande) {
-        this.m_commande_courante = p_commande;
+        this.m_commandeCourante = p_commande;
     }
 
     public javax.swing.JScrollPane getDefilementAfficheur() {
@@ -1749,64 +1781,48 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAJourPermissionsBoutons() {
-        if (m_controleur.getHistorique().peutAnnuler())
-            annuler.setEnabled(true);
-        else
-            annuler.setEnabled(false);
+        annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
+        retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
         
-        if (m_controleur.getHistorique().peutRetablir())
-            retablir.setEnabled(true);
-        else
-            retablir.setEnabled(false);
-        
-        
-        switch (m_mode_courant) {
-            case ROUTIER:
+        if (m_controleur.getRoutier().getIntersections().size() > 1) {
+            selectionRoutier.setEnabled(true);
+            suppressionRoutier.setEnabled(true);
+        } else if (m_controleur.getRoutier().getIntersections().size() > 0) {
+            selectionRoutier.setEnabled(true);
+            suppressionRoutier.setEnabled(true);
+        } else {
+            selectionRoutier.setEnabled(false);
+            suppressionRoutier.setEnabled(false);
+            if (m_modeCourant == Mode.ROUTIER)
+                constructionTroncon.doClick();
+        }
 
-                if (comboBoxIntersections.getItemCount() > 2) {
-                    selectionRoutier.setEnabled(true);
-                    suppressionRoutier.setEnabled(true);
-                } else if (comboBoxIntersections.getItemCount() > 1) {
-                    selectionRoutier.setEnabled(true);
-                    suppressionRoutier.setEnabled(true);
-                } else {
-                    selectionRoutier.setEnabled(false);
-                    suppressionRoutier.setEnabled(false);
-                    constructionTroncon.doClick();
-                }
+        if (comboBoxTroncons.getItemCount() > 1) {
+            transport.setEnabled(true);
+        } else {
+            transport.setEnabled(false);
+            if (m_modeCourant != Mode.ROUTIER)
+                routier.doClick();
+        }
 
-                if (comboBoxTroncons.getItemCount() > 1) {
-                    transport.setEnabled(true);
-                } else {
-                    transport.setEnabled(false);
-                }
+        if (m_controleur.getTransport().getListeArrets().size() > 0) {
+            selectionTransport.setEnabled(true);
+            suppressionTransport.setEnabled(true);
+        } else {
+            selectionTransport.setEnabled(false);
+            suppressionTransport.setEnabled(false);
+            if (m_modeCourant == Mode.TRANSPORT)
+                ajoutCircuit.doClick();
+        }
 
-                break;
-
-            case TRANSPORT:
-                if (comboBoxArrets.getItemCount() > 2) {
-                    selectionTransport.setEnabled(true);
-                    suppressionTransport.setEnabled(true);
-                } else if (comboBoxArrets.getItemCount() > 1) {
-                    selectionTransport.setEnabled(true);
-                    suppressionTransport.setEnabled(true);
-                } else {
-                    selectionTransport.setEnabled(false);
-                    suppressionTransport.setEnabled(false);
-                    ajoutCircuit.doClick();
-                }
-
-                if (comboBoxSources.getItemCount() > 1) {
-                    simulation.setEnabled(true);
-                } else {
-                    simulation.setEnabled(false);
-                }
-
-                break;
-
-            default:
-                break;
-
+        if (comboBoxSources.getItemCount() > 1) {
+            besoins.setEnabled(true);
+            simulation.setEnabled(true);
+        } else {
+            besoins.setEnabled(false);
+            simulation.setEnabled(false);
+            if (m_modeCourant == Mode.SIMULATION)
+                transport.doClick();
         }
     }
 
@@ -1892,6 +1908,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
+    private javax.swing.JMenuItem sauvegarder;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
     private javax.swing.JToggleButton simulation;

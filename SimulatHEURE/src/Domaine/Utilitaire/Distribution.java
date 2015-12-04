@@ -4,7 +4,7 @@ package Domaine.Utilitaire;
  *
  * @author vinny
  */
-public class Distribution {
+public class Distribution implements java.io.Serializable {
     private Temps m_tempsMinimum;
     private Temps m_tempsPlusFrequent;
     private Temps m_tempsMaximum;

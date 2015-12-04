@@ -13,7 +13,7 @@ import java.util.LinkedList;
  *
  * @author Nathaniel
  */
-public class ReseauTransportFactory {
+public class ReseauTransportFactory implements java.io.Serializable {
     ReseauTransportFactory(){}
 
     public Arret creerArret(Emplacement emplacement){
