@@ -1905,9 +1905,28 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
 
     private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
-       statistiques();
+        statistiques();
     }//GEN-LAST:event_comboBoxStatActionPerformed
-
+    
+    private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
+        int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
+        this.m_controleur.getHistorique().clearCurseur();
+        try
+        {
+            FileOutputStream fileOut = new FileOutputStream ("controleur.mw");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(m_controleur);
+            out.close();
+            fileOut.close();
+            System.out.println("Ça marche !");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        this.m_controleur.getHistorique().setCurseur(indexCurseur);
+        
+    }//GEN-LAST:event_sauvegarderActionPerformed
 
     /**
      * @param args the command line arguments
