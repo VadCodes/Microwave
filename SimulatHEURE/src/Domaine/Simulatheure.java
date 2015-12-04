@@ -875,12 +875,6 @@ public class Simulatheure {
         float xReel;
         float yReel;
         float largeurSelection;
-        Boolean estConstructible = false;
-        
-        Arret arretInitiale;
-        Arret arretFinale;
-        Boolean arretEstNouvelle = false;
-        Boolean succesAjoutArret = false;
 
         if (p_echelle > 1) {
             xReel = (p_x - Arret.RAYON) / p_echelle;
@@ -929,6 +923,12 @@ public class Simulatheure {
                 return false;
             
             if(m_emplacementInitSurArret){
+                //parcoursbus
+            }
+            else{
+                //trajet
+                Trajet traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
+                        m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
                 
             }
         }
