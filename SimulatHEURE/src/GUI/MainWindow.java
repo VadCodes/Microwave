@@ -13,6 +13,8 @@ import javax.swing.Timer;
 import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
+import Domaine.Statistiques.StatistiqueBesoin;
+import Domaine.Statistiques.StatistiquesGeneral;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -38,6 +40,8 @@ public class MainWindow extends javax.swing.JFrame {
     public double m_tempsDebutSimulation;
     public double m_tempsFinSimulation;
     private boolean m_simulationEstLancer = false;
+    private LinkedList<StatistiquesGeneral> m_statistiques = new LinkedList<>();
+    private LinkedList<Integer> m_idSimuli = new LinkedList<>();
     private volatile int screenX = 0;
     private volatile int screenY = 0;
     private volatile int myX = 0;
@@ -197,6 +201,11 @@ public class MainWindow extends javax.swing.JFrame {
         panelSourceAutobus1 = new GUI.PanelSourceAutobus();
         panelTroncon1 = new GUI.PanelTroncon();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel10 = new javax.swing.JPanel();
+        comboBoxStat = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
         quitter = new javax.swing.JMenuItem();
@@ -490,7 +499,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.setAlignmentY(1.0F);
         boutonsBesoins.setMinimumSize(new java.awt.Dimension(1200, 35));
         boutonsBesoins.setPreferredSize(new java.awt.Dimension(1200, 35));
-        boutonsBesoins.setLayout(new java.awt.GridLayout());
+        boutonsBesoins.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionBesoins.setText("Sélectionner");
         selectionBesoins.setEnabled(false);
@@ -871,16 +880,70 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("SimulatHEURE", jPanel3);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1595, Short.MAX_VALUE)
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Itinéraire", "Temps minimum", "Temps moyen", "Temps maximum"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel10.setPreferredSize(new java.awt.Dimension(50, 50));
+
+        comboBoxStat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxStatActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Simulation :");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel6)
+                .addGap(78, 78, 78)
+                .addComponent(comboBoxStat, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1225, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 874, Short.MAX_VALUE)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxStat, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel6))
+                .addContainerGap())
         );
+
+        jPanel4.add(jPanel10, java.awt.BorderLayout.NORTH);
 
         jTabbedPane1.addTab("Statistiques", jPanel4);
 
@@ -947,6 +1010,11 @@ public class MainWindow extends javax.swing.JFrame {
         boolean intersectionAjoutee = true;
         afficheurReseau.setDimension(intersectionAjoutee);
         defilementAfficheur.setViewportView(afficheurReseau);
+    }
+    
+    private void statistiques(){
+        m_statistiques.getFirst();
+        jTable1.setValueAt("allo", 2,2);
     }
     
     private void afficheurReseauMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMousePressed
@@ -1101,7 +1169,18 @@ public class MainWindow extends javax.swing.JFrame {
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
 
-    
+    private void miseAjourStatApresSimulation(){
+        if(m_idSimuli.size() == 0){
+             m_idSimuli.addLast(1);
+        }
+        else{
+             m_idSimuli.addLast(m_idSimuli.getLast() +1);
+        }
+        comboBoxStat.removeAllItems();
+        for( Integer inte : m_idSimuli){
+            comboBoxStat.addItem(Integer.toString(inte));
+        }
+    }
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
@@ -1680,6 +1759,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_crono.pause();
         m_simulationEstLancer = false;
         m_controleur.arreterSimulation();
+        miseAjourStatApresSimulation();
     }
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
@@ -1823,6 +1903,10 @@ public class MainWindow extends javax.swing.JFrame {
     private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
+
+    private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
+       statistiques();
+    }//GEN-LAST:event_comboBoxStatActionPerformed
 
 
     /**
@@ -1998,6 +2082,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxIntersections;
     private javax.swing.JComboBox comboBoxPietons;
     private javax.swing.JComboBox<String> comboBoxSources;
+    private javax.swing.JComboBox<String> comboBoxStat;
     private javax.swing.JComboBox<String> comboBoxTroncons;
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
@@ -2018,10 +2103,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
@@ -2033,6 +2120,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -2048,6 +2136,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private GUI.PanelArret panelArret1;

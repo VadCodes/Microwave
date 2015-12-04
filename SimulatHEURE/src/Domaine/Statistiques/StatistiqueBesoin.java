@@ -18,9 +18,17 @@ public class StatistiqueBesoin {
     private double m_maxTempsDeplacement =0;
     private double m_minTempsDeplacement = Double.MAX_VALUE;
     private int m_nombreEchantion = 0;
-    private Itineraire m_itineraire;
-    public StatistiqueBesoin(Itineraire p_itineraire){
+    private String m_itineraire;
+    public StatistiqueBesoin(String p_itineraire){
         m_itineraire = p_itineraire;
+    }
+    public StatistiqueBesoin(StatistiqueBesoin p_stat){
+        m_sommeDesTemps = p_stat.m_sommeDesTemps;
+        m_precisionGlobal = p_stat.m_precisionGlobal;
+        m_maxTempsDeplacement = p_stat.m_maxTempsDeplacement;
+        m_minTempsDeplacement = p_stat.m_minTempsDeplacement;
+        m_nombreEchantion = p_stat.m_nombreEchantion;
+        m_itineraire = p_stat.m_itineraire;
     }
     public void miseAJourStat(Temps p_temps){
         m_nombreEchantion++;

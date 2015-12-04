@@ -774,10 +774,10 @@ public class Simulatheure {
     public void demarrerSimulation() {
         m_reseauRoutier.initReseauRoutier();
         m_reseauTransport.initReseauTransport();
-        ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
-        while (BesoinTransportItr.hasNext()) {
+        //ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
+        //while (BesoinTransportItr.hasNext()) {
            // BesoinTransportItr.next().initBesoinTransport();
-        }
+        //}
     }
 
     public void rafraichirSimulation(Temps m_deltaT) {

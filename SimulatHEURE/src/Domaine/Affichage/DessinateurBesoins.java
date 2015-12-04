@@ -38,7 +38,7 @@ public class DessinateurBesoins {
         select_g.setColor(new Color(50,200,255 , 200));
         select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
         for (Itineraire itineraire: m_reseau.getItineraire()){
-            p_g.setColor(itineraire.getCouleur());
+           // p_g.setColor(itineraire.getCouleur());
             p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
             Path2D.Float chemin = new Path2D.Float();
            
@@ -87,9 +87,9 @@ public class DessinateurBesoins {
                     }
                 }
             }
-            if(m_reseau.getPileSelection().contient(itineraire))
-                select_g.draw(chemin);
-            p_g.draw(chemin); 
+          //  if(m_reseau.getPileSelection().contient(itineraire))
+           //     select_g.draw(chemin);
+            //p_g.draw(chemin); 
         }
     }
 }
