@@ -6,8 +6,10 @@
 package GUI;
 
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauTransport.Circuit;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +30,7 @@ public class PanelTroncon extends PanelEdition {
         m_troncon = trc;
         jTextField1.setText(m_troncon.getNom());
         jTextField2.setText(String.valueOf(m_troncon.getDistribution().getTempsMin().getTemps()/60));
-        jTextField3.setText(String.valueOf(m_troncon.getDistribution().getTempsPlusFrequent().getTemps()/60));
+        jTextField3.setText(String.valueOf(m_troncon.getDistribution().getTempsFreq().getTemps()/60));
         jTextField4.setText(String.valueOf(m_troncon.getDistribution().getTempsMax().getTemps()/60));
         
         jLabel7.setText(m_troncon.getOrigine().getName());
@@ -38,27 +40,38 @@ public class PanelTroncon extends PanelEdition {
     
     public void setInfo(){
         double min,freq,max;
-        try{
+        
+        double ancienTempsMoyen = m_troncon.getDistribution().getTempsMoyen().getTemps();
+        
+        try
+        {
+            m_troncon.setNom(jTextField1.getText());
             min = Double.parseDouble(jTextField2.getText());
             freq = Double.parseDouble(jTextField3.getText());
             max = Double.parseDouble(jTextField4.getText());
+            m_troncon.getDistribution().setDistribution(new Temps(60 * min), new Temps(60 * freq), new Temps(60 * max));
+            if (ancienTempsMoyen != m_troncon.getDistribution().getTempsMoyen().getTemps())
+            {
+                LinkedList<Circuit> circuitsAffectes = m_mainWindow.m_controleur.obtenirCircuitsAffectes(m_troncon);
+                if (!circuitsAffectes.isEmpty())
+                    if (JOptionPane.showConfirmDialog(null, "Certains circuits sont affectés par la nouvelle distribution. Voulez-vous optimiser les circuits affectés ?", 
+                            "Optimisation des circuits", JOptionPane.YES_NO_OPTION) == 0)
+                    {
+                        m_mainWindow.m_controleur.optimiserCircuitsAffectes(circuitsAffectes, m_troncon);
+                    }
+            }
         }
         catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Les champs de temps doivent contenir des nombres", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
         }
-        if  (min > freq){
-            JOptionPane.showMessageDialog(null, "Le temps minimal doit être inférieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (freq > max){
-            JOptionPane.showMessageDialog(null, "Le temps maximal doit être supérieur ou égal au temps le plus fréquent", "Champs invalides", JOptionPane.ERROR_MESSAGE);
-            return;
+        catch (IllegalArgumentException e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
         }
         
-        m_troncon.getDistribution().setDistribution(new Temps(min*60), new Temps(freq*60), new Temps(max*60));
         
-        m_troncon.setNom(jTextField1.getText());
+        m_mainWindow.m_controleur.getHistorique().modifier();
+        m_mainWindow.miseAJourPermissionsBoutons();
         m_mainWindow.miseAjourComboBoxTotal();
     }
     

@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
  *
  * @author Nathaniel
  */
-public class Emplacement {
+public class Emplacement implements java.io.Serializable {
     private Boolean m_estSurTroncon;
     private float m_pourcentageParcouru;
     private Troncon m_troncon;

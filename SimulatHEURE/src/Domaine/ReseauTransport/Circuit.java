@@ -54,19 +54,27 @@ public class Circuit extends ElementTransport{
         }
     }
     public void setNom(String p_nom){
-        m_nom = p_nom;
+        m_nom = p_nom;       
+    }
+    
+    public void initRepresentation(){
         Font a = new Font(null, Font.BOLD, 12);
-        m_representationNom = a.createGlyphVector(new FontRenderContext(null, false, false), p_nom);
+        m_representationNom = a.createGlyphVector(new FontRenderContext(null, false, false), m_nom);
         double ajX = m_representationNom.getVisualBounds().getCenterX();
         double ajY = m_representationNom.getVisualBounds().getCenterY();
         
-        for (int i = 0 ; i< p_nom.length() ; i++)
+        for (int i = 0 ; i< m_nom.length() ; i++)
         {
             Point2D position = m_representationNom.getGlyphPosition(i);
             position.setLocation(position.getX() - ajX, position.getY() - ajY);
             m_representationNom.setGlyphPosition(i, position);
-        }        
+        } 
     }
+    
+    public void clearRepresentation(){
+        m_representationNom = null;
+    }
+    
     public String getNom(){
         return m_nom;
     }
@@ -142,6 +150,7 @@ public class Circuit extends ElementTransport{
         while (sourceAutobusItr.hasNext()) {
             sourceAutobusItr.next().initSourceAutobus();
         }
+        initRepresentation();
     }
     
     public void setPeutBoucler(Boolean boucle){

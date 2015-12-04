@@ -14,7 +14,7 @@ import Domaine.ReseauRoutier.Troncon;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class Trajet {
+public class Trajet implements java.io.Serializable {
     private Emplacement m_emplacementInitial;
     private Emplacement m_emplacementFinal;
     private LinkedList<Troncon> m_listTroncons;

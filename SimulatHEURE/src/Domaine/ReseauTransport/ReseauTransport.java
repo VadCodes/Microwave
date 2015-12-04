@@ -132,7 +132,9 @@ public class ReseauTransport extends Reseau{
                 
                 this.m_listeCircuits.getLast().getListeSources().getLast().setNom(sourceSource.getNom());
                 this.m_listeCircuits.getLast().getListeSources().getLast().setDistribution(sourceSource.getDistribution());
-                // Je comprends pas le reste de source. Et je dois commencer algo !!
+                this.m_listeCircuits.getLast().getListeSources().getLast().setTempsAttenteInitial(sourceSource.getTempsAttenteInitial());
+                this.m_listeCircuits.getLast().getListeSources().getLast().setNbMaxAutobus(sourceSource.getNbMaxAutobus());
+                this.m_listeCircuits.getLast().getListeSources().getLast().setCapaciteAutobus(sourceSource.getCapaciteAutobus());
             }
         }
         

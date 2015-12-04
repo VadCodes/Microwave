@@ -4,7 +4,7 @@ package Domaine.Utilitaire;
  *
  * @author vinny
  */
-public class Distribution {
+public class Distribution implements java.io.Serializable {
     private Temps m_tempsMinimum;
     private Temps m_tempsPlusFrequent;
     private Temps m_tempsMaximum;
@@ -28,6 +28,11 @@ public class Distribution {
             setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
         else
             setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
+    }
+    
+    public Distribution(Distribution p_distributionSource)
+    {
+        setDistribution(p_distributionSource.getTempsMin(), p_distributionSource.getTempsFreq(), p_distributionSource.getTempsMax());
     }
     
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
@@ -101,7 +106,7 @@ public class Distribution {
         return m_tempsMaximum;
     }
     
-    public Temps getTempsPlusFrequent(){
+    public Temps getTempsFreq(){
         return m_tempsPlusFrequent;
     }
     

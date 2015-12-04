@@ -4,6 +4,6 @@ package Domaine;
  *
  * @author Vinny
  */
-public class Reseau {
+public class Reseau implements java.io.Serializable {
 
 }

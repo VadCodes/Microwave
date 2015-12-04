@@ -36,6 +36,8 @@ public class PanelArret extends PanelEdition {
     
     public void setInfo(){
         m_arret.setNom(jTextField1.getText());
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
     }
     /**

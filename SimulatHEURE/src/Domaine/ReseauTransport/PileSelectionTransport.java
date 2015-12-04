@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
  *
  * @author louis
  */
-public class PileSelectionTransport {
+public class PileSelectionTransport implements java.io.Serializable {
     private LinkedList<ElementTransport> m_pile = new LinkedList<ElementTransport>();
     
     public PileSelectionTransport(){}

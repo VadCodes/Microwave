@@ -141,6 +141,8 @@ public class EditerCircuit extends javax.swing.JFrame {
         if (jCheckBox1.isSelected()){
             m_circuit.setVeutBoucler(true);
         }
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
         m_mainWindow.miseAJourPanels();
         this.dispose();

@@ -13,7 +13,7 @@ import java.util.ListIterator;
  *
  * @author Vinny
  */
-public class Historique {
+public class Historique implements java.io.Serializable {
 
     private LinkedList<Reseau> m_reseauxTransports = new LinkedList<>();
     private ListIterator<Reseau> m_curseurAvantTransportCourant = m_reseauxTransports.listIterator();
@@ -34,6 +34,18 @@ public class Historique {
     
     public ReseauTransport getTransportCourant() {
         return (ReseauTransport)m_reseauTransportCourant;
+    }
+    
+    public ListIterator<Reseau> getCurseur() {
+        return m_curseurAvantTransportCourant;
+    }
+    
+    public void setCurseur(Integer p_indexCurseur) {
+        m_curseurAvantTransportCourant = m_reseauxTransports.listIterator(p_indexCurseur);
+    }
+    
+    public void clearCurseur() {
+        m_curseurAvantTransportCourant = null;
     }
 
     public Boolean peutAnnuler() {

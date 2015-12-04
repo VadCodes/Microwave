@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Nathaniel
  */
-public class Temps {
+public class Temps implements java.io.Serializable {
     private double m_temps;
     public Temps(double p_temps)
     {

@@ -9,7 +9,7 @@ package Domaine.ReseauTransport;
  *
  * @author louis
  */
-public class PaireArretTrajet {
+public class PaireArretTrajet implements java.io.Serializable {
     private Arret m_arret;
     private Trajet m_trajet;
     

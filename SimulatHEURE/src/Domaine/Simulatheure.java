@@ -13,13 +13,13 @@ import java.util.ListIterator;
  *
  * @author vinny
  */
-public class Simulatheure {
+public class Simulatheure implements java.io.Serializable {
 
     public enum Mode {
 
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
     }
-
+    
     public enum Commande {
 
         SELECTIONNER, INTERSECTION, TRONCON, ARRET, SOURCEAUTOBUS, CIRCUIT, BESOIN
@@ -776,10 +776,10 @@ public class Simulatheure {
     public void demarrerSimulation() {
         m_reseauRoutier.initReseauRoutier();
         m_reseauTransport.initReseauTransport();
-        //ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
-        //while (BesoinTransportItr.hasNext()) {
-           // BesoinTransportItr.next().initBesoinTransport();
-        //}
+//        ListIterator<Itineraire> BesoinTransportItr = m_reseauBesoins.getListItineraire().listIterator();
+//        while (BesoinTransportItr.hasNext()) {
+//           // BesoinTransportItr.next().initBesoinTransport();
+//        }
     }
 
     public void rafraichirSimulation(Temps m_deltaT) {
@@ -805,6 +805,7 @@ public class Simulatheure {
                 source.setDefault();
             }
             circuit.getListeAutobus().clear();
+            circuit.clearRepresentation();
         }
     }
     

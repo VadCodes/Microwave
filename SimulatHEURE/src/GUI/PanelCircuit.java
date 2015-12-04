@@ -177,6 +177,8 @@ public class PanelCircuit extends PanelEdition {
         if (jCheckBox1.isSelected()){
             m_circuit.setVeutBoucler(true);
         }
+        
+        m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
     }
     
