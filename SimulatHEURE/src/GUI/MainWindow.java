@@ -5,6 +5,8 @@ import Domaine.BesoinsTransport.Itineraire;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Mode;
 import Domaine.Simulatheure.Commande;
+import Domaine.Statistiques.StatistiqueBesoin;
+import Domaine.Statistiques.StatistiquesGeneral;
  
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -41,6 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
     public double m_tempsDebutSimulation;
     public double m_tempsFinSimulation;
     private boolean m_simulationEstLancer = false;
+    private LinkedList<StatistiquesGeneral> m_statistiques = new LinkedList<>();
     private volatile int screenX = 0;
     private volatile int screenY = 0;
     private volatile int myX = 0;
@@ -1844,6 +1847,11 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
 
+    private void statistiques(){
+        m_statistiques.getFirst();
+        jTable1.setValueAt("allo", 2,2);
+    }
+
     private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
        statistiques();
     }//GEN-LAST:event_comboBoxStatActionPerformed
@@ -2072,6 +2080,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private GUI.PanelArret panelArret1;
