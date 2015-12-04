@@ -31,8 +31,6 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     
     public Simulatheure m_controleur;
-    //public Simulatheure m_controleurSimulation;
-    //public Simulatheure m_contoleurReseau;
     
     public Mode m_modeCourant;
     public Commande m_commandeCourante;
