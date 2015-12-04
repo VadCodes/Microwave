@@ -1053,7 +1053,7 @@ public class MainWindow extends javax.swing.JFrame {
                     }
                     break;
                 case BESOINS:
-                    switch (m_commande_courante) {
+                    switch (m_commandeCourante) {
 
                         case SELECTIONNER:
                             m_controleur.deselectionnerBesoins();
