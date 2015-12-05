@@ -95,11 +95,8 @@ public class Individu {
          *
          * On augmente l'itérateur.
          */
-        boolean changementiterator = false;
-        boolean changementPaireParcoursAVerifier;
-        float pourcentageArret1 = m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru();
-        changementPaireParcoursAVerifier = (m_emplacementActuel.getPourcentageParcouru() > pourcentageArret1);
         float pourcentageFinal;
+        float pourcentageArret1 = m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru();
         if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
             if(m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())){
                 if(m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()){
@@ -114,6 +111,12 @@ public class Individu {
             
             //changementiterator = changerPaireParcoursBusTrajet(pourcentageInitiale, deltatT);
         }
+        //
+        boolean changementiterator = false;
+        boolean changementPaireParcoursAVerifier;
+        changementPaireParcoursAVerifier = changerPaireParcoursBusTrajet(pourcentageInitiale, deltatT);
+        
+        
         if (m_estSurArret ){
                 pourcentage = m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru();
                 m_emplacementActuel.setPourcentageParcouru(pourcentage);
@@ -137,22 +140,29 @@ public class Individu {
     }
         private boolean changerPaireParcoursBusTrajet(double p_pourcentageInitiale, Temps p_deltatT) {
         float pourcentageFinal = -1;
-        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getTrajet().getEmplacementFinal().estSurTroncon()) {
-            if(m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())){
-                if(m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()){
-                    pourcentageFinal = m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
+        float pourcentageArret2 = m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().getPourcentageParcouru();
+        if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().estSurTroncon()) {
+            if(m_emplacementActuel.getTroncon().equals(m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().getTroncon())){
+                if(m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().getPourcentageParcouru()){
+                    //changement Iterator
+                    pourcentageFinal = pourcentageArret2;
+                    
+                    
+                    
+                    
+                    
                 }
-            }
-        } else {
-            if (m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
-                if(m_emplacementActuel.getPourcentageParcouru() > 1){
-                    pourcentageFinal = 1;
-                }
-   
-            } else {
-                return false;
             }
         }
+        else if(m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
+            if(m_emplacementActuel.getPourcentageParcouru() > 1){
+                pourcentageFinal = 1;
+            }
+   
+        } else {
+            return false;
+        }
+        
         /*
          * Si le pourcentage parcouru est plus grand on change l'itérateur.
          */
