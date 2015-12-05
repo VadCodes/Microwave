@@ -223,6 +223,11 @@ public class ReseauRoutier extends Reseau{
     
     public LinkedList<Troncon> dijkstra(Emplacement emplacementInitial, Emplacement emplacementFinal){
         
+        LinkedList<Troncon> proximite = miniDijkstra(emplacementInitial, emplacementFinal);
+        if (!proximite.isEmpty()){
+            return proximite;
+        }
+        
         //preparation pour passer de emplacement a intersection
         Intersection debut;
         Intersection fin;
@@ -314,6 +319,36 @@ public class ReseauRoutier extends Reseau{
         }
         
         return chemin;
+    }
+    
+    public LinkedList<Troncon> miniDijkstra(Emplacement emplInit, Emplacement emplFin){
+        LinkedList<Troncon> proximite = new LinkedList<>();
+        if(emplInit.estSurTroncon()){
+            if(emplFin.estSurTroncon()){
+                if(emplInit.getTroncon()==emplFin.getTroncon() 
+                        && emplInit.getPourcentageParcouru()< emplFin.getPourcentageParcouru()){
+                    proximite.add(emplInit.getTroncon());
+                }
+                else if(emplInit.getTroncon().getDestination() == emplFin.getTroncon().getOrigine()){
+                    proximite.add(emplInit.getTroncon());
+                    proximite.add(emplFin.getTroncon());
+                }
+            }
+            else{
+                if(emplInit.getTroncon().getDestination()==emplFin.getIntersection()){
+                    proximite.add(emplInit.getTroncon());
+                }
+            }
+        }
+        else{
+            if(emplFin.estSurTroncon()){
+                if(emplFin.getTroncon().getOrigine()==emplInit.getIntersection()){
+                    proximite.add(emplFin.getTroncon());
+                }
+            }
+        }
+        
+        return proximite;
     }
     
     public static LinkedList<Intersection> obtenirInterContigues(LinkedList<Troncon> tronconsContigues)

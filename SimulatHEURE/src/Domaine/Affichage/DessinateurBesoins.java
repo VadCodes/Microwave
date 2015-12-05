@@ -68,7 +68,7 @@ public class DessinateurBesoins {
                         Float ajX = pAj.getFloat1();
                         Float ajY = pAj.getFloat2();
 
-                        if (itTroncon.hasNext())
+                        //if (itTroncon.hasNext())
                             chemin.lineTo(p2.x + ajX, p2.y + ajY);
 
                     }

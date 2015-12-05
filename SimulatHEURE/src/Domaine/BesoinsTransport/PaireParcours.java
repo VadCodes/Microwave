@@ -28,7 +28,7 @@ public class PaireParcours {
     public ParcoursBus getParcoursBus(){
         return m_parcoursBus;
     }
-    public void setParcoursPieton(Trajet p_trajet){
+    public void setTrajet(Trajet p_trajet){
         m_trajet = p_trajet;
     }
     public void setParcoursBus(ParcoursBus parcoursBus){
