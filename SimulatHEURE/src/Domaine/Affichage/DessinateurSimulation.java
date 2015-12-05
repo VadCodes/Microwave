@@ -5,6 +5,8 @@
  */
 package Domaine.Affichage;
 
+import Domaine.BesoinsTransport.Individu;
+import Domaine.BesoinsTransport.ReseauBesoins;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauTransport.*;
 
@@ -16,6 +18,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.font.GlyphVector;
+import java.awt.geom.Ellipse2D;
 
 import java.util.LinkedList;
 
@@ -31,9 +34,11 @@ public class DessinateurSimulation {
     //private Dimension m_dimensionInitiale;
 
     private ReseauTransport m_reseau;
+    private ReseauBesoins m_reseauBesoins;
 
-    public DessinateurSimulation(ReseauTransport p_reseau) {//, Dimension p_dimensionInitiale){
+    public DessinateurSimulation(ReseauTransport p_reseau, ReseauBesoins p_reseauBesoins) {//, Dimension p_dimensionInitiale){
         m_reseau = p_reseau;
+        m_reseauBesoins = p_reseauBesoins;
         //m_dimensionInitiale = p_dimensionInitiale;
     }
 
@@ -70,6 +75,20 @@ public class DessinateurSimulation {
                 p_g.drawGlyphVector(noCircuit, (x + largeur / 2) * p_echelle, (y + hauteur / 2) * p_echelle);
                 p_g.scale(p_echelle, p_echelle);
             }
+        }
+    }
+    public void dessinerPietons(Graphics2D p_g, float p_echelle)
+    {
+        LinkedList<Individu> individus = m_reseauBesoins.getListIndividus();
+        for (Individu individu :individus){
+            Emplacement em = individu.getEmplacementActuel();
+
+            Point2D.Float position = em.calculPosition(p_echelle);
+            float x = position.x -   individu.RAYON / p_echelle;
+            float y = position.y -   individu.RAYON / p_echelle;
+            float diametre = 2 *   individu.RAYON / p_echelle;
+            p_g.setColor(Color.CYAN);
+            p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
 //    private void dessinerBus(Graphics2D p_g, int p_x, int p_y, float p_echelle){

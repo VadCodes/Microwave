@@ -27,6 +27,7 @@ public class Individu {
     private Boolean m_estSurArret = false;
     private double m_tempsDeVie = 0;
     private StatistiqueBesoin m_stat;
+    public float RAYON = 10;
     public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret,
             StatistiqueBesoin p_stat){
         m_stat = p_stat;

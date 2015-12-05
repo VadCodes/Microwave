@@ -29,5 +29,11 @@ public class StatistiquesGeneral {
     public void addStatistiqueBesoins(StatistiqueBesoin p_stat){
         m_statistiques.add(p_stat);
     }
+
+    public StatistiqueBesoin creatStatBesoin(String p_name) {
+        StatistiqueBesoin st = new StatistiqueBesoin(p_name);
+        m_statistiques.add(st);
+        return st;
+    }
             
 }

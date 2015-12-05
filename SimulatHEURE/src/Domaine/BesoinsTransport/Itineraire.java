@@ -14,14 +14,17 @@ import java.util.ListIterator;
 import java.util.LinkedList;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.*;
+import Domaine.Statistiques.StatistiqueBesoin;
 
 public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
     private LinkedList<SourceIndividus> m_listSources = new LinkedList<>();
     private LinkedList<Individu> m_listIndividu = new LinkedList<>();
+    private StatistiqueBesoin m_stat;
     
     public Itineraire(LinkedList<PaireParcours> listPaireParcours){
         m_listPaireParcours = listPaireParcours;
+
     }
     
     public Itineraire(PaireParcours paireParcours){
@@ -32,7 +35,9 @@ public class Itineraire extends ElementBesoins {
     public LinkedList<PaireParcours> getListPaireParcours(){
         return m_listPaireParcours;
     }
-    
+    public void setStat(StatistiqueBesoin p_stat){
+        m_stat = p_stat;
+    }
    public void setListPaireParcours(LinkedList<PaireParcours> p_list){
        m_listPaireParcours = p_list;
    }

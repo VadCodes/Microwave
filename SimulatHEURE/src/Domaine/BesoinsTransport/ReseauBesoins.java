@@ -8,6 +8,7 @@ import Domaine.Reseau;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.Statistiques.StatistiquesGeneral;
+import Domaine.Utilitaire.Temps;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -22,6 +23,7 @@ public class ReseauBesoins extends Reseau {
     private LinkedList<SourceIndividus> m_listeSources = new LinkedList<>();;
     private StatistiquesGeneral m_stat;
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
+    private String m_nom;
     
     public ReseauBesoins(){
         m_stat = new StatistiquesGeneral();
@@ -71,8 +73,13 @@ public class ReseauBesoins extends Reseau {
     public void deselectionnerTout(){
         m_pileSelection.vider();
     }
-    
+    public void setNom(String p_nom){
+        m_nom = p_nom;
+    }
     public void ajouterItineraire(Itineraire itn){
+        int number = m_listeItineraires.size();
+        m_nom = "Itineraire".concat(Integer.toString(number +1));
+        itn.setStat(m_stat.creatStatBesoin(m_nom));
         m_listeItineraires.add(itn);
     }
     
@@ -241,5 +248,16 @@ public class ReseauBesoins extends Reseau {
         }
         
         return false;
+    }
+
+    public void calculEtatReseauBesoin(Temps p_deltaT) {
+       for ( SourceIndividus source :m_listeSources){
+           source.miseAJourTempsRestant(p_deltaT);
+           source.genererIndividus(p_deltaT);
+       }
+       for (Individu individu : m_listeIndividus){
+           individu.miseAJourEmplacement(p_deltaT);
+           individu.miseAJourIndividu(p_deltaT);
+       }
     }
 }
