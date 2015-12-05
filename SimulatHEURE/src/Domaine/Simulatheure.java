@@ -38,9 +38,10 @@ public class Simulatheure implements java.io.Serializable {
     
     private ReseauBesoins m_reseauBesoins = new ReseauBesoins();
     private Emplacement m_emplacementInitialItn = null;
-    private Boolean m_emplacementInitSurArret = null;
+    private Boolean m_chercherArretMemeCircuit = false;
+    private Boolean m_premierEmplacementSurArret = false;
     private Arret m_arret1Besoin = null;
-    private Boolean m_itineraireEnConstruction = false;
+    private Itineraire m_itineraireEnConstruction = null;
 
     public Simulatheure() {
         m_reseauRoutier = m_historique.getRoutierCourant();
@@ -913,7 +914,8 @@ public class Simulatheure implements java.io.Serializable {
                     }
 
                     m_emplacementInitialItn = emplacementDesire;
-                    m_emplacementInitSurArret = false;
+                    m_chercherArretMemeCircuit = false;
+                    m_premierEmplacementSurArret = false;
 
                 }
                 else{
@@ -923,14 +925,52 @@ public class Simulatheure implements java.io.Serializable {
             else {
                 m_emplacementInitialItn = arret.getEmplacement();
                 m_arret1Besoin = arret;
-                m_emplacementInitSurArret = true;
+                m_chercherArretMemeCircuit = true;
+                m_premierEmplacementSurArret = true;
             }
         }
         else{
-            if (arret==null)
-                return false;
+            if (arret==null){
+                if(!m_chercherArretMemeCircuit && m_itineraireEnConstruction!=null){
+                    ElementRoutier elementRoutier = obtenirElementRoutier(p_x, p_y, p_echelle);
+                    if (elementRoutier != null)
+                    {
+                        Emplacement emplacementDesire;
+                        if (elementRoutier.getClass() == Intersection.class)
+                        {
+                            emplacementDesire = new Emplacement(false, 0, null, (Intersection)elementRoutier);
+                        }
+                        else
+                        {
+                            Troncon tronconObtenu = (Troncon)elementRoutier;
+                            Point2D.Float p2 = new Point2D.Float(p_x / p_echelle, p_y / p_echelle);
+                            float d1 = (float)tronconObtenu.getOrigine().getPosition().distance(p2);
+                            float d2 = tronconObtenu.getLongueurTroncon();
+                            emplacementDesire = new Emplacement(true, d1 / d2, tronconObtenu, tronconObtenu.getOrigine());
+                        }
+
+                        Trajet trajFin = new Trajet(m_arret1Besoin.getEmplacement(), emplacementDesire, 
+                            m_reseauRoutier.dijkstra(m_arret1Besoin.getEmplacement(), emplacementDesire));
+                        
+                        PaireParcours paireParcFin = new PaireParcours(trajFin, null); 
+                        
+                        m_itineraireEnConstruction.getListPaireParcours().addLast(paireParcFin);
+                        
+                        cleanItineraireTemp();
+                        
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+                
             
-            if(m_emplacementInitSurArret){
+            if(m_chercherArretMemeCircuit){
                 Boolean succesRecherche = false;
                 Circuit circuitElu = null;
                 PaireArretTrajet patAvant = null;
@@ -958,16 +998,24 @@ public class Simulatheure implements java.io.Serializable {
                     if(succesRecherche) break;
                 }
                 if(succesRecherche){
-                    ParcoursBus parcoBus = new ParcoursBus(circuitElu, patAvant, patAvant);
+                    ParcoursBus parcoBus = new ParcoursBus(circuitElu, patAvant, patApres);
                     
-                    if(m_itineraireEnConstruction){
-                        
+                    if(m_itineraireEnConstruction!=null){
+                        if(m_itineraireEnConstruction.getListPaireParcours().getLast().getParcoursBus()==null){
+                            m_itineraireEnConstruction.getListPaireParcours().getLast().setParcoursBus(parcoBus);
+                        }
+                        else{
+                            m_itineraireEnConstruction.getListPaireParcours().addLast(new PaireParcours(null,parcoBus));
+                        }
                     }
                     else{
                         PaireParcours paireParc = new PaireParcours(null, parcoBus); 
                         Itineraire itn = new Itineraire(paireParc);
                         m_reseauBesoins.ajouterItineraire(itn);
+                        m_itineraireEnConstruction = itn;
                     }
+                    m_arret1Besoin = arret;
+                    m_chercherArretMemeCircuit = false;
                 }
                 else{
                     throw new IllegalArgumentException("L'arrêt n'est pas dans le même circuit.", new Throwable("Construction impossible"));
@@ -977,17 +1025,30 @@ public class Simulatheure implements java.io.Serializable {
                 if (!m_reseauTransport.emplacementsSontConnectables(m_emplacementInitialItn, arret.getEmplacement()))
                     throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
                 
-                Trajet traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
-                        m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
+                Trajet traj; 
                 
-                if(m_itineraireEnConstruction){
-                        
+                if(m_itineraireEnConstruction!=null){
+                    traj = new Trajet(m_arret1Besoin.getEmplacement(), arret.getEmplacement(), 
+                        m_reseauRoutier.dijkstra(m_arret1Besoin.getEmplacement(), arret.getEmplacement()));
+                    
+                    if(m_itineraireEnConstruction.getListPaireParcours().getLast().getTrajet()==null){
+                        m_itineraireEnConstruction.getListPaireParcours().getLast().setTrajet(traj);
+                    }
+                    else{
+                        m_itineraireEnConstruction.getListPaireParcours().addLast(new PaireParcours(traj,null));
+                    }
                 }
                 else{
+                    traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
+                        m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
+                    //premier trajet
                     PaireParcours paireParc = new PaireParcours(traj, null); 
                     Itineraire itn = new Itineraire(paireParc);
                     m_reseauBesoins.ajouterItineraire(itn);
+                    m_itineraireEnConstruction = itn;
                 }
+                m_arret1Besoin = arret;
+                m_chercherArretMemeCircuit = true;
             }
         }
 
@@ -1009,6 +1070,14 @@ public class Simulatheure implements java.io.Serializable {
         //Pour allonger il faut cliquer sur un arrêt et ça cancelle le dernier trajet pour le remplacer par un trajet qui se rend à l'arrêt
     }
         
+    public void cleanItineraireTemp(){
+        m_emplacementInitialItn = null;
+        m_chercherArretMemeCircuit = false;
+        m_premierEmplacementSurArret = false;
+        m_arret1Besoin = null;
+        m_itineraireEnConstruction = null;
+    }
+    
     public StatistiquesGeneral getStatistique(){
         return m_reseauBesoins.getStatistique();
     }
