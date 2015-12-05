@@ -18,7 +18,7 @@ import Domaine.Statistiques.StatistiqueBesoin;
 
 public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
-    private LinkedList<SourceIndividus> m_listSources = new LinkedList<>();
+    private SourceIndividus m_source;
     private LinkedList<Individu> m_listIndividu = new LinkedList<>();
     private StatistiqueBesoin m_stat;
     
@@ -46,21 +46,18 @@ public class Itineraire extends ElementBesoins {
        return m_listIndividu;
    }
    
-   public LinkedList<SourceIndividus> getListSourceIndividu(){
-       return m_listSources;
+   public SourceIndividus getSourceIndividu(){
+       return m_source;
    }
    
     public void updateSourceIndividus(Temps deltatT){
-         ListIterator<SourceIndividus> sourceIndividusItr = m_listSources.listIterator();
-        while (sourceIndividusItr.hasNext()) {
-            SourceIndividus src = sourceIndividusItr.next();
-            src.miseAJourTempsRestant(deltatT);
-            src.genererIndividus(deltatT);
-        }
+        m_source.miseAJourTempsRestant(deltatT);
+        m_source.genererIndividus(deltatT);
+        
     }
     
-    public void ajouterSource(SourceIndividus p_source){
-        m_listSources.add(p_source);
+    public void asignerSource(SourceIndividus p_source){
+        m_source = p_source;
     }
     
     public void ajouterIndividu(Individu p_individu){
@@ -77,10 +74,7 @@ public class Itineraire extends ElementBesoins {
     }
 
     public void initItineraire(){
-        ListIterator<SourceIndividus> sourceIndividuItr = m_listSources.listIterator();
-        while (sourceIndividuItr.hasNext()) {
-            sourceIndividuItr.next().initSourceIndividu();
-        }
+        m_source.initSourceIndividu();
     }
 
 }

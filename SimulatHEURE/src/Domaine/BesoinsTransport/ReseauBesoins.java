@@ -7,7 +7,10 @@ package Domaine.BesoinsTransport;
 import Domaine.Reseau;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
+import Domaine.Utilitaire.Distribution;
+import Domaine.Utilitaire.Distribution.Type;
 import Domaine.Utilitaire.Temps;
 import java.util.List;
 import java.util.LinkedList;
@@ -20,7 +23,6 @@ public class ReseauBesoins extends Reseau {
     
     private LinkedList<Individu> m_listeIndividus = new LinkedList<>();;
     private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();;
-    private LinkedList<SourceIndividus> m_listeSources = new LinkedList<>();;
     private StatistiquesGeneral m_stat;
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
     private String m_nom;
@@ -29,10 +31,9 @@ public class ReseauBesoins extends Reseau {
         m_stat = new StatistiquesGeneral();
     }
     
-    public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire, LinkedList<SourceIndividus> p_sources){
+    public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire){
         m_listeIndividus = p_listeIndividus;
         m_listeItineraires = p_itineraire;
-        m_listeSources = p_sources;
         m_stat = new StatistiquesGeneral();
     }
     public StatistiquesGeneral getStatistique(){
@@ -44,21 +45,17 @@ public class ReseauBesoins extends Reseau {
     public LinkedList<Itineraire> getListItineraire(){
         return m_listeItineraires;
     }
-    public LinkedList<SourceIndividus> getListeSourceIndividus(){
-        return m_listeSources;
-    }
+
     public void setListIndividus(LinkedList<Individu> p_listeIndividus){
         m_listeIndividus = p_listeIndividus;
     }
     public void setListItineraire(LinkedList<Itineraire> p_itineraire){
         m_listeItineraires = p_itineraire;
     }
-    public void setListeSourceIndividus(LinkedList<SourceIndividus> p_sources){
-        m_listeSources = p_sources; 
-    }
+
     public void initBesoinTransport(){
-        for(SourceIndividus src : m_listeSources){
-            src.initSourceIndividu(); 
+        for(Itineraire it : m_listeItineraires){
+            it.initItineraire();
         }  
     }
             
@@ -66,10 +63,7 @@ public class ReseauBesoins extends Reseau {
         return m_pileSelection;
     }
     
-    public void ajouterSource(SourceIndividus p_source){
-        m_listeSources.add(p_source);
-        
-    }
+
     public void deselectionnerTout(){
         m_pileSelection.vider();
     }
@@ -79,7 +73,11 @@ public class ReseauBesoins extends Reseau {
     public void ajouterItineraire(Itineraire itn){
         int number = m_listeItineraires.size();
         m_nom = "Itineraire".concat(Integer.toString(number +1));
-        itn.setStat(m_stat.creatStatBesoin(m_nom));
+        StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
+        SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial(),"default"
+            , itn, be);
+        itn.asignerSource(sour);
+        itn.setStat(be);
         m_listeItineraires.add(itn);
     }
     
@@ -251,9 +249,8 @@ public class ReseauBesoins extends Reseau {
     }
 
     public void calculEtatReseauBesoin(Temps p_deltaT) {
-       for ( SourceIndividus source :m_listeSources){
-           source.miseAJourTempsRestant(p_deltaT);
-           source.genererIndividus(p_deltaT);
+       for(Itineraire it : m_listeItineraires){
+            it.updateSourceIndividus(p_deltaT);
        }
        for (Individu individu : m_listeIndividus){
            individu.miseAJourEmplacement(p_deltaT);

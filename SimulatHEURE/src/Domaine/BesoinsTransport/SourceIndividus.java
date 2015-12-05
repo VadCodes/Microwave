@@ -72,9 +72,9 @@ public class SourceIndividus {
         while(m_tempsAvantApparition.getTemps() <= 0){
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             Temps tempsAvantApparition = new Temps ( p_deltatT.getTemps() + m_tempsAvantApparition.getTemps());
-           // Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, estSurArret());
-            //m_itineraire.ajouterIndividu(nouvelIndividu);
-         //   m_itineraire.assignerItineraire(nouvelIndividu);
+            Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, false, m_stat);
+            m_itineraire.ajouterIndividu(nouvelIndividu);
+            m_itineraire.assignerItineraire(nouvelIndividu);
             //On update le temps avant apparition. On l'addition de la frequence.
             double tmp = m_tempsAvantApparition.getTemps() + m_frequence.getTemps();
             m_tempsAvantApparition = new Temps(tmp);
