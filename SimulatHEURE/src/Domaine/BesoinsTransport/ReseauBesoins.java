@@ -40,9 +40,16 @@ public class ReseauBesoins extends Reseau {
         return m_stat;
     }
     public LinkedList<Individu> getListIndividus(){
+        m_listeIndividus.clear();
+        for(Itineraire it : m_listeItineraires){
+            for (Individu in : it.getListIndividu()){
+                m_listeIndividus.add(in);
+            }
+        }  
         return m_listeIndividus;
     }
     public LinkedList<Itineraire> getListItineraire(){
+         
         return m_listeItineraires;
     }
 
@@ -71,14 +78,16 @@ public class ReseauBesoins extends Reseau {
         m_nom = p_nom;
     }
     public void ajouterItineraire(Itineraire itn){
-        int number = m_listeItineraires.size();
-        m_nom = "Itineraire".concat(Integer.toString(number +1));
-        StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
-        SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial(),"default"
-            , itn, be);
-        itn.asignerSource(sour);
-        itn.setStat(be);
-        m_listeItineraires.add(itn);
+        if(itn != null){
+            int number = m_listeItineraires.size();
+            m_nom = "Itineraire".concat(Integer.toString(number +1));
+            StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
+            SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial(),"default"
+                , itn, be);
+            itn.asignerSource(sour);
+            itn.setStat(be);
+            m_listeItineraires.add(itn);
+        }
     }
     
     public Boolean selectionnerItineraire(Float xReel, Float yReel, Float p_echelle, Troncon trc){
@@ -251,10 +260,10 @@ public class ReseauBesoins extends Reseau {
     public void calculEtatReseauBesoin(Temps p_deltaT) {
        for(Itineraire it : m_listeItineraires){
             it.updateSourceIndividus(p_deltaT);
+            for (Individu individu : it.getListIndividu()){
+                individu.miseAJourIndividu(p_deltaT);
+            }
        }
-       for (Individu individu : m_listeIndividus){
-           individu.miseAJourEmplacement(p_deltaT);
-           individu.miseAJourIndividu(p_deltaT);
-       }
+       
     }
 }

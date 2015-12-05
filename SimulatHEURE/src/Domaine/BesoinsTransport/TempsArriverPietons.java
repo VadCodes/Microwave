@@ -27,5 +27,8 @@ public class TempsArriverPietons {
     public Individu getPieton(){
         return m_individu;
     }
+    public void setTempsArriver(Temps p_arrive){
+        m_tempsArrivee = p_arrive;
+    }
     
 }

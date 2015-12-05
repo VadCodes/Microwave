@@ -63,12 +63,14 @@ public class Autobus {
             if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getArret().getEmplacement().getTroncon())) {
                 if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getArret().getEmplacement().getPourcentageParcouru()) {
                     m_paireActuelle.getArret().ajouterAutobus(new Temps(0), this);
+                    m_paireActuelle.getArret().miseAJourArret();
                 }
             }
         }
         if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
             if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getArret().getEmplacement().getIntersection())) {
                 m_paireActuelle.getArret().ajouterAutobus(new Temps(0), this);
+                m_paireActuelle.getArret().miseAJourArret();
             }
         }
         if (m_emplacementActuel.estSurTroncon()) {
@@ -166,6 +168,7 @@ public class Autobus {
                     float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     m_emplacementActuel.copy(m_paireActuelle.getArret().getEmplacement());
                     m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
+                    m_paireActuelle.getArret().miseAJourArret();
                     return true;
                 }
             } else {

@@ -102,7 +102,9 @@ public class Circuit extends ElementTransport{
         //on vide toutes les files d'arrets
         ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
         while (arretTrajetItr.hasNext()) {
-            arretTrajetItr.next().getArret().viderFile();
+            Arret arr = arretTrajetItr.next().getArret();
+            arr.viderFile();
+            arr.miseAjourTempsPieton();
         }
         
         //pour chaque autobus on calcule la circulation

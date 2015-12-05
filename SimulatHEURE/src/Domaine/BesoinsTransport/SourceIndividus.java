@@ -33,6 +33,7 @@ public class SourceIndividus {
         m_emplacement = p_emplacement;
         m_nom = p_nom;
         m_tempsAvantApparition = m_tempsInitial;
+        m_itineraire = p_itineraire;
     }
     
     public void miseAJourTempsRestant(Temps p_deltatT){

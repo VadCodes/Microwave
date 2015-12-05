@@ -74,6 +74,12 @@ public class Arret extends ElementTransport{
     public int getNbreIndividu(){
         return m_nombreIndividu;
     }
+    public void miseAjourTempsPieton(){
+         for (ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator(); tmppietons.hasNext();) {
+            TempsArriverPietons tmppieton = tmppietons.next();
+            tmppieton.setTempsArriver(new Temps(0));
+         }
+    }
     public void miseAJourArret(){
           for (ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator(); tmppietons.hasNext();) {
             TempsArriverPietons tmppieton = tmppietons.next();
@@ -82,7 +88,7 @@ public class Arret extends ElementTransport{
                 TempsArriveeAutobus tmpbus = tmpbuss.next();
                 Circuit circuitBus = tmpbus.getAutobus().getCircuit();
                 if(circuitPieton.equals(circuitBus)){
-                    if(tmppieton.getTempsArrivee().getTemps() < tmpbus.getTempsArrivee().getTemps()){
+                    if(tmppieton.getTempsArrivee().getTemps() <= tmpbus.getTempsArrivee().getTemps()){
                         if(tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()){
                              tmppieton.getPieton().setIndividuEstDansBus(true,tmpbus.getAutobus());
                               tmpbus.getAutobus().setPlusUnIndividu();
@@ -104,6 +110,7 @@ public class Arret extends ElementTransport{
                     tmppieton.getPieton().setIndividuEstDansBus(false, null);
                     tmppieton.getPieton().setTempsApparition(tmpbus.getTempsArrivee());
                     tmpbus.getAutobus().setmoinsUnIndividu();
+                    tmppietons.remove();
                 }
             }
         }
