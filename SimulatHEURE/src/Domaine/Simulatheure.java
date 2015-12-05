@@ -35,13 +35,16 @@ public class Simulatheure implements java.io.Serializable {
     private Boolean m_dijkstra = true;
 
     
-    private ReseauBesoins m_reseauBesoins;
+    private ReseauBesoins m_reseauBesoins = new ReseauBesoins();
     private Emplacement m_emplacementInitialItn = null;
     private Boolean m_emplacementInitSurArret = null;
+    private Arret m_arret1Besoin = null;
+    private Boolean m_itineraireEnConstruction = false;
 
     public Simulatheure() {
         m_reseauRoutier = m_historique.getRoutierCourant();
         m_reseauTransport = m_historique.getTransportCourant();
+        //m_reseauBesoins = m_historique.getBesoinsCourant();
     }
 
     public ReseauRoutier getRoutier() {
@@ -916,6 +919,7 @@ public class Simulatheure implements java.io.Serializable {
             }
             else {
                 m_emplacementInitialItn = arret.getEmplacement();
+                m_arret1Besoin = arret;
                 m_emplacementInitSurArret = true;
             }
         }
@@ -924,13 +928,63 @@ public class Simulatheure implements java.io.Serializable {
                 return false;
             
             if(m_emplacementInitSurArret){
-                //parcoursbus
+                Boolean succesRecherche = false;
+                Circuit circuitElu = null;
+                PaireArretTrajet patAvant = null;
+                PaireArretTrajet patApres = null;
+                for (Circuit circ : m_reseauTransport.getListeCircuits()){
+                    PaireArretTrajet patApresPrecedente = null;
+                    for (ListIterator<PaireArretTrajet> patIt = circ.getListeArretTrajet().listIterator(); patIt.hasNext();) {
+                        patApres = patIt.next();
+                        if(patApres.getArret()==arret){
+                            for(ListIterator<PaireArretTrajet> patItInv = patIt; patItInv.hasPrevious();){
+                                patAvant = patItInv.previous();
+                                if(patAvant == patApresPrecedente){
+                                    break;
+                                }
+                                if(patAvant.getArret()==m_arret1Besoin){
+                                    circuitElu = circ;
+                                    succesRecherche = true;
+                                    break;
+                                }
+                            }
+                            patApresPrecedente = patApres;
+                        }
+                        if(succesRecherche) break;
+                    }
+                    if(succesRecherche) break;
+                }
+                if(succesRecherche){
+                    ParcoursBus parcoBus = new ParcoursBus(circuitElu, patAvant, patAvant);
+                    
+                    if(m_itineraireEnConstruction){
+                        
+                    }
+                    else{
+                        PaireParcours paireParc = new PaireParcours(null, parcoBus); 
+                        Itineraire itn = new Itineraire(paireParc);
+                        m_reseauBesoins.ajouterItineraire(itn);
+                    }
+                }
+                else{
+                    throw new IllegalArgumentException("L'arrêt n'est pas dans le même circuit.", new Throwable("Construction impossible"));
+                }
             }
             else{
-                //trajet
+                if (!m_reseauTransport.emplacementsSontConnectables(m_emplacementInitialItn, arret.getEmplacement()))
+                    throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+                
                 Trajet traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
                         m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
                 
+                if(m_itineraireEnConstruction){
+                        
+                }
+                else{
+                    PaireParcours paireParc = new PaireParcours(traj, null); 
+                    Itineraire itn = new Itineraire(paireParc);
+                    m_reseauBesoins.ajouterItineraire(itn);
+                }
             }
         }
 

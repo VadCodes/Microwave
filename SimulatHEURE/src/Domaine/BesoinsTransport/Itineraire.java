@@ -24,6 +24,11 @@ public class Itineraire extends ElementBesoins {
         m_listPaireParcours = listPaireParcours;
     }
     
+    public Itineraire(PaireParcours paireParcours){
+        m_listPaireParcours = new LinkedList<>();
+        m_listPaireParcours.add(paireParcours);
+    }
+    
     public LinkedList<PaireParcours> getListPaireParcours(){
         return m_listPaireParcours;
     }

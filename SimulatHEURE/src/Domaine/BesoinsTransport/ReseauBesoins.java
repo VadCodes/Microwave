@@ -16,15 +16,19 @@ import java.util.LinkedList;
  */
 public class ReseauBesoins extends Reseau {
     
-    private LinkedList<Individu> m_listeIndividus;
-    private LinkedList<Itineraire> m_listeItineraires;
-    private SourceIndividus m_source;
-    private PileSelectionBesoins m_pileSelection;
+    private LinkedList<Individu> m_listeIndividus = new LinkedList<>();;
+    private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();;
+    private LinkedList<SourceIndividus> m_listeSources = new LinkedList<>();;
+    private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
     
-    public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire, SourceIndividus p_source){
+    public ReseauBesoins(){
+        
+    }
+    
+    public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire, LinkedList<SourceIndividus> p_sources){
         m_listeIndividus = p_listeIndividus;
         m_listeItineraires = p_itineraire;
-        m_source = p_source;
+        m_listeSources = p_sources;
     }
     public LinkedList<Individu> getListIndividus(){
         return m_listeIndividus;
@@ -32,8 +36,8 @@ public class ReseauBesoins extends Reseau {
     public LinkedList<Itineraire> getListItineraire(){
         return m_listeItineraires;
     }
-    public SourceIndividus getSourceIndividus(){
-        return m_source;
+    public LinkedList<SourceIndividus> getListeSourceIndividus(){
+        return m_listeSources;
     }
     public void setListIndividus(LinkedList<Individu> p_listeIndividus){
         m_listeIndividus = p_listeIndividus;
@@ -41,11 +45,13 @@ public class ReseauBesoins extends Reseau {
     public void setListItineraire(LinkedList<Itineraire> p_itineraire){
         m_listeItineraires = p_itineraire;
     }
-    public void setSourceIndividus(SourceIndividus p_source){
-        m_source = p_source; 
+    public void setListeSourceIndividus(LinkedList<SourceIndividus> p_sources){
+        m_listeSources = p_sources; 
     }
     public void initBesoinTransport(){
-        m_source.initSourceIndividu();      
+        for(SourceIndividus src : m_listeSources){
+            src.initSourceIndividu(); 
+        }  
     }
             
     public PileSelectionBesoins getPileSelection(){
@@ -54,6 +60,10 @@ public class ReseauBesoins extends Reseau {
     
     public void deselectionnerTout(){
         m_pileSelection.vider();
+    }
+    
+    public void ajouterItineraire(Itineraire itn){
+        m_listeItineraires.add(itn);
     }
     
     public Boolean selectionnerItineraire(Float xReel, Float yReel, Float p_echelle, Troncon trc){

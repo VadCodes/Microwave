@@ -400,26 +400,53 @@ public class ReseauTransport extends Reseau{
     }
     
     public Boolean arretsSontConnectables(Arret arr1, Arret arr2){
+        return emplacementsSontConnectables(arr1.getEmplacement(), arr2.getEmplacement());
+    }
+    
+    public Boolean emplacementsSontConnectables(Emplacement empl1, Emplacement empl2){
+        
+        //cas de base
+        if (empl1.estSurTroncon() && empl2.estSurTroncon()){
+            if(empl1.getTroncon()==empl2.getTroncon()){
+                if(empl1.getPourcentageParcouru() < empl2.getPourcentageParcouru()){
+                    return true;
+                }
+            }
+            if(empl1.getTroncon().getDestination()==empl2.getTroncon().getOrigine()){
+                return true;
+            }
+        }
+        else if(empl1.estSurTroncon()){
+            if(empl1.getTroncon().getDestination()==empl2.getIntersection()){
+                return true;
+            }
+        }
+        else if(empl2.estSurTroncon()){
+            if(empl1.getIntersection()==empl2.getTroncon().getOrigine()){
+                return true;
+            }
+        }
+        
         Intersection inter1;
         Intersection inter2;
-        if (arr1.getEmplacement().estSurTroncon()){
-            inter1 = arr1.getEmplacement().getTroncon().getDestination();
+        if (empl1.estSurTroncon()){
+            inter1 = empl1.getTroncon().getDestination();
         }
         else{
-            inter1 = arr1.getEmplacement().getIntersection();
+            inter1 = empl1.getIntersection();
         }
-        if (arr2.getEmplacement().estSurTroncon()){
-            inter2 = arr2.getEmplacement().getTroncon().getOrigine();
+        if (empl2.estSurTroncon()){
+            inter2 = empl2.getTroncon().getOrigine();
         }
         else{
-            inter2 = arr2.getEmplacement().getIntersection();
+            inter2 = empl2.getIntersection();
         }
         
         LinkedList<Intersection> intersectionsVerifiees = new LinkedList<>();
-        return arretsConnectesRec(inter1, inter2, intersectionsVerifiees);
+        return intersectionsConnectees(inter1, inter2, intersectionsVerifiees);
     }
     
-    public Boolean arretsConnectesRec(Intersection inter1, Intersection inter2, LinkedList<Intersection> intersectionsVerifiees){
+    public Boolean intersectionsConnectees(Intersection inter1, Intersection inter2, LinkedList<Intersection> intersectionsVerifiees){
         Boolean est_connecte = false;
         for (Intersection intr : inter1.getEnfants()){
             if (intr.equals(inter2)){
@@ -428,7 +455,7 @@ public class ReseauTransport extends Reseau{
             else{
                 if (!intersectionsVerifiees.contains(intr)){
                     intersectionsVerifiees.add(intr);
-                    est_connecte =  arretsConnectesRec(intr, inter2, intersectionsVerifiees);
+                    est_connecte =  intersectionsConnectees(intr, inter2, intersectionsVerifiees);
                     if (est_connecte)
                         return est_connecte;
                 }

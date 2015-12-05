@@ -16,19 +16,25 @@ import java.util.ListIterator;
  * @author vadimcote
  */
 public class ParcoursBus {
-    private Arret m_arretdepart;
-    private Arret m_arretfinal;
+    private PaireArretTrajet m_paireArretTrajetDepart;
+    private PaireArretTrajet m_paireArretTrajetFinal;
     private Circuit m_circuit;
-    public ParcoursBus(Circuit p_circuit, Arret p_arretdepart, Arret p_arretfinal){
-        m_arretdepart = p_arretdepart;
-        m_arretfinal = p_arretfinal;
+    public ParcoursBus(Circuit p_circuit, PaireArretTrajet p_pairearretdepart, PaireArretTrajet p_pairearretfinal){
+        m_paireArretTrajetDepart = p_pairearretdepart;
+        m_paireArretTrajetFinal = p_pairearretfinal;
         m_circuit = p_circuit;
     }
     public Arret getArretDepart(){
-        return m_arretdepart;
+        return m_paireArretTrajetDepart.getArret();
     }
     public Arret getArretFinal(){
-        return m_arretfinal;
+        return m_paireArretTrajetFinal.getArret();
+    }
+    public PaireArretTrajet getPaireArretDepart(){
+        return m_paireArretTrajetDepart;
+    }
+    public PaireArretTrajet getPaireArretFinal(){
+        return m_paireArretTrajetFinal;
     }
     public Circuit getCircuit(){
         return m_circuit;
@@ -36,31 +42,34 @@ public class ParcoursBus {
     public void setCircuit(Circuit circuit){
         m_circuit = circuit;
     }
-    public void setArretFinal(Arret arretfinal){
-        m_arretfinal = arretfinal;
+    public void setPaireArretFinal(PaireArretTrajet p_pairearretfinal){
+        m_paireArretTrajetFinal = p_pairearretfinal;
     }
-    public void setArretDepart(Arret arretdepart){
-        m_arretdepart = arretdepart;
+    public void setPaireArretDepart(PaireArretTrajet p_pairearretfinal){
+        m_paireArretTrajetDepart = p_pairearretfinal;
     }
 
     public LinkedList<Troncon> getTroncons(){
-        boolean premierArret = false;
+        Boolean premierArret = false;
         LinkedList<Troncon> mesTroncons = new LinkedList<>();
-         for (ListIterator<PaireArretTrajet>  paires = m_circuit.getListeArretTrajet().listIterator(); paires.hasNext();) {
-            PaireArretTrajet paire = paires.next();
-            if(m_arretdepart.equals(paire.getArret())){
+        for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
+            if(pat==m_paireArretTrajetDepart){
                 premierArret = true;
             }
-            else if(m_arretfinal.equals(paire.getArret())){
+            else if(pat==m_paireArretTrajetFinal){
                 premierArret = false;
+                break;
             }
-            if(premierArret = true){
-                for (ListIterator<Troncon>  troncons = paire.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
-                    Troncon troncon = troncons.next();
-                    mesTroncons.add(troncon);
+            
+            if (premierArret){
+                if(pat.getTrajet()!=null){
+                    for (ListIterator<Troncon>  troncons = pat.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
+                        Troncon troncon = troncons.next();
+                        mesTroncons.add(troncon);
+                    }
                 }
-        }
-    }
+            }
+        } 
         return mesTroncons;
     }
 }

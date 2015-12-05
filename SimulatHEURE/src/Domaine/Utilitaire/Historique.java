@@ -35,7 +35,7 @@ public class Historique implements java.io.Serializable {
     public ReseauTransport getTransportCourant() {
         return (ReseauTransport)m_reseauTransportCourant;
     }
-    
+
     public ListIterator<Reseau> getCurseur() {
         return m_curseurAvantTransportCourant;
     }

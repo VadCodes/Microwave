@@ -51,7 +51,8 @@ public class AfficheurReseau extends JPanel implements Serializable {
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurChantier dessinateurChantierRoutier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
-
+            DessinateurBesoins dessinateurBesoins = new DessinateurBesoins(m_fenetrePrincipale.m_controleur.getBesoins());
+            
             if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
             {
                 dessinateurChantierRoutier.dessiner(graphic2D, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
@@ -65,6 +66,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerArrets(graphic2D, m_echelle);
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, m_echelle);
                 dessinateurSimulation.dessinerAutobus(graphic2D, m_echelle);
+                dessinateurBesoins.dessinerItineraire(graphic2D, m_echelle);
             }
             else
             {
@@ -74,6 +76,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerArrets(graphic2D, 1);
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, 1);
                 dessinateurSimulation.dessinerAutobus(graphic2D, 1);
+                dessinateurBesoins.dessinerItineraire(graphic2D, m_echelle);
             }
             
 

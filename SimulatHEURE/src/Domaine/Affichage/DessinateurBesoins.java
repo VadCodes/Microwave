@@ -5,9 +5,9 @@
  */
 package Domaine.Affichage;
 
-import Domaine.BesoinsTransport.BesoinTransport;
 import Domaine.BesoinsTransport.Itineraire;
 import Domaine.BesoinsTransport.PaireParcours;
+import Domaine.BesoinsTransport.ReseauBesoins;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
@@ -27,48 +27,61 @@ import java.util.ListIterator;
  * @author louis
  */
 public class DessinateurBesoins {
-    private BesoinTransport m_reseau;
-    public DessinateurBesoins(BesoinTransport p_reseau){
+    private ReseauBesoins m_reseau;
+    public DessinateurBesoins(ReseauBesoins p_reseau){
         m_reseau = p_reseau;
         //m_dimensionInitiale = p_dimensionInitiale;
     }
-    public void dessinerCircuit(Graphics2D p_g, float p_echelle)
+    public void dessinerItineraire(Graphics2D p_g, float p_echelle)
     {  
         Graphics2D select_g = (Graphics2D) p_g.create();
         select_g.setColor(new Color(50,200,255 , 200));
         select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
-        for (Itineraire itineraire: m_reseau.getItineraire()){
-            p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
+        for (Itineraire itineraire: m_reseau.getListItineraire()){
+            p_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f / p_echelle));
+            p_g.setColor(new Color(255,200,0 , 150));
             Path2D.Float chemin = new Path2D.Float();
            
+            Point2D.Float origine;
+            if(itineraire.getListPaireParcours().getFirst().getTrajet()!=null){
+                origine = itineraire.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial().calculPosition(p_echelle);
+                chemin.moveTo(origine.x, origine.y);
+            }
+            else{
+                origine = itineraire.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement().calculPosition(p_echelle);
+                chemin.moveTo(origine.x, origine.y);
+            }
             
             for (ListIterator<PaireParcours> itPaire = itineraire.getListPaireParcours().listIterator() ; itPaire.hasNext() ; )
             {
                 PaireParcours paire = itPaire.next();
-                ListIterator<Troncon> itTroncon = paire.getParcoursBus().getTroncons().listIterator();
-                while (itTroncon.hasNext())
-                {
-                    Troncon troncon = itTroncon.next();
-                    Point2D.Float p1 = troncon.getOrigine().getPosition();
-                    Point2D.Float p2 = troncon.getDestination().getPosition();
+                if(paire.getParcoursBus()!=null){
+                    ListIterator<Troncon> itTroncon = paire.getParcoursBus().getTroncons().listIterator();
+                    
+                    while (itTroncon.hasNext())
+                    {
+                        Troncon troncon = itTroncon.next();
+                        Point2D.Float p1 = troncon.getOrigine().getPosition();
+                        Point2D.Float p2 = troncon.getDestination().getPosition();
 
-                    PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
-                    Float ajX = pAj.getFloat1();
-                    Float ajY = pAj.getFloat2();
+                        PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
+                        Float ajX = pAj.getFloat1();
+                        Float ajY = pAj.getFloat2();
 
-                    if (itTroncon.hasNext())
-                        chemin.lineTo(p2.x + ajX, p2.y + ajY);
+                        if (itTroncon.hasNext())
+                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
 
-                }
-                
-                if (paire.getTrajet().getEmplacementInitial().estSurTroncon())
-                {
-                    Point2D.Float positionInitial = paire.getTrajet().getEmplacementInitial().calculPosition(p_echelle);
-                    chemin.moveTo(positionInitial.x, positionInitial.y);
+                    }
                 }
                 
                 if (paire.getTrajet() != null)
                 {
+                    if (paire.getTrajet().getEmplacementInitial().estSurTroncon())
+                    {
+                    Point2D.Float positionInitial = paire.getTrajet().getEmplacementInitial().calculPosition(p_echelle);
+                    chemin.moveTo(positionInitial.x, positionInitial.y);
+                    }
+                    
                     ListIterator<Troncon> itTroncon2 = paire.getTrajet().getListeTroncons().listIterator();
                     while (itTroncon2.hasNext())
                     {
@@ -86,9 +99,9 @@ public class DessinateurBesoins {
                     }
                 }
             }
-          //  if(m_reseau.getPileSelection().contient(itineraire))
-           //     select_g.draw(chemin);
-            //p_g.draw(chemin); 
+            if(m_reseau.getPileSelection().contient(itineraire))
+                select_g.draw(chemin);
+            p_g.draw(chemin); 
         }
     }
 }
