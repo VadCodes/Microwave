@@ -3,6 +3,7 @@ package Domaine;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import Domaine.BesoinsTransport.*;
+import Domaine.Statistiques.*;
 import Domaine.Utilitaire.*;
 import java.awt.geom.Point2D;
 
@@ -1006,5 +1007,8 @@ public class Simulatheure implements java.io.Serializable {
         //Pour allonger il faut cliquer sur un arrêt et ça cancelle le dernier trajet pour le remplacer par un trajet qui se rend à l'arrêt
     }
         
+    public StatistiquesGeneral getStatistique(){
+        return m_reseauBesoins.getStatistique();
+    }
     
 }

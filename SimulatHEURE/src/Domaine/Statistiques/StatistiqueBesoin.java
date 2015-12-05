@@ -30,6 +30,24 @@ public class StatistiqueBesoin {
         m_nombreEchantion = p_stat.m_nombreEchantion;
         m_itineraire = p_stat.m_itineraire;
     }
+    public String getNameItineraire(){
+        return m_itineraire;
+    }
+    public double getprecisionGlobal(){
+        return m_precisionGlobal;
+    }
+     public double getmaxTempsDeplacement(){
+        return m_maxTempsDeplacement;
+    }
+      public double getminTempsDeplacement(){
+        return m_minTempsDeplacement;
+    }
+       public double getMoyenne(){
+        return m_sommeDesTemps/m_nombreEchantion;
+    }
+
+            
+            
     public void miseAJourStat(Temps p_temps){
         m_nombreEchantion++;
         m_sommeDesTemps += p_temps.getTemps();

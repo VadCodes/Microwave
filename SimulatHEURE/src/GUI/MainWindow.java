@@ -1172,7 +1172,36 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
-
+    private void miseAjourStatistiqueApresArret(){
+          StatistiquesGeneral st = new StatistiquesGeneral(m_controleur.getStatistique());
+          m_statistiques.add(st);
+    }
+    private void miseAjoutComboBoxStat(){
+        miseAjourStatistiqueApresArret();
+        comboBoxStat.removeAllItems();
+        for (int i = 0 ; i < m_statistiques.size(); i++){
+            comboBoxStat.addItem(Integer.toString(i+1));
+        }
+    }
+    private void miseAjourTableauStatistique(int p_stat){
+        int conteur = 1;
+        int x = 0;
+        for (StatistiquesGeneral stat : m_statistiques){
+                if (conteur == p_stat) {
+                    for (StatistiqueBesoin besoin : stat.getListeStatistiqueBesoin()){
+                        String moyenne = Double.toString(besoin.getMoyenne());
+                        String incertitude = Double.toString(besoin.getprecisionGlobal());
+                        moyenne.concat(" +-");
+                        moyenne.concat(incertitude);
+                        jTable1.setValueAt(besoin.getNameItineraire(), x, 0);
+                        jTable1.setValueAt(besoin.getminTempsDeplacement(), x, 1);
+                        jTable1.setValueAt(moyenne, x, 2);
+                        jTable1.setValueAt(besoin.getmaxTempsDeplacement(), x, 3);
+                         x++;
+                    }
+                }
+            }   
+    }
     
     private void miseAjoutAutobusComboBox() {
         comboBoxAutobus.removeAllItems();
@@ -1758,6 +1787,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_crono.pause();
         m_simulationEstLancer = false;
         m_controleur.arreterSimulation();
+        miseAjoutComboBoxStat();
     }
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
@@ -1904,13 +1934,13 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
 
-    private void statistiques(){
-        m_statistiques.getFirst();
-        jTable1.setValueAt("allo", 2,2);
-    }
+   
 
     private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
-       statistiques();
+        
+        int index = comboBoxStat.getSelectedIndex();
+        String name = comboBoxStat.getItemAt(index);
+        miseAjourTableauStatistique(Integer.parseInt(name));
     }//GEN-LAST:event_comboBoxStatActionPerformed
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed

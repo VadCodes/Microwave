@@ -13,10 +13,10 @@ import java.util.LinkedList;
  */
 public class StatistiquesGeneral {
     private LinkedList<StatistiqueBesoin> m_statistiques;
-    StatistiquesGeneral(){
+    public StatistiquesGeneral(){
          m_statistiques = new LinkedList<>();
     }
-    StatistiquesGeneral(StatistiquesGeneral p_stat){
+    public StatistiquesGeneral(StatistiquesGeneral p_stat){
         m_statistiques = new LinkedList<>();
         for (StatistiqueBesoin stat : p_stat.m_statistiques){
            StatistiqueBesoin newStat = new StatistiqueBesoin(stat);
@@ -25,6 +25,9 @@ public class StatistiquesGeneral {
     }
     public LinkedList<StatistiqueBesoin> getListeStatistiqueBesoin(){
         return m_statistiques;
+    }
+    public void addStatistiqueBesoins(StatistiqueBesoin p_stat){
+        m_statistiques.add(p_stat);
     }
             
 }

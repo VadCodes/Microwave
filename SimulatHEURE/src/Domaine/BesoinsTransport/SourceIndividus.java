@@ -5,6 +5,7 @@
  */
 package Domaine.BesoinsTransport;
 import Domaine.ReseauRoutier.Emplacement;
+import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 
@@ -20,11 +21,13 @@ public class SourceIndividus {
     private String m_nom;
     private Itineraire m_itineraire;
     private Temps m_tempsAvantApparition;
+    private StatistiqueBesoin m_stat;
     
     
     
     public SourceIndividus(Temps p_tempsInitial, Distribution p_distributionFrequence, Emplacement p_emplacement, String p_nom
-   , Itineraire p_itineraire){
+   , Itineraire p_itineraire, StatistiqueBesoin p_stat){
+        m_stat = p_stat;
         m_tempsInitial = p_tempsInitial;
         m_distributionFrequence = p_distributionFrequence;
         m_emplacement = p_emplacement;

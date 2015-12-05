@@ -7,6 +7,7 @@ package Domaine.BesoinsTransport;
 import Domaine.Reseau;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Statistiques.StatistiquesGeneral;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -19,16 +20,21 @@ public class ReseauBesoins extends Reseau {
     private LinkedList<Individu> m_listeIndividus = new LinkedList<>();;
     private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();;
     private LinkedList<SourceIndividus> m_listeSources = new LinkedList<>();;
+    private StatistiquesGeneral m_stat;
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
     
     public ReseauBesoins(){
-        
+        m_stat = new StatistiquesGeneral();
     }
     
     public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire, LinkedList<SourceIndividus> p_sources){
         m_listeIndividus = p_listeIndividus;
         m_listeItineraires = p_itineraire;
         m_listeSources = p_sources;
+        m_stat = new StatistiquesGeneral();
+    }
+    public StatistiquesGeneral getStatistique(){
+        return m_stat;
     }
     public LinkedList<Individu> getListIndividus(){
         return m_listeIndividus;
@@ -58,6 +64,10 @@ public class ReseauBesoins extends Reseau {
         return m_pileSelection;
     }
     
+    public void ajouterSource(SourceIndividus p_source){
+        m_listeSources.add(p_source);
+        
+    }
     public void deselectionnerTout(){
         m_pileSelection.vider();
     }
