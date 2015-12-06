@@ -18,6 +18,7 @@ import Domaine.Utilitaire.PaireFloats;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.ListIterator;
@@ -37,9 +38,31 @@ public class DessinateurBesoins {
         Graphics2D select_g = (Graphics2D) p_g.create();
         select_g.setColor(new Color(50,200,255 , 200));
         select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
+        
+        Graphics2D src_g = (Graphics2D) p_g.create();
+        Graphics2D transit_g = (Graphics2D) p_g.create();
+        
+        Emplacement emplSourceArtificielle = m_reseau.getEmplacementSourceTemp();
+        if(emplSourceArtificielle!=null){
+            Point2D.Float posSourceArtificielle = emplSourceArtificielle.calculPosition(p_echelle);
+            Path2D.Float losange = new Path2D.Float();
+            src_g.setColor(new Color(0,200,0));
+            float y1 = posSourceArtificielle.y - SourceAutobus.LARGEUR / 2 / p_echelle;
+            float x1 = posSourceArtificielle.x + SourceAutobus.LARGEUR / 2 / p_echelle;
+            float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
+            float x2 = x1 - SourceAutobus.LARGEUR / p_echelle;
+            losange.moveTo(posSourceArtificielle.x, y1);
+            losange.lineTo(x1, posSourceArtificielle.y);
+            losange.lineTo(posSourceArtificielle.x, y2);
+            losange.lineTo(x2, posSourceArtificielle.y);
+            losange.closePath();
+            src_g.fill(losange);
+        }
+        
+        
         for (Itineraire itineraire: m_reseau.getListItineraire()){
             p_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f / p_echelle));
-            p_g.setColor(new Color(255,200,0 , 150));
+            p_g.setColor(new Color(0,200,0 , 150));
             Path2D.Float chemin = new Path2D.Float();
            
             Point2D.Float origine;
@@ -57,7 +80,7 @@ public class DessinateurBesoins {
                 PaireParcours paire = itPaire.next();
                 
                 if (paire.getTrajet() != null)
-                {     
+                {                    
                     ListIterator<Troncon> itTroncon = paire.getTrajet().getListeTroncons().listIterator();
                     while (itTroncon.hasNext())
                     {
@@ -195,11 +218,23 @@ public class DessinateurBesoins {
                             chemin.lineTo(p2.x, p2.y);
                     }
                 }
-                
             }
             if(m_reseau.getPileSelection().contient(itineraire))
                 select_g.draw(chemin);
             p_g.draw(chemin); 
+            
+            Path2D.Float losange = new Path2D.Float();
+            src_g.setColor(new Color(0,200,0));
+            float y1 = origine.y - SourceAutobus.LARGEUR / 2 / p_echelle;
+            float x1 = origine.x + SourceAutobus.LARGEUR / 2 / p_echelle;
+            float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
+            float x2 = x1 - SourceAutobus.LARGEUR / p_echelle;
+            losange.moveTo(origine.x, y1);
+            losange.lineTo(x1, origine.y);
+            losange.lineTo(origine.x, y2);
+            losange.lineTo(x2, origine.y);
+            losange.closePath();
+            src_g.fill(losange);
         }
     }
 }

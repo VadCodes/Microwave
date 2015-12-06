@@ -27,6 +27,8 @@ public class ReseauBesoins extends Reseau {
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
     private String m_nom;
     
+    private Emplacement m_emplacementSourceTemp = null;
+    
     public ReseauBesoins(){
         m_stat = new StatistiquesGeneral();
     }
@@ -272,5 +274,13 @@ public class ReseauBesoins extends Reseau {
             }
        }
        
+    }
+    
+    public Emplacement getEmplacementSourceTemp(){
+        return m_emplacementSourceTemp;
+    }
+    
+    public void setEmplacementSourceTemp(Emplacement empl){
+        m_emplacementSourceTemp = empl;
     }
 }

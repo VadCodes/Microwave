@@ -37,7 +37,6 @@ public class Simulatheure implements java.io.Serializable {
 
     
     private ReseauBesoins m_reseauBesoins = new ReseauBesoins();
-    private Emplacement m_emplacementInitialItn = null;
     private Boolean m_chercherArretMemeCircuit = false;
     private Boolean m_premierEmplacementSurArret = false;
     private Arret m_arret1Besoin = null;
@@ -894,7 +893,7 @@ public class Simulatheure implements java.io.Serializable {
             largeurSelection = 2 * Arret.RAYON;
         }
         Arret arret = m_reseauTransport.selectionnerArretVinny(xReel, yReel, largeurSelection, p_echelle);
-        if(m_emplacementInitialItn==null){
+        if(m_reseauBesoins.getEmplacementSourceTemp()==null){
             if (arret == null) {
                 ElementRoutier elementRoutier = obtenirElementRoutier(p_x, p_y, p_echelle);
                 if (elementRoutier != null)
@@ -913,7 +912,7 @@ public class Simulatheure implements java.io.Serializable {
                         emplacementDesire = new Emplacement(true, d1 / d2, tronconObtenu, tronconObtenu.getOrigine());
                     }
 
-                    m_emplacementInitialItn = emplacementDesire;
+                    m_reseauBesoins.setEmplacementSourceTemp(emplacementDesire);
                     m_chercherArretMemeCircuit = false;
 
                 }
@@ -922,7 +921,7 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
             else {
-                m_emplacementInitialItn = arret.getEmplacement();
+                m_reseauBesoins.setEmplacementSourceTemp(arret.getEmplacement());
                 m_arret1Besoin = arret;
                 m_chercherArretMemeCircuit = true;
             }
@@ -1064,7 +1063,7 @@ public class Simulatheure implements java.io.Serializable {
                     m_chercherArretMemeCircuit = false;
                 }
                 else{ //trajetpieton
-                    if (!m_reseauTransport.emplacementsSontConnectables(m_emplacementInitialItn, arret.getEmplacement()))
+                    if (!m_reseauTransport.emplacementsSontConnectables(m_reseauBesoins.getEmplacementSourceTemp(), arret.getEmplacement()))
                         throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
 
                     Trajet traj; 
@@ -1076,8 +1075,8 @@ public class Simulatheure implements java.io.Serializable {
                         m_itineraireEnConstruction.getListPaireParcours().addLast(new PaireParcours(traj,null));
                     }
                     else{
-                        traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
-                            m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
+                        traj = new Trajet(m_reseauBesoins.getEmplacementSourceTemp(), arret.getEmplacement(), 
+                            m_reseauRoutier.dijkstra(m_reseauBesoins.getEmplacementSourceTemp(), arret.getEmplacement()));
                         //premier trajet
                         PaireParcours paireParc = new PaireParcours(traj, null); 
                         Itineraire itn = new Itineraire(paireParc);
@@ -1109,7 +1108,7 @@ public class Simulatheure implements java.io.Serializable {
     }
       
     public void cleanItineraireTemp(){
-        m_emplacementInitialItn = null;
+        m_reseauBesoins.setEmplacementSourceTemp(null);
         m_chercherArretMemeCircuit = false;
         m_premierEmplacementSurArret = false;
         m_arret1Besoin = null;
