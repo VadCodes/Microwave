@@ -107,26 +107,8 @@ public class DessinateurBesoins {
                         
                         if (itTroncon.previousIndex() != 0 || !paire.getTrajet().getEmplacementInitial().estSurTroncon())
                             chemin.moveTo(p1.x, p1.y);
-                        
-//                        if (itTroncon.hasNext())
-//                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
 
-                        if (paire.getParcoursBus()!=null && !itTroncon.hasNext())
-                        {
-                            Emplacement emplacementProchainArret = paire.getParcoursBus().getArretDepart().getEmplacement();
-                            Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
-                            if (emplacementProchainArret.estSurTroncon())
-                            {
-                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
-                            }
-                            else
-                            {
-                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
-                            }
-                            //itPaire.previous();
-                        }
-                        else
-                            chemin.lineTo(p2.x, p2.y);
+                        chemin.lineTo(p2.x, p2.y);
                     }
                 }
                               
