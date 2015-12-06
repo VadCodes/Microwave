@@ -186,7 +186,7 @@ public class DessinateurBesoins {
                             p2 = new Point2D.Float(p2.x + ajX, p2.y + ajY);
                         }
                         
-                        if (itTroncon.previousIndex() != 0 || !paire.getTrajet().getEmplacementInitial().estSurTroncon())
+                        if (itTroncon.previousIndex() != 0 || (paire.getTrajet()!=null && !paire.getTrajet().getEmplacementInitial().estSurTroncon()))
                             chemin.moveTo(p1.x, p1.y);
                         
                         if (paireSuivante!=null && !itTroncon.hasNext())
