@@ -208,8 +208,14 @@ public class Individu {
            m_paireActuelle.getParcoursBus().getArretFinal().addPietonAttenteDeSortirBus(paire);
            m_estSurArret = false;
            }
+           else{
+               m_emplacementActuel.copy(m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement());
+           }
        }
-       private void estDansBus(){
+       public boolean estEnBus(){
+           return m_estEnBus;
+       }
+       public void estDansBus(){
            m_paireActuelle.getParcoursBus().getArretFinal().miseAJourArret();
        }
             

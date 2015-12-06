@@ -30,11 +30,12 @@ public class Troncon extends ElementRoutier{
         
         m_distribution = new Distribution(Type.TRONCON);
         m_longueur = p_origine.getPosition().distance(p_destination.getPosition());
-        m_tempsTransitPieton = new Temps(m_longueur / ReseauRoutier.VITESSE_PIETON);
+        m_tempsTransitPieton = new Temps(60*m_longueur/ReseauRoutier.VITESSE_PIETON);
        
     }
     public void updateTempsTransitPieton(){
-        m_tempsTransitPieton = new Temps(m_longueur / ReseauRoutier.VITESSE_PIETON);
+        m_tempsTransitPieton = new Temps(60* m_longueur/ReseauRoutier.VITESSE_PIETON );
+        
     }
     public void setTempsTransit(){
         m_tempsTransitAutobus = m_distribution.pigerTemps();
@@ -63,6 +64,7 @@ public class Troncon extends ElementRoutier{
         return m_tempsTransitAutobus;
     }
     public Temps getTempsTransitPieton(){
+        updateTempsTransitPieton();
         return m_tempsTransitPieton;
     }
     public void setDistribution(Distribution p_distribution){

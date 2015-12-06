@@ -81,14 +81,16 @@ public class DessinateurSimulation {
     {
         LinkedList<Individu> individus = m_reseauBesoins.getListIndividus();
         for (Individu individu :individus){
-            Emplacement em = individu.getEmplacementActuel();
-
-            Point2D.Float position = em.calculPosition(p_echelle);
-            float x = position.x -   individu.RAYON / p_echelle;
-            float y = position.y -   individu.RAYON / p_echelle;
-            float diametre = 2 *   individu.RAYON / p_echelle;
-            p_g.setColor(Color.CYAN);
-            p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+            if(!individu.estEnBus()){
+                Emplacement em = individu.getEmplacementActuel();
+                Point2D.Float position = em.calculPosition(p_echelle);
+                float x = position.x -   individu.RAYON / p_echelle;
+                float y = position.y -   individu.RAYON / p_echelle;
+                float diametre = 2 *   individu.RAYON / p_echelle;
+                p_g.setColor(Color.CYAN);
+                p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+            }
+            
         }
     }
 //    private void dessinerBus(Graphics2D p_g, int p_x, int p_y, float p_echelle){
