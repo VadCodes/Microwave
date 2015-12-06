@@ -82,7 +82,14 @@ public class ReseauBesoins extends Reseau {
             int number = m_listeItineraires.size();
             m_nom = "Itineraire".concat(Integer.toString(number +1));
             StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
-            SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial(),"default"
+            Emplacement emplSrc;
+            if(itn.getListPaireParcours().getFirst().getTrajet()!=null){
+                emplSrc = itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial();
+            }
+            else{
+                emplSrc = itn.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement();
+            }
+            SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), emplSrc,"default"
                 , itn, be);
             itn.asignerSource(sour);
             itn.setStat(be);

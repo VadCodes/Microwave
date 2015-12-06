@@ -915,7 +915,6 @@ public class Simulatheure implements java.io.Serializable {
 
                     m_emplacementInitialItn = emplacementDesire;
                     m_chercherArretMemeCircuit = false;
-                    m_premierEmplacementSurArret = false;
 
                 }
                 else{
@@ -926,7 +925,6 @@ public class Simulatheure implements java.io.Serializable {
                 m_emplacementInitialItn = arret.getEmplacement();
                 m_arret1Besoin = arret;
                 m_chercherArretMemeCircuit = true;
-                m_premierEmplacementSurArret = true;
             }
         }
         else{
@@ -949,6 +947,9 @@ public class Simulatheure implements java.io.Serializable {
                             emplacementDesire = new Emplacement(true, d1 / d2, tronconObtenu, tronconObtenu.getOrigine());
                         }
 
+                        if (!m_reseauTransport.emplacementsSontConnectables(m_arret1Besoin.getEmplacement(), emplacementDesire))
+                            throw new IllegalArgumentException("L'emplacement n'est pas atteignable.", new Throwable("Construction impossible"));
+                        
                         Trajet trajFin = new Trajet(m_arret1Besoin.getEmplacement(), emplacementDesire, 
                             m_reseauRoutier.dijkstra(m_arret1Besoin.getEmplacement(), emplacementDesire));
                         
@@ -969,7 +970,6 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
                 
-            
             if(m_chercherArretMemeCircuit){
                 Boolean succesRecherche = false;
                 Circuit circuitElu = null;
@@ -980,7 +980,7 @@ public class Simulatheure implements java.io.Serializable {
                     for (ListIterator<PaireArretTrajet> patIt = circ.getListeArretTrajet().listIterator(); patIt.hasNext();) {
                         patApres = patIt.next();
                         if(patApres.getArret()==arret){
-                            for(ListIterator<PaireArretTrajet> patItInv = patIt; patItInv.hasPrevious();){
+                            for(ListIterator<PaireArretTrajet> patItInv = circ.getListeArretTrajet().listIterator(patIt.previousIndex()); patItInv.hasPrevious();){
                                 patAvant = patItInv.previous();
                                 if(patAvant == patApresPrecedente){
                                     break;
@@ -1022,33 +1022,71 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
             else{
-                if (!m_reseauTransport.emplacementsSontConnectables(m_emplacementInitialItn, arret.getEmplacement()))
-                    throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
-                
-                Trajet traj; 
-                
+                //pour skipper trajet pieton
+                Boolean succesRecherche = false;
+                Circuit circuitElu = null;
+                PaireArretTrajet patAvant = null;
+                PaireArretTrajet patApres = null;
                 if(m_itineraireEnConstruction!=null){
-                    traj = new Trajet(m_arret1Besoin.getEmplacement(), arret.getEmplacement(), 
-                        m_reseauRoutier.dijkstra(m_arret1Besoin.getEmplacement(), arret.getEmplacement()));
+                    for (Circuit circ : m_reseauTransport.getListeCircuits()){
+                        PaireArretTrajet patApresPrecedente = null;
+                        for (ListIterator<PaireArretTrajet> patIt = circ.getListeArretTrajet().listIterator(); patIt.hasNext();) {
+                            patApres = patIt.next();
+                            if(patApres.getArret()==arret){
+                                for(ListIterator<PaireArretTrajet> patItInv = circ.getListeArretTrajet().listIterator(patIt.previousIndex()); patItInv.hasPrevious();){
+                                    patAvant = patItInv.previous();
+                                    if(patAvant == patApresPrecedente){
+                                        break;
+                                    }
+                                    if(patAvant.getArret()==m_arret1Besoin){
+                                        circuitElu = circ;
+                                        succesRecherche = true;
+                                        break;
+                                    }
+                                }
+                                patApresPrecedente = patApres;
+                            }
+                            if(succesRecherche) break;
+                        }
+                        if(succesRecherche) break;
+                    }
+                }
+                if(succesRecherche){
+                    ParcoursBus parcoBus = new ParcoursBus(circuitElu, patAvant, patApres);
                     
-                    if(m_itineraireEnConstruction.getListPaireParcours().getLast().getTrajet()==null){
-                        m_itineraireEnConstruction.getListPaireParcours().getLast().setTrajet(traj);
+                    if(m_itineraireEnConstruction.getListPaireParcours().getLast().getParcoursBus()==null){
+                        m_itineraireEnConstruction.getListPaireParcours().getLast().setParcoursBus(parcoBus);
                     }
                     else{
+                        m_itineraireEnConstruction.getListPaireParcours().addLast(new PaireParcours(null,parcoBus));
+                    }
+                    m_arret1Besoin = arret;
+                    m_chercherArretMemeCircuit = false;
+                }
+                else{ //trajetpieton
+                    if (!m_reseauTransport.emplacementsSontConnectables(m_emplacementInitialItn, arret.getEmplacement()))
+                        throw new IllegalArgumentException("L'arrêt n'est pas atteignable.", new Throwable("Construction impossible"));
+
+                    Trajet traj; 
+
+                    if(m_itineraireEnConstruction!=null){
+                        traj = new Trajet(m_arret1Besoin.getEmplacement(), arret.getEmplacement(), 
+                            m_reseauRoutier.dijkstra(m_arret1Besoin.getEmplacement(), arret.getEmplacement()));
+
                         m_itineraireEnConstruction.getListPaireParcours().addLast(new PaireParcours(traj,null));
                     }
+                    else{
+                        traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
+                            m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
+                        //premier trajet
+                        PaireParcours paireParc = new PaireParcours(traj, null); 
+                        Itineraire itn = new Itineraire(paireParc);
+                        m_reseauBesoins.ajouterItineraire(itn);
+                        m_itineraireEnConstruction = itn;
+                    }
+                    m_arret1Besoin = arret;
+                    m_chercherArretMemeCircuit = true;
                 }
-                else{
-                    traj = new Trajet(m_emplacementInitialItn, arret.getEmplacement(), 
-                        m_reseauRoutier.dijkstra(m_emplacementInitialItn, arret.getEmplacement()));
-                    //premier trajet
-                    PaireParcours paireParc = new PaireParcours(traj, null); 
-                    Itineraire itn = new Itineraire(paireParc);
-                    m_reseauBesoins.ajouterItineraire(itn);
-                    m_itineraireEnConstruction = itn;
-                }
-                m_arret1Besoin = arret;
-                m_chercherArretMemeCircuit = true;
             }
         }
 
@@ -1069,7 +1107,7 @@ public class Simulatheure implements java.io.Serializable {
         //Dès qu'on reclique sur un tronçon c'est fini
         //Pour allonger il faut cliquer sur un arrêt et ça cancelle le dernier trajet pour le remplacer par un trajet qui se rend à l'arrêt
     }
-        
+      
     public void cleanItineraireTemp(){
         m_emplacementInitialItn = null;
         m_chercherArretMemeCircuit = false;
