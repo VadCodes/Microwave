@@ -55,49 +55,165 @@ public class DessinateurBesoins {
             for (ListIterator<PaireParcours> itPaire = itineraire.getListPaireParcours().listIterator() ; itPaire.hasNext() ; )
             {
                 PaireParcours paire = itPaire.next();
+                
+                if (paire.getTrajet() != null)
+                {     
+                    ListIterator<Troncon> itTroncon = paire.getTrajet().getListeTroncons().listIterator();
+                    while (itTroncon.hasNext())
+                    {
+                        Troncon troncon = itTroncon.next();
+                        
+                        Point2D.Float p1;
+                        Point2D.Float p2;
+                        Boolean p1Aj = false;
+                        Boolean p2Aj = false;
+                        if(paire.getTrajet().getEmplacementInitial().estSurTroncon()){
+                            if(paire.getTrajet().getEmplacementInitial().getTroncon()==troncon){
+                                p1 = paire.getTrajet().getEmplacementInitial().calculPosition(p_echelle);
+                            }
+                            else{
+                                p1 = troncon.getOrigine().getPosition();
+                                p1Aj = true;
+                            }
+                        }
+                        else{
+                            p1 = troncon.getOrigine().getPosition();
+                            p1Aj = true;
+                        }
+                        if(paire.getTrajet().getEmplacementFinal().estSurTroncon()){
+                            if(paire.getTrajet().getEmplacementFinal().getTroncon()==troncon){
+                                p2 = paire.getTrajet().getEmplacementFinal().calculPosition(p_echelle);
+                            }
+                            else{
+                                p2 = troncon.getDestination().getPosition();
+                                p2Aj = true;
+                            }
+                        }
+                        else{
+                            p2 = troncon.getDestination().getPosition();
+                            p2Aj = true;
+                        }
+                        
+                        PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
+                        Float ajX = pAj.getFloat1();
+                        Float ajY = pAj.getFloat2();
+                        
+                        if(p1Aj){
+                            p1 = new Point2D.Float(p1.x + ajX, p1.y + ajY);
+                        }
+                        if(p2Aj){
+                            p2 = new Point2D.Float(p2.x + ajX, p2.y + ajY);
+                        }
+                        
+                        if (itTroncon.previousIndex() != 0 || !paire.getTrajet().getEmplacementInitial().estSurTroncon())
+                            chemin.moveTo(p1.x, p1.y);
+                        
+//                        if (itTroncon.hasNext())
+//                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
+
+                        if (paire.getParcoursBus()!=null && !itTroncon.hasNext())
+                        {
+                            Emplacement emplacementProchainArret = paire.getParcoursBus().getArretDepart().getEmplacement();
+                            Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
+                            if (emplacementProchainArret.estSurTroncon())
+                            {
+                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
+                            }
+                            else
+                            {
+                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
+                            }
+                            //itPaire.previous();
+                        }
+                        else
+                            chemin.lineTo(p2.x, p2.y);
+                    }
+                }
+                              
                 if(paire.getParcoursBus()!=null){
                     ListIterator<Troncon> itTroncon = paire.getParcoursBus().getTroncons().listIterator();
+                    
+                    PaireParcours paireSuivante;
+                    if(itPaire.hasNext()){
+                        paireSuivante = itPaire.next();
+                        itPaire.previous();
+                    }
+                    else
+                        paireSuivante = null;
                     
                     while (itTroncon.hasNext())
                     {
                         Troncon troncon = itTroncon.next();
-                        Point2D.Float p1 = troncon.getOrigine().getPosition();
-                        Point2D.Float p2 = troncon.getDestination().getPosition();
-
+                        Point2D.Float p1;
+                        Point2D.Float p2;
+                        Boolean p1Aj = false;
+                        Boolean p2Aj = false;
+                        if(paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().estSurTroncon()){
+                            if(paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().getTroncon()==troncon){
+                                p1 = paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().calculPosition(p_echelle);
+                            }
+                            else{
+                                p1 = troncon.getOrigine().getPosition();
+                                p1Aj = true;
+                            }
+                        }
+                        else{
+                            p1 = troncon.getOrigine().getPosition();
+                            p1Aj = true;
+                        }
+                        if(paire.getParcoursBus().getPaireArretDepart().getTrajet().getEmplacementFinal().estSurTroncon()){
+                            if(paire.getParcoursBus().getPaireArretDepart().getTrajet().getEmplacementFinal().getTroncon()==troncon){
+                                p2 = paire.getParcoursBus().getPaireArretDepart().getTrajet().getEmplacementFinal().calculPosition(p_echelle);
+                            }
+                            else{
+                                p2 = troncon.getDestination().getPosition();
+                                p2Aj = true;
+                            }
+                        }
+                        else{
+                            p2 = troncon.getDestination().getPosition();
+                            p2Aj = true;
+                        }
+                        
                         PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
                         Float ajX = pAj.getFloat1();
                         Float ajY = pAj.getFloat2();
-
-                        //if (itTroncon.hasNext())
-                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
-
+                        
+                        if(p1Aj){
+                            p1 = new Point2D.Float(p1.x + ajX, p1.y + ajY);
+                        }
+                        if(p2Aj){
+                            p2 = new Point2D.Float(p2.x + ajX, p2.y + ajY);
+                        }
+                        
+                        if (itTroncon.previousIndex() != 0 || !paire.getTrajet().getEmplacementInitial().estSurTroncon())
+                            chemin.moveTo(p1.x, p1.y);
+                        
+                        if (paireSuivante!=null && !itTroncon.hasNext())
+                        {
+                            Emplacement emplacementProchainArret;
+                            if(paireSuivante.getTrajet()!=null){
+                                emplacementProchainArret = paireSuivante.getTrajet().getEmplacementInitial();
+                            }
+                            else{
+                                emplacementProchainArret = paireSuivante.getParcoursBus().getArretDepart().getEmplacement();
+                            }
+                            
+                            Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
+                            if (emplacementProchainArret.estSurTroncon())
+                            {
+                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
+                            }
+                            else
+                            {
+                                chemin.lineTo(positionProchainArret.x, positionProchainArret.y);
+                            }
+                        }
+                        else
+                            chemin.lineTo(p2.x, p2.y);
                     }
                 }
                 
-                if (paire.getTrajet() != null)
-                {
-                    if (paire.getTrajet().getEmplacementInitial().estSurTroncon())
-                    {
-                    Point2D.Float positionInitial = paire.getTrajet().getEmplacementInitial().calculPosition(p_echelle);
-                    chemin.moveTo(positionInitial.x, positionInitial.y);
-                    }
-                    
-                    ListIterator<Troncon> itTroncon2 = paire.getTrajet().getListeTroncons().listIterator();
-                    while (itTroncon2.hasNext())
-                    {
-                        Troncon troncon = itTroncon2.next();
-                        Point2D.Float p1 = troncon.getOrigine().getPosition();
-                        Point2D.Float p2 = troncon.getDestination().getPosition();
-                        
-                        PaireFloats pAj = troncon.ajusterSiDoubleSens(p1, p2, p_echelle);
-                        Float ajX = pAj.getFloat1();
-                        Float ajY = pAj.getFloat2();
-                        
-                        if (itTroncon2.hasNext())
-                            chemin.lineTo(p2.x + ajX, p2.y + ajY);
-
-                    }
-                }
             }
             if(m_reseau.getPileSelection().contient(itineraire))
                 select_g.draw(chemin);

@@ -1134,7 +1134,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 //miseAjourSelectionCircuitsAjout(); 
                                 //panelItineraire.afficheInfo((Itineraire)m_controleur.getBesoins().getPileSelection().getDessus());
                             }
-                            
+
                             miseAjourSelectionArretsAjout();
                             break;
                         default:
@@ -2082,12 +2082,19 @@ public class MainWindow extends javax.swing.JFrame {
             if (m_modeCourant == Mode.TRANSPORT)
                 ajoutCircuit.doClick();
         }
+        
+        if (comboBoxCircuits.getItemCount() > 1){
+            besoins.setEnabled(true);
+        }
+        else{
+            besoins.setEnabled(false);
+            if (m_modeCourant == Mode.BESOINS)
+                transport.doClick();
+        }
 
         if (comboBoxSources.getItemCount() > 1) {
-            besoins.setEnabled(true);
             simulation.setEnabled(true);
         } else {
-            besoins.setEnabled(false);
             simulation.setEnabled(false);
             if (m_modeCourant == Mode.SIMULATION)
                 transport.doClick();
