@@ -1166,6 +1166,15 @@ public class MainWindow extends javax.swing.JFrame {
                     if (elemTransport != null) {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
+                    break;
+                
+                case BESOINS:
+                    m_controleur.deselectionnerTout();
+                    ElementBesoins elemBesoins = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, false);
+                    if (elemBesoins != null) {
+                        jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
+                    }
+                    break;
             }
         }
         miseAJourPanels();
@@ -1466,7 +1475,7 @@ public class MainWindow extends javax.swing.JFrame {
 
             case TRANSPORT:
                 LinkedList<ElementTransport> elementsTransportSelectionnes = m_controleur.getElementsSelectionnesTransport();
-                if (elementsTransportSelectionnes.getFirst() == null) return;
+                if (elementsTransportSelectionnes == null || elementsTransportSelectionnes.size() == 0) return;
                 ElementTransport elemTransport = elementsTransportSelectionnes.getLast();
 
                 if (elemTransport.getClass() == SourceAutobus.class) {

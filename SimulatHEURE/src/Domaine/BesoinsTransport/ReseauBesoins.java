@@ -182,7 +182,7 @@ public class ReseauBesoins extends Reseau {
                             }
                         }
                     }
-                    else if (paireParc.getParcoursBus() != null){
+                    if (paireParc.getParcoursBus() != null){
                         ParcoursBus parcoBus = paireParc.getParcoursBus();
                         LinkedList<Troncon> parcoBusTroncons = parcoBus.getTroncons();
                         for (Troncon trc2 : parcoBusTroncons){

@@ -122,12 +122,14 @@ public class Simulatheure implements java.io.Serializable {
     }
     
     public void deselectionnerBesoins(){
+        cleanItineraireTemp();
         m_reseauBesoins.deselectionnerTout();
     }
 
     public void deselectionnerTout() {
         deselectionnerRoutier();
         deselectionnerTransport();
+        deselectionnerBesoins();
     }
     
     public void resilierConstruction()
@@ -973,12 +975,15 @@ public class Simulatheure implements java.io.Serializable {
                 Boolean succesRecherche = false;
                 Circuit circuitElu = null;
                 PaireArretTrajet patAvant = null;
-                PaireArretTrajet patApres = null;
+                PaireArretTrajet patApres = null; 
                 for (Circuit circ : m_reseauTransport.getListeCircuits()){
+                    Integer compteur_boucle_patIt = 0;
+                    Integer compteur_max = 2*circ.getListeArretTrajet().size();
                     PaireArretTrajet patApresPrecedente = null;
                     for (ListIterator<PaireArretTrajet> patIt = circ.getListeArretTrajet().listIterator(); patIt.hasNext();) {
                         patApres = patIt.next();
                         if(patApres.getArret()==arret){
+                            Integer compteur_boucle_patItInv = 0;
                             for(ListIterator<PaireArretTrajet> patItInv = circ.getListeArretTrajet().listIterator(patIt.previousIndex()); patItInv.hasPrevious();){
                                 patAvant = patItInv.previous();
                                 if(patAvant == patApresPrecedente){
@@ -989,10 +994,23 @@ public class Simulatheure implements java.io.Serializable {
                                     succesRecherche = true;
                                     break;
                                 }
+                                if(compteur_boucle_patItInv==compteur_max){
+                                    break;
+                                }
+                                compteur_boucle_patItInv++;
+                                if(circ.veutBoucler() && circ.peutBoucler() && !patItInv.hasPrevious()){
+                                    patItInv = circ.getListeArretTrajet().listIterator(circ.getListeArretTrajet().size()-1);
+                                }
                             }
                             patApresPrecedente = patApres;
                         }
-                        if(succesRecherche) break;
+                        if(succesRecherche || compteur_boucle_patIt==compteur_max){
+                            break;
+                        }
+                        compteur_boucle_patIt++;
+                        if(circ.veutBoucler() && circ.peutBoucler() && !patIt.hasNext()){
+                            patIt = circ.getListeArretTrajet().listIterator(0);
+                        }
                     }
                     if(succesRecherche) break;
                 }
@@ -1028,10 +1046,13 @@ public class Simulatheure implements java.io.Serializable {
                 PaireArretTrajet patApres = null;
                 if(m_itineraireEnConstruction!=null){
                     for (Circuit circ : m_reseauTransport.getListeCircuits()){
+                        Integer compteur_boucle_patIt = 0;
+                        Integer compteur_max = 2*circ.getListeArretTrajet().size();
                         PaireArretTrajet patApresPrecedente = null;
                         for (ListIterator<PaireArretTrajet> patIt = circ.getListeArretTrajet().listIterator(); patIt.hasNext();) {
                             patApres = patIt.next();
                             if(patApres.getArret()==arret){
+                                Integer compteur_boucle_patItInv = 0;
                                 for(ListIterator<PaireArretTrajet> patItInv = circ.getListeArretTrajet().listIterator(patIt.previousIndex()); patItInv.hasPrevious();){
                                     patAvant = patItInv.previous();
                                     if(patAvant == patApresPrecedente){
@@ -1042,10 +1063,23 @@ public class Simulatheure implements java.io.Serializable {
                                         succesRecherche = true;
                                         break;
                                     }
+                                    if(compteur_boucle_patItInv==compteur_max){
+                                        break;
+                                    }
+                                    compteur_boucle_patItInv++;
+                                    if(circ.veutBoucler() && circ.peutBoucler() && !patItInv.hasPrevious()){
+                                        patItInv = circ.getListeArretTrajet().listIterator(circ.getListeArretTrajet().size()-1);
+                                    }
                                 }
                                 patApresPrecedente = patApres;
                             }
-                            if(succesRecherche) break;
+                            if(succesRecherche || compteur_boucle_patIt==compteur_max){
+                                break;
+                            }
+                            compteur_boucle_patIt++;
+                            if(circ.veutBoucler() && circ.peutBoucler() && !patIt.hasNext()){
+                                patIt = circ.getListeArretTrajet().listIterator(0);
+                            }
                         }
                         if(succesRecherche) break;
                     }
