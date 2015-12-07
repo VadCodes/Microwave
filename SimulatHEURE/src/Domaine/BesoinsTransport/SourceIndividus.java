@@ -23,7 +23,7 @@ public class SourceIndividus {
     private Temps m_tempsAvantApparition;
     private StatistiqueBesoin m_stat;
     
-    
+    public final static float LARGEUR = 20;
     
     public SourceIndividus(Temps p_tempsInitial, Distribution p_distributionFrequence, Emplacement p_emplacement, String p_nom
    , Itineraire p_itineraire, StatistiqueBesoin p_stat){

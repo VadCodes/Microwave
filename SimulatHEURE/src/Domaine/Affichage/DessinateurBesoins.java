@@ -8,6 +8,7 @@ package Domaine.Affichage;
 import Domaine.BesoinsTransport.Itineraire;
 import Domaine.BesoinsTransport.PaireParcours;
 import Domaine.BesoinsTransport.ReseauBesoins;
+import Domaine.BesoinsTransport.SourceIndividus;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
@@ -219,22 +220,31 @@ public class DessinateurBesoins {
                     }
                 }
             }
-            if(m_reseau.getPileSelection().contient(itineraire))
+            if(m_reseau.getPileSelection().contient(itineraire)){
                 select_g.draw(chemin);
+                float grossissement = 1.4f;
+                dessinerLosange(select_g, origine, p_echelle, 
+                        new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+            }
+                
             p_g.draw(chemin); 
-            
-            Path2D.Float losange = new Path2D.Float();
-            src_g.setColor(new Color(0,200,0));
-            float y1 = origine.y - SourceAutobus.LARGEUR / 2 / p_echelle;
-            float x1 = origine.x + SourceAutobus.LARGEUR / 2 / p_echelle;
-            float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
-            float x2 = x1 - SourceAutobus.LARGEUR / p_echelle;
-            losange.moveTo(origine.x, y1);
-            losange.lineTo(x1, origine.y);
-            losange.lineTo(origine.x, y2);
-            losange.lineTo(x2, origine.y);
-            losange.closePath();
-            src_g.fill(losange);
+            dessinerLosange(select_g, origine, p_echelle, new Color(0,200,0), SourceIndividus.LARGEUR);
         }
+    }
+    
+    private void dessinerLosange(Graphics2D los_g, Point2D.Float position, Float p_echelle, 
+                                Color couleur, float largeur){
+        Path2D.Float losange = new Path2D.Float();
+        los_g.setColor(couleur);
+        float y1 = position.y - largeur / 2 / p_echelle;
+        float x1 = position.x + largeur / 2 / p_echelle;
+        float y2 = y1 + largeur / p_echelle;
+        float x2 = x1 - largeur / p_echelle;
+        losange.moveTo(position.x, y1);
+        losange.lineTo(x1, position.y);
+        losange.lineTo(position.x, y2);
+        losange.lineTo(x2, position.y);
+        losange.closePath();
+        los_g.fill(losange);
     }
 }

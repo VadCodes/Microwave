@@ -12,6 +12,8 @@ import Domaine.Statistiques.StatistiquesGeneral;
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Distribution.Type;
 import Domaine.Utilitaire.Temps;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -263,6 +265,41 @@ public class ReseauBesoins extends Reseau {
             }
         }
         
+        return false;
+    }
+    
+    public Boolean selectionnerSourceIndividus(Float p_x, Float p_y, Float p_echelle){
+        Path2D.Float zoneSelection = new Path2D.Float();
+        Float largeur = SourceIndividus.LARGEUR;
+        
+        zoneSelection.moveTo(p_x, p_y - largeur / 2 / p_echelle);
+        zoneSelection.lineTo(p_x + largeur / 2 / p_echelle, p_y);
+        zoneSelection.lineTo(p_x, p_y + largeur / 2 / p_echelle);
+        zoneSelection.lineTo(p_x - largeur / 2 / p_echelle, p_y);
+        zoneSelection.closePath();
+
+        for (Itineraire itn : m_listeItineraires){
+            Emplacement em = null;
+            if(itn.getListPaireParcours().getFirst()!=null){
+                if(itn.getListPaireParcours().getFirst().getTrajet()!=null){
+                    em = itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial();
+                }
+                else{
+                    em = itn.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement();
+                }
+            }
+            Point2D.Float p = em.calculPosition(p_echelle);
+            
+            if(em!=null){
+                if (zoneSelection.contains(p))
+                {
+                    m_pileSelection.ajouter(itn);
+                    return true;
+                }
+            }
+                
+        }
+       
         return false;
     }
 

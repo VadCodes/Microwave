@@ -876,6 +876,9 @@ public class Simulatheure implements java.io.Serializable {
     
     public Boolean selectionnerItineraire(Float xReel, Float yReel, Float largeurSelection, Float p_echelle)
     {
+        if (m_reseauBesoins.selectionnerSourceIndividus(xReel, yReel, p_echelle)){
+            return true;
+        }
         Troncon trc = m_reseauRoutier.obtenirTroncon(xReel, yReel, largeurSelection, p_echelle);
         return m_reseauBesoins.selectionnerItineraire(xReel, yReel, p_echelle, trc);
     }
