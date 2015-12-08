@@ -232,7 +232,7 @@ public class DessinateurBesoins {
                             chemin2.moveTo(p1.x, p1.y);
                             premier = false;
                         }     
-                        
+                        chemin2.lineTo(p1.x, p1.y);
                         if (paireSuivante!=null && !itTroncon.hasNext())
                         {
                             Emplacement emplacementProchainArret;
@@ -254,6 +254,7 @@ public class DessinateurBesoins {
                             }
                         }
                         else{
+                            
                             chemin2.lineTo(p2.x, p2.y);
                         }
                     }
