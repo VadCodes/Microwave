@@ -66,7 +66,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerArrets(graphic2D, m_echelle);
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, m_echelle);
                 dessinateurSimulation.dessinerAutobus(graphic2D, m_echelle);
-                dessinateurSimulation.dessinerPietons(graphic2D, 1);
+                dessinateurSimulation.dessinerPietons(graphic2D, m_echelle);
                 dessinateurBesoins.dessinerItineraire(graphic2D, m_echelle);
             }
             else
@@ -78,7 +78,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, 1);
                 dessinateurSimulation.dessinerAutobus(graphic2D, 1);
                 dessinateurSimulation.dessinerPietons(graphic2D, 1);
-                dessinateurBesoins.dessinerItineraire(graphic2D, m_echelle);
+                dessinateurBesoins.dessinerItineraire(graphic2D, 1);
             }
             
 
