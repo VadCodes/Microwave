@@ -135,9 +135,13 @@ public class DessinateurBesoins {
                         chemin1.moveTo(p1.x, p1.y);
 
                         chemin1.lineTo(p2.x, p2.y);
+                        
+                        if(m_reseau.getPileSelection().contient(itineraire))
+                            select_g.draw(chemin1);
                         p_g.setStroke(new BasicStroke((Troncon.LARGEUR*2/3) / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new   float[]{(Troncon.LARGEUR) / p_echelle}, 0));
-                        p_g.setColor(new Color(0,200,0,150));
+                        p_g.setColor(new Color(0,200,0));
                         p_g.draw(chemin1); 
+                        
                     }
                     
                 }
@@ -186,6 +190,12 @@ public class DessinateurBesoins {
                         if(listeTroncons.size()==1){
                             p1 = paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().calculPosition(p_echelle);
                             p2 = paire.getParcoursBus().getPaireArretFinal().getArret().getEmplacement().calculPosition(p_echelle);
+                            if(!paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().estSurTroncon()){
+                                p1Aj = true;
+                            }
+                            if(!paire.getParcoursBus().getPaireArretFinal().getArret().getEmplacement().estSurTroncon()){
+                                p2Aj = true;
+                            }
                         }
                         else{
                             if(paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().estSurTroncon()){
@@ -233,6 +243,8 @@ public class DessinateurBesoins {
                             premier = false;
                         }     
                         
+                        chemin2.lineTo(p1.x, p1.y);
+                        
                         if (paireSuivante!=null && !itTroncon.hasNext())
                         {
                             Emplacement emplacementProchainArret;
@@ -244,22 +256,28 @@ public class DessinateurBesoins {
                             }
                             
                             Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
+
                             if (emplacementProchainArret.estSurTroncon())
                             {
                                 chemin2.lineTo(positionProchainArret.x, positionProchainArret.y);
                             }
                             else
                             {
+                                positionProchainArret = new Point2D.Float(positionProchainArret.x + ajX, positionProchainArret.y + ajY);
                                 chemin2.lineTo(positionProchainArret.x, positionProchainArret.y);
                             }
                         }
                         else{
+                            
                             chemin2.lineTo(p2.x, p2.y);
                         }
                     }
+                    if(m_reseau.getPileSelection().contient(itineraire))
+                            select_g.draw(chemin2);
                     p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
                     p_g.setColor(new Color(0,200,0,150));
                     p_g.draw(chemin2); 
+                    
                 }
             }
             if(m_reseau.getPileSelection().contient(itineraire)){
