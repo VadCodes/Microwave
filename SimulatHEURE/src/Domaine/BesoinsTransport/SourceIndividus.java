@@ -19,6 +19,8 @@ public class SourceIndividus {
     private Emplacement m_emplacement;
     private Temps m_frequence;
     private String m_nom;
+    private int m_nbMaxIndividus = 1000;
+    private int m_nbIndividusGeneres = 0;
     private Itineraire m_itineraire;
     private Temps m_tempsAvantApparition;
     private StatistiqueBesoin m_stat;
@@ -70,7 +72,8 @@ public class SourceIndividus {
         return m_distributionFrequence;
     }
     public void genererIndividus(Temps p_deltatT){
-        while(m_tempsAvantApparition.getTemps() <= 0){
+        while(m_tempsAvantApparition.getTemps() <= 0 && (m_nbMaxIndividus > m_nbIndividusGeneres )){
+            m_nbIndividusGeneres++;
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             Temps tempsAvantApparition = new Temps ( p_deltatT.getTemps() + m_tempsAvantApparition.getTemps());
             Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, false, m_stat);

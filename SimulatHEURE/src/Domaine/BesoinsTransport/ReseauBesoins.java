@@ -7,6 +7,7 @@ package Domaine.BesoinsTransport;
 import Domaine.Reseau;
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.ReseauTransport.Autobus;
 import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
 import Domaine.Utilitaire.Distribution;
@@ -16,6 +17,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  *
@@ -306,11 +308,17 @@ public class ReseauBesoins extends Reseau {
     public void calculEtatReseauBesoin(Temps p_deltaT) {
        for(Itineraire it : m_listeItineraires){
             it.updateSourceIndividus(p_deltaT);
-            for (Individu individu : it.getListIndividu()){
-                individu.miseAJourIndividu(p_deltaT);
+            ListIterator<Individu> individusItr = it.getListIndividu().listIterator();
+        while (individusItr.hasNext()) {
+            Individu ind = individusItr.next();
+            if (ind.asTerminer()){
+                individusItr.remove();
             }
+            else{
+                ind.miseAJourIndividu(p_deltaT);;
+            }
+         }
        }
-       
     }
     
     public Emplacement getEmplacementSourceTemp(){
