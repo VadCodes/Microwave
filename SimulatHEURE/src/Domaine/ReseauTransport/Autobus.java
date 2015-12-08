@@ -358,8 +358,6 @@ public class Autobus {
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
         if (tmp.getTemps() < 0) {
             tempsDeVie += deltatT.getTemps();
-            System.out.println("Bus:");
-            System.out.println(temp_iteration);
             temp_iteration = deltatT.getTemps();
             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
             miseAJourEmplacement(nouveauDeltatT);

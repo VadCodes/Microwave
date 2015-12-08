@@ -57,8 +57,6 @@ public class Individu {
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
         if (tmp.getTemps() < 0) {
             temp_iteration = deltatT.getTemps();
-            System.out.println("Pieton:");
-            System.out.println(temp_iteration);
             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
             m_tempsDeVie += nouveauDeltatT.getTemps();
             miseAJourEmplacement(nouveauDeltatT);
@@ -233,8 +231,9 @@ public class Individu {
                     if (pourcentage >= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
                         m_asTerminer = true;
                         float tempsParcourirDeTrop = (float) ((pourcentage - m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
+                        System.out.println(m_tempsDeVie - tempsParcourirDeTrop);
                         m_emplacementActuel.copy(m_paireActuelle.getTrajet().getEmplacementFinal());
-                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - tempsParcourirDeTrop ));
+                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - tempsParcourirDeTrop));
                         return;
                     }
                 } 
@@ -245,6 +244,7 @@ public class Individu {
                         float tempsParcourirDeTrop = (float) ((pourcentage - 1) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
                         m_asTerminer = true;
                         m_emplacementActuel.copy(m_paireActuelle.getTrajet().getEmplacementFinal());
+                        System.out.println(m_tempsDeVie - tempsParcourirDeTrop);
                         m_stat.miseAJourStat(new Temps(m_tempsDeVie - tempsParcourirDeTrop));
                         return;
                     }
