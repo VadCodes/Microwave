@@ -11,7 +11,7 @@ import java.util.LinkedList;
  *
  * @author louis
  */
-public class StatistiquesGeneral {
+public class StatistiquesGeneral implements java.io.Serializable {
     private LinkedList<StatistiqueBesoin> m_statistiques;
     public StatistiquesGeneral(){
          m_statistiques = new LinkedList<>();

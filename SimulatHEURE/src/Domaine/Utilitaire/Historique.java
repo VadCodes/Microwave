@@ -47,6 +47,13 @@ public class Historique implements java.io.Serializable {
     public void clearCurseur() {
         m_curseurAvantTransportCourant = null;
     }
+    
+    public void initCurseur() {
+        Integer p_indexCurseur = m_reseauxTransports.size() - 1;
+        m_curseurAvantTransportCourant = m_reseauxTransports.listIterator(p_indexCurseur);
+        m_reseauTransportCourant = m_curseurAvantTransportCourant.next();
+        m_curseurAvantTransportCourant.previous();  // on replace le curseur avant le reseau courant
+    }
 
     public Boolean peutAnnuler() {
         return m_peutAnnuler;
