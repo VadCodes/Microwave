@@ -109,7 +109,7 @@ public class Individu {
                         }
                     }
                 }
-                if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().estSurTroncon()) {
+                else if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().estSurTroncon()) {
                     if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().getTroncon())) {
                         if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement().getPourcentageParcouru()) {
                             m_estSurArret = false;
