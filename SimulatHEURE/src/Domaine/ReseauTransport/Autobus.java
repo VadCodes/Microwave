@@ -27,11 +27,12 @@ public class Autobus {
     private final int m_capaciteMax;
     private int m_nbPassagers = 0;
     private Circuit m_circuit;
+    private double tempsDeVie = 0;
     private String m_id;
     private Temps m_tempsApparition;
     private LinkedList<PaireArretTrajet> m_list;
     private ListIterator<PaireArretTrajet> m_iterateur; //jsais pas comment l'initialiser à NULL
-    private Boolean m_estSurArret;
+    private double temp_iteration = 0;
     private PaireArretTrajet m_paireActuelle;
     private boolean m_asTerminer = false;
     private Boolean m_boucle = false;
@@ -46,7 +47,6 @@ public class Autobus {
         m_capaciteMax = capaciteMax;
         m_id = id;
         m_tempsApparition = tempsApparition;
-        m_estSurArret = estSurArret;
     }
 
     public boolean asTerminer() {
@@ -151,6 +151,7 @@ public class Autobus {
                 if (this.getBoucle()) {
                     m_iterateur = m_list.listIterator();
                     m_paireActuelle = m_iterateur.next();
+                    float tempsParcourDeTrop = (float)((m_emplacementActuel.getPourcentageParcouru() - pourcentageFinal )* m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     Temps tmp = new Temps(p_deltatT.getTemps() - tempsParcourirResteTroncon);
                     if (!m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
@@ -160,20 +161,22 @@ public class Autobus {
                         m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                         m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
                     }
-                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourDeTrop), this);
                     miseAJourEmplacement(tmp);
                     return true;
                 } else {
                     m_asTerminer = true;
+                    float tempsParcourDeTrop = (float)((m_emplacementActuel.getPourcentageParcouru() - pourcentageFinal )* m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                     m_emplacementActuel.copy(m_paireActuelle.getArret().getEmplacement());
-                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourDeTrop), this);
                     m_paireActuelle.getArret().miseAJourArret();
                     return true;
                 }
             } else {
+                float tempsParcourDeTrop = (float)((m_emplacementActuel.getPourcentageParcouru() - pourcentageFinal )* m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                 float tempsParcourirResteTroncon = (float) ((pourcentageFinal - p_pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
-                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourirResteTroncon), this);
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(tempsParcourDeTrop), this);
                 if (m_paireActuelle.getTrajet().getEmplacementInitial().estSurTroncon()) {
                     m_emplacementActuel.setPourcentageParcouru(m_paireActuelle.getTrajet().getEmplacementInitial().getPourcentageParcouru());
                     m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getEmplacementInitial().getTroncon());
@@ -357,6 +360,10 @@ public class Autobus {
     public void miseAJourAutobus(Temps deltatT) {
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
         if (tmp.getTemps() < 0) {
+            tempsDeVie += deltatT.getTemps();
+            System.out.println("Bus:");
+            System.out.println(temp_iteration);
+            temp_iteration = deltatT.getTemps();
             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
             miseAJourEmplacement(nouveauDeltatT);
             m_tempsApparition = new Temps(0);

@@ -47,7 +47,7 @@ public class Arret extends ElementTransport {
     }
 
     public void ajouterAutobus(Temps tempsArrivee, Autobus autobus) {
-        m_fileAutobus.offer(new TempsArriveeAutobus(tempsArrivee, autobus));
+        m_fileAutobus.add(new TempsArriveeAutobus(tempsArrivee, autobus));
     }
 
     public int nbAutobus() {
@@ -97,7 +97,7 @@ public class Arret extends ElementTransport {
                 if (circuitPieton.equals(circuitBus)) {
                     if (tmppieton.getTempsArrivee().getTemps() <= tmpbus.getTempsArrivee().getTemps()) {
                         if (tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()) {
-                            tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus());
+                            tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus(), tmpbus.getTempsArrivee());
                             tmpbus.getAutobus().setPlusUnIndividu();
                             tmppietons.remove();
                         }
@@ -116,11 +116,8 @@ public class Arret extends ElementTransport {
             ListIterator<PairePietonBus> tmppietons = m_pietonEnAttenteDeSortir.listIterator();
             while (tmppietons.hasNext()) {
                 PairePietonBus tmppieton = tmppietons.next();
-
                 if (tmpbus.getAutobus().equals(tmppieton.getBus())) {
-                    System.out.println("calinne");
-                    tmppieton.getPieton().setIndividuEstDansBus(false, null);
-                    tmppieton.getPieton().setTempsApparition(tmpbus.getTempsArrivee());
+                    tmppieton.getPieton().setIndividuEstDansBus(false, null, tmpbus.getTempsArrivee());
                     tmpbus.getAutobus().setmoinsUnIndividu();
                     tmppietons.remove();
                 }

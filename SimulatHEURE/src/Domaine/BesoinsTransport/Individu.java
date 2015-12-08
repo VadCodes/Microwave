@@ -28,7 +28,9 @@ public class Individu {
     private PaireParcours m_paireActuelle;
     private Boolean m_estSurArret = false;
     private double m_tempsDeVie = 0;
+    private double temp_iteration = 0;
     private StatistiqueBesoin m_stat;
+    private Temps m_tempsArriverDeTrop;
     public float RAYON = 10;
 
     public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret,
@@ -54,7 +56,11 @@ public class Individu {
     public void miseAJourIndividu(Temps deltatT) {
         Temps tmp = new Temps(m_tempsApparition.getTemps() - deltatT.getTemps());
         if (tmp.getTemps() < 0) {
+            temp_iteration = deltatT.getTemps();
+            System.out.println("Pieton:");
+            System.out.println(temp_iteration);
             Temps nouveauDeltatT = new Temps(deltatT.getTemps() - m_tempsApparition.getTemps());
+            m_tempsDeVie += nouveauDeltatT.getTemps();
             miseAJourEmplacement(nouveauDeltatT);
             m_tempsApparition = new Temps(0);
         } else {
@@ -62,9 +68,9 @@ public class Individu {
         }
     }
 
-    public void setTempsApparition(Temps p_temps) {
-        m_tempsApparition = p_temps;
-    }
+   // public void setTempsApparition(Temps p_temps) {
+        //m_tempsApparition = p_temps;
+    //}
 
     public void miseAJourEmplacement(Temps deltatT) {
         /*
@@ -86,11 +92,12 @@ public class Individu {
                             } else {
                                 m_estSurArret = true;
                                 m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                                m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                                 return;
                             }
                         } else {
                             m_asTerminer = true;
-                            m_stat.miseAJourStat(new Temps(m_tempsDeVie - deltatT.getTemps()));
+                            m_stat.miseAJourStat(new Temps(m_tempsDeVie - m_tempsArriverDeTrop.getTemps()));
                             return;
                         }
                     }
@@ -106,11 +113,12 @@ public class Individu {
                                 } else {
                                     m_estSurArret = true;
                                     m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                                    m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                                     return;
                                 }
                             } else {
                                 m_asTerminer = true;
-                                m_stat.miseAJourStat(new Temps(m_tempsDeVie - deltatT.getTemps()));
+                                m_stat.miseAJourStat(new Temps(m_tempsDeVie - m_tempsArriverDeTrop.getTemps()));
                                 return;
                             }
                         }
@@ -135,6 +143,7 @@ public class Individu {
                     if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru()) {
                         m_estSurArret = true;
                         m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                        m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                         return;
                     }
                 }
@@ -143,6 +152,7 @@ public class Individu {
                 if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getIntersection())) {
                     m_estSurArret = true;
                     m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                    m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                     return;
                 }
             }
@@ -175,6 +185,8 @@ public class Individu {
                         Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
                         m_estSurArret = true;
                         m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                        m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
+                        return;
                     }
                 }
             }
@@ -186,6 +198,7 @@ public class Individu {
                         Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
                         m_estSurArret = true;
                         m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                        m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                         return;
                     }
                 }
@@ -196,6 +209,7 @@ public class Individu {
                     Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
                     m_estSurArret = true;
                     m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                    m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                     return;
                 }
             }
@@ -206,15 +220,16 @@ public class Individu {
                 if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())) {
                     if (pourcentage >= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
                         m_asTerminer = true;
+                        float tempsParcourirDeTrop = (float) ((pourcentage - m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
                         m_emplacementActuel.copy(m_paireActuelle.getTrajet().getEmplacementFinal());
-                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - deltatT.getTemps()));
+                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - m_tempsArriverDeTrop.getTemps()));
                         return;
                     }
                 } else if (m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getIntersection())) {
                     if (pourcentage >= 1) {
                         m_asTerminer = true;
                         m_emplacementActuel.copy(m_paireActuelle.getTrajet().getEmplacementFinal());
-                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - deltatT.getTemps()));
+                        m_stat.miseAJourStat(new Temps(m_tempsDeVie - m_tempsArriverDeTrop.getTemps()));
                         return;
                     }
                 }
@@ -240,7 +255,7 @@ public class Individu {
         return m_paireActuelle.getParcoursBus().getCircuit();
     }
 
-    public void setIndividuEstDansBus(boolean b, Autobus p_bus) {
+    public void setIndividuEstDansBus(boolean b, Autobus p_bus, Temps p_temps) {
         m_estEnBus = b;
         if (b) {
             PairePietonBus paire = new PairePietonBus(this, p_bus);
@@ -249,6 +264,7 @@ public class Individu {
         } else {
             m_estSurArret = true;
             m_emplacementActuel.copy(m_paireActuelle.getParcoursBus().getArretFinal().getEmplacement());
+            m_tempsArriverDeTrop = p_temps;
         }
     }
 
