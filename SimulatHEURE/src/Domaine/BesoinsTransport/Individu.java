@@ -126,11 +126,20 @@ public class Individu {
                 }
             }
             if (m_estSurArret) {
-                return;
+                m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
+                if(m_estSurArret){
+                    return;
+                }
             }
         }
         if (m_estEnBus) {
+            m_paireActuelle.getParcoursBus().getArretFinal().miseAJourArret();
+            if(m_estEnBus){
+                return;
+            }
+            miseAJourEmplacement(m_tempsArriverDeTrop);
             return;
+            
         }
         if (m_paireActuelle.getParcoursBus() != null) {
             if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().estSurTroncon()) {
@@ -161,8 +170,8 @@ public class Individu {
             m_emplacementActuel.setPourcentageParcouru(pourcentageInitiale);
             tempsTransit = m_emplacementActuel.getTroncon().getTempsTransitPieton();
         }
-        float pourcentage = (float) (pourcentageInitiale + (m_tempsArriverDeTrop.getTemps() +deltatT.getTemps()) / tempsTransit.getTemps());
-        m_tempsArriverDeTrop = new Temps(0);
+        float pourcentage = (float) (pourcentageInitiale + (deltatT.getTemps()) / tempsTransit.getTemps());
+        //m_tempsArriverDeTrop = new Temps(0);
         m_emplacementActuel.setPourcentageParcouru(pourcentage);
         /*
          * Si le pieton est sur l'arret de son circuit il entre dans l'autobus jusqu'a l'arret final
