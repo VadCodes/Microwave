@@ -190,6 +190,12 @@ public class DessinateurBesoins {
                         if(listeTroncons.size()==1){
                             p1 = paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().calculPosition(p_echelle);
                             p2 = paire.getParcoursBus().getPaireArretFinal().getArret().getEmplacement().calculPosition(p_echelle);
+                            if(!paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().estSurTroncon()){
+                                p1Aj = true;
+                            }
+                            if(!paire.getParcoursBus().getPaireArretFinal().getArret().getEmplacement().estSurTroncon()){
+                                p2Aj = true;
+                            }
                         }
                         else{
                             if(paire.getParcoursBus().getPaireArretDepart().getArret().getEmplacement().estSurTroncon()){
@@ -236,7 +242,9 @@ public class DessinateurBesoins {
                             chemin2.moveTo(p1.x, p1.y);
                             premier = false;
                         }     
+                        
                         chemin2.lineTo(p1.x, p1.y);
+                        
                         if (paireSuivante!=null && !itTroncon.hasNext())
                         {
                             Emplacement emplacementProchainArret;
@@ -248,12 +256,14 @@ public class DessinateurBesoins {
                             }
                             
                             Point2D.Float positionProchainArret = emplacementProchainArret.calculPosition(p_echelle);
+
                             if (emplacementProchainArret.estSurTroncon())
                             {
                                 chemin2.lineTo(positionProchainArret.x, positionProchainArret.y);
                             }
                             else
                             {
+                                positionProchainArret = new Point2D.Float(positionProchainArret.x + ajX, positionProchainArret.y + ajY);
                                 chemin2.lineTo(positionProchainArret.x, positionProchainArret.y);
                             }
                         }
