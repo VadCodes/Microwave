@@ -323,7 +323,7 @@ public class ReseauBesoins extends Reseau {
                 individusItr.remove();
             }
             else{
-                ind.miseAJourIndividu(p_deltaT);;
+                ind.miseAJourIndividu(p_deltaT);
             }
          }
        }
