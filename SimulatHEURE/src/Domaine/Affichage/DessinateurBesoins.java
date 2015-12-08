@@ -135,9 +135,13 @@ public class DessinateurBesoins {
                         chemin1.moveTo(p1.x, p1.y);
 
                         chemin1.lineTo(p2.x, p2.y);
+                        
+                        if(m_reseau.getPileSelection().contient(itineraire))
+                            select_g.draw(chemin1);
                         p_g.setStroke(new BasicStroke((Troncon.LARGEUR*2/3) / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new   float[]{(Troncon.LARGEUR) / p_echelle}, 0));
-                        p_g.setColor(new Color(0,200,0,150));
+                        p_g.setColor(new Color(0,200,0));
                         p_g.draw(chemin1); 
+                        
                     }
                     
                 }
@@ -258,9 +262,12 @@ public class DessinateurBesoins {
                             chemin2.lineTo(p2.x, p2.y);
                         }
                     }
+                    if(m_reseau.getPileSelection().contient(itineraire))
+                            select_g.draw(chemin2);
                     p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
                     p_g.setColor(new Color(0,200,0,150));
                     p_g.draw(chemin2); 
+                    
                 }
             }
             if(m_reseau.getPileSelection().contient(itineraire)){
