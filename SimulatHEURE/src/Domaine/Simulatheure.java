@@ -1038,7 +1038,7 @@ public class Simulatheure implements java.io.Serializable {
                     m_chercherArretMemeCircuit = false;
                 }
                 else{
-                    throw new IllegalArgumentException("L'arrêt n'est pas dans le même circuit.", new Throwable("Construction impossible"));
+                    throw new IllegalArgumentException("L'arrêt n'est pas atteignable dans ce circuit.", new Throwable("Construction impossible"));
                 }
             }
             else{

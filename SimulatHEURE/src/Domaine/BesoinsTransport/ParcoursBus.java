@@ -65,7 +65,8 @@ public class ParcoursBus {
                 if(pat.getTrajet()!=null){
                     for (ListIterator<Troncon>  troncons = pat.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
                         Troncon troncon = troncons.next();
-                        mesTroncons.add(troncon);
+                        if(!mesTroncons.contains(troncon))
+                            mesTroncons.add(troncon);
                     }
                 }
             }
