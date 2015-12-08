@@ -4,18 +4,24 @@
  * and open the template in the editor.
  */
 package Domaine.BesoinsTransport;
+
 import Domaine.Reseau;
+
 import Domaine.ReseauRoutier.Emplacement;
 import Domaine.ReseauRoutier.Troncon;
-import Domaine.ReseauTransport.Autobus;
+
+import Domaine.ReseauTransport.ReseauTransport;
+
 import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
+
 import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Distribution.Type;
 import Domaine.Utilitaire.Temps;
-import java.awt.geom.Path2D;
+
 import java.awt.geom.Point2D;
-import java.util.List;
+import java.awt.geom.Path2D;
+
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -32,6 +38,8 @@ public class ReseauBesoins extends Reseau {
     private String m_nom;
     
     private Emplacement m_emplacementSourceTemp = null;
+    
+    private ReseauTransport m_reseauTransport;
     
     public ReseauBesoins(){
         m_stat = new StatistiquesGeneral();

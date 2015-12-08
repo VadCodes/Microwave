@@ -7,7 +7,6 @@ import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauRoutier.ReseauRoutier;
 import Domaine.ReseauRoutier.Troncon;
 
-import Domaine.Utilitaire.Distribution;
 import Domaine.Utilitaire.Temps;
 
 import java.util.LinkedList;

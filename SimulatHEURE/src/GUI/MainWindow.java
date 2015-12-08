@@ -9,7 +9,9 @@ import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
  
 import java.io.FileOutputStream;
+  import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -175,24 +177,24 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<>();
+        comboBoxArrets = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<>();
+        comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<>();
+        comboBoxCircuits = new javax.swing.JComboBox<String>();
         boutonsSelectionBesoins = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        comboBoxBesoins = new javax.swing.JComboBox<>();
+        comboBoxBesoins = new javax.swing.JComboBox<String>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<>();
+        comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<>();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<>();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -204,12 +206,13 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        comboBoxStat = new javax.swing.JComboBox<>();
+        comboBoxStat = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
-        quitter = new javax.swing.JMenuItem();
         sauvegarder = new javax.swing.JMenuItem();
+        charger = new javax.swing.JMenuItem();
+        quitter = new javax.swing.JMenuItem();
 
         groupeModes.add(routier);
         groupeModes.add(transport);
@@ -280,6 +283,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonModes.add(transport);
 
         besoins.setText("Besoins transport");
+        besoins.setEnabled(false);
         besoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 besoinsActionPerformed(evt);
@@ -691,7 +695,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -702,7 +706,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -714,7 +718,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
@@ -731,7 +735,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setText("Besoins :");
         boutonsSelectionBesoins.add(jLabel7);
 
-        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxBesoinsActionPerformed(evt);
@@ -748,7 +752,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -776,7 +780,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -787,7 +791,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -955,14 +959,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         fichier.setText("Fichier");
 
-        quitter.setText("Quitter");
-        quitter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quitterActionPerformed(evt);
-            }
-        });
-        fichier.add(quitter);
-
         sauvegarder.setText("Sauvegarder");
         sauvegarder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -970,6 +966,22 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         fichier.add(sauvegarder);
+
+        charger.setText("Charger");
+        charger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargerActionPerformed(evt);
+            }
+        });
+        fichier.add(charger);
+
+        quitter.setText("Quitter");
+        quitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitterActionPerformed(evt);
+            }
+        });
+        fichier.add(quitter);
 
         menu.add(fichier);
 
@@ -1960,7 +1972,7 @@ public class MainWindow extends javax.swing.JFrame {
     {
         FileOutputStream fileOut = new FileOutputStream ("controleur.mw");
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(m_controleur.getTransport());
+        out.writeObject(m_controleur);
         out.close();
         fileOut.close();
         System.out.println("Ça marche !");
@@ -1968,12 +1980,41 @@ public class MainWindow extends javax.swing.JFrame {
     catch (IOException e)
     {
         e.printStackTrace();
+        return;
     }
-    this.m_controleur.getHistorique().setCurseur(indexCurseur);
-    
+    this.m_controleur.getHistorique().setCurseur(indexCurseur);    
     }//GEN-LAST:event_sauvegarderActionPerformed
-    
 
+    private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
+    
+    try
+    {
+        FileInputStream fileIn = new FileInputStream ("controleur.mw");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        m_controleur = (Simulatheure) in.readObject();
+        in.close();
+        fileIn.close();
+        System.out.println("Ça marche !");
+    }
+    catch (IOException e)
+    {
+        e.printStackTrace();
+        return;
+    }
+    catch (ClassNotFoundException e)
+    {
+        e.printStackTrace();
+        return;
+    }
+    this.m_controleur.getHistorique().initCurseur();
+    this.m_controleur.initControleur();
+    
+    miseAJourPanels();
+    miseAjourComboBoxTotal();
+    miseAJourPermissionsBoutons();
+    this.afficheurReseau.repaint();
+    }//GEN-LAST:event_chargerActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -2091,21 +2132,14 @@ public class MainWindow extends javax.swing.JFrame {
             if (m_modeCourant == Mode.TRANSPORT)
                 ajoutCircuit.doClick();
         }
-        
-        if (comboBoxCircuits.getItemCount() > 1){
-            besoins.setEnabled(true);
-        }
-        else{
-            besoins.setEnabled(false);
-            if (m_modeCourant == Mode.BESOINS)
-                transport.doClick();
-        }
 
         if (comboBoxSources.getItemCount() > 1) {
+            besoins.setEnabled(true);
             simulation.setEnabled(true);
         } else {
+            besoins.setEnabled(true);
             simulation.setEnabled(false);
-            if (m_modeCourant == Mode.SIMULATION)
+            if (m_modeCourant == Mode.BESOINS || m_modeCourant == Mode.SIMULATION)
                 transport.doClick();
         }
     }
@@ -2129,6 +2163,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel boutonsSelectionTransport;
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
+    private javax.swing.JMenuItem charger;
     private javax.swing.JCheckBox checkBoxDijkstra;
     private javax.swing.JCheckBox checkBoxDijkstraBesoins;
     private javax.swing.JComboBox<String> comboBoxArrets;
@@ -2204,11 +2239,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel panneauModes;
     private javax.swing.JToggleButton playPauseSimulation;
     private javax.swing.JMenuItem quitter;
-    private javax.swing.JMenuItem sauvegarder;
     private javax.swing.JButton ralentirSimulation;
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
+    private javax.swing.JMenuItem sauvegarder;
     private javax.swing.JToggleButton selectionBesoins;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;

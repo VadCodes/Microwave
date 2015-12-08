@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  *
  * @author louis
  */
-public class PileSelectionBesoins {
+public class PileSelectionBesoins implements java.io.Serializable {
     private LinkedList<ElementBesoins> m_pile = new LinkedList<ElementBesoins>();
     
     public PileSelectionBesoins(){}

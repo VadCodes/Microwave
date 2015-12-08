@@ -51,20 +51,28 @@
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="quitter">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Quitter"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitterActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="sauvegarder">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sauvegarder"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sauvegarderActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="charger">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Charger"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chargerActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="quitter">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Quitter"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitterActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -192,6 +200,7 @@
                             <Component class="javax.swing.JToggleButton" name="besoins">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Besoins transport"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="besoinsActionPerformed"/>
