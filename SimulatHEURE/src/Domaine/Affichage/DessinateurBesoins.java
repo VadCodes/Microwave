@@ -31,9 +31,10 @@ import java.util.ListIterator;
  */
 public class DessinateurBesoins {
     private ReseauBesoins m_reseau;
-    public DessinateurBesoins(ReseauBesoins p_reseau){
+    private Boolean m_transparence;
+    public DessinateurBesoins(ReseauBesoins p_reseau, Boolean transparence){
         m_reseau = p_reseau;
-        //m_dimensionInitiale = p_dimensionInitiale;
+        m_transparence = transparence;
     }
     public void dessinerItineraire(Graphics2D p_g, float p_echelle)
     {  
@@ -115,7 +116,7 @@ public class DessinateurBesoins {
                         chemin1.lineTo(p2.x, p2.y);
 
                         p_g.setStroke(new BasicStroke((Troncon.LARGEUR*2/3) / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new   float[]{(Troncon.LARGEUR) / p_echelle}, 0));
-                        p_g.setColor(itineraire.getCouleur());
+                        p_g.setColor(new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence));
                         p_g.draw(chemin1); 
                         
                     }
@@ -249,7 +250,12 @@ public class DessinateurBesoins {
                         }
                     }
                     p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-                    p_g.setColor(new Color(0x90FFFFFF & itineraire.getCouleur().getRGB(), true));
+                    if(m_transparence){
+                        p_g.setColor(new Color(0x40FFFFFF & itineraire.getCouleur().getRGB(), true));
+                    }
+                    else{
+                        p_g.setColor(new Color(0xA0FFFFFF & itineraire.getCouleur().getRGB(), true));
+                    }
                     p_g.draw(chemin2); 
                     
                 }
@@ -292,7 +298,7 @@ public class DessinateurBesoins {
                     dessinerLosange(p_g, origine, p_echelle, 
                             new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
             }
-            dessinerLosange(p_g, origine, p_echelle, itineraire.getCouleur(), SourceIndividus.LARGEUR);
+            dessinerLosange(p_g, origine, p_echelle, new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence), SourceIndividus.LARGEUR);
         }
                 
     }

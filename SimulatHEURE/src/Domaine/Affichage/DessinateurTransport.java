@@ -31,27 +31,12 @@ public class DessinateurTransport {
     //private final Dimension m_dimensionInitiale;
     
     private final ReseauTransport m_reseau;
+    private Boolean m_transparence;
     
-    public DessinateurTransport(ReseauTransport p_reseau){//, Dimension p_dimensionInitiale){
+    public DessinateurTransport(ReseauTransport p_reseau, Boolean transparence){//, Dimension p_dimensionInitiale){
         m_reseau = p_reseau;
-        //m_dimensionInitiale = p_dimensionInitiale;
+        m_transparence = transparence;
     }
-    
-//    public void dessiner(Graphics2D p_g)
-//    {
-//        float echelle = (float)p_g.getTransform().getScaleX();
-//        if (echelle > 1){
-//            dessinerCircuit(p_g, echelle);
-//            dessinerArrets(p_g, echelle);
-//            dessinerSourceAutobus(p_g, echelle);
-//        }
-//        else
-//        {
-//            dessinerCircuit(p_g, 1);
-//            dessinerArrets(p_g, 1);
-//            dessinerSourceAutobus(p_g, 1);
-//        }
-//    }
     
     public void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
@@ -69,7 +54,7 @@ public class DessinateurTransport {
                 p_g.setColor(new Color(50,200,255 , 200));
                 p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
             }
-            p_g.setColor(Color.RED);
+            p_g.setColor(new Color(0x70FF0000, m_transparence));
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
         }
     }
@@ -82,7 +67,7 @@ public class DessinateurTransport {
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {
-            p_g.setColor(circuit.getCouleur());
+            p_g.setColor(new Color(0x70FFFFFF & circuit.getCouleur().getRGB(), m_transparence));
             p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
             
             Path2D.Float chemin = new Path2D.Float();
@@ -165,7 +150,7 @@ public class DessinateurTransport {
                     p_g.setColor(new Color(50,200,255 , 200));
                     p_g.fill(slosange);
                 }
-                p_g.setColor(new Color(200,0,200));
+                p_g.setColor(new Color(0x70C800C8, m_transparence));
                 float y1 = position.y - SourceAutobus.LARGEUR / 2 / p_echelle;
                 float x1 = position.x + SourceAutobus.LARGEUR / 2 / p_echelle;
                 float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;

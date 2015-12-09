@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.Serializable;
 import javax.swing.JPanel;
+import Domaine.Simulatheure.Mode;
 //import javax.swing.border.BevelBorder;
 
 import java.util.LinkedList;
@@ -51,11 +52,14 @@ public class AfficheurReseau extends JPanel implements Serializable {
             Font a = new Font(null, Font.BOLD, 14);
             graphic2D.setFont(a);
             
+            Boolean resTransportTransparent = (m_fenetrePrincipale.m_modeCourant == Mode.ROUTIER);
+            Boolean resBesoinsTransparent = (m_fenetrePrincipale.m_modeCourant == Mode.ROUTIER || m_fenetrePrincipale.m_modeCourant == Mode.TRANSPORT);
+            
             DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier());
-            DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
+            DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport(), resTransportTransparent);
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport(), m_fenetrePrincipale.m_controleur.getBesoins());
             DessinateurChantier dessinateurChantierRoutier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
-            DessinateurBesoins dessinateurBesoins = new DessinateurBesoins(m_fenetrePrincipale.m_controleur.getBesoins());
+            DessinateurBesoins dessinateurBesoins = new DessinateurBesoins(m_fenetrePrincipale.m_controleur.getBesoins(), resBesoinsTransparent);
             
             if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
             {
