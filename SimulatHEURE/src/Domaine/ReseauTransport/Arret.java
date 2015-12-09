@@ -32,7 +32,13 @@ public class Arret extends ElementTransport {
     public Arret(Emplacement emplacement) {
         m_emplacement = emplacement;
     }
-
+    public void miseADefaut(){
+        m_fileAutobus.clear();
+        m_nombreIndividu = 0;
+        m_fileAutobus.clear();
+        m_filePietons.clear();
+        m_pietonEnAttenteDeSortir.clear();
+    }
     public void addPietonAttenteDeSortirBus(PairePietonBus p_paire) {
         m_pietonEnAttenteDeSortir.add(p_paire);
     }

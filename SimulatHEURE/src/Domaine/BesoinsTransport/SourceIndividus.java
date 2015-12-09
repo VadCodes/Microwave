@@ -88,4 +88,9 @@ public class SourceIndividus {
    // public Boolean estSurArret(){
        // return m_emplacement.equals(m_itineraire.getListeParcoursBusTrajet().getFirst().getArret().getEmplacement()); 
    // }
+
+    public void miseADefaut() {
+        m_nbIndividusGeneres = 0;
+       m_tempsAvantApparition = m_tempsInitial;
+    }
 }

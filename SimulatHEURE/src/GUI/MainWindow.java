@@ -1205,9 +1205,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     private void miseAjourTableauStatistique(int p_stat){
-        int conteur = 1;
+        int conteur = 0;
         int x = 0;
         for (StatistiquesGeneral stat : m_statistiques){
+            conteur++;
                 if (conteur == p_stat) {
                     for (StatistiqueBesoin besoin : stat.getListeStatistiqueBesoin()){
                         String moyenne = Double.toString(besoin.getMoyenne());
@@ -1958,10 +1959,11 @@ public class MainWindow extends javax.swing.JFrame {
    
 
     private void comboBoxStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxStatActionPerformed
-        
         int index = comboBoxStat.getSelectedIndex();
         String name = comboBoxStat.getItemAt(index);
-        miseAjourTableauStatistique(Integer.parseInt(name));
+        if (name != null){
+            miseAjourTableauStatistique(Integer.parseInt(name));
+        }
     }//GEN-LAST:event_comboBoxStatActionPerformed
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
