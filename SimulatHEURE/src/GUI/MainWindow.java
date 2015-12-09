@@ -2006,7 +2006,6 @@ public class MainWindow extends javax.swing.JFrame {
         e.printStackTrace();
         return;
     }
-    this.m_controleur.getHistorique().initCurseur();
     this.m_controleur.initControleur();
     
     miseAJourPanels();
@@ -2132,12 +2131,15 @@ public class MainWindow extends javax.swing.JFrame {
             if (m_modeCourant == Mode.TRANSPORT)
                 ajoutCircuit.doClick();
         }
-
-        if (comboBoxSources.getItemCount() > 1) {
+        
+        if (m_controleur.getTransport().getListeCircuits().size() > 0)
             besoins.setEnabled(true);
+        else
+            besoins.setEnabled(false);     
+        
+        if (comboBoxSources.getItemCount() > 1) {
             simulation.setEnabled(true);
         } else {
-            besoins.setEnabled(true);
             simulation.setEnabled(false);
             if (m_modeCourant == Mode.BESOINS || m_modeCourant == Mode.SIMULATION)
                 transport.doClick();

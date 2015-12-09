@@ -31,7 +31,7 @@ public class PanelArret extends PanelEdition {
         else{
             jLabel7.setText(m_arret.getEmplacement().getIntersection().getName());
         }    
-        jLabel8.setText(String.valueOf(m_arret.getNbreIndividu()));
+        jLabel8.setText(String.valueOf(m_arret.getPietonsEnAttenteEmbarquer()));
     }
     
     public void setInfo(){
@@ -66,7 +66,7 @@ public class PanelArret extends PanelEdition {
 
         jLabel7.setText("-");
 
-        jButton1.setText("Modifier");
+        jButton1.setText("Appliquer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

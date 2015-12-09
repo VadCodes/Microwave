@@ -81,7 +81,7 @@ public class DessinateurSimulation {
     {
         LinkedList<Individu> individus = m_reseauBesoins.getListIndividus();
         for (Individu individu :individus){
-            if(!individu.estEnBus()){
+            if(!individu.estEnBus() ){//&& !individu.estSurArret()){
                 Emplacement em = individu.getEmplacementActuel();
                 Point2D.Float position = em.calculPosition(p_echelle);
                 float x = position.x -   individu.RAYON / p_echelle;

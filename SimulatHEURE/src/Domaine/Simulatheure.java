@@ -38,7 +38,6 @@ public class Simulatheure implements java.io.Serializable {
     
     private ReseauBesoins m_reseauBesoins = new ReseauBesoins();
     private Boolean m_chercherArretMemeCircuit = false;
-    private Boolean m_premierEmplacementSurArret = false;
     private Arret m_arret1Besoin = null;
     private Itineraire m_itineraireEnConstruction = null;
 
@@ -836,8 +835,11 @@ public class Simulatheure implements java.io.Serializable {
             resilierConstruction();
     }
     
-    public void initControleur()
+    public final void initControleur()
     {
+        if (this.m_historique.getCurseur() == null)
+            m_historique.initCurseur();
+        
         m_reseauRoutier = m_historique.getRoutierCourant();
         m_reseauTransport = m_historique.getTransportCourant();
         //m_reseauBesoins = m_historique.getBesoinsCourant();
@@ -1152,7 +1154,6 @@ public class Simulatheure implements java.io.Serializable {
     public void cleanItineraireTemp(){
         m_reseauBesoins.setEmplacementSourceTemp(null);
         m_chercherArretMemeCircuit = false;
-        m_premierEmplacementSurArret = false;
         m_arret1Besoin = null;
         m_itineraireEnConstruction = null;
     }

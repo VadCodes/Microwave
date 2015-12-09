@@ -22,7 +22,8 @@ public class Arret extends ElementTransport {
     private Emplacement m_emplacement;
     private String m_nom = "";
 
-    private int m_nombreIndividu = 0;
+    private int m_pietonsEnAttenteEmbarquer = 0;
+    private String m_representationPietonsEnAttenteEmbarquer;
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
     private LinkedList<PairePietonBus> m_pietonEnAttenteDeSortir = new LinkedList<>();
@@ -39,11 +40,16 @@ public class Arret extends ElementTransport {
 
     public void viderFile() {
         m_fileAutobus.clear();
-
+        
+        m_filePietons.clear();
+        m_pietonsEnAttenteEmbarquer = 0;
+        m_representationPietonsEnAttenteEmbarquer = "";
     }
 
     public void ajouterPieton(Temps tempsArrivee, Individu individu) {
         m_filePietons.add(new TempsArriverPietons(tempsArrivee, individu));
+        ++m_pietonsEnAttenteEmbarquer;
+        m_representationPietonsEnAttenteEmbarquer = Integer.toString(m_pietonsEnAttenteEmbarquer);
     }
 
     public void ajouterAutobus(Temps tempsArrivee, Autobus autobus) {
@@ -69,13 +75,13 @@ public class Arret extends ElementTransport {
     public void setEmplacement(Emplacement empl) {
         m_emplacement = empl;
     }
-
-    public void incrementerNbreIndividu() {
-        m_nombreIndividu++;
+    
+    public int getPietonsEnAttenteEmbarquer() {
+        return m_pietonsEnAttenteEmbarquer;
     }
-
-    public int getNbreIndividu() {
-        return m_nombreIndividu;
+    
+    public String getrepresentationAttenteEmbarquer() {
+        return m_representationPietonsEnAttenteEmbarquer;
     }
 
     public void miseAjourTempsPieton() {
@@ -100,6 +106,9 @@ public class Arret extends ElementTransport {
                             tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus(), tmpbus.getTempsArrivee());
                             tmpbus.getAutobus().setPlusUnIndividu();
                             tmppietons.remove();
+                            --m_pietonsEnAttenteEmbarquer;
+                            System.out.println(m_pietonsEnAttenteEmbarquer);
+                            m_representationPietonsEnAttenteEmbarquer = Integer.toString(m_pietonsEnAttenteEmbarquer);
                         }
 
                     }

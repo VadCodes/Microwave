@@ -104,6 +104,7 @@ public class PanelSourceAutobus extends PanelEdition {
         m_source.setNom(jTextField1.getText());
         
         m_mainWindow.m_controleur.getHistorique().modifier();
+        m_mainWindow.miseAJourPermissionsBoutons();
         m_mainWindow.miseAjourComboBoxTotal();
     }
     
@@ -190,7 +191,7 @@ public class PanelSourceAutobus extends PanelEdition {
             }
         });
 
-        jButton1.setText("Modifier");
+        jButton1.setText("Appliquer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

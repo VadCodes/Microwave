@@ -72,8 +72,18 @@ public class DessinateurTransport {
                 p_g.setColor(new Color(50,200,255 , 200));
                 p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
             }
-            p_g.setColor(Color.red);
+            p_g.setColor(Color.RED);
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+                        
+            if (arret.getPietonsEnAttenteEmbarquer() > 0)
+            {
+                p_g.setColor(Color.BLUE);
+                p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+                p_g.setColor(Color.BLACK);
+                p_g.scale(1 / p_echelle, 1 / p_echelle);
+                p_g.drawString(arret.getrepresentationAttenteEmbarquer(), x, y + 2 * arret.RAYON);
+                p_g.scale(p_echelle, p_echelle);
+            }
         }
     }
     

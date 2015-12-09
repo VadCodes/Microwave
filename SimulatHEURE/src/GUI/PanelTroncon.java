@@ -67,8 +67,7 @@ public class PanelTroncon extends PanelEdition {
         catch (IllegalArgumentException e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.ERROR_MESSAGE);
-        }
-        
+        }        
         
         m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAJourPermissionsBoutons();
@@ -134,7 +133,7 @@ public class PanelTroncon extends PanelEdition {
             }
         });
 
-        jButton1.setText("Modifier");
+        jButton1.setText("Appliquer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -232,7 +231,7 @@ public class PanelTroncon extends PanelEdition {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

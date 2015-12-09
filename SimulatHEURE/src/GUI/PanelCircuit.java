@@ -46,7 +46,7 @@ public class PanelCircuit extends PanelEdition {
 
         jLabel1.setText("Nom :");
 
-        jButton1.setText("Modifier");
+        jButton1.setText("Appliquer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
