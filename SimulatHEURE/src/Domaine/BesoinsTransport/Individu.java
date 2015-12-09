@@ -96,7 +96,7 @@ public class Individu {
                                 m_emplacementActuel.setPourcentageParcouru(0.0f);
                             } else {
                                 m_estSurArret = true;
-                                m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                                m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(Double.MAX_VALUE), this);
                                 m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                                 return;
                             }
@@ -117,7 +117,7 @@ public class Individu {
                                     m_emplacementActuel.copy(m_paireActuelle.getTrajet().getEmplacementInitial());
                                 } else {
                                     m_estSurArret = true;
-                                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(Double.MAX_VALUE), this);
                                     m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                                     return;
                                 }
@@ -151,7 +151,7 @@ public class Individu {
                 if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getTroncon())) {
                     if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru()) {
                         m_estSurArret = true;
-                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(Double.MAX_VALUE), this);
                         m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                         return;
                     }
@@ -160,7 +160,7 @@ public class Individu {
             if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().estSurTroncon()) {
                 if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getIntersection())) {
                     m_estSurArret = true;
-                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(0), this);
+                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(Double.MAX_VALUE), this);
                     m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                     return;
                 }

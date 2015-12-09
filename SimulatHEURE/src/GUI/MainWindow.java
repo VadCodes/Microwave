@@ -81,7 +81,15 @@ public class MainWindow extends javax.swing.JFrame {
                 String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
                  time.setText(itemDateStr);
             }
-            m_controleur.rafraichirSimulation(new Temps(deltatT));
+            double tmpD = deltatT;
+            int nbExe = 1;
+            while(tmpD > 100){
+                nbExe++;
+                tmpD = tmpD/nbExe;
+            }
+            for(int i =0; i < nbExe;i++){
+                m_controleur.rafraichirSimulation(new Temps(tmpD));
+            }
             facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
             if (deltatT != 0) {
                 miseAjoutAutobusComboBox();

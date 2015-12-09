@@ -91,9 +91,6 @@ public class Arret extends ElementTransport {
             TempsArriveeAutobus tmpbus = tmpbuss.next();
             Circuit circuitBus = tmpbus.getAutobus().getCircuit();
             ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator();
-             if(m_filePietons.size()> 1 ){
-                        int gello = 0;
-                    }
             while (tmppietons.hasNext()) {
                 TempsArriverPietons tmppieton = tmppietons.next();
                 Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
