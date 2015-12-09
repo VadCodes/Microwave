@@ -19,7 +19,7 @@ public class SourceIndividus {
     private Emplacement m_emplacement;
     private Temps m_frequence;
     private String m_nom;
-    private int m_nbMaxIndividus = 1000;
+    private int m_nbMaxIndividus = Integer.MAX_VALUE;
     private int m_nbIndividusGeneres = 0;
     private Itineraire m_itineraire;
     private Temps m_tempsAvantApparition;
@@ -88,4 +88,9 @@ public class SourceIndividus {
    // public Boolean estSurArret(){
        // return m_emplacement.equals(m_itineraire.getListeParcoursBusTrajet().getFirst().getArret().getEmplacement()); 
    // }
+
+    public void miseADefaut() {
+        m_nbIndividusGeneres = 0;
+       m_tempsAvantApparition = m_tempsInitial;
+    }
 }

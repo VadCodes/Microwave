@@ -34,23 +34,27 @@ public class StatistiqueBesoin {
         return m_itineraire;
     }
     public double getprecisionGlobal(){
-        return m_precisionGlobal;
+        return (double)Math.round(100*m_precisionGlobal/60)/100;
     }
      public double getmaxTempsDeplacement(){
-        return m_maxTempsDeplacement;
+        return (double)Math.round(100*m_maxTempsDeplacement/60)/100;
     }
       public double getminTempsDeplacement(){
-        return m_minTempsDeplacement;
+        return (double)Math.round(100*m_minTempsDeplacement/60)/100;
     }
        public double getMoyenne(){
-        return m_sommeDesTemps/m_nombreEchantion;
+           
+        return (double)Math.round(100*(m_sommeDesTemps/m_nombreEchantion)/60)/100;
     }
 
             
             
     public void miseAJourStat(Temps p_temps){
+        double moyenneActuel = m_sommeDesTemps/m_nombreEchantion;
         m_nombreEchantion++;
         m_sommeDesTemps += p_temps.getTemps();
+        double newMoyenne = m_sommeDesTemps/m_nombreEchantion;
+        m_precisionGlobal = Math.abs(moyenneActuel - newMoyenne);
         if(p_temps.getTemps() >m_maxTempsDeplacement){
             m_maxTempsDeplacement = p_temps.getTemps();
         }

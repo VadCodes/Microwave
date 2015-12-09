@@ -794,7 +794,7 @@ public class Simulatheure implements java.io.Serializable {
     public void arreterSimulation() {
         for (ListIterator<Arret> arrets = m_reseauTransport.getListeArrets().listIterator(); arrets.hasNext();) {
             Arret arret = arrets.next();
-            arret.viderFile();
+            arret.miseADefaut();
         }
         for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
@@ -811,6 +811,11 @@ public class Simulatheure implements java.io.Serializable {
             }
             circuit.getListeAutobus().clear();
             circuit.clearRepresentation();
+        }
+        for (ListIterator<Itineraire> itineraires = m_reseauBesoins.getListItineraire().listIterator(); itineraires.hasNext();) {
+            Itineraire itineraire = itineraires.next();
+            itineraire.getListIndividu().clear();
+            itineraire.getSourceIndividu().miseADefaut();
         }
     }
     
