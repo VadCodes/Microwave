@@ -93,6 +93,23 @@ public class DessinateurSimulation {
             
         }
     }
+    
+    public void dessinerPietonsEnAttenteEmbarquer(Graphics2D p_g, float p_echelle)
+    {
+        for (Arret arret : m_reseau.getListeArrets())
+        {
+            if (arret.getPietonsEnAttenteEmbarquer() > 0)
+            {
+                Point2D.Float position = arret.getEmplacement().calculPosition(p_echelle);
+                p_g.setColor(Color.BLACK);
+                double ajX = p_g.getFontMetrics().getStringBounds(arret.getrepresentationAttenteEmbarquer(), p_g).getCenterX();
+                double ajY = p_g.getFontMetrics().getStringBounds(arret.getrepresentationAttenteEmbarquer(), p_g).getCenterY();
+                p_g.scale(1 / p_echelle, 1 / p_echelle);
+                p_g.drawString(arret.getrepresentationAttenteEmbarquer(), (int)(position.x * p_echelle - ajX), (int)(position.y * p_echelle - ajY));
+                p_g.scale(p_echelle, p_echelle);
+            }
+        }
+    }
 //    private void dessinerBus(Graphics2D p_g, int p_x, int p_y, float p_echelle){
 //        try{
 //                Image image = ImageIO.read(new File("src/bus.gif"));

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import java.util.LinkedList;
 import Domaine.ReseauRoutier.Intersection;
+import java.awt.Font;
 
 /**
  *
@@ -47,6 +48,9 @@ public class AfficheurReseau extends JPanel implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
+            Font a = new Font(null, Font.BOLD, 14);
+            graphic2D.setFont(a);
+            
             DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier());
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport());
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport(), m_fenetrePrincipale.m_controleur.getBesoins());
@@ -68,6 +72,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, m_echelle);
                 dessinateurSimulation.dessinerAutobus(graphic2D, m_echelle);
                 dessinateurSimulation.dessinerPietons(graphic2D, m_echelle);
+                dessinateurSimulation.dessinerPietonsEnAttenteEmbarquer(graphic2D, m_echelle);
             }
             else
             {
@@ -79,9 +84,8 @@ public class AfficheurReseau extends JPanel implements Serializable {
                 dessinateurTransport.dessinerSourceAutobus(graphic2D, 1);
                 dessinateurSimulation.dessinerAutobus(graphic2D, 1);
                 dessinateurSimulation.dessinerPietons(graphic2D, 1);
+                dessinateurSimulation.dessinerPietonsEnAttenteEmbarquer(graphic2D, 1);
             }
-            
-
         }
     }
     

@@ -20,7 +20,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
-import java.util.LinkedList;
 import java.util.ListIterator;
 
 /**
@@ -56,11 +55,9 @@ public class DessinateurTransport {
     
     public void dessinerArrets(Graphics2D p_g, float p_echelle)
     {
-        LinkedList<Arret> arrets = m_reseau.getListeArrets();
-        for (Arret arret :arrets){
-            Emplacement em = arret.getEmplacement();
+        for (Arret arret : m_reseau.getListeArrets()){
 
-            Point2D.Float position = em.calculPosition(p_echelle);
+            Point2D.Float position = arret.getEmplacement().calculPosition(p_echelle);
             float x = position.x -   arret.RAYON / p_echelle;
             float y = position.y -   arret.RAYON / p_echelle;
             float diametre = 2 *   arret.RAYON / p_echelle;
@@ -74,16 +71,6 @@ public class DessinateurTransport {
             }
             p_g.setColor(Color.RED);
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
-                        
-            if (arret.getPietonsEnAttenteEmbarquer() > 0)
-            {
-                p_g.setColor(Color.BLUE);
-                p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
-                p_g.setColor(Color.BLACK);
-                p_g.scale(1 / p_echelle, 1 / p_echelle);
-                p_g.drawString(arret.getrepresentationAttenteEmbarquer(), x, y + 2 * arret.RAYON);
-                p_g.scale(p_echelle, p_echelle);
-            }
         }
     }
     
