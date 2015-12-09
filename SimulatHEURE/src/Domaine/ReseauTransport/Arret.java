@@ -35,7 +35,7 @@ public class Arret extends ElementTransport {
     }
     public void miseADefaut(){
         m_fileAutobus.clear();
-        m_nombreIndividu = 0;
+        m_pietonsEnAttenteEmbarquer = 0;
         m_fileAutobus.clear();
         m_filePietons.clear();
         m_pietonEnAttenteDeSortir.clear();
