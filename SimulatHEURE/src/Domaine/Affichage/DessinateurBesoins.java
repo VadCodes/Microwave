@@ -41,26 +41,7 @@ public class DessinateurBesoins {
         select_g.setColor(new Color(50,200,255 , 200));
         select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
         
-        Graphics2D src_g = (Graphics2D) p_g.create();
-        Graphics2D transit_g = (Graphics2D) p_g.create();
-        
-        Emplacement emplSourceArtificielle = m_reseau.getEmplacementSourceTemp();
-        if(emplSourceArtificielle!=null){
-            Point2D.Float posSourceArtificielle = emplSourceArtificielle.calculPosition(p_echelle);
-            Path2D.Float losange = new Path2D.Float();
-            src_g.setColor(new Color(0,200,0));
-            float y1 = posSourceArtificielle.y - SourceAutobus.LARGEUR / 2 / p_echelle;
-            float x1 = posSourceArtificielle.x + SourceAutobus.LARGEUR / 2 / p_echelle;
-            float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
-            float x2 = x1 - SourceAutobus.LARGEUR / p_echelle;
-            losange.moveTo(posSourceArtificielle.x, y1);
-            losange.lineTo(x1, posSourceArtificielle.y);
-            losange.lineTo(posSourceArtificielle.x, y2);
-            losange.lineTo(x2, posSourceArtificielle.y);
-            losange.closePath();
-            src_g.fill(losange);
-        }
-        
+        Graphics2D transit_g = (Graphics2D) p_g.create();        
         
         for (Itineraire itineraire: m_reseau.getListItineraire()){
            
@@ -283,12 +264,7 @@ public class DessinateurBesoins {
             if(m_reseau.getPileSelection().contient(itineraire)){
                 select_g.draw(chemin1);
                 select_g.draw(chemin2);
-                float grossissement = 1.4f;
-                dessinerLosange(select_g, origine, p_echelle, 
-                        new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
             }
-                
-            dessinerLosange(select_g, origine, p_echelle, new Color(0,200,0), SourceIndividus.LARGEUR);
         }
     }
     
@@ -306,5 +282,29 @@ public class DessinateurBesoins {
         losange.lineTo(x2, position.y);
         losange.closePath();
         los_g.fill(losange);
+    }
+    
+    public void dessinerSourceIndividus(Graphics2D p_g, float p_echelle){
+        Emplacement emplSourceArtificielle = m_reseau.getEmplacementSourceTemp();
+        if(emplSourceArtificielle!=null){
+            Point2D.Float posSourceArtificielle = emplSourceArtificielle.calculPosition(p_echelle);
+            dessinerLosange(p_g, posSourceArtificielle, p_echelle, new Color(0, 200, 0), SourceIndividus.LARGEUR);
+        }
+        for (Itineraire itineraire: m_reseau.getListItineraire()){
+            Point2D.Float origine;
+            if(itineraire.getListPaireParcours().getFirst().getTrajet()!=null){
+                origine = itineraire.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial().calculPosition(p_echelle);
+            }
+            else{
+                origine = itineraire.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement().calculPosition(p_echelle);
+            }
+            if(m_reseau.getPileSelection().contient(itineraire)){
+                float grossissement = 1.4f;
+                    dessinerLosange(p_g, origine, p_echelle, 
+                            new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+            }
+            dessinerLosange(p_g, origine, p_echelle, new Color(0,200,0), SourceIndividus.LARGEUR);
+        }
+                
     }
 }
