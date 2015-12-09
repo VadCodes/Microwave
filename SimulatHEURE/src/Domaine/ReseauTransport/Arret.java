@@ -87,7 +87,7 @@ public class Arret extends ElementTransport {
     public void miseAjourTempsPieton() {
         for (ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator(); tmppietons.hasNext();) {
             TempsArriverPietons tmppieton = tmppietons.next();
-            tmppieton.setTempsArriver(new Temps(0));
+            tmppieton.setTempsArriver(new Temps(Double.MAX_VALUE));
         }
     }
 
@@ -101,7 +101,7 @@ public class Arret extends ElementTransport {
                 TempsArriverPietons tmppieton = tmppietons.next();
                 Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
                 if (circuitPieton.equals(circuitBus)) {
-                    if(tmppieton.getTempsDeTrop().getTemps() != 0 && tmpbus.getTempsArrivee().getTemps() != 0){
+                    if(tmppieton.getTempsDeTrop().getTemps() !=0){
                         int gello = 0;
                     }
                     if (tmppieton.getTempsDeTrop().getTemps() >= tmpbus.getTempsArrivee().getTemps()) {

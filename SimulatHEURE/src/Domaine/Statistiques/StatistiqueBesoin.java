@@ -55,6 +55,9 @@ public class StatistiqueBesoin {
         m_sommeDesTemps += p_temps.getTemps();
         double newMoyenne = m_sommeDesTemps/m_nombreEchantion;
         m_precisionGlobal = Math.abs(moyenneActuel - newMoyenne);
+        if(getprecisionGlobal() != 0){
+            int yoyo = 0;
+        }
         if(p_temps.getTemps() >m_maxTempsDeplacement){
             m_maxTempsDeplacement = p_temps.getTemps();
         }
