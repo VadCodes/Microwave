@@ -1215,13 +1215,17 @@ public class MainWindow extends javax.swing.JFrame {
                         StatistiqueBesoin besoin = statis.next();  
                         jTable1.setModel(model);
                         String moyenne = Double.toString(besoin.getMoyenne());
+                        String min = Double.toString(besoin.getminTempsDeplacement());
+                        String max = Double.toString(besoin.getmaxTempsDeplacement());
                         String incertitude = Double.toString(besoin.getprecisionGlobal());
-                        moyenne.concat(" +-");
-                        moyenne.concat(incertitude);
+                        moyenne = moyenne.concat(" +- ");
+                        moyenne = moyenne.concat(incertitude);
+                        
+                        
                         jTable1.setValueAt(besoin.getNameItineraire(), x, 0);
-                        jTable1.setValueAt(besoin.getminTempsDeplacement(), x, 1);
-                        jTable1.setValueAt(moyenne, x, 2);
-                        jTable1.setValueAt(besoin.getmaxTempsDeplacement(), x, 3);
+                        jTable1.setValueAt(min.concat("  min(s)"), x, 1);
+                        jTable1.setValueAt(moyenne.concat("  min(s)"), x, 2);
+                        jTable1.setValueAt(max.concat("  min(s)"), x, 3);
                          x++;
                     }
                 }
