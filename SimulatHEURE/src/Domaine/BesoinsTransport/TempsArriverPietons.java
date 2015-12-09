@@ -20,7 +20,7 @@ public class TempsArriverPietons {
             m_individu= individu;
     }
     
-    public Temps getTempsArrivee(){
+    public Temps getTempsDeTrop(){
         return m_tempsArrivee;
     }
 

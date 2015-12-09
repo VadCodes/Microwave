@@ -22,8 +22,7 @@ public class Arret extends ElementTransport {
     private Emplacement m_emplacement;
     private String m_nom = "";
 
-    private int m_pietonsEnAttenteEmbarquer = 0;
-    private String m_representationPietonsEnAttenteEmbarquer;
+    private int m_nombreIndividu = 0;
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
     private LinkedList<PairePietonBus> m_pietonEnAttenteDeSortir = new LinkedList<>();
@@ -35,8 +34,7 @@ public class Arret extends ElementTransport {
     }
     public void miseADefaut(){
         m_fileAutobus.clear();
-        m_pietonsEnAttenteEmbarquer = 0;
-        m_representationPietonsEnAttenteEmbarquer = "";
+        m_nombreIndividu = 0;
         m_fileAutobus.clear();
         m_filePietons.clear();
         m_pietonEnAttenteDeSortir.clear();
@@ -47,16 +45,11 @@ public class Arret extends ElementTransport {
 
     public void viderFile() {
         m_fileAutobus.clear();
-        
-        m_filePietons.clear();
-        m_pietonsEnAttenteEmbarquer = 0;
-        m_representationPietonsEnAttenteEmbarquer = "";
+
     }
 
     public void ajouterPieton(Temps tempsArrivee, Individu individu) {
         m_filePietons.add(new TempsArriverPietons(tempsArrivee, individu));
-        ++m_pietonsEnAttenteEmbarquer;
-        m_representationPietonsEnAttenteEmbarquer = Integer.toString(m_pietonsEnAttenteEmbarquer);
     }
 
     public void ajouterAutobus(Temps tempsArrivee, Autobus autobus) {
@@ -82,19 +75,19 @@ public class Arret extends ElementTransport {
     public void setEmplacement(Emplacement empl) {
         m_emplacement = empl;
     }
-    
-    public int getPietonsEnAttenteEmbarquer() {
-        return m_pietonsEnAttenteEmbarquer;
+
+    public void incrementerNbreIndividu() {
+        m_nombreIndividu++;
     }
-    
-    public String getrepresentationAttenteEmbarquer() {
-        return m_representationPietonsEnAttenteEmbarquer;
+
+    public int getNbreIndividu() {
+        return m_nombreIndividu;
     }
 
     public void miseAjourTempsPieton() {
         for (ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator(); tmppietons.hasNext();) {
             TempsArriverPietons tmppieton = tmppietons.next();
-            tmppieton.setTempsArriver(new Temps(0));
+            tmppieton.setTempsArriver(new Temps(Double.MAX_VALUE));
         }
     }
 
@@ -108,14 +101,14 @@ public class Arret extends ElementTransport {
                 TempsArriverPietons tmppieton = tmppietons.next();
                 Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
                 if (circuitPieton.equals(circuitBus)) {
-                    if (tmppieton.getTempsArrivee().getTemps() <= tmpbus.getTempsArrivee().getTemps()) {
+                    if(tmppieton.getTempsDeTrop().getTemps() !=0){
+                        int gello = 0;
+                    }
+                    if (tmppieton.getTempsDeTrop().getTemps() >= tmpbus.getTempsArrivee().getTemps()) {
                         if (tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()) {
                             tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus(), tmpbus.getTempsArrivee());
                             tmpbus.getAutobus().setPlusUnIndividu();
                             tmppietons.remove();
-                            --m_pietonsEnAttenteEmbarquer;
-                            System.out.println(m_pietonsEnAttenteEmbarquer);
-                            m_representationPietonsEnAttenteEmbarquer = Integer.toString(m_pietonsEnAttenteEmbarquer);
                         }
 
                     }

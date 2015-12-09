@@ -98,6 +98,7 @@ public class DessinateurSimulation {
     {
         for (Arret arret : m_reseau.getListeArrets())
         {
+            /*
             if (arret.getPietonsEnAttenteEmbarquer() > 0)
             {
                 Point2D.Float position = arret.getEmplacement().calculPosition(p_echelle);
@@ -108,6 +109,7 @@ public class DessinateurSimulation {
                 p_g.drawString(arret.getrepresentationAttenteEmbarquer(), (int)(position.x * p_echelle - ajX), (int)(position.y * p_echelle - ajY));
                 p_g.scale(p_echelle, p_echelle);
             }
+*/
         }
     }
 //    private void dessinerBus(Graphics2D p_g, int p_x, int p_y, float p_echelle){
