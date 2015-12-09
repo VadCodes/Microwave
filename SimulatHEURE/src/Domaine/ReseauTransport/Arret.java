@@ -101,7 +101,10 @@ public class Arret extends ElementTransport {
                 TempsArriverPietons tmppieton = tmppietons.next();
                 Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
                 if (circuitPieton.equals(circuitBus)) {
-                    if (tmppieton.getTempsArrivee().getTemps() <= tmpbus.getTempsArrivee().getTemps()) {
+                    if(tmppieton.getTempsDeTrop().getTemps() != 0 && tmpbus.getTempsArrivee().getTemps() != 0){
+                        int gello = 0;
+                    }
+                    if (tmppieton.getTempsDeTrop().getTemps() >= tmpbus.getTempsArrivee().getTemps()) {
                         if (tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()) {
                             tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus(), tmpbus.getTempsArrivee());
                             tmpbus.getAutobus().setPlusUnIndividu();

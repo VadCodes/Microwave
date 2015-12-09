@@ -76,7 +76,7 @@ public class Individu {
          */
         if(!m_estSurArret && !m_estEnBus && !m_emplacementActuel.estSurTroncon()){
             if(m_paireActuelle.getTrajet() != null){
-                m_emplacementActuel.setTroncon(m_paireActuelle.getTroncons().getFirst());
+                m_emplacementActuel.setTroncon(m_paireActuelle.getTrajet().getListeTroncons().getFirst());
                 m_emplacementActuel.setPourcentageParcouru(0);
                 m_emplacementActuel.setEstSurTroncon(true);
             }
@@ -190,11 +190,9 @@ public class Individu {
                 if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getTrajet().getEmplacementFinal().getTroncon())) {
                     if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) {
                         pourcentageFinal = m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru();
-                        float tempsParcourirResteTroncon = (float) ((pourcentageArret1 - pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitAutobus().getTemps());
                         m_emplacementActuel.copy(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement());
-                        Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
-                        m_estSurArret = true;
-                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                        float tempsParcourirDeTrop = (float) ((pourcentage - m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());m_estSurArret = true;
+                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(tempsParcourirDeTrop), this);
                         m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                         return;
                     }
@@ -204,21 +202,19 @@ public class Individu {
                 if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getTroncon())) {
                     if (m_emplacementActuel.getPourcentageParcouru() >= m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru()) {
                         m_emplacementActuel.copy(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement());
-                        float tempsParcourirResteTroncon = (float) ((m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getPourcentageParcouru() - pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
-                        Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
+                        float tempsParcourirDeTrop = (float) ((pourcentage - m_paireActuelle.getTrajet().getEmplacementFinal().getPourcentageParcouru()) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
                         m_estSurArret = true;
-                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                        m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(tempsParcourirDeTrop), this);
                         m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                         return;
                     }
                 }
             } else if (m_emplacementActuel.getTroncon().getDestination().equals(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement().getIntersection())) {
                 if (m_emplacementActuel.getPourcentageParcouru() >= 1) {
-                    float tempsParcourirResteTroncon = (float) ((1 - pourcentageInitiale) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
+                    float tempsParcourirDeTrop = (float) ((pourcentage - 1) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
                     m_emplacementActuel.copy(m_paireActuelle.getParcoursBus().getArretDepart().getEmplacement());
-                    Temps tempsArriveArret = new Temps(tempsParcourirResteTroncon);
                     m_estSurArret = true;
-                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(tempsArriveArret, this);
+                    m_paireActuelle.getParcoursBus().getArretDepart().ajouterPieton(new Temps(tempsParcourirDeTrop), this);
                     m_paireActuelle.getParcoursBus().getArretDepart().miseAJourArret();
                     return;
                 }
@@ -252,6 +248,7 @@ public class Individu {
             pourcentage = 1;
             m_emplacementActuel.setPourcentageParcouru(pourcentage);
             float tempsParcourirResteTroncon = (float) ((1 - pourcentageInitiale) * tempsTransit.getTemps());
+            float tempsParcourirDeTrop = (float) ((pourcentage - 1) * m_emplacementActuel.getTroncon().getTempsTransitPieton().getTemps());
             if (m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel) != null) {
                 Troncon troncon = m_paireActuelle.getTrajet().getNextTroncon(m_emplacementActuel);
                 m_emplacementActuel.setTroncon(troncon);
