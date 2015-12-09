@@ -56,12 +56,13 @@ public class SourceIndividus {
         m_emplacement = emplacement;
     }
     public void setDefault() {
-        m_tempsAvantApparition = m_tempsInitial;
+        m_nbIndividusGeneres = 0;
+       m_tempsAvantApparition = m_tempsInitial;
     }
-    public void setTempsAttenteInitial(Temps temps){
-        m_tempsInitial = temps;
-         setDefault() ;
-    }
+    //public void setTempsAttenteInitial(Temps temps){
+      //  m_tempsInitial = temps;
+        // setDefault() ;
+    //}
     public Temps getTempsAttenteInitial(){
         return m_tempsInitial;
     }
@@ -90,7 +91,7 @@ public class SourceIndividus {
    // }
 
     public void miseADefaut() {
-        m_nbIndividusGeneres = 0;
+       m_nbIndividusGeneres = 0;
        m_tempsAvantApparition = m_tempsInitial;
     }
 }
