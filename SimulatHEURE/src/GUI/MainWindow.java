@@ -9,7 +9,7 @@ import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
  
 import java.io.FileOutputStream;
-  import java.io.FileInputStream;
+import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
@@ -1724,7 +1724,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setVisible(true);
         m_timer = new Timer(0, new MyTimerActionListener());
         m_crono = new Chronometre();
-        m_timer.setDelay(1000);
+        m_timer.setDelay(1);
         m_controleur.demarrerSimulation();
         m_crono.start();
         m_timer.start();
@@ -1998,6 +1998,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
     
+    this.m_controleur.getHistorique().viderApresReseauCourant();
     int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
     this.m_controleur.getHistorique().clearCurseur();
     try

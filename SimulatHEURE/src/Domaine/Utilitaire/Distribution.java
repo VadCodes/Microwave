@@ -27,7 +27,7 @@ public class Distribution implements java.io.Serializable {
         else if (p_type == Type.AUTOBUS)
             setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
         else
-            setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
+            setDistribution(new Temps(3 * 60), new Temps(3 * 60), new Temps(3 * 60));
     }
     
     public Distribution(Distribution p_distributionSource)
