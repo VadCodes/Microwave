@@ -15,12 +15,15 @@ import java.util.LinkedList;
 import Domaine.Utilitaire.Temps;
 import Domaine.ReseauRoutier.*;
 import Domaine.Statistiques.StatistiqueBesoin;
+import java.awt.Color;
 
 public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
     private SourceIndividus m_source;
     private LinkedList<Individu> m_listIndividu = new LinkedList<>();
     private StatistiqueBesoin m_stat;
+    private String m_nom = "";
+    private Color m_couleur = new Color(0,200,0);
     
     public Itineraire(LinkedList<PaireParcours> listPaireParcours){
         m_listPaireParcours = listPaireParcours;
@@ -77,5 +80,18 @@ public class Itineraire extends ElementBesoins {
         m_source.initSourceIndividu();
     }
 
+    public String getNom(){
+        return m_nom;
+    }
+    public void setNom(String p_nom){
+        m_nom = p_nom;
+    }
+    public Color getCouleur(){
+        return m_couleur;
+    }
+    
+    public void setCouleur(Color couleur){
+        m_couleur = couleur;
+    }
 }
   

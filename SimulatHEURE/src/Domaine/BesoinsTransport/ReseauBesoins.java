@@ -35,7 +35,8 @@ public class ReseauBesoins extends Reseau {
     private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();;
     private StatistiquesGeneral m_stat;
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
-    private String m_nom;
+    private String m_nom = "";
+    private Integer m_compteurItineraires = 0;
     
     private Emplacement m_emplacementSourceTemp = null;
     
@@ -93,8 +94,7 @@ public class ReseauBesoins extends Reseau {
     }
     public void ajouterItineraire(Itineraire itn){
         if(itn != null){
-            int number = m_listeItineraires.size();
-            m_nom = "Itineraire".concat(Integer.toString(number +1));
+
             StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
             Emplacement emplSrc;
             if(itn.getListPaireParcours().getFirst().getTrajet()!=null){
@@ -107,6 +107,8 @@ public class ReseauBesoins extends Reseau {
                 , itn, be);
             itn.asignerSource(sour);
             itn.setStat(be);
+            itn.setNom("IT"+ Integer.toString(m_compteurItineraires));
+            m_compteurItineraires++;
             m_listeItineraires.add(itn);
         }
     }

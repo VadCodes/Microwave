@@ -1022,7 +1022,8 @@
                           <SubComponents>
                             <Component class="javax.swing.JLabel" name="jLabel7">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Besoins :"/>
+                                <Property name="text" type="java.lang.String" value="Itin&#xe9;raires :"/>
+                                <Property name="toolTipText" type="java.lang.String" value=""/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="comboBoxBesoins">
@@ -1258,6 +1259,20 @@
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="card6"/>
+                            </Constraint>
+                          </Constraints>
+                        </Component>
+                        <Component class="GUI.PanelItineraire" name="panelItineraire1">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                <TitledBorder title="Itin&#xe9;raire"/>
+                              </Border>
+                            </Property>
+                          </Properties>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="card8"/>
                             </Constraint>
                           </Constraints>
                         </Component>

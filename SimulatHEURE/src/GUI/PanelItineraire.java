@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Domaine.ReseauTransport.Circuit;
+import Domaine.BesoinsTransport.Itineraire;
 import Domaine.Simulatheure;
 import javax.swing.JFrame;
 
@@ -13,13 +13,13 @@ import javax.swing.JFrame;
  *
  * @author louis
  */
-public class PanelCircuit extends PanelEdition {
-    Circuit m_circuit;
+public class PanelItineraire extends PanelEdition {
+    Itineraire m_itineraire;
     
     /**
      * Creates new form PanelCircuit
      */
-    public PanelCircuit() {
+    public PanelItineraire() {
         initComponents();
     }
 
@@ -37,8 +37,6 @@ public class PanelCircuit extends PanelEdition {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         jButton5 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -58,21 +56,6 @@ public class PanelCircuit extends PanelEdition {
             }
         });
 
-        jButton3.setText("Ajouter source");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setText("Boucler");
-        jCheckBox1.setEnabled(false);
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -87,22 +70,18 @@ public class PanelCircuit extends PanelEdition {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,15 +91,11 @@ public class PanelCircuit extends PanelEdition {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addGap(60, 60, 60)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -131,32 +106,15 @@ public class PanelCircuit extends PanelEdition {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void afficheInfo(Circuit circ){
-        m_circuit = circ;
-        jTextField1.setText(m_circuit.getNom());
+    public void afficheInfo(Itineraire itn){
+        m_itineraire = itn;
+        jTextField1.setText(m_itineraire.getNom());
         
-        if (m_circuit.peutBoucler()) {
-            jCheckBox1.setEnabled(true);
-            if (m_circuit.veutBoucler()){
-                jCheckBox1.setSelected(true);
-            }
-            else{
-                jCheckBox1.setSelected(false);
-            }
-        }
-        else{
-            jCheckBox1.setEnabled(false);
-            jCheckBox1.setSelected(false);
-        }
         setCouleurBouton();
     }
     
     public void setInfo(){
-        m_circuit.setNom(jTextField1.getText());
-        
-        if (jCheckBox1.isSelected()){
-            m_circuit.setVeutBoucler(true);
-        }
+        m_itineraire.setNom(jTextField1.getText());
         
         m_mainWindow.m_controleur.getHistorique().modifier();
         m_mainWindow.miseAjourComboBoxTotal();
@@ -170,13 +128,9 @@ public class PanelCircuit extends PanelEdition {
         m_mainWindow.supprimerElementPanel();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        CouleurCircuit fenetre = new CouleurCircuit();
-        fenetre.setCircuit((Circuit) m_circuit, this);
+        CouleurItineraire fenetre = new CouleurItineraire();
+        fenetre.setItineraire((Itineraire) m_itineraire, this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -184,21 +138,15 @@ public class PanelCircuit extends PanelEdition {
         
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        m_mainWindow.ajoutSource();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     public void setCouleurBouton(){
-        jButton5.setBackground(m_circuit.getCouleur());
+        jButton5.setBackground(m_itineraire.getCouleur());
     }
             
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
