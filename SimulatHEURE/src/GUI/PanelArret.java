@@ -31,7 +31,7 @@ public class PanelArret extends PanelEdition {
         else{
             jLabel7.setText(m_arret.getEmplacement().getIntersection().getName());
         }    
-        //jLabel8.setText(String.valueOf(m_arret.getPietonsEnAttenteEmbarquer()));
+        jLabel8.setText(String.valueOf(m_arret.getPietonsEnAttenteEmbarquer()));
     }
     
     public void setInfo(){

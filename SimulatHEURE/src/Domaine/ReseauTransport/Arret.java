@@ -22,7 +22,6 @@ public class Arret extends ElementTransport {
     private Emplacement m_emplacement;
     private String m_nom = "";
 
-    private int m_nombreIndividu = 0;
     private LinkedList<TempsArriveeAutobus> m_fileAutobus = new LinkedList<>();
     private LinkedList<TempsArriverPietons> m_filePietons = new LinkedList<>();
     private LinkedList<PairePietonBus> m_pietonEnAttenteDeSortir = new LinkedList<>();
@@ -34,7 +33,6 @@ public class Arret extends ElementTransport {
     }
     public void miseADefaut(){
         m_fileAutobus.clear();
-        m_nombreIndividu = 0;
         m_fileAutobus.clear();
         m_filePietons.clear();
         m_pietonEnAttenteDeSortir.clear();
@@ -76,12 +74,8 @@ public class Arret extends ElementTransport {
         m_emplacement = empl;
     }
 
-    public void incrementerNbreIndividu() {
-        m_nombreIndividu++;
-    }
-
-    public int getNbreIndividu() {
-        return m_nombreIndividu;
+    public int getPietonsEnAttenteEmbarquer() {
+        return m_filePietons.size();
     }
 
     public void miseAjourTempsPieton() {
@@ -97,13 +91,13 @@ public class Arret extends ElementTransport {
             TempsArriveeAutobus tmpbus = tmpbuss.next();
             Circuit circuitBus = tmpbus.getAutobus().getCircuit();
             ListIterator<TempsArriverPietons> tmppietons = m_filePietons.listIterator();
+             if(m_filePietons.size()> 1 ){
+                        int gello = 0;
+                    }
             while (tmppietons.hasNext()) {
                 TempsArriverPietons tmppieton = tmppietons.next();
                 Circuit circuitPieton = tmppieton.getPieton().getProchaineCircuit();
                 if (circuitPieton.equals(circuitBus)) {
-                    if(tmppieton.getTempsDeTrop().getTemps() !=0){
-                        int gello = 0;
-                    }
                     if (tmppieton.getTempsDeTrop().getTemps() >= tmpbus.getTempsArrivee().getTemps()) {
                         if (tmpbus.getAutobus().getCapaciteMax() > tmpbus.getAutobus().getnbPassager()) {
                             tmppieton.getPieton().setIndividuEstDansBus(true, tmpbus.getAutobus(), tmpbus.getTempsArrivee());

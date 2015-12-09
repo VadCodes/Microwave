@@ -31,7 +31,7 @@ public class Individu {
     private double temp_iteration = 0;
     private StatistiqueBesoin m_stat;
     private Temps m_tempsArriverDeTrop = new Temps(0);
-    public float RAYON = 10;
+    public float RAYON = 3;
 
     public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret,
             StatistiqueBesoin p_stat) {
@@ -279,6 +279,10 @@ public class Individu {
 
     public boolean estEnBus() {
         return m_estEnBus;
+    }
+    
+    public boolean estSurArret() {
+        return m_estSurArret;
     }
 
     // public void estDansBus() {

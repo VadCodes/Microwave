@@ -1724,7 +1724,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setVisible(true);
         m_timer = new Timer(0, new MyTimerActionListener());
         m_crono = new Chronometre();
-        m_timer.setDelay(1);
+        m_timer.setDelay(1000);
         m_controleur.demarrerSimulation();
         m_crono.start();
         m_timer.start();

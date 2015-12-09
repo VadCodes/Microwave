@@ -62,13 +62,13 @@ public class Autobus {
         if (m_emplacementActuel.estSurTroncon() && m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
             if (m_emplacementActuel.getTroncon().equals(m_paireActuelle.getArret().getEmplacement().getTroncon())) {
                 if (m_emplacementActuel.getPourcentageParcouru() == m_paireActuelle.getArret().getEmplacement().getPourcentageParcouru()) {
-                    m_paireActuelle.getArret().ajouterAutobus(new Temps(temp_iteration), this);
+                    m_paireActuelle.getArret().ajouterAutobus(new Temps(deltatT.getTemps()), this);
                 }
             }
         }
         if (!m_emplacementActuel.estSurTroncon() && !m_paireActuelle.getArret().getEmplacement().estSurTroncon()) {
             if (m_emplacementActuel.getIntersection().equals(m_paireActuelle.getArret().getEmplacement().getIntersection())) {
-                m_paireActuelle.getArret().ajouterAutobus(new Temps(temp_iteration), this);
+                m_paireActuelle.getArret().ajouterAutobus(new Temps(deltatT.getTemps()), this);
             }
         }
         if (m_emplacementActuel.estSurTroncon()) {
