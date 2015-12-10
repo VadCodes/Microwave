@@ -47,8 +47,14 @@ public class Simulatheure implements java.io.Serializable {
     }
     public double getPrecisionMax() {
         double precision = -1;
+        int nbIterationMin = Integer.MAX_VALUE;
+        for (StatistiqueBesoin stat : m_reseauBesoins.getStatistique().getListeStatistiqueBesoin()){
+           if(stat.getNbIteration() < nbIterationMin){
+               nbIterationMin = stat.getNbIteration();
+           }
+       }
        for (StatistiqueBesoin stat : m_reseauBesoins.getStatistique().getListeStatistiqueBesoin()){
-           if(stat.getprecisionGlobal() > precision && stat.getNbIteration()> 2){
+           if(stat.getprecisionGlobal() > precision && nbIterationMin > 10){
                precision = stat.getprecisionGlobal();
            }
        }
