@@ -118,7 +118,6 @@ public class DessinateurSimulation {
                 p_g.drawString(Integer.toString(arret.getPietonsEnAttenteEmbarquer()), (int)(position.x * p_echelle - ajX), (int)(position.y * p_echelle - ajY));
                 p_g.scale(p_echelle, p_echelle);
             }
-
         }
     }
     private void dessinerBus(Graphics2D p_g,Point2D.Float p_position, float p_echelle, GlyphVector p_noCircuit){

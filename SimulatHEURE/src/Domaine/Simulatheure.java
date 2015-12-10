@@ -16,6 +16,7 @@ import java.util.ListIterator;
  */
 public class Simulatheure implements java.io.Serializable {
 
+    
     public enum Mode {
 
         ROUTIER, TRANSPORT, BESOINS, SIMULATION
@@ -44,6 +45,21 @@ public class Simulatheure implements java.io.Serializable {
     public Simulatheure() {
         initControleur();
     }
+    public double getPrecisionMax() {
+        double precision = -1;
+       for (StatistiqueBesoin stat : m_reseauBesoins.getStatistique().getListeStatistiqueBesoin()){
+           if(stat.getprecisionGlobal() > precision && stat.getNbIteration()> 2){
+               precision = stat.getprecisionGlobal();
+           }
+       }
+       if(precision == -1){
+           return Double.MAX_VALUE;
+       }
+       else{
+        return precision;
+       }
+    }
+
 
     public ReseauRoutier getRoutier() {
         return m_reseauRoutier;

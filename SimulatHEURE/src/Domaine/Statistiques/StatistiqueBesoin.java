@@ -39,7 +39,10 @@ public class StatistiqueBesoin {
     }
         
     public double getprecisionGlobal(){
-        return (double)Math.round(100*(m_precisionGlobalTotal/m_nombreEchantion)/60)/100;
+        double precisionAbs = (m_precisionGlobalTotal/m_nombreEchantion)/60;
+        double moyenne = (m_sommeDesTemps/m_nombreEchantion)/60;
+        double pourcentage = 100*precisionAbs/moyenne;
+        return (double)Math.round(100*(pourcentage)/60)/100;
     }
      public double getmaxTempsDeplacement(){
         return (double)Math.round(100*m_maxTempsDeplacement/60)/100;
@@ -76,5 +79,9 @@ public class StatistiqueBesoin {
         m_maxTempsDeplacement =0;
         m_minTempsDeplacement = Double.MAX_VALUE;
         m_nombreEchantion = 0;
+    }
+
+    public int getNbIteration() {
+        return m_nombreEchantion;
     }
 }

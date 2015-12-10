@@ -42,6 +42,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Chronometre m_crono;
     private MainWindow m_this = this; //l33t
     public double m_tempsDebutSimulation;
+    public double m_precision = -1;
     public double m_tempsFinSimulation;
     private boolean m_simulationEstLancer = false;
     private LinkedList<StatistiquesGeneral> m_statistiques = new LinkedList<>();
@@ -69,7 +70,12 @@ public class MainWindow extends javax.swing.JFrame {
             double tmp = m_crono.getTempsDebut();
             boolean finSimulation = false;
             double deltatT = m_crono.getDeltatT();
-            if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()*1000) {
+            if(m_precision != -1){
+                    if(m_controleur.getPrecisionMax() <= m_precision){
+                        finSimulation = true;
+                    }
+                }
+            else if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()*1000) {
                 deltatT = ((m_tempsFinSimulation - m_tempsDebutSimulation) - tmp*1000)/1000;
                 finSimulation = true;
                 Date itemDate = new Date((long)(m_tempsDebutSimulation + (tmp + deltatT)*1000));
@@ -1212,7 +1218,7 @@ public class MainWindow extends javax.swing.JFrame {
             conteur++;
                 if (conteur == p_stat) {
                     ListIterator<StatistiqueBesoin> statis = stat.getListeStatistiqueBesoin().listIterator();
-                    String header[] = new String[]{"Itineraire", "Temps minimum", "Temps moyen", "Temps maximum"}; 
+                    String header[] = new String[]{"Itineraire", "Temps minimum", "Temps moyen", "Temps maximum", "Erreur relative"}; 
                     DefaultTableModel model = new DefaultTableModel(header,stat.getListeStatistiqueBesoin().size());
                     while(statis.hasNext()){
                         StatistiqueBesoin besoin = statis.next();  
@@ -1221,14 +1227,13 @@ public class MainWindow extends javax.swing.JFrame {
                         String min = Double.toString(besoin.getminTempsDeplacement());
                         String max = Double.toString(besoin.getmaxTempsDeplacement());
                         String incertitude = Double.toString(besoin.getprecisionGlobal());
-                        moyenne = moyenne.concat(" +- ");
-                        moyenne = moyenne.concat(incertitude);
                         
                         
                         jTable1.setValueAt(besoin.getNameItineraire(), x, 0);
                         jTable1.setValueAt(min.concat("  min(s)"), x, 1);
                         jTable1.setValueAt(moyenne.concat("  min(s)"), x, 2);
                         jTable1.setValueAt(max.concat("  min(s)"), x, 3);
+                        jTable1.setValueAt(incertitude.concat("  %"), x, 4);
                          x++;
                     }
                 }
@@ -1838,6 +1843,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_simulationEstLancer = false;
         m_controleur.arreterSimulation();
         miseAjoutComboBoxStat();
+        m_precision = -1;
     }
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
