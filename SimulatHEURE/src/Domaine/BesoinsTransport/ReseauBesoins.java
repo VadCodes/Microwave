@@ -60,7 +60,7 @@ public class ReseauBesoins extends Reseau {
             LinkedList<PaireParcours> pairesCopiees = new LinkedList<>();            
             for (PaireParcours paireSource : itineraireSource.getListPaireParcours())
             {
-                pairesCopiees.add(NouvellePaireParcoursHomologue(p_reseauSource.m_reseauTransport, paireSource));
+                pairesCopiees.add(nouvellePaireParcoursHomologue(p_reseauSource.m_reseauTransport, paireSource));
             }
             this.m_listeItineraires.add(new Itineraire(pairesCopiees));
             
@@ -94,7 +94,7 @@ public class ReseauBesoins extends Reseau {
             return null;
     }
     
-    public final PaireParcours NouvellePaireParcoursHomologue(ReseauTransport p_reseauSource, PaireParcours p_paireSource)
+    public final PaireParcours nouvellePaireParcoursHomologue(ReseauTransport p_reseauSource, PaireParcours p_paireSource)
     {
         return new PaireParcours(this.m_reseauTransport.nouveauTrajetHomologue(p_reseauSource, p_paireSource.getTrajet()), 
                 this.nouveauParcoursBusHomologue(p_reseauSource, p_paireSource.getParcoursBus()));
