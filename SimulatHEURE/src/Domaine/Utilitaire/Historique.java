@@ -66,24 +66,28 @@ public class Historique implements java.io.Serializable {
     public void modifier() {
         
         modifierSelon(m_reseauTransportCourant, m_curseurAvantTransportCourant);
-        m_peutAnnuler = true;
-        m_peutRetablir = false;
     }
 
     private void modifierSelon(Reseau p_reseau, ListIterator<Reseau> p_curseur) {
         
         //if (p_reseau.getClass() == ReseauTransport.class)
             p_curseur.add(new ReseauTransport((ReseauTransport)m_reseauTransportCourant));
-
-        p_curseur.next();
+            viderApresReseauCourant();
+    }
+    
+    public void viderApresReseauCourant() {
+        m_curseurAvantTransportCourant.next();
 
         //p_iterateur.forEachRemaining(ListIterator.remove());
-        while (p_curseur.hasNext()) {
-            p_curseur.next();
-            p_curseur.remove();
+        while (m_curseurAvantTransportCourant.hasNext()) {
+            m_curseurAvantTransportCourant.next();
+            m_curseurAvantTransportCourant.remove();
         }
 
-        p_curseur.previous();  // on replace le curseur avant le reseau courant
+        m_curseurAvantTransportCourant.previous();  // on replace le curseur avant le reseau courant
+        
+        m_peutAnnuler = true;
+        m_peutRetablir = false;
     }
 
     public void annuler() {

@@ -9,7 +9,7 @@ import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
  
 import java.io.FileOutputStream;
-  import java.io.FileInputStream;
+import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.IOException;
@@ -2006,6 +2006,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
     
+    this.m_controleur.getHistorique().viderApresReseauCourant();
     int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
     this.m_controleur.getHistorique().clearCurseur();
     try
