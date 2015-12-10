@@ -99,14 +99,6 @@ public class Circuit extends ElementTransport{
     
     public void calculCirculationGlobal(Temps deltatT){
         
-        //on vide toutes les files d'arrets
-        ListIterator<PaireArretTrajet> arretTrajetItr = m_listeArretTrajet.listIterator();
-        while (arretTrajetItr.hasNext()) {
-            Arret arr = arretTrajetItr.next().getArret();
-            arr.viderFile();
-            arr.miseAjourTempsPieton();
-        }
-        
         //pour chaque autobus on calcule la circulation
         ListIterator<Autobus> autobusItr = m_listeAutobus.listIterator();
         while (autobusItr.hasNext()) {

@@ -537,9 +537,15 @@ public class Simulatheure implements java.io.Serializable {
                 for (ListIterator<Circuit> circuits = m_reseauTransport.getListeCircuits().listIterator(); circuits.hasNext();) {
                     Circuit circuit = circuits.next();
                     if (m_reseauTransport.getPileSelection().contient(circuit)) {
-                        m_reseauTransport.ajoutSource(emplacement, circuit);
-                        m_historique.modifier();                                // ANNULER-RÉTABLIR
-                        return;
+                        for ( PaireArretTrajet arretTrajet :circuit.getListeArretTrajet()){
+                            Arret arretDansCircuit = arretTrajet.getArret();
+                            if(arret.equals(arretDansCircuit)){
+                                m_reseauTransport.ajoutSource(emplacement, circuit);
+                                m_historique.modifier();                                // ANNULER-RÉTABLIR
+                                return;
+                            }
+                        }
+                        
                     }
                 }
             }
