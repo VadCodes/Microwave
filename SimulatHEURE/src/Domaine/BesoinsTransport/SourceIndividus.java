@@ -19,7 +19,7 @@ public class SourceIndividus {
     private Emplacement m_emplacement;
     private Temps m_frequence;
     private String m_nom;
-    private int m_nbMaxIndividus = 1 ;//Integer.MAX_VALUE;
+    private int m_nbMaxIndividus = Integer.MAX_VALUE;
     private int m_nbIndividusGeneres = 0;
     private Itineraire m_itineraire;
     private Temps m_tempsAvantApparition;
