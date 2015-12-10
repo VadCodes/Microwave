@@ -42,7 +42,7 @@ public class ReseauBesoins extends Reseau {
     private ReseauTransport m_reseauTransport;
     
     public ReseauBesoins(){
-        m_compteurItineraires = 0;
+        m_compteurItineraires = 1;
         m_stat = new StatistiquesGeneral();
         
         m_reseauTransport = new ReseauTransport();

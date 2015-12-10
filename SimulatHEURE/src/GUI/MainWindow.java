@@ -161,7 +161,6 @@ public class MainWindow extends javax.swing.JFrame {
         ajoutBesoin = new javax.swing.JToggleButton();
         suppressionBesoins = new javax.swing.JButton();
         editerBesoins = new javax.swing.JToggleButton();
-        checkBoxDijkstraBesoins = new javax.swing.JCheckBox();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
@@ -495,7 +494,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsTransport.add(editerTransport);
 
         checkBoxDijkstra.setSelected(true);
-        checkBoxDijkstra.setText("Dijkstra");
+        checkBoxDijkstra.setText("Optimiser");
         checkBoxDijkstra.setPreferredSize(new java.awt.Dimension(100, 35));
         checkBoxDijkstra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -554,16 +553,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsBesoins.add(editerBesoins);
-
-        checkBoxDijkstraBesoins.setSelected(true);
-        checkBoxDijkstraBesoins.setText("Dijkstra");
-        checkBoxDijkstraBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
-        checkBoxDijkstraBesoins.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDijkstraBesoinsActionPerformed(evt);
-            }
-        });
-        boutonsBesoins.add(checkBoxDijkstraBesoins);
         boutonsBesoins.add(jSeparator11);
         boutonsBesoins.add(jSeparator12);
         boutonsBesoins.add(jSeparator13);
@@ -1987,10 +1976,6 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_editerBesoinsActionPerformed
 
-    private void checkBoxDijkstraBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDijkstraBesoinsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxDijkstraBesoinsActionPerformed
-
     private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
@@ -2211,7 +2196,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JMenuItem charger;
     private javax.swing.JCheckBox checkBoxDijkstra;
-    private javax.swing.JCheckBox checkBoxDijkstraBesoins;
     private javax.swing.JComboBox<String> comboBoxArrets;
     private javax.swing.JComboBox<String> comboBoxAutobus;
     private javax.swing.JComboBox<String> comboBoxBesoins;
