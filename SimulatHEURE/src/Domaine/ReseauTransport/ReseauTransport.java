@@ -174,6 +174,13 @@ public class ReseauTransport extends Reseau{
         }
     };
     public void calculEtatReseauTransport(Temps deltaT){
+        //on vide toutes les files d'arrets
+        ListIterator<Arret> arretItr = m_listeArrets.listIterator();
+        while (arretItr.hasNext()) {
+            Arret arr = arretItr.next();
+            arr.viderFile();
+            arr.miseAjourTempsPieton();
+        }
         ListIterator<Circuit> circuitItr = m_listeCircuits.listIterator();
         while (circuitItr.hasNext()) {
             Circuit  crc = circuitItr.next();
