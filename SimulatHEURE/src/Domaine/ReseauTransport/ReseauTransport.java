@@ -99,9 +99,7 @@ public class ReseauTransport extends Reseau{
                             this.m_listeArrets.get(indexArretFinale).getEmplacement(), tronconsTrajetCopie)));                
                 }
                 else
-                {
                     pairesCopiees.add(new PaireArretTrajet(this.m_listeArrets.get(indexArretInitiale), null));
-                }
             }
             
             this.m_listeCircuits.add(new Circuit(pairesCopiees));
@@ -140,6 +138,16 @@ public class ReseauTransport extends Reseau{
         this.m_compteurArrets = p_reseauSource.m_compteurArrets;
         this.m_compteurCircuits = p_reseauSource.m_compteurCircuits;
         this.m_compteurSources = p_reseauSource.m_compteurSources;
+    }
+    
+    public Trajet nouveauTrajetHomologue(ReseauTransport p_reseauSource, Trajet p_trajetSource)
+    {
+        if (p_trajetSource != null)
+            return new Trajet(this.m_reseauRoutier.nouvelEmplacementHomologue(p_reseauSource.m_reseauRoutier, p_trajetSource.getEmplacementInitial()), 
+                    this.m_reseauRoutier.nouvelEmplacementHomologue(p_reseauSource.m_reseauRoutier, p_trajetSource.getEmplacementFinal()), 
+                    this.m_reseauRoutier.tronconsHomologues(p_reseauSource.m_reseauRoutier, p_trajetSource.getListeTroncons()));
+        else
+            return null;
     }
     
     public ReseauRoutier getRoutier()

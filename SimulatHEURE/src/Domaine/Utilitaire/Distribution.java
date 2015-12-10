@@ -30,11 +30,6 @@ public class Distribution implements java.io.Serializable {
             setDistribution(new Temps(3 * 60), new Temps(3 * 60), new Temps(3 * 60));
     }
     
-    public Distribution(Distribution p_distributionSource)
-    {
-        setDistribution(p_distributionSource.getTempsMin(), p_distributionSource.getTempsFreq(), p_distributionSource.getTempsMax());
-    }
-    
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)
     {
         double tMin = p_tempsMinimum.getTemps();

@@ -15,8 +15,6 @@ import Domaine.ReseauTransport.ReseauTransport;
 import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Statistiques.StatistiquesGeneral;
 
-import Domaine.Utilitaire.Distribution;
-import Domaine.Utilitaire.Distribution.Type;
 import Domaine.Utilitaire.Temps;
 
 import java.awt.geom.Point2D;
@@ -31,26 +29,81 @@ import java.util.ListIterator;
  */
 public class ReseauBesoins extends Reseau {
     
-    private LinkedList<Individu> m_listeIndividus = new LinkedList<>();;
-    private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();;
-    private StatistiquesGeneral m_stat;
-    private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();;
-    private String m_nom = "";
-    private Integer m_compteurItineraires = 0;
+    private LinkedList<Itineraire> m_listeItineraires = new LinkedList<>();
     
+    private Integer m_compteurItineraires;
+    
+    private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();
+    
+    private LinkedList<Individu> m_listeIndividus = new LinkedList<>();
     private Emplacement m_emplacementSourceTemp = null;
     
+    private StatistiquesGeneral m_stat;
     private ReseauTransport m_reseauTransport;
     
     public ReseauBesoins(){
+        m_compteurItineraires = 1;
         m_stat = new StatistiquesGeneral();
+        
+        m_reseauTransport = new ReseauTransport();
     }
     
-    public ReseauBesoins(LinkedList<Individu> p_listeIndividus, LinkedList<Itineraire> p_itineraire){
-        m_listeIndividus = p_listeIndividus;
-        m_listeItineraires = p_itineraire;
-        m_stat = new StatistiquesGeneral();
+    public ReseauBesoins(ReseauBesoins p_reseauSource){
+        this.m_reseauTransport = new ReseauTransport(p_reseauSource.m_reseauTransport);
+        this.m_stat = new StatistiquesGeneral(p_reseauSource.m_stat);
+        
+        ListIterator<StatistiqueBesoin> itStatCopie = this.m_stat.getListeStatistiqueBesoin().listIterator();
+        for (Itineraire itineraireSource : p_reseauSource.m_listeItineraires)
+        {
+            StatistiqueBesoin statCopie = itStatCopie.next();
+            
+            LinkedList<PaireParcours> pairesCopiees = new LinkedList<>();            
+            for (PaireParcours paireSource : itineraireSource.getListPaireParcours())
+            {
+                pairesCopiees.add(nouvellePaireParcoursHomologue(p_reseauSource.m_reseauTransport, paireSource));
+            }
+            this.m_listeItineraires.add(new Itineraire(pairesCopiees));
+            
+            SourceIndividus sourceCopiee = new SourceIndividus(this.m_reseauTransport.getRoutier().nouvelEmplacementHomologue(p_reseauSource.m_reseauTransport.getRoutier(), itineraireSource.getSourceIndividu().getEmplacement()), 
+                    this.m_listeItineraires.getLast(), statCopie);
+            sourceCopiee.setDistribution(itineraireSource.getSourceIndividu().getDistribution());
+            sourceCopiee.setTempsAttenteInitial(itineraireSource.getSourceIndividu().getTempsAttenteInitial());
+            sourceCopiee.setNbMaxIndividus(itineraireSource.getSourceIndividu().getNbMaxIndividus());
+            
+            this.m_listeItineraires.getLast().asignerSource(sourceCopiee);
+            this.m_listeItineraires.getLast().setStat(statCopie);
+            this.m_listeItineraires.getLast().setCouleur(itineraireSource.getCouleur());
+        }
+        
+        m_compteurItineraires = p_reseauSource.m_compteurItineraires;
     }
+    
+    public ParcoursBus nouveauParcoursBusHomologue(ReseauTransport p_reseauSource, ParcoursBus p_parcoursSource)
+    {
+        if (p_parcoursSource != null)
+        {
+            int indexCircuitHomologue = p_reseauSource.getListeCircuits().indexOf(p_parcoursSource.getCircuit());
+            int indexPaireArretDepart = p_parcoursSource.getCircuit().getListeArretTrajet().indexOf(p_parcoursSource.getPaireArretDepart());
+            int indexPaireArretFinal = p_parcoursSource.getCircuit().getListeArretTrajet().indexOf(p_parcoursSource.getPaireArretFinal());
+            
+            return new ParcoursBus(this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue),
+                    this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue).getListeArretTrajet().get(indexPaireArretDepart), 
+                    this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue).getListeArretTrajet().get(indexPaireArretFinal));
+        }
+        else
+            return null;
+    }
+    
+    public final PaireParcours nouvellePaireParcoursHomologue(ReseauTransport p_reseauSource, PaireParcours p_paireSource)
+    {
+        return new PaireParcours(this.m_reseauTransport.nouveauTrajetHomologue(p_reseauSource, p_paireSource.getTrajet()), 
+                this.nouveauParcoursBusHomologue(p_reseauSource, p_paireSource.getParcoursBus()));
+    }
+    
+    public ReseauTransport getTransport(){
+        return m_reseauTransport;
+    }
+    
     public StatistiquesGeneral getStatistique(){
         return m_stat;
     }
@@ -89,13 +142,10 @@ public class ReseauBesoins extends Reseau {
     public void deselectionnerTout(){
         m_pileSelection.vider();
     }
-    public void setNom(String p_nom){
-        m_nom = p_nom;
-    }
+
     public void ajouterItineraire(Itineraire itn){
         if(itn != null){
-
-            StatistiqueBesoin be = m_stat.creatStatBesoin(m_nom);
+            StatistiqueBesoin be = m_stat.creatStatBesoin("IT" + Integer.toString(m_compteurItineraires));
             Emplacement emplSrc;
             if(itn.getListPaireParcours().getFirst().getTrajet()!=null){
                 emplSrc = itn.getListPaireParcours().getFirst().getTrajet().getEmplacementInitial();
@@ -103,11 +153,9 @@ public class ReseauBesoins extends Reseau {
             else{
                 emplSrc = itn.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement();
             }
-            SourceIndividus sour = new SourceIndividus(new Temps(0.0), new Distribution(Type.PIETON), emplSrc,"default"
-                , itn, be);
+            SourceIndividus sour = new SourceIndividus(emplSrc, itn, be);
             itn.asignerSource(sour);
             itn.setStat(be);
-            itn.setNom("IT"+ Integer.toString(m_compteurItineraires));
             m_compteurItineraires++;
             m_listeItineraires.add(itn);
         }

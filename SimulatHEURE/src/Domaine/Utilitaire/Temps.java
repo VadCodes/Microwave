@@ -18,11 +18,17 @@ public class Temps implements java.io.Serializable {
     {
         m_temps = p_temps;
     }
-    
+        
     public double getTemps()
     {
         return m_temps;
     }
+    
+    public void setTemps(double p_temps)
+    {
+        m_temps = p_temps;
+    }
+    
     public String getTempsFormat(){
         
         Date itemDate = new Date((long)((m_temps)));

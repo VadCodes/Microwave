@@ -18,9 +18,9 @@ public class StatistiqueBesoin {
     private double m_maxTempsDeplacement =0;
     private double m_minTempsDeplacement = Double.MAX_VALUE;
     private int m_nombreEchantion = 0;
-    private String m_itineraire;
+    private String m_nomItineraire;
     public StatistiqueBesoin(String p_itineraire){
-        m_itineraire = p_itineraire;
+        m_nomItineraire = p_itineraire;
     }
     public StatistiqueBesoin(StatistiqueBesoin p_stat){
         m_sommeDesTemps = p_stat.m_sommeDesTemps;
@@ -28,11 +28,16 @@ public class StatistiqueBesoin {
         m_maxTempsDeplacement = p_stat.m_maxTempsDeplacement;
         m_minTempsDeplacement = p_stat.m_minTempsDeplacement;
         m_nombreEchantion = p_stat.m_nombreEchantion;
-        m_itineraire = p_stat.m_itineraire;
+        m_nomItineraire = p_stat.m_nomItineraire;
     }
     public String getNameItineraire(){
-        return m_itineraire;
+        return m_nomItineraire;
     }
+    
+    public void setNameItineraire(String p_nom){
+        m_nomItineraire = p_nom;
+    }
+        
     public double getprecisionGlobal(){
         return (double)Math.round(100*m_precisionGlobal/60)/100;
     }

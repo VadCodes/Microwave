@@ -19,6 +19,7 @@ public class ParcoursBus {
     private PaireArretTrajet m_paireArretTrajetDepart;
     private PaireArretTrajet m_paireArretTrajetFinal;
     private Circuit m_circuit;
+    
     public ParcoursBus(Circuit p_circuit, PaireArretTrajet p_pairearretdepart, PaireArretTrajet p_pairearretfinal){
         m_paireArretTrajetDepart = p_pairearretdepart;
         m_paireArretTrajetFinal = p_pairearretfinal;

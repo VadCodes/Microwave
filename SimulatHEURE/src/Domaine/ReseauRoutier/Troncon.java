@@ -68,7 +68,7 @@ public class Troncon extends ElementRoutier{
         return m_tempsTransitPieton;
     }
     public void setDistribution(Distribution p_distribution){
-        m_distribution = new Distribution(p_distribution);
+        m_distribution.setDistribution(p_distribution.getTempsMin(), p_distribution.getTempsFreq(), p_distribution.getTempsMax());
     }
     public Distribution getDistribution(){
         return m_distribution;
