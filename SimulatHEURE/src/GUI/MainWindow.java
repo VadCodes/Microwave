@@ -83,9 +83,9 @@ public class MainWindow extends javax.swing.JFrame {
             }
             double tmpD = deltatT;
             int nbExe = 1;
-            while(tmpD > 100){
+            while(tmpD > 10){
                 nbExe++;
-                tmpD = tmpD/nbExe;
+                tmpD = deltatT/nbExe;
             }
             for(int i =0; i < nbExe;i++){
                 m_controleur.rafraichirSimulation(new Temps(tmpD));
