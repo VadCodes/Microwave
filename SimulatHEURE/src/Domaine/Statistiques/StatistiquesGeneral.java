@@ -32,5 +32,10 @@ public class StatistiquesGeneral implements java.io.Serializable {
         m_statistiques.add(st);
         return st;
     }
+
+    public void setDefault() {
+       for (StatistiqueBesoin stat : m_statistiques)
+           stat.setDefault();
+    }
             
 }

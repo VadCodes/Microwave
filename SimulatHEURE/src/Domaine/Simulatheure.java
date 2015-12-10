@@ -783,6 +783,7 @@ public class Simulatheure implements java.io.Serializable {
     }
     
     public void demarrerSimulation() {
+        m_reseauBesoins.getStatistique().setDefault();
         m_reseauRoutier.initReseauRoutier();
         m_reseauTransport.initReseauTransport();
         m_reseauBesoins.initBesoinTransport();

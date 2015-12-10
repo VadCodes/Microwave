@@ -13,8 +13,8 @@ import Domaine.Utilitaire.Temps;
  * @author ns222
  */
 public class StatistiqueBesoin {
-    private double m_precisionGlobal;
-    private double m_sommeDesTemps;
+    private double m_precisionGlobalTotal = 0;
+    private double m_sommeDesTemps = 0;
     private double m_maxTempsDeplacement =0;
     private double m_minTempsDeplacement = Double.MAX_VALUE;
     private int m_nombreEchantion = 0;
@@ -24,7 +24,7 @@ public class StatistiqueBesoin {
     }
     public StatistiqueBesoin(StatistiqueBesoin p_stat){
         m_sommeDesTemps = p_stat.m_sommeDesTemps;
-        m_precisionGlobal = p_stat.m_precisionGlobal;
+        m_precisionGlobalTotal = p_stat.m_precisionGlobalTotal;
         m_maxTempsDeplacement = p_stat.m_maxTempsDeplacement;
         m_minTempsDeplacement = p_stat.m_minTempsDeplacement;
         m_nombreEchantion = p_stat.m_nombreEchantion;
@@ -39,7 +39,7 @@ public class StatistiqueBesoin {
     }
         
     public double getprecisionGlobal(){
-        return (double)Math.round(100*m_precisionGlobal/60)/100;
+        return (double)Math.round(100*(m_precisionGlobalTotal/m_nombreEchantion)/60)/100;
     }
      public double getmaxTempsDeplacement(){
         return (double)Math.round(100*m_maxTempsDeplacement/60)/100;
@@ -59,12 +59,22 @@ public class StatistiqueBesoin {
         m_nombreEchantion++;
         m_sommeDesTemps += p_temps.getTemps();
         double newMoyenne = m_sommeDesTemps/m_nombreEchantion;
-        m_precisionGlobal = Math.abs(moyenneActuel - newMoyenne);
+        if(moyenneActuel > 0){
+            m_precisionGlobalTotal += Math.abs(moyenneActuel - newMoyenne);
+        }
         if(p_temps.getTemps() >m_maxTempsDeplacement){
             m_maxTempsDeplacement = p_temps.getTemps();
         }
         if(p_temps.getTemps() < m_minTempsDeplacement){
             m_minTempsDeplacement =p_temps.getTemps(); 
         }
+    }
+
+    void setDefault() {
+       m_precisionGlobalTotal = 0;
+        m_sommeDesTemps = 0;
+        m_maxTempsDeplacement =0;
+        m_minTempsDeplacement = Double.MAX_VALUE;
+        m_nombreEchantion = 0;
     }
 }
