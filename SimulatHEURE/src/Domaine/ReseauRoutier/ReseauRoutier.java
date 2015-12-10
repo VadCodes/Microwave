@@ -61,7 +61,7 @@ public class ReseauRoutier extends Reseau{
         this.m_compteurIntersection = p_reseauSource.m_compteurIntersection;
     }
     
-    public Emplacement emplacementHomologue(ReseauRoutier p_reseauSource, Emplacement p_empSource)
+    public Emplacement nouvelEmplacementHomologue(ReseauRoutier p_reseauSource, Emplacement p_empSource)
     {
         if (p_empSource.estSurTroncon())
         {

@@ -60,11 +60,11 @@ public class ReseauBesoins extends Reseau {
             LinkedList<PaireParcours> pairesCopiees = new LinkedList<>();            
             for (PaireParcours paireSource : itineraireSource.getListPaireParcours())
             {
-                pairesCopiees.add(paireParcoursHomologue(p_reseauSource.m_reseauTransport, paireSource));
+                pairesCopiees.add(NouvellePaireParcoursHomologue(p_reseauSource.m_reseauTransport, paireSource));
             }
             this.m_listeItineraires.add(new Itineraire(pairesCopiees));
             
-            SourceIndividus sourceCopiee = new SourceIndividus(this.m_reseauTransport.getRoutier().emplacementHomologue(p_reseauSource.m_reseauTransport.getRoutier(), itineraireSource.getSourceIndividu().getEmplacement()), 
+            SourceIndividus sourceCopiee = new SourceIndividus(this.m_reseauTransport.getRoutier().nouvelEmplacementHomologue(p_reseauSource.m_reseauTransport.getRoutier(), itineraireSource.getSourceIndividu().getEmplacement()), 
                     this.m_listeItineraires.getLast(), statCopie);
             sourceCopiee.setDistribution(itineraireSource.getSourceIndividu().getDistribution());
             sourceCopiee.setTempsAttenteInitial(itineraireSource.getSourceIndividu().getTempsAttenteInitial());
@@ -78,20 +78,26 @@ public class ReseauBesoins extends Reseau {
         m_compteurItineraires = p_reseauSource.m_compteurItineraires;
     }
     
-    public ParcoursBus parcoursBusHomologue(ReseauTransport p_reseauSource, ParcoursBus p_parcoursSource)
+    public ParcoursBus nouveauParcoursBusHomologue(ReseauTransport p_reseauSource, ParcoursBus p_parcoursSource)
     {
         if (p_parcoursSource != null)
-            return new ParcoursBus(this.m_reseauTransport.circuitHomologue(p_reseauSource, p_parcoursSource.getCircuit()),
-                    this.m_reseauTransport.paireArretTrajetHomologue(p_reseauSource, p_parcoursSource.getCircuit(), p_parcoursSource.getPaireArretDepart()),
-                    this.m_reseauTransport.paireArretTrajetHomologue(p_reseauSource, p_parcoursSource.getCircuit(), p_parcoursSource.getPaireArretFinal()));
+        {
+            int indexCircuitHomologue = p_reseauSource.getListeCircuits().indexOf(p_parcoursSource.getCircuit());
+            int indexPaireArretDepart = p_parcoursSource.getCircuit().getListeArretTrajet().indexOf(p_parcoursSource.getPaireArretDepart());
+            int indexPaireArretFinal = p_parcoursSource.getCircuit().getListeArretTrajet().indexOf(p_parcoursSource.getPaireArretFinal());
+            
+            return new ParcoursBus(this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue),
+                    this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue).getListeArretTrajet().get(indexPaireArretDepart), 
+                    this.m_reseauTransport.getListeCircuits().get(indexCircuitHomologue).getListeArretTrajet().get(indexPaireArretFinal));
+        }
         else
-            return null;       
+            return null;
     }
     
-    public final PaireParcours paireParcoursHomologue(ReseauTransport p_reseauSource, PaireParcours p_paireSource)
+    public final PaireParcours NouvellePaireParcoursHomologue(ReseauTransport p_reseauSource, PaireParcours p_paireSource)
     {
-        return new PaireParcours(this.m_reseauTransport.trajetHomologue(p_reseauSource, p_paireSource.getTrajet()), 
-                this.parcoursBusHomologue(p_reseauSource, p_paireSource.getParcoursBus()));
+        return new PaireParcours(this.m_reseauTransport.nouveauTrajetHomologue(p_reseauSource, p_paireSource.getTrajet()), 
+                this.nouveauParcoursBusHomologue(p_reseauSource, p_paireSource.getParcoursBus()));
     }
     
     public ReseauTransport getTransport(){
