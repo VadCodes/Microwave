@@ -12,16 +12,13 @@ import java.util.LinkedList;
  * @author louis
  */
 public class StatistiquesGeneral implements java.io.Serializable {
-    private LinkedList<StatistiqueBesoin> m_statistiques;
-    public StatistiquesGeneral(){
-         m_statistiques = new LinkedList<>();
-    }
+    private LinkedList<StatistiqueBesoin> m_statistiques = new LinkedList<>();
+    
+    public StatistiquesGeneral() {}
+    
     public StatistiquesGeneral(StatistiquesGeneral p_stat){
-        m_statistiques = new LinkedList<>();
-        for (StatistiqueBesoin stat : p_stat.m_statistiques){
-           StatistiqueBesoin newStat = new StatistiqueBesoin(stat);
-           m_statistiques.add(newStat);
-        }
+        for (StatistiqueBesoin stat : p_stat.m_statistiques)
+           m_statistiques.add(new StatistiqueBesoin(stat));
     }
     public LinkedList<StatistiqueBesoin> getListeStatistiqueBesoin(){
         return m_statistiques;

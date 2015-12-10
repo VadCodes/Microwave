@@ -1215,6 +1215,7 @@ public class MainWindow extends javax.swing.JFrame {
             comboBoxStat.addItem(Integer.toString(i+1));
         }
     }
+    
     private void miseAjourTableauStatistique(int p_stat){
         int conteur = 0;
         int x = 0;
@@ -2175,14 +2176,16 @@ public class MainWindow extends javax.swing.JFrame {
         
         if (m_controleur.getTransport().getListeCircuits().size() > 0)
             besoins.setEnabled(true);
-        else
-            besoins.setEnabled(false);     
-        
+        else {
+            besoins.setEnabled(false);  
+            if (m_modeCourant == Mode.BESOINS)
+                transport.doClick();
+        }
         if (comboBoxSources.getItemCount() > 1) {
             simulation.setEnabled(true);
         } else {
             simulation.setEnabled(false);
-            if (m_modeCourant == Mode.BESOINS || m_modeCourant == Mode.SIMULATION)
+            if (m_modeCourant == Mode.SIMULATION)
                 transport.doClick();
         }
     }

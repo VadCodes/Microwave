@@ -61,6 +61,37 @@ public class ReseauRoutier extends Reseau{
         this.m_compteurIntersection = p_reseauSource.m_compteurIntersection;
     }
     
+    public Emplacement emplacementHomologue(ReseauRoutier p_reseauSource, Emplacement p_empSource)
+    {
+        if (p_empSource.estSurTroncon())
+        {
+            int indexInter = p_reseauSource.m_listeIntersections.indexOf(p_empSource.getTroncon().getOrigine());
+            int indexTroncon = p_reseauSource.m_listeIntersections.get(indexInter).getTroncons().indexOf(p_empSource.getTroncon());
+
+            Intersection interCopiee = this.m_listeIntersections.get(indexInter);
+            return new Emplacement(true, p_empSource.getPourcentageParcouru(), interCopiee.getTroncons().get(indexTroncon), interCopiee);
+        }
+        else
+        {
+            int indexInter = p_reseauSource.m_listeIntersections.indexOf(p_empSource.getIntersection());
+            return new Emplacement(false, 0, null, this.m_listeIntersections.get(indexInter));
+        }
+    }
+    
+    public LinkedList<Troncon> tronconsHomologues(ReseauRoutier p_reseauSource, LinkedList<Troncon> tronconsSources)
+    {
+        LinkedList<Troncon> tronconsHomologues = new LinkedList<>();
+        for (Troncon tronconSource : tronconsSources)
+        {
+            int indexInter = p_reseauSource.m_listeIntersections.indexOf(tronconSource.getOrigine());
+            int indexTroncon = p_reseauSource.m_listeIntersections.get(indexInter).getTroncons().indexOf(tronconSource);
+
+            tronconsHomologues.add(this.m_listeIntersections.get(indexInter).getTroncons().get(indexTroncon));
+        }
+        
+        return tronconsHomologues;
+    }
+    
     public LinkedList<Intersection> getIntersections()
     {
         return m_listeIntersections;

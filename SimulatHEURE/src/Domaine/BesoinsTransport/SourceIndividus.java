@@ -14,28 +14,29 @@ import Domaine.Utilitaire.Temps;
  * @author vadimcote
  */
 public class SourceIndividus {
-    private Temps m_tempsInitial;
-    private Distribution m_distributionFrequence;
     private Emplacement m_emplacement;
-    private Temps m_frequence;
-    private String m_nom;
-    private int m_nbMaxIndividus = Integer.MAX_VALUE;
-    private int m_nbIndividusGeneres = 0;
     private Itineraire m_itineraire;
-    private Temps m_tempsAvantApparition;
     private StatistiqueBesoin m_stat;
+    private Distribution m_distribution = new Distribution(Distribution.Type.PIETON);
+    private Temps m_tempsAttenteInitial = new Temps(0);
+    private Temps m_tempsAvantApparition;
+    private int m_nbMaxIndividus = Integer.MAX_VALUE;
+    
+    private Temps m_frequence;
+    
+    private int m_nbIndividusGeneres = 0;
     
     public final static float LARGEUR = 20;
     
-    public SourceIndividus(Temps p_tempsInitial, Distribution p_distributionFrequence, Emplacement p_emplacement, String p_nom
-   , Itineraire p_itineraire, StatistiqueBesoin p_stat){
+    public SourceIndividus(Emplacement p_emplacement, Itineraire p_itineraire, StatistiqueBesoin p_stat){
         m_stat = p_stat;
-        m_tempsInitial = p_tempsInitial;
-        m_distributionFrequence = p_distributionFrequence;
         m_emplacement = p_emplacement;
-        m_nom = p_nom;
-        m_tempsAvantApparition = m_tempsInitial;
+        m_tempsAvantApparition = m_tempsAttenteInitial;
         m_itineraire = p_itineraire;
+    }
+    
+    public Emplacement getEmplacement() {
+        return m_emplacement;
     }
     
     public void miseAJourTempsRestant(Temps p_deltatT){
@@ -44,33 +45,35 @@ public class SourceIndividus {
         m_tempsAvantApparition = new Temps(tmp);       
     }
 
-    public void initSourceIndividu(){
-        m_frequence = m_distributionFrequence.pigerTemps();
-
+    public void initSourceIndividu() {
+        m_frequence = m_distribution.pigerTemps();
     }
     
-    public void setNom(String nom){
-        m_nom = nom;
-    }
-    public void setEmplacement(Emplacement emplacement){
-        m_emplacement = emplacement;
-    }
     public void setDefault() {
-        m_tempsAvantApparition = m_tempsInitial;
+        m_tempsAvantApparition = m_tempsAttenteInitial;
     }
     public void setTempsAttenteInitial(Temps temps){
-        m_tempsInitial = temps;
-         setDefault() ;
+        m_tempsAttenteInitial.setTemps(temps.getTemps());
+        setDefault() ;
     }
     public Temps getTempsAttenteInitial(){
-        return m_tempsInitial;
+        return m_tempsAttenteInitial;
     }
-    public void setDistribution(Distribution dist){
-        m_distributionFrequence = dist;
+    public void setDistribution(Distribution p_distribution){
+        m_distribution.setDistribution(p_distribution.getTempsMin(), p_distribution.getTempsFreq(), p_distribution.getTempsMax());
     }
     public Distribution getDistribution(){
-        return m_distributionFrequence;
+        return m_distribution;
     }
+    
+    public void setNbMaxIndividus(int p_nbMaxIndividus){
+        m_nbMaxIndividus = p_nbMaxIndividus;
+    }
+    public int getNbMaxIndividus(){
+        return m_nbMaxIndividus;
+    }
+    
+    
     public void genererIndividus(Temps p_deltatT){
         while(m_tempsAvantApparition.getTemps() <= 0 && (m_nbMaxIndividus > m_nbIndividusGeneres )){
             m_nbIndividusGeneres++;
@@ -91,6 +94,6 @@ public class SourceIndividus {
 
     public void miseADefaut() {
         m_nbIndividusGeneres = 0;
-       m_tempsAvantApparition = m_tempsInitial;
+       m_tempsAvantApparition = m_tempsAttenteInitial;
     }
 }

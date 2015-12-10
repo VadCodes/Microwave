@@ -18,6 +18,7 @@ import java.util.ListIterator;
 public class PaireParcours {
     private ParcoursBus m_parcoursBus;
     private Trajet m_trajet;
+    
     public PaireParcours( Trajet p_trajet, ParcoursBus p_parcoursBus){
         m_trajet = p_trajet;
         m_parcoursBus = p_parcoursBus;

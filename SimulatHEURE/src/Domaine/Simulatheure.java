@@ -829,7 +829,9 @@ public class Simulatheure implements java.io.Serializable {
             m_historique.annuler();
             m_reseauRoutier = m_historique.getRoutierCourant();
             m_reseauTransport = m_historique.getTransportCourant();
+            m_reseauBesoins = m_historique.getBesoinsCourant();
             resilierConstruction();
+            cleanItineraireTemp();
     }
     
     public void retablir()
@@ -837,7 +839,9 @@ public class Simulatheure implements java.io.Serializable {
             m_historique.retablir();
             m_reseauRoutier = m_historique.getRoutierCourant();
             m_reseauTransport = m_historique.getTransportCourant();
+            m_reseauBesoins = m_historique.getBesoinsCourant();
             resilierConstruction();
+            cleanItineraireTemp();
     }
     
     public final void initControleur()
@@ -847,7 +851,7 @@ public class Simulatheure implements java.io.Serializable {
         
         m_reseauRoutier = m_historique.getRoutierCourant();
         m_reseauTransport = m_historique.getTransportCourant();
-        //m_reseauBesoins = m_historique.getBesoinsCourant();
+        m_reseauBesoins = m_historique.getBesoinsCourant();
     }
     
     public ElementBesoins selectionnerElementBesoins(Integer p_x, Integer p_y, Float p_echelle, Boolean p_estMultiple) {
@@ -1044,6 +1048,7 @@ public class Simulatheure implements java.io.Serializable {
                         PaireParcours paireParc = new PaireParcours(null, parcoBus); 
                         Itineraire itn = new Itineraire(paireParc);
                         m_reseauBesoins.ajouterItineraire(itn);
+                        m_historique.modifier();                                // ANNULER-RÉTABLIR
                         m_itineraireEnConstruction = itn;
                     }
                     m_arret1Besoin = arret;
@@ -1130,6 +1135,7 @@ public class Simulatheure implements java.io.Serializable {
                         PaireParcours paireParc = new PaireParcours(traj, null); 
                         Itineraire itn = new Itineraire(paireParc);
                         m_reseauBesoins.ajouterItineraire(itn);
+                        m_historique.modifier();                                // ANNULER-RÉTABLIR
                         m_itineraireEnConstruction = itn;
                     }
                     m_arret1Besoin = arret;
