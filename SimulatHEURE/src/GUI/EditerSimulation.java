@@ -53,8 +53,7 @@ public void setMainWindow(MainWindow p_mainWindow){
         jSeparator1 = new javax.swing.JSeparator();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jTextField3 = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         jButton2.setText("jButton2");
 
@@ -83,6 +82,7 @@ public void setMainWindow(MainWindow p_mainWindow){
         });
 
         buttonGroup2.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Heure précise");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,16 +98,7 @@ public void setMainWindow(MainWindow p_mainWindow){
             }
         });
 
-        buttonGroup2.add(jRadioButton3);
-        jRadioButton3.setSelected(true);
-        jRadioButton3.setText("Précision");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
-            }
-        });
-
-        jTextField3.setText("0.01 ");
+        jCheckBox1.setText("Passer l'affichage");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,25 +122,17 @@ public void setMainWindow(MainWindow p_mainWindow){
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
-                                    .addComponent(jRadioButton2))))
+                                    .addComponent(jCheckBox1)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jRadioButton1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+                                        .addComponent(jRadioButton2)))))
                         .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(60, 60, 60)
-                    .addComponent(jRadioButton3)
-                    .addContainerGap(200, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(193, 193, 193)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(50, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,19 +151,11 @@ public void setMainWindow(MainWindow p_mainWindow){
                     .addComponent(jRadioButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(26, 26, 26))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(190, 190, 190)
-                    .addComponent(jRadioButton3)
-                    .addContainerGap(64, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(183, 183, 183)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(75, Short.MAX_VALUE)))
         );
 
         pack();
@@ -215,7 +190,7 @@ private void setTemps(){
             if (jRadioButton2.isSelected()){
                 m_mainWindow.m_tempsFinSimulation = Double.POSITIVE_INFINITY;
             }
-            else if (jRadioButton1.isSelected()){
+            else{
                 if (dateFin.getTime() <= dateDebut.getTime()){
                     m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime() + 86400000);
                 }
@@ -223,14 +198,9 @@ private void setTemps(){
                     m_mainWindow.m_tempsFinSimulation = (double)(dateFin.getTime());
                 }
             }
-            else{
-                m_mainWindow.m_tempsFinSimulation = Double.POSITIVE_INFINITY;
-                m_precisionBool = true;
-                m_precision = Double.parseDouble(jTextField3.getText());
-                m_mainWindow.m_precision = m_precision;
-                
+            if(jCheckBox1.isSelected()){
+                m_mainWindow.m_skipAffichage = true;
             }
-
             m_mainWindow.m_tempsDebutSimulation= (double)(dateDebut.getTime());
             m_done = true;
             m_mainWindow.setEnabled(true);
@@ -271,15 +241,14 @@ private void setTemps(){
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         jTextField2.setEnabled(false);
+        jCheckBox1.setEnabled(false);
+        jCheckBox1.setSelected(false);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         jTextField2.setEnabled(true);
+        jCheckBox1.setEnabled(true);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,14 +289,13 @@ private void setTemps(){
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

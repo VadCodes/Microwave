@@ -50,6 +50,7 @@ public class MainWindow extends javax.swing.JFrame {
     private volatile int screenY = 0;
     private volatile int myX = 0;
     private volatile int myY = 0;
+    boolean m_skipAffichage = false;
     
 
     /**
@@ -70,11 +71,14 @@ public class MainWindow extends javax.swing.JFrame {
             double tmp = m_crono.getTempsDebut();
             boolean finSimulation = false;
             double deltatT = m_crono.getDeltatT();
-            if(m_precision != -1){
-                    if(m_controleur.getPrecisionMax() <= m_precision){
-                        finSimulation = true;
-                    }
-                }
+            if(m_skipAffichage){
+                m_skipAffichage = false;
+                deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation)/1000;
+                finSimulation = true;
+                Date itemDate = new Date((long)(m_tempsDebutSimulation + (deltatT)*1000));
+                String itemDateStr = new SimpleDateFormat("HH:mm:ss").format(itemDate);
+                 time.setText(itemDateStr);
+            }
             else if ((m_tempsFinSimulation - m_tempsDebutSimulation) <= m_crono.getTempsDebut()*1000) {
                 deltatT = ((m_tempsFinSimulation - m_tempsDebutSimulation) - tmp*1000)/1000;
                 finSimulation = true;
