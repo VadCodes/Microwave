@@ -51,18 +51,16 @@ public class ParcoursBus {
     }
 
     public LinkedList<Troncon> getTroncons(){
+        Boolean premierArretEstDepart = true;
         Boolean premierArret = false;
+        Boolean deuxiemePartieBoucle = false;
+        PaireArretTrajet premierePaire;
+        PaireArretTrajet deuxiemePaire;
         LinkedList<Troncon> mesTroncons = new LinkedList<>();
-        for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
-            if(pat==m_paireArretTrajetDepart){
-                premierArret = true;
-            }
-            else if(pat==m_paireArretTrajetFinal){
-                premierArret = false;
-                break;
-            }
-            
-            if (premierArret){
+        LinkedList<Troncon> mesTronconsDebut = new LinkedList<>();
+        
+        if(m_paireArretTrajetDepart==m_paireArretTrajetFinal){
+            for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
                 if(pat.getTrajet()!=null){
                     for (ListIterator<Troncon>  troncons = pat.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
                         Troncon troncon = troncons.next();
@@ -71,7 +69,72 @@ public class ParcoursBus {
                     }
                 }
             }
-        } 
+        }
+        else{
+            for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
+                if(pat==m_paireArretTrajetDepart){
+                    premierArretEstDepart=true;
+                    break;
+                }
+                else if(pat==m_paireArretTrajetFinal){
+                    premierArretEstDepart=false;
+                    break;
+                }
+            }
+            if(premierArretEstDepart){
+                for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
+                    if(pat==m_paireArretTrajetDepart){
+                        premierArret = true;
+                    }
+                    else if(pat==m_paireArretTrajetFinal){
+                        premierArret = false;
+                        break;
+                    }
+
+                    if (premierArret){
+                        if(pat.getTrajet()!=null){
+                            for (ListIterator<Troncon>  troncons = pat.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
+                                Troncon troncon = troncons.next();
+                                if(!mesTroncons.contains(troncon))
+                                    mesTroncons.add(troncon);
+                            }
+                        }
+                    }
+                } 
+            }
+            else{
+                for(PaireArretTrajet pat : m_circuit.getListeArretTrajet()){
+                    if(pat==m_paireArretTrajetDepart){
+                        premierArret = false;
+                        deuxiemePartieBoucle = true;
+                    }
+                    else if(pat==m_paireArretTrajetFinal){
+                        premierArret = true;
+                    }
+
+                    if (!premierArret){
+                        if(pat.getTrajet()!=null){
+                            for (ListIterator<Troncon>  troncons = pat.getTrajet().getListeTroncons().listIterator();troncons.hasNext();){ 
+                                Troncon troncon = troncons.next();
+                                if(deuxiemePartieBoucle){
+                                    if(!mesTroncons.contains(troncon))
+                                        mesTroncons.add(troncon);
+                                }
+                                else{
+                                    if(!mesTronconsDebut.contains(troncon))
+                                        mesTronconsDebut.add(troncon);
+                                }
+                            }
+                        }
+                    }
+                } 
+                for(Troncon trc : mesTronconsDebut){
+                    mesTroncons.addLast(trc);
+                }
+            }
+        }
+        
+        
         return mesTroncons;
     }
 }
