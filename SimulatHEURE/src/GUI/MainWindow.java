@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import java.util.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -63,9 +65,38 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         routier.doClick();
         initialiserPanels();
+        updateIconBoutons();
         this.afficheurReseau.setDimension(false);
     }
 
+    private void updateIconBoutons(){
+        //boutons general
+        Icon iconLoad = new ImageIcon("src/Icons/load.gif");
+        Icon iconSave= new ImageIcon("src/Icons/save.gif");
+        Icon iconUndo = new ImageIcon("src/Icons/undo.gif");
+        Icon iconRedo = new ImageIcon("src/Icons/redo.gif");
+        Icon iconZoomIn = new ImageIcon("src/Icons/zoomIn.gif");
+        Icon iconZoomOut = new ImageIcon("src/Icons/zoomOut.gif");
+        loadButton.setIcon(iconLoad);
+        saveButton.setIcon(iconSave);
+        undoButton.setIcon(iconUndo);
+        redoButton.setIcon(iconRedo);
+        zoomInButton.setIcon(iconZoomIn);
+        zoomOutButton.setIcon(iconZoomOut);
+                
+        
+        //boutons simulation
+        Icon iconPlay = new ImageIcon("src/Icons/play.gif");
+        Icon iconStop = new ImageIcon("src/Icons/stop.gif");
+        Icon iconRecommancer = new ImageIcon("src/Icons/reload.gif");
+        Icon iconRalentir = new ImageIcon("src/Icons/rewind.gif");
+        Icon iconAvancer = new ImageIcon("src/Icons/forward.gif");
+        playPauseSimulation.setIcon(iconPlay);
+        arreterSimulation.setIcon(iconStop);
+        recommancerSimulation.setIcon(iconRecommancer);
+        ralentirSimulation.setIcon(iconRalentir);
+        avancerSimulation.setIcon(iconAvancer);
+    }
     class MyTimerActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -107,7 +138,9 @@ public class MainWindow extends javax.swing.JFrame {
             }
             m_this.afficheurReseau.repaint();
             if (finSimulation) {
-                playPauseSimulation.setText("Lancer!");
+                
+                Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+                playPauseSimulation.setIcon(warnIcon);
                 arreterSimulation.doClick();
             }
         }
@@ -128,7 +161,17 @@ public class MainWindow extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         editerClicDroit = new javax.swing.JMenuItem();
         supprimerClicDroit = new javax.swing.JMenuItem();
+        jButton2 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        loadButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        undoButton = new javax.swing.JButton();
+        redoButton = new javax.swing.JButton();
+        zoomInButton = new javax.swing.JButton();
+        zoomOutButton = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         panneauModes = new javax.swing.JPanel();
@@ -196,24 +239,24 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<String>();
+        comboBoxArrets = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<String>();
+        comboBoxSources = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<String>();
+        comboBoxCircuits = new javax.swing.JComboBox<>();
         boutonsSelectionBesoins = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        comboBoxBesoins = new javax.swing.JComboBox<String>();
+        comboBoxBesoins = new javax.swing.JComboBox<>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<String>();
+        comboBoxAutobus = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<String>();
+        comboBoxTroncons = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<String>();
+        comboBoxIntersections = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -226,7 +269,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        comboBoxStat = new javax.swing.JComboBox<String>();
+        comboBoxStat = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -266,6 +309,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPopupMenu1.add(supprimerClicDroit);
 
+        jButton2.setText("jButton2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -273,6 +318,38 @@ public class MainWindow extends javax.swing.JFrame {
         mainPanel.setMinimumSize(new java.awt.Dimension(1200, 600));
         mainPanel.setPreferredSize(new java.awt.Dimension(1600, 900));
         mainPanel.setLayout(new java.awt.BorderLayout());
+
+        jPanel11.setPreferredSize(new java.awt.Dimension(1600, 35));
+        jPanel11.setLayout(new java.awt.BorderLayout());
+
+        jPanel13.setPreferredSize(new java.awt.Dimension(1600, 35));
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        jPanel13.add(loadButton);
+        jPanel13.add(saveButton);
+        jPanel13.add(undoButton);
+        jPanel13.add(redoButton);
+        jPanel13.add(zoomInButton);
+        jPanel13.add(zoomOutButton);
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1284, Short.MAX_VALUE))
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel11.add(jPanel15, java.awt.BorderLayout.CENTER);
+
+        mainPanel.add(jPanel11, java.awt.BorderLayout.NORTH);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -575,7 +652,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSimulation.setPreferredSize(new java.awt.Dimension(1200, 35));
         boutonsSimulation.setLayout(new java.awt.GridLayout(1, 0));
 
-        playPauseSimulation.setText("Lancer!");
         playPauseSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseSimulationActionPerformed(evt);
@@ -583,7 +659,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(playPauseSimulation);
 
-        arreterSimulation.setText("Arrêter");
         arreterSimulation.setEnabled(false);
         arreterSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,7 +667,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(arreterSimulation);
 
-        recommancerSimulation.setText("Recommencer");
         recommancerSimulation.setEnabled(false);
         recommancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -601,7 +675,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(recommancerSimulation);
 
-        ralentirSimulation.setText("Ralentir / 2");
         ralentirSimulation.setEnabled(false);
         ralentirSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -610,7 +683,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSimulation.add(ralentirSimulation);
 
-        avancerSimulation.setText("Avancer X 2");
         avancerSimulation.setEnabled(false);
         avancerSimulation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -705,7 +777,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -716,7 +788,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -728,7 +800,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
@@ -746,7 +818,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setToolTipText("");
         boutonsSelectionBesoins.add(jLabel7);
 
-        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxBesoinsActionPerformed(evt);
@@ -763,7 +835,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -791,7 +863,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -802,7 +874,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -870,7 +942,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel7, "card7");
@@ -1787,15 +1859,18 @@ public class MainWindow extends javax.swing.JFrame {
         if(!m_simulationEstLancer ){
             alalEditSimulation();
             m_simulationEstLancer = true;
-            playPauseSimulation.setText("Pause");
+            Icon iconPause = new ImageIcon("src/Icons/pause.gif");
+            playPauseSimulation.setIcon(iconPause);
         }
         else if (m_crono.estEnPause()){
             m_crono.start();
-            playPauseSimulation.setText("Pause");
+            Icon iconPause = new ImageIcon("src/Icons/pause.gif");
+            playPauseSimulation.setIcon(iconPause);
         }
         else{
             m_crono.pause();
-            playPauseSimulation.setText("Reprendre!");
+            Icon iconPlay = new ImageIcon("src/Icons/play.gif");
+            playPauseSimulation.setIcon(iconPlay);
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
 
@@ -1871,7 +1946,8 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
-        playPauseSimulation.setText("Lancer!");
+        Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+        playPauseSimulation.setIcon(warnIcon);
         arreterSimulation.doClick();
         playPauseSimulation.doClick();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
@@ -1887,7 +1963,8 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
         arreterSimulation();
-        playPauseSimulation.setText("Lancer!");
+        Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+        playPauseSimulation.setIcon(warnIcon);
         playPauseSimulation.setSelected(false);
         
         routier.setEnabled(true);
@@ -2274,6 +2351,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.ButtonGroup groupeTransport;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2287,8 +2365,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -2315,6 +2396,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton loadButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
     private GUI.PanelArret panelArret1;
@@ -2329,9 +2411,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem quitter;
     private javax.swing.JButton ralentirSimulation;
     private javax.swing.JButton recommancerSimulation;
+    private javax.swing.JButton redoButton;
     private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JMenuItem sauvegarder;
+    private javax.swing.JButton saveButton;
     private javax.swing.JToggleButton selectionBesoins;
     private javax.swing.JToggleButton selectionRoutier;
     private javax.swing.JToggleButton selectionTransport;
@@ -2342,7 +2426,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem supprimerClicDroit;
     private javax.swing.JLabel time;
     private javax.swing.JToggleButton transport;
+    private javax.swing.JButton undoButton;
     private javax.swing.JLabel zoom;
+    private javax.swing.JButton zoomInButton;
+    private javax.swing.JButton zoomOutButton;
     private javax.swing.JLabel zoomTitre;
     // End of variables declaration//GEN-END:variables
 }
