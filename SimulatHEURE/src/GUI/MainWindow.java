@@ -1157,7 +1157,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 //miseAjourSelectionCircuitsAjout(); 
                                 //panelItineraire.afficheInfo((Itineraire)m_controleur.getBesoins().getPileSelection().getDessus());
                             }
-
+                            miseAjourSelectionBeoinssAjout();
                             miseAjourSelectionArretsAjout();
                             break;
                         default:
@@ -1276,11 +1276,14 @@ public class MainWindow extends javax.swing.JFrame {
         comboBoxArrets.removeAllItems();
         comboBoxIntersections.removeAllItems();
         comboBoxTroncons.removeAllItems();
+        comboBoxBesoins.removeAllItems();
         comboBoxCircuits.addItem("Aucun");
         comboBoxSources.addItem("Aucun");
         comboBoxArrets.addItem("Aucun");
         comboBoxIntersections.addItem("Aucun");
         comboBoxTroncons.addItem("Aucun");
+        comboBoxBesoins.addItem("Aucun");
+        
         
         m_commandeCourante = cmdTemp;  // wtf la commande change..
         
@@ -1311,8 +1314,29 @@ public class MainWindow extends javax.swing.JFrame {
                 comboBoxTroncons.addItem(troncon.getNom());
             }
         }
+        for (ListIterator<Itineraire> itineraires = m_controleur.getBesoins().getListItineraire().listIterator(); itineraires.hasNext();) {
+            Itineraire itineraire = itineraires.next();
+            comboBoxBesoins.addItem(itineraire.getNom());
+        }
     }
 
+    private void miseAjourSelectionBeoinssAjout() {
+       for (ListIterator<Itineraire> itineraires = m_controleur.getBesoins().getListItineraire().listIterator(); itineraires.hasNext();) {
+            Itineraire itineraire = itineraires.next();
+            boolean add = true;
+            String name = itineraire.getNom();
+            for (int i = 0; i < comboBoxBesoins.getItemCount(); i++) {
+                String tmp = comboBoxBesoins.getItemAt(i);
+                if (tmp == name) {
+                    add = false;
+                }
+            }
+            if (add) {
+                comboBoxBesoins.addItem(itineraire.getNom());
+            }
+        }
+    }
+    
     private void miseAjourSelectionCircuitsAjout() {
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             boolean add = true;
@@ -1998,7 +2022,19 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_editerBesoinsActionPerformed
 
     private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
-        // TODO add your handling code here:
+        this.setCommande(Commande.SELECTIONNER);
+        int index = comboBoxBesoins.getSelectedIndex();
+        String name = comboBoxBesoins.getItemAt(index);
+        m_controleur.deselectionnerTout();
+        for (ListIterator<Itineraire> itineraires = m_controleur.getBesoins().getListItineraire().listIterator(); itineraires.hasNext();) {
+            Itineraire itineraire = itineraires.next();
+            if (itineraire.getNom().equals(name)) {
+                m_controleur.getBesoins().getPileSelection().ajouter(itineraire);
+                afficherPanelBesoins(itineraire);
+                break;
+            }
+        }
+        this.afficheurReseau.repaint();
     }//GEN-LAST:event_comboBoxBesoinsActionPerformed
 
    
