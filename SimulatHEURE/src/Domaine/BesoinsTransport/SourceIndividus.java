@@ -79,7 +79,7 @@ public class SourceIndividus {
             m_nbIndividusGeneres++;
             Emplacement em = new Emplacement(m_emplacement.estSurTroncon(), m_emplacement.getPourcentageParcouru(),m_emplacement.getTroncon(), m_emplacement.getIntersection());
             Temps tempsAvantApparition = new Temps ( p_deltatT.getTemps() + m_tempsAvantApparition.getTemps());
-            Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, false, m_stat);
+            Individu nouvelIndividu = new Individu(em, m_itineraire, tempsAvantApparition, false, m_stat, genererPietonID());
             m_itineraire.ajouterIndividu(nouvelIndividu);
             m_itineraire.assignerItineraire(nouvelIndividu);
             //On update le temps avant apparition. On l'addition de la frequence.
@@ -92,6 +92,11 @@ public class SourceIndividus {
        // return m_emplacement.equals(m_itineraire.getListeParcoursBusTrajet().getFirst().getArret().getEmplacement()); 
    // }
 
+    private String genererPietonID(){
+        String tmp = m_itineraire.getNom().concat("PI" +Integer.toString(m_nbIndividusGeneres));
+        return tmp;
+    }
+    
     public void miseADefaut() {
         m_nbIndividusGeneres = 0;
        m_tempsAvantApparition = m_tempsAttenteInitial;

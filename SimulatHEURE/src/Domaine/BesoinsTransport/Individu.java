@@ -32,9 +32,11 @@ public class Individu {
     private StatistiqueBesoin m_stat;
     private Temps m_tempsArriverDeTrop = new Temps(0);
     public float RAYON = 3;
+    private String m_nom;
 
     public Individu(Emplacement p_emplacementActuel, Itineraire p_itineraire, Temps p_tempsApparition, Boolean estSurArret,
-            StatistiqueBesoin p_stat) {
+            StatistiqueBesoin p_stat,String p_nom) {
+        m_nom = p_nom;
         m_stat = p_stat;
         m_emplacementActuel = p_emplacementActuel;
         m_itineraire = p_itineraire;
@@ -291,5 +293,9 @@ public class Individu {
 
     boolean asTerminer() {
       return m_asTerminer;
+    }
+
+    public String getNom() {
+        return m_nom;
     }
 }

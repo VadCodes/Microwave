@@ -1,6 +1,7 @@
  package GUI;
 
 import Domaine.BesoinsTransport.ElementBesoins;
+import Domaine.BesoinsTransport.Individu;
 import Domaine.BesoinsTransport.Itineraire;
 import Domaine.Simulatheure;
 import Domaine.Simulatheure.Mode;
@@ -102,7 +103,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
             facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
             if (deltatT != 0) {
-                miseAjoutAutobusComboBox();
+                miseAjoutAutobusPietonsComboBox();
             }
             m_this.afficheurReseau.repaint();
             if (finSimulation) {
@@ -1244,14 +1245,24 @@ public class MainWindow extends javax.swing.JFrame {
             }   
     }
     
-    private void miseAjoutAutobusComboBox() {
+    private void miseAjoutAutobusPietonsComboBox() {
         comboBoxAutobus.removeAllItems();
         comboBoxAutobus.addItem("Aucun");
+        comboBoxPietons.removeAllItems();
+        comboBoxPietons.addItem("Aucun");
         for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
             Circuit circuit = circuits.next();
             for (ListIterator<Autobus> autobuss = circuit.getListeAutobus().listIterator(); autobuss.hasNext();) {
                 Autobus autobus = autobuss.next();
                 comboBoxAutobus.addItem(autobus.getID());
+            }
+
+        }
+        for (ListIterator<Itineraire> itineraires = m_controleur.getBesoins().getListItineraire().listIterator(); itineraires.hasNext();) {
+            Itineraire itineraire = itineraires.next();
+            for (ListIterator<Individu> pietons = itineraire.getListIndividu().listIterator(); pietons.hasNext();) {
+                Individu pieton = pietons.next();
+                comboBoxPietons.addItem(pieton.getNom());
             }
 
         }
