@@ -1239,7 +1239,7 @@ public class MainWindow extends javax.swing.JFrame {
                     
                 case SIMULATION:
 
-                    break;
+                    return;
 
                 default:
                     break;
@@ -1270,6 +1270,8 @@ public class MainWindow extends javax.swing.JFrame {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
                     break;
+                case SIMULATION:
+                    return;
             }
         }
         miseAJourPanels();
