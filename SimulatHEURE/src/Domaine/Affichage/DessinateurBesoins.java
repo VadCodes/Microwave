@@ -293,10 +293,15 @@ public class DessinateurBesoins {
             else{
                 origine = itineraire.getListPaireParcours().getFirst().getParcoursBus().getArretDepart().getEmplacement().calculPosition(p_echelle);
             }
+            float grossissement = 1.4f;
             if(m_reseau.getPileSelection().contient(itineraire)){
-                float grossissement = 1.4f;
-                    dessinerLosange(p_g, origine, p_echelle, 
-                            new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+                
+                dessinerLosange(p_g, origine, p_echelle, 
+                new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+            }
+            else if(m_reseau.getElementCurseur()==itineraire){
+                dessinerLosange(p_g, origine, p_echelle, 
+                new Color(255,200,0,130), grossissement*SourceIndividus.LARGEUR);
             }
             dessinerLosange(p_g, origine, p_echelle, new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence), SourceIndividus.LARGEUR);
         }
@@ -304,11 +309,17 @@ public class DessinateurBesoins {
     }
 
     private void dessinerItineraireSelectionne(Graphics2D p_g, float p_echelle) {
-        p_g.setColor(new Color(50,200,255 , 140));
+        
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         for (Itineraire itineraire: m_reseau.getListItineraire()){
            
-            if(m_reseau.getPileSelection().contient(itineraire)){
+            if(m_reseau.getPileSelection().contient(itineraire) || m_reseau.getElementCurseur()==itineraire){
+                if(m_reseau.getPileSelection().contient(itineraire)){
+                    p_g.setColor(new Color(50,200,255 , 140));
+                }
+                else if(m_reseau.getElementCurseur()==itineraire){
+                    p_g.setColor(new Color(255,200,0 , 130));
+                }
                 Path2D.Float chemin = new Path2D.Float();
 
                 Point2D.Float origine;

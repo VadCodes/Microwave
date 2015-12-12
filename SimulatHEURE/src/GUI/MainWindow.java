@@ -1592,9 +1592,31 @@ public class MainWindow extends javax.swing.JFrame {
         float y = evt.getY() / afficheurReseau.getEchelle();
         coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
         
+        this.curseurSurElement(evt);
+        
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMouseMoved
 
+    private void curseurSurElement(java.awt.event.MouseEvent evt){
+        float echelle = afficheurReseau.getEchelle();
+        switch(this.m_modeCourant){
+            case ROUTIER:
+                m_controleur.setElementCurseurRoutier(evt, echelle);
+                break;
+                
+            case TRANSPORT:
+                m_controleur.setElementCurseurTransport(evt, echelle);
+                break;
+                    
+            case BESOINS:
+                m_controleur.setElementCurseurBesoins(evt, echelle);
+                break;
+                        
+            case SIMULATION:
+                return;
+        }
+    }
+    
     private void afficheurReseauMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseExited
         coordonnees.setText("");
         

@@ -57,13 +57,19 @@ public class DessinateurRoutier
             float x = position.x - Intersection.RAYON / p_echelle;
             float y = position.y - Intersection.RAYON / p_echelle;
             float diametre = 2 * Intersection.RAYON / p_echelle;
-            if (m_reseau.getPileSelection().contient(intersection)){
+            if (m_reseau.getPileSelection().contient(intersection) || m_reseau.getElementCurseur()==intersection){
                 float grossisement = 1.35f;
                 float sx = position.x -   grossisement*Intersection.RAYON / p_echelle;
                 float sy = position.y -   grossisement*Intersection.RAYON / p_echelle;
                 float sdiametre = grossisement*2 *   Intersection.RAYON / p_echelle;
-                p_g.setColor(new Color(50,200,255 , 200));
-                p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                if(m_reseau.getPileSelection().contient(intersection)){
+                    p_g.setColor(new Color(50,200,255 , 200));
+                    p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                }
+                else{
+                    p_g.setColor(new Color(255,200,0 , 130));
+                    p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                }
             }
                p_g.setColor(Color.BLACK);
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
@@ -91,6 +97,9 @@ public class DessinateurRoutier
                 else if (m_reseau.getPileSelection().contient(troncon)){
                     p_g.setColor(new Color(50,200,255 , 200));
                 }
+                else if (m_reseau.getElementCurseur()==troncon){
+                    p_g.setColor(new Color(255,200,0 , 130));
+                }
                 else 
                     p_g.setColor(Color.LIGHT_GRAY);
                     
@@ -110,11 +119,12 @@ public class DessinateurRoutier
                 fleche.moveTo(p1x, p1y);
                 fleche.lineTo(p2x, p2y);
                 
-                if(m_reseau.getPileSelection().contient(troncon)){
+                if(m_reseau.getPileSelection().contient(troncon) || m_reseau.getElementCurseur()==troncon){
                     p_g.setStroke(new BasicStroke(Troncon.LARGEUR*2.0f / p_echelle));
                 }
+                
                 p_g.draw(fleche);
-                if(m_reseau.getPileSelection().contient(troncon)){
+                if(m_reseau.getPileSelection().contient(troncon) || m_reseau.getElementCurseur()==troncon){
                     select_g.draw(fleche);
                 }
                 
@@ -140,7 +150,7 @@ public class DessinateurRoutier
                 fleche.closePath();
                 
                 p_g.fill(fleche);  
-                if(m_reseau.getPileSelection().contient(troncon)){
+                if(m_reseau.getPileSelection().contient(troncon) || m_reseau.getElementCurseur()==troncon){
                     select_g.fill(fleche);
                 }
             }

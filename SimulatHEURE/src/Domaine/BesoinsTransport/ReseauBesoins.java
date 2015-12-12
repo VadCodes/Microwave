@@ -34,6 +34,7 @@ public class ReseauBesoins extends Reseau {
     private Integer m_compteurItineraires;
     
     private PileSelectionBesoins m_pileSelection = new PileSelectionBesoins();
+    private ElementBesoins m_elementCurseur = null;
     
     private LinkedList<Individu> m_listeIndividus = new LinkedList<>();
     private Emplacement m_emplacementSourceTemp = null;
@@ -385,5 +386,12 @@ public class ReseauBesoins extends Reseau {
     
     public void setEmplacementSourceTemp(Emplacement empl){
         m_emplacementSourceTemp = empl;
+    }
+    
+    public ElementBesoins getElementCurseur(){
+        return m_elementCurseur;
+    }
+    public void setElementCurseur(ElementBesoins eb){
+        m_elementCurseur = eb;
     }
 }

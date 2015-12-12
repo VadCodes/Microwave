@@ -25,6 +25,7 @@ public class ReseauRoutier extends Reseau{
     private int m_compteurTroncon;
     
     private PileSelectionRoutier m_pileSelection = new PileSelectionRoutier();
+    private ElementRoutier m_elementCurseur = null;
     
     public final static double VITESSE_PIETON = 4 ;
     
@@ -397,4 +398,10 @@ public class ReseauRoutier extends Reseau{
         return m_pileSelection;
     }
     
+    public ElementRoutier getElementCurseur(){
+        return m_elementCurseur;
+    }
+    public void setElementCurseur(ElementRoutier er){
+        m_elementCurseur = er;
+    }
 }

@@ -46,13 +46,20 @@ public class DessinateurTransport {
             float x = position.x -   arret.RAYON / p_echelle;
             float y = position.y -   arret.RAYON / p_echelle;
             float diametre = 2 *   arret.RAYON / p_echelle;
-            if (m_reseau.getPileSelection().contient(arret)){
+            if (m_reseau.getPileSelection().contient(arret) || m_reseau.getElementCurseur()==arret){
                 float grossisement = 1.35f;
                 float sx = position.x -   grossisement*arret.RAYON / p_echelle;
                 float sy = position.y -   grossisement*arret.RAYON / p_echelle;
                 float sdiametre = grossisement*2 *   arret.RAYON / p_echelle;
-                p_g.setColor(new Color(50,200,255 , 200));
-                p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                if(m_reseau.getPileSelection().contient(arret)){
+                    p_g.setColor(new Color(50,200,255 , 200));
+                    p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                }
+                else{
+                    p_g.setColor(new Color(255,200,0 , 130));
+                    p_g.fill(new Ellipse2D.Float(sx, sy, sdiametre, sdiametre));
+                }
+                
             }
             p_g.setColor(new Color(0x70FF0000, m_transparence));
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
@@ -62,13 +69,21 @@ public class DessinateurTransport {
     public void dessinerCircuit(Graphics2D p_g, float p_echelle)
     {        
         Graphics2D select_g = (Graphics2D) p_g.create();
-        select_g.setColor(new Color(50,200,255 , 200));
+        
         select_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle));
         
         for (Circuit circuit: m_reseau.getListeCircuits())
         {
             p_g.setColor(new Color(0x70FFFFFF & circuit.getCouleur().getRGB(), m_transparence));
             p_g.setStroke(new BasicStroke(Troncon.LARGEUR / p_echelle, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10 / p_echelle}, 0));
+            
+            if(m_reseau.getPileSelection().contient(circuit)){
+                select_g.setColor(new Color(50,200,255 , 200));
+            }
+            else if(m_reseau.getElementCurseur()==circuit){
+                select_g.setColor(new Color(255,200,0 , 130));
+            }
+            
             
             Path2D.Float chemin = new Path2D.Float();
             for (ListIterator<PaireArretTrajet> itPaire = circuit.getListeArretTrajet().listIterator() ; itPaire.hasNext() ; )
@@ -116,7 +131,7 @@ public class DessinateurTransport {
                     }
                 }
             }
-            if(m_reseau.getPileSelection().contient(circuit))
+            if(m_reseau.getPileSelection().contient(circuit) || m_reseau.getElementCurseur()==circuit)
                 select_g.draw(chemin);
             p_g.draw(chemin); 
             
@@ -133,7 +148,7 @@ public class DessinateurTransport {
 
                 Emplacement em = source.getEmplacement();                
                 Point2D.Float position = em.calculPosition(p_echelle);
-                if (m_reseau.getPileSelection().contient(source)){
+                if (m_reseau.getPileSelection().contient(source) || m_reseau.getElementCurseur()==source){
                     Path2D.Float slosange = new Path2D.Float();  
                     float grossisement = 1.4f;
                     float sy1 = position.y - grossisement*SourceAutobus.LARGEUR / 2 / p_echelle;
@@ -147,8 +162,14 @@ public class DessinateurTransport {
                     slosange.lineTo(sx2, position.y);
                     slosange.closePath();
                 
-                    p_g.setColor(new Color(50,200,255 , 200));
+                    if(m_reseau.getPileSelection().contient(source)){
+                        p_g.setColor(new Color(50,200,255 , 200));
+                    }
+                    else{
+                        p_g.setColor(new Color(255,200,0 , 130));
+                    }
                     p_g.fill(slosange);
+                    
                 }
                 p_g.setColor(new Color(0x70C800C8, m_transparence));
                 float y1 = position.y - SourceAutobus.LARGEUR / 2 / p_echelle;

@@ -32,6 +32,7 @@ public class ReseauTransport extends Reseau{
     private int m_compteurSources;
     
     private PileSelectionTransport m_pileSelection = new PileSelectionTransport();
+    private ElementTransport m_elementCurseur = null;
     
     private ReseauRoutier m_reseauRoutier;
     
@@ -537,5 +538,12 @@ public class ReseauTransport extends Reseau{
     
     public PileSelectionTransport getPileSelection(){
         return m_pileSelection;
+    }
+    
+    public ElementTransport getElementCurseur(){
+        return m_elementCurseur;
+    }
+    public void setElementCurseur(ElementTransport et){
+        m_elementCurseur = et;
     }
 }

@@ -1202,4 +1202,45 @@ public class Simulatheure implements java.io.Serializable {
         return m_reseauBesoins.getStatistique();
     }
     
+    public void setElementCurseurRoutier(java.awt.event.MouseEvent evt, float echelle){
+        ElementRoutier er = obtenirElementRoutier(evt.getX(), evt.getY(), echelle);
+        if(er!=null){
+            m_reseauRoutier.setElementCurseur(er);
+        }
+        else{
+            m_reseauRoutier.setElementCurseur(null);
+        }
+    }
+    
+    public void setElementCurseurTransport(java.awt.event.MouseEvent evt, float echelle){
+        LinkedList<ElementTransport> ll = new LinkedList<>();
+        for(ElementTransport ett : m_reseauTransport.getPileSelection().getListe()){
+            ll.add(ett);
+        }
+        ElementTransport et = obtenirElementTransport(evt.getX(), evt.getY(), echelle);
+        if(et!=null){
+            if(!ll.contains(et))
+                m_reseauTransport.getPileSelection().enlever(et);
+            m_reseauTransport.setElementCurseur(et);
+        }
+        else{
+            m_reseauTransport.setElementCurseur(null);
+        }
+    }
+    
+    public void setElementCurseurBesoins(java.awt.event.MouseEvent evt, float echelle){
+        LinkedList<ElementBesoins> ll = new LinkedList<>();
+        for(ElementBesoins ebb : m_reseauBesoins.getPileSelection().getListe()){
+            ll.add(ebb);
+        }
+        ElementBesoins eb = obtenirElementBesoins(evt.getX(), evt.getY(), echelle);
+        if(eb!=null){
+            if(!ll.contains(eb))
+                m_reseauBesoins.getPileSelection().enlever(eb);
+            m_reseauBesoins.setElementCurseur(eb);
+        }
+        else{
+            m_reseauBesoins.setElementCurseur(null);
+        }
+    }
 }
