@@ -711,6 +711,10 @@ public class Simulatheure implements java.io.Serializable {
     public LinkedList<ElementTransport> getElementsSelectionnesTransport() {
         return m_reseauTransport.getElementsSelectionnes();
     }
+    
+    public LinkedList<ElementBesoins> getElementsSelectionnesBesoins() {
+        return m_reseauBesoins.getElementsSelectionnes();
+    }
 
     public Boolean supprimerSelectionRoutier() {
         PileSelectionRoutier pile = m_reseauRoutier.getPileSelection();

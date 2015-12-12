@@ -1710,6 +1710,21 @@ public class MainWindow extends javax.swing.JFrame {
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 }
+            case BESOINS:
+                LinkedList<ElementBesoins> elementsBesoinsSelectionnes = m_controleur.getElementsSelectionnesBesoins();
+                if (elementsBesoinsSelectionnes == null || elementsBesoinsSelectionnes.size() == 0) return;
+                ElementBesoins elemBesoins = elementsBesoinsSelectionnes.getLast();
+
+                //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
+                if (elemBesoins.getClass() == Itineraire.class) {
+                    EditerItineraire fenetre = new EditerItineraire();
+                    fenetre.setItineraire((Itineraire) elemBesoins, this);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
+                break;
         }
     }
     private void editerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerClicDroitActionPerformed
