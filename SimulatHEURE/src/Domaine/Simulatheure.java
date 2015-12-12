@@ -1176,7 +1176,7 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
         }
-
+        m_reseauBesoins.getPileSelection().ajouter(m_itineraireEnConstruction);
         return true;
     }
       
