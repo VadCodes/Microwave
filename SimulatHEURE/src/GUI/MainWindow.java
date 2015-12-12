@@ -211,8 +211,6 @@ public class MainWindow extends javax.swing.JFrame {
         besoins = new javax.swing.JToggleButton();
         simulation = new javax.swing.JToggleButton();
         jPanel5 = new javax.swing.JPanel();
-        annuler = new javax.swing.JButton();
-        retablir = new javax.swing.JButton();
         zoomTitre = new javax.swing.JLabel();
         zoom = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -370,7 +368,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPanel13.add(saveButton);
+
+        undoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(undoButton);
+
+        redoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redoButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(redoButton);
         jPanel13.add(zoomInButton);
         jPanel13.add(zoomOutButton);
@@ -447,27 +457,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel1.add(boutonModes, java.awt.BorderLayout.NORTH);
 
-        jPanel5.setLayout(new java.awt.GridLayout(2, 2));
-
-        annuler.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        annuler.setText("Annuler");
-        annuler.setEnabled(false);
-        annuler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                annulerActionPerformed(evt);
-            }
-        });
-        jPanel5.add(annuler);
-
-        retablir.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        retablir.setText("Rétablir");
-        retablir.setEnabled(false);
-        retablir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retablirActionPerformed(evt);
-            }
-        });
-        jPanel5.add(retablir);
+        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
 
         zoomTitre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         zoomTitre.setText("Zoom : ");
@@ -1861,25 +1851,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_controleur.deselectionnerRoutier();
         this.afficheurReseau.repaint();
         this.setCommande(Commande.SOURCEAUTOBUS);
-    }
-    private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
-        m_controleur.annuler();
-        miseAJourPanels();
-        miseAjourComboBoxTotal();
-        miseAJourPermissionsBoutons();
-        
-        this.afficheurReseau.repaint();        
-    }//GEN-LAST:event_annulerActionPerformed
-
-    private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
-        m_controleur.retablir();
-        miseAJourPanels();
-        miseAjourComboBoxTotal();
-        miseAJourPermissionsBoutons();
-        
-        this.afficheurReseau.repaint();
-    }//GEN-LAST:event_retablirActionPerformed
-    
+    }    
     private void alalEditSimulation() {
         EditerSimulation fenetre= new EditerSimulation();{
         fenetre.setMainWindow(m_this);
@@ -1906,8 +1878,8 @@ public class MainWindow extends javax.swing.JFrame {
         routier.setEnabled(false);
         transport.setEnabled(false);
         besoins.setEnabled(false);
-        annuler.setEnabled(false);
-        retablir.setEnabled(false);
+        undoButton.setEnabled(false);
+        redoButton.setEnabled(false);
         
         recommancerSimulation.setEnabled(true);
         arreterSimulation.setEnabled(true);
@@ -2029,8 +2001,8 @@ public class MainWindow extends javax.swing.JFrame {
         routier.setEnabled(true);
         transport.setEnabled(true);
         besoins.setEnabled(true);
-        annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
-        retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
+        undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
+        redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
         
         recommancerSimulation.setEnabled(false);
         arreterSimulation.setEnabled(false);
@@ -2304,6 +2276,24 @@ public class MainWindow extends javax.swing.JFrame {
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void redoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoButtonActionPerformed
+        m_controleur.retablir();
+        miseAJourPanels();
+        miseAjourComboBoxTotal();
+        miseAJourPermissionsBoutons();
+        
+        this.afficheurReseau.repaint();
+    }//GEN-LAST:event_redoButtonActionPerformed
+
+    private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
+       m_controleur.annuler();
+        miseAJourPanels();
+        miseAjourComboBoxTotal();
+        miseAJourPermissionsBoutons();
+        
+        this.afficheurReseau.repaint(); 
+    }//GEN-LAST:event_undoButtonActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2389,8 +2379,8 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void miseAJourPermissionsBoutons() {
-        annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
-        retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
+        undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
+        redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
         
         if (m_controleur.getRoutier().getIntersections().size() > 1) {
             selectionRoutier.setEnabled(true);
@@ -2445,7 +2435,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutBesoin;
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
-    private javax.swing.JButton annuler;
     private javax.swing.JButton arreterSimulation;
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
@@ -2543,7 +2532,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton ralentirSimulation;
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton redoButton;
-    private javax.swing.JButton retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JMenuItem sauvegarder;
     private javax.swing.JButton saveButton;
