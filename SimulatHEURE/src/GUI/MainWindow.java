@@ -71,12 +71,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void updateIconBoutons(){
         //boutons general
-        Icon iconLoad = new ImageIcon("src/Icons/load.gif");
-        Icon iconSave= new ImageIcon("src/Icons/save.gif");
-        Icon iconUndo = new ImageIcon("src/Icons/undo.gif");
-        Icon iconRedo = new ImageIcon("src/Icons/redo.gif");
-        Icon iconZoomIn = new ImageIcon("src/Icons/zoomIn.gif");
-        Icon iconZoomOut = new ImageIcon("src/Icons/zoomOut.gif");
+        Icon iconLoad = new ImageIcon("src/Icons/load.png");
+        Icon iconSave= new ImageIcon("src/Icons/save.png");
+        Icon iconUndo = new ImageIcon("src/Icons/undo.png");
+        Icon iconRedo = new ImageIcon("src/Icons/redo.png");
+        Icon iconZoomIn = new ImageIcon("src/Icons/zoomIn.png");
+        Icon iconZoomOut = new ImageIcon("src/Icons/zoomOut.png");
         loadButton.setIcon(iconLoad);
         saveButton.setIcon(iconSave);
         undoButton.setIcon(iconUndo);
@@ -86,11 +86,11 @@ public class MainWindow extends javax.swing.JFrame {
                 
         
         //boutons simulation
-        Icon iconPlay = new ImageIcon("src/Icons/play.gif");
-        Icon iconStop = new ImageIcon("src/Icons/stop.gif");
-        Icon iconRecommancer = new ImageIcon("src/Icons/reload.gif");
-        Icon iconRalentir = new ImageIcon("src/Icons/rewind.gif");
-        Icon iconAvancer = new ImageIcon("src/Icons/forward.gif");
+        Icon iconPlay = new ImageIcon("src/Icons/play.png");
+        Icon iconStop = new ImageIcon("src/Icons/stop.png");
+        Icon iconRecommancer = new ImageIcon("src/Icons/reload.png");
+        Icon iconRalentir = new ImageIcon("src/Icons/rewind.png");
+        Icon iconAvancer = new ImageIcon("src/Icons/forward.png");
         playPauseSimulation.setIcon(iconPlay);
         arreterSimulation.setIcon(iconStop);
         recommancerSimulation.setIcon(iconRecommancer);
@@ -139,7 +139,7 @@ public class MainWindow extends javax.swing.JFrame {
             m_this.afficheurReseau.repaint();
             if (finSimulation) {
                 
-                Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+                Icon warnIcon = new ImageIcon("src/Icons/play.png");
                 playPauseSimulation.setIcon(warnIcon);
                 arreterSimulation.doClick();
             }
@@ -1863,17 +1863,18 @@ public class MainWindow extends javax.swing.JFrame {
         if(!m_simulationEstLancer ){
             alalEditSimulation();
             m_simulationEstLancer = true;
-            Icon iconPause = new ImageIcon("src/Icons/pause.gif");
+            Icon iconPause = new ImageIcon("src/Icons/pause.png");
             playPauseSimulation.setIcon(iconPause);
         }
         else if (m_crono.estEnPause()){
             m_crono.start();
-            Icon iconPause = new ImageIcon("src/Icons/pause.gif");
+            Icon iconPause = new ImageIcon("src/Icons/pause.png");
             playPauseSimulation.setIcon(iconPause);
         }
         else{
             m_crono.pause();
-            Icon iconPlay = new ImageIcon("src/Icons/play.gif");
+            Icon iconPlay = new ImageIcon("src/Icons/play.png"
+                    + "");
             playPauseSimulation.setIcon(iconPlay);
         }
     }//GEN-LAST:event_playPauseSimulationActionPerformed
@@ -1950,7 +1951,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
-        Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+        Icon warnIcon = new ImageIcon("src/Icons/play.png");
         playPauseSimulation.setIcon(warnIcon);
         arreterSimulation.doClick();
         playPauseSimulation.doClick();
@@ -1967,7 +1968,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
         arreterSimulation();
-        Icon warnIcon = new ImageIcon("src/Icons/play.gif");
+        Icon warnIcon = new ImageIcon("src/Icons/play.png");
         playPauseSimulation.setIcon(warnIcon);
         playPauseSimulation.setSelected(false);
         
