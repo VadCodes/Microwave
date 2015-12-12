@@ -266,24 +266,24 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<>();
+        comboBoxArrets = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<>();
+        comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<>();
+        comboBoxCircuits = new javax.swing.JComboBox<String>();
         boutonsSelectionBesoins = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        comboBoxBesoins = new javax.swing.JComboBox<>();
+        comboBoxBesoins = new javax.swing.JComboBox<String>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<>();
+        comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<>();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<>();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -296,7 +296,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        comboBoxStat = new javax.swing.JComboBox<>();
+        comboBoxStat = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
@@ -801,7 +801,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel3.add(jPanel6, java.awt.BorderLayout.CENTER);
 
-        jPanel12.setPreferredSize(new java.awt.Dimension(150, 400));
+        jPanel12.setPreferredSize(new java.awt.Dimension(180, 400));
+        jPanel12.setRequestFocusEnabled(false);
         jPanel12.setLayout(new java.awt.BorderLayout());
 
         jPanel14.setPreferredSize(new java.awt.Dimension(150, 250));
@@ -815,7 +816,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -826,7 +827,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -838,7 +839,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
@@ -856,7 +857,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setToolTipText("");
         boutonsSelectionBesoins.add(jLabel7);
 
-        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxBesoinsActionPerformed(evt);
@@ -873,7 +874,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -901,7 +902,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -912,7 +913,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -931,7 +932,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel14Layout.createSequentialGroup()
@@ -976,7 +977,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1709,6 +1710,21 @@ public class MainWindow extends javax.swing.JFrame {
                     fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     fenetre.setVisible(true);
                 }
+            case BESOINS:
+                LinkedList<ElementBesoins> elementsBesoinsSelectionnes = m_controleur.getElementsSelectionnesBesoins();
+                if (elementsBesoinsSelectionnes == null || elementsBesoinsSelectionnes.size() == 0) return;
+                ElementBesoins elemBesoins = elementsBesoinsSelectionnes.getLast();
+
+                //ouvrir une fenetre contextuelle qui agit sur elem, dependamment du type d'elem
+                if (elemBesoins.getClass() == Itineraire.class) {
+                    EditerItineraire fenetre = new EditerItineraire();
+                    fenetre.setItineraire((Itineraire) elemBesoins, this);
+                    fenetre.setResizable(false);
+                    fenetre.setLocationRelativeTo(null); //pour centrer
+                    fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    fenetre.setVisible(true);
+                }
+                break;
         }
     }
     private void editerClicDroitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerClicDroitActionPerformed

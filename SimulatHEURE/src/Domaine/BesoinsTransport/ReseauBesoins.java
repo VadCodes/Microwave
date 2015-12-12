@@ -394,4 +394,8 @@ public class ReseauBesoins extends Reseau {
     public void setElementCurseur(ElementBesoins eb){
         m_elementCurseur = eb;
     }
+    
+    public LinkedList<ElementBesoins> getElementsSelectionnes(){
+        return m_pileSelection.getListe();
+    }
 }
