@@ -2178,13 +2178,18 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxStatActionPerformed
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
-        PathSelector fenetre = new PathSelector();
+        Fider fider = new Fider();
+       fider.setMainWindow(m_this);
+       fider.setOption("save");
+       fider.go();
+        /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("save");
         fenetre.setMainWindow(this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
+        */
         /*
     this.m_controleur.getHistorique().viderApresReseauCourant();
     int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
@@ -2235,13 +2240,18 @@ public class MainWindow extends javax.swing.JFrame {
     this.afficheurReseau.repaint();
     }
     private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
-        PathSelector fenetre = new PathSelector();
+       Fider fider = new Fider();
+       fider.setMainWindow(m_this);
+       fider.setOption("charger");
+       fider.go();
+        /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("charger");
         fenetre.setMainWindow(this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
+        */
     /*
     try
     {
@@ -2280,23 +2290,33 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
-        PathSelector fenetre = new PathSelector();
+        Fider fider = new Fider();
+       fider.setMainWindow(m_this);
+       fider.setOption("charger");
+       fider.go();
+        /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("charger");
         fenetre.setMainWindow(this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
+        */
     }//GEN-LAST:event_loadButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        PathSelector fenetre = new PathSelector();
+        Fider fider = new Fider();
+       fider.setMainWindow(m_this);
+       fider.setOption("save");
+       fider.go();
+        /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("save");
         fenetre.setMainWindow(this);
         fenetre.setResizable(false);
         fenetre.setLocationRelativeTo(null); //pour centrer
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
+        */
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void redoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoButtonActionPerformed
