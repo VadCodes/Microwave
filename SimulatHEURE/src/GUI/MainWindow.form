@@ -188,6 +188,9 @@
                   </Layout>
                   <SubComponents>
                     <Component class="javax.swing.JButton" name="loadButton">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadButtonActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="saveButton">
                     </Component>
@@ -271,6 +274,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JToggleButton" name="routier">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Dialog" size="11" style="1"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="R&#xe9;seau routier"/>
                               </Properties>
                               <Events>
@@ -279,6 +285,9 @@
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="transport">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Dialog" size="11" style="1"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="R&#xe9;seau transport"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
@@ -288,6 +297,9 @@
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="besoins">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Dialog" size="11" style="1"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Besoins transport"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
@@ -297,6 +309,9 @@
                             </Component>
                             <Component class="javax.swing.JToggleButton" name="simulation">
                               <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Dialog" size="11" style="1"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Simulation"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>

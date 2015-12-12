@@ -22,6 +22,7 @@ import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.JFrame;
@@ -54,6 +55,7 @@ public class MainWindow extends javax.swing.JFrame {
     private volatile int myX = 0;
     private volatile int myY = 0;
     boolean m_skipAffichage = false;
+    public File m_fileChoosed;
     
 
     /**
@@ -332,6 +334,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel13.setPreferredSize(new java.awt.Dimension(1600, 35));
         jPanel13.setLayout(new java.awt.GridLayout(1, 0));
+
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(loadButton);
         jPanel13.add(saveButton);
         jPanel13.add(undoButton);
@@ -370,6 +378,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonModes.setRequestFocusEnabled(false);
         boutonModes.setLayout(new java.awt.GridLayout(4, 1));
 
+        routier.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         routier.setText("Réseau routier");
         routier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,6 +387,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonModes.add(routier);
 
+        transport.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         transport.setText("Réseau transport");
         transport.setEnabled(false);
         transport.addActionListener(new java.awt.event.ActionListener() {
@@ -387,6 +397,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonModes.add(transport);
 
+        besoins.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         besoins.setText("Besoins transport");
         besoins.setEnabled(false);
         besoins.addActionListener(new java.awt.event.ActionListener() {
@@ -396,6 +407,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonModes.add(besoins);
 
+        simulation.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         simulation.setText("Simulation");
         simulation.setEnabled(false);
         simulation.addActionListener(new java.awt.event.ActionListener() {
@@ -2165,8 +2177,42 @@ public class MainWindow extends javax.swing.JFrame {
     this.m_controleur.getHistorique().setCurseur(indexCurseur);    
     }//GEN-LAST:event_sauvegarderActionPerformed
 
-    private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
+    public void charger(){
+        try
+    {
+        FileInputStream fileIn = new FileInputStream(m_fileChoosed.getAbsolutePath());
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        m_controleur = (Simulatheure) in.readObject();
+        in.close();
+        fileIn.close();
+        System.out.println("Ça marche !");
+    }
+    catch (IOException e)
+    {
+        e.printStackTrace();
+        return;
+    }
+    catch (ClassNotFoundException e)
+    {
+        e.printStackTrace();
+        return;
+    }
+    this.m_controleur.initControleur();
     
+    miseAJourPanels();
+    miseAjourComboBoxTotal();
+    miseAJourPermissionsBoutons();
+    this.afficheurReseau.repaint();
+    }
+    private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
+        PathSelector fenetre = new PathSelector();
+        fenetre.setOption("charger");
+        fenetre.setMainWindow(this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+    /*
     try
     {
         FileInputStream fileIn = new FileInputStream ("controleur.mw");
@@ -2192,6 +2238,7 @@ public class MainWindow extends javax.swing.JFrame {
     miseAjourComboBoxTotal();
     miseAJourPermissionsBoutons();
     this.afficheurReseau.repaint();
+    */
     }//GEN-LAST:event_chargerActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -2201,6 +2248,16 @@ public class MainWindow extends javax.swing.JFrame {
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+        PathSelector fenetre = new PathSelector();
+        fenetre.setOption("charger");
+        fenetre.setMainWindow(this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+    }//GEN-LAST:event_loadButtonActionPerformed
     
     /**
      * @param args the command line arguments
