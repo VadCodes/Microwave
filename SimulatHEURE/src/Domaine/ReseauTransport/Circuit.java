@@ -60,13 +60,12 @@ public class Circuit extends ElementTransport{
     public void initRepresentation(){
         Font a = new Font(null, Font.BOLD, 12);
         m_representationNom = a.createGlyphVector(new FontRenderContext(null, false, false), m_nom);
-        double ajX = m_representationNom.getVisualBounds().getCenterX();
-        double ajY = m_representationNom.getVisualBounds().getCenterY();
+        double ajY = m_representationNom.getVisualBounds().getHeight();
         
         for (int i = 0 ; i< m_nom.length() ; i++)
         {
             Point2D position = m_representationNom.getGlyphPosition(i);
-            position.setLocation(position.getX() - ajX, position.getY() - ajY);
+            position.setLocation(position.getX(), position.getY() + ajY);
             m_representationNom.setGlyphPosition(i, position);
         } 
     }

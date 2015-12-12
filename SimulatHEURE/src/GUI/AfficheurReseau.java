@@ -49,7 +49,7 @@ public class AfficheurReseau extends JPanel implements Serializable {
             
             graphic2D.scale(m_echelle, m_echelle);
             
-            Font a = new Font(null, Font.BOLD, 14);
+            Font a = new Font(null, Font.BOLD, 12);
             graphic2D.setFont(a);
             
             Boolean resTransportTransparent = (m_fenetrePrincipale.m_modeCourant == Mode.ROUTIER);
