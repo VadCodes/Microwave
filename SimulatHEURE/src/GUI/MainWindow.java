@@ -83,7 +83,7 @@ public class MainWindow extends javax.swing.JFrame {
         redoButton.setIcon(iconRedo);
         zoomInButton.setIcon(iconZoomIn);
         zoomOutButton.setIcon(iconZoomOut);
-                
+        
         
         //boutons simulation
         Icon iconPlay = new ImageIcon("src/Icons/play.png");
@@ -96,6 +96,11 @@ public class MainWindow extends javax.swing.JFrame {
         recommancerSimulation.setIcon(iconRecommancer);
         ralentirSimulation.setIcon(iconRalentir);
         avancerSimulation.setIcon(iconAvancer);
+        
+        //Panel Color
+        Color panelColor =  new Color(180,180,180);
+        jPanel13.setBackground(panelColor);
+        jPanel15.setBackground(panelColor);
     }
     class MyTimerActionListener implements ActionListener {
 
