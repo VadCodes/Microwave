@@ -275,6 +275,7 @@ public class MainWindow extends javax.swing.JFrame {
         fichier = new javax.swing.JMenu();
         sauvegarder = new javax.swing.JMenuItem();
         charger = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         quitter = new javax.swing.JMenuItem();
 
         groupeModes.add(routier);
@@ -325,7 +326,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel15.setPreferredSize(new java.awt.Dimension(1600, 20));
 
         jPanel13.setPreferredSize(new java.awt.Dimension(1600, 35));
-        jPanel13.setLayout(new java.awt.GridLayout());
+        jPanel13.setLayout(new java.awt.GridLayout(1, 0));
         jPanel13.add(loadButton);
         jPanel13.add(saveButton);
         jPanel13.add(undoButton);
@@ -1059,6 +1060,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         fichier.add(charger);
+
+        jMenuItem1.setText("Credits");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        fichier.add(jMenuItem1);
 
         quitter.setText("Quitter");
         quitter.addActionListener(new java.awt.event.ActionListener() {
@@ -2179,6 +2188,14 @@ public class MainWindow extends javax.swing.JFrame {
     miseAJourPermissionsBoutons();
     this.afficheurReseau.repaint();
     }//GEN-LAST:event_chargerActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Credits fenetre = new Credits();
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2368,6 +2385,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
