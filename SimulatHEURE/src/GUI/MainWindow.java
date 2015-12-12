@@ -98,7 +98,7 @@ public class MainWindow extends javax.swing.JFrame {
         avancerSimulation.setIcon(iconAvancer);
         
         //Panel Color
-        Color panelColor =  new Color(180,180,180);
+        Color panelColor =  new Color(186,190,198);
         jPanel13.setBackground(panelColor);
         jPanel15.setBackground(panelColor);
     }
