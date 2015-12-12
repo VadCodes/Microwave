@@ -2184,7 +2184,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxStatActionPerformed
     
     private void sauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sauvegarderActionPerformed
-    
+        PathSelector fenetre = new PathSelector();
+        fenetre.setOption("save");
+        fenetre.setMainWindow(this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+        /*
     this.m_controleur.getHistorique().viderApresReseauCourant();
     int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
     this.m_controleur.getHistorique().clearCurseur();
@@ -2202,7 +2209,8 @@ public class MainWindow extends javax.swing.JFrame {
         e.printStackTrace();
         return;
     }
-    this.m_controleur.getHistorique().setCurseur(indexCurseur);    
+    this.m_controleur.getHistorique().setCurseur(indexCurseur); 
+        */
     }//GEN-LAST:event_sauvegarderActionPerformed
 
     public void charger(){
