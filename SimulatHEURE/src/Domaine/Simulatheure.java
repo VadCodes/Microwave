@@ -1174,21 +1174,6 @@ public class Simulatheure implements java.io.Serializable {
         }
 
         return true;
-        //Clic sur un élément routier (si arret passer etape suivante)
-        //Ça fait l'emplacement initial de l'itinéraire
-        //
-        //Clic sur un arrêt (vérifier si atteignable)
-        //Dijkstra entre emplacement et arrêt
-        //Cliquer sur arrêt final du parcours bus
-        //
-        //On va chercher la première occurrence de l'arrêt final et on cherche backwards jusqu'à l'arrêt initial
-        //Si trouve pas rechercher avec les occurrence de l'arrêt final suivant
-        //Si marche pas dire qu'on peut pas arrêt initial vers arrêt final donc empêcher
-            //ca veut dire essayé de faire circuit backwards (ou deux arrets mauvais circuit)
-            //mais permettre si boucle
-        //
-        //Dès qu'on reclique sur un tronçon c'est fini
-        //Pour allonger il faut cliquer sur un arrêt et ça cancelle le dernier trajet pour le remplacer par un trajet qui se rend à l'arrêt
     }
       
     public void cleanItineraireTemp(){
