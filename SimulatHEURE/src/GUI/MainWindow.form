@@ -193,6 +193,9 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="saveButton">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="undoButton">
                     </Component>

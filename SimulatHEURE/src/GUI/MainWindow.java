@@ -104,6 +104,28 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel13.setBackground(panelColor);
         jPanel15.setBackground(panelColor);
     }
+
+    void save() {
+        this.m_controleur.getHistorique().viderApresReseauCourant();
+        int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
+        this.m_controleur.getHistorique().clearCurseur();
+        try
+        {
+            FileOutputStream fileOut = new FileOutputStream (m_fileChoosed.getAbsolutePath());
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(m_controleur);
+            out.close();
+            fileOut.close();
+            System.out.println("Ça marche !");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return;
+        }
+        this.m_controleur.getHistorique().setCurseur(indexCurseur);    
+        }                                           
+
     class MyTimerActionListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -341,6 +363,12 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPanel13.add(loadButton);
+
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(saveButton);
         jPanel13.add(undoButton);
         jPanel13.add(redoButton);
@@ -2258,6 +2286,16 @@ public class MainWindow extends javax.swing.JFrame {
         fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fenetre.setVisible(true);
     }//GEN-LAST:event_loadButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        PathSelector fenetre = new PathSelector();
+        fenetre.setOption("save");
+        fenetre.setMainWindow(this);
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+    }//GEN-LAST:event_saveButtonActionPerformed
     
     /**
      * @param args the command line arguments

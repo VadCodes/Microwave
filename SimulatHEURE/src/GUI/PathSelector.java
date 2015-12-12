@@ -24,6 +24,9 @@ public class PathSelector extends javax.swing.JFrame {
     }
     public void setOption(String p_option){
          m_option = p_option;
+         if(m_option == "save"){
+             jFileChooser1.setDialogType(1);
+         }
     }
     public void setMainWindow(MainWindow mainwindow){
         m_mainwindow = mainwindow;
@@ -73,7 +76,7 @@ public class PathSelector extends javax.swing.JFrame {
             m_mainwindow.charger();
         }
         else if(m_option == "save"){
-            
+            m_mainwindow.save();
         }
         this.dispose();
         
