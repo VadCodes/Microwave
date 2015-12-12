@@ -322,8 +322,10 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel11.setPreferredSize(new java.awt.Dimension(1600, 35));
         jPanel11.setLayout(new java.awt.BorderLayout());
 
+        jPanel15.setPreferredSize(new java.awt.Dimension(1600, 20));
+
         jPanel13.setPreferredSize(new java.awt.Dimension(1600, 35));
-        jPanel13.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        jPanel13.setLayout(new java.awt.GridLayout());
         jPanel13.add(loadButton);
         jPanel13.add(saveButton);
         jPanel13.add(undoButton);
@@ -336,9 +338,9 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1284, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1368, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
