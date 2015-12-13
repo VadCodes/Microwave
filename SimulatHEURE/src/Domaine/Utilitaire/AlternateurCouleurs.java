@@ -20,7 +20,7 @@ public class AlternateurCouleurs { //SINGLETON ALRIGHT
         0xA00000, 0x00A000, 0x0000A0, 0xA0A000, 0xA000A0, 0x00A0A0,
         0xE00000, 0x00E000, 0x0000E0, 0xE0E000, 0xE000E0, 0x00E0E0,
     };
-    private static Integer m_couleurIndex = (int)(Math.random() * ((m_couleurs.length) + 1));
+    private static Integer m_couleurIndex = (int)(Math.random() * m_couleurs.length);
 
    private AlternateurCouleurs(){ }
 
