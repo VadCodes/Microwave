@@ -8,6 +8,7 @@ import java.awt.geom.Point2D;
  * @author Nathaniel
  */
 public class Intersection extends ElementRoutier{
+    public static int ECHELLE = 10;
     private String m_name = "";
     private Point2D.Float m_position;
     private LinkedList<Troncon> m_listeTroncons = new LinkedList<>();

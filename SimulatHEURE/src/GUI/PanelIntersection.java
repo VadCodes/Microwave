@@ -25,9 +25,9 @@ public class PanelIntersection extends PanelEdition {
         m_intersection = intrsct;
         jTextField1.setText(m_intersection.getName());
        
-        String posX = String.format("%.1f", m_intersection.getPosition().getX());
-        String posY = String.format("%.1f", m_intersection.getPosition().getY());
-        jLabel7.setText(posX + ", " + posY);
+        String posX = String.format("%.2f", Intersection.ECHELLE*m_intersection.getPosition().getX() /1000);
+        String posY = String.format("%.2f", Intersection.ECHELLE*m_intersection.getPosition().getY()/1000);
+        jLabel7.setText(posX + " km, " + posY + " km");
     }
     
     public void setInfo(){

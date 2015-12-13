@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Domaine.ReseauRoutier.Intersection;
 import Domaine.ReseauRoutier.Troncon;
 import Domaine.ReseauTransport.Circuit;
 import Domaine.Utilitaire.Distribution;
@@ -35,7 +36,7 @@ public class PanelTroncon extends PanelEdition {
         
         jLabel7.setText(m_troncon.getOrigine().getName());
         jLabel9.setText(m_troncon.getDestination().getName());
-        jLabel11.setText(String.format("%.1f", m_troncon.getLongueurTroncon()));
+        jLabel11.setText(String.format("%.1f", Intersection.ECHELLE*m_troncon.getLongueurTroncon()/1000) + " km");
     }
     
     public void setInfo(){
