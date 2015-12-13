@@ -2412,9 +2412,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         Fider fider = new Fider();
-       fider.setMainWindow(m_this);
-       fider.setOption("charger");
-       fider.go();
+        fider.setMainWindow(m_this);
+        fider.setOption("charger");
+        fider.go();
         /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("charger");
         fenetre.setMainWindow(this);
@@ -2427,9 +2427,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         Fider fider = new Fider();
-       fider.setMainWindow(m_this);
-       fider.setOption("save");
-       fider.go();
+        fider.setMainWindow(m_this);
+        fider.setOption("save");
+        fider.go();
         /*PathSelector fenetre = new PathSelector();
         fenetre.setOption("save");
         fenetre.setMainWindow(this);
