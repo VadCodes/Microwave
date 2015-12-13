@@ -63,7 +63,23 @@ public class DessinateurTransport {
             }
             p_g.setColor(new Color(0x70FF0000, m_transparence));
             p_g.fill(new Ellipse2D.Float(x, y, diametre, diametre));
+            //p_g.fill(octogone(x,y,diametre*2/3));
         }
+    }
+    
+    private Path2D.Float octogone(Float x, Float y, Float diametre){
+        Path2D.Float octopath = new Path2D.Float();  
+        x+=diametre;
+        y+=diametre;
+        Float angle1 = (float) Math.PI/8.0f;
+        octopath.moveTo(x + diametre*Math.cos(angle1), y + diametre*Math.sin(angle1));
+        angle1 += (float) Math.PI/4.0f;
+        for(int i = 1; i <8; i++){
+            octopath.lineTo(x + diametre*Math.cos(angle1), y + diametre*Math.sin(angle1));
+            angle1 += (float) Math.PI/4.0f;
+        }
+        octopath.closePath();
+        return octopath;
     }
     
     public void dessinerCircuit(Graphics2D p_g, float p_echelle)
