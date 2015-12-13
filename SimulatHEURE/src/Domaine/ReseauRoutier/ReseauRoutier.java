@@ -27,7 +27,7 @@ public class ReseauRoutier extends Reseau{
     private PileSelectionRoutier m_pileSelection = new PileSelectionRoutier();
     private ElementRoutier m_elementCurseur = null;
     
-    public final static double VITESSE_PIETON = 4/3.6 ;
+    public final static double VITESSE_PIETON = 4 ;
     
     public ReseauRoutier(){
         m_compteurIntersection = 1;
