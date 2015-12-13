@@ -735,7 +735,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Facteur multiplicatif : ");
+        jLabel2.setText("Vitesse : ");
         boutonsSimulation.add(jLabel2);
         boutonsSimulation.add(facteurMultiplicatif);
         boutonsSimulation.add(jSeparator8);

@@ -263,7 +263,7 @@ public class DessinateurBesoins {
         }
     }
     
-    private void dessinerLosange(Graphics2D los_g, Point2D.Float position, Float p_echelle, 
+    private Path2D.Float dessinerLosange(Graphics2D los_g, Point2D.Float position, Float p_echelle, 
                                 Color couleur, float largeur){
         Path2D.Float losange = new Path2D.Float();
         los_g.setColor(couleur);
@@ -276,14 +276,16 @@ public class DessinateurBesoins {
         losange.lineTo(position.x, y2);
         losange.lineTo(x2, position.y);
         losange.closePath();
-        los_g.fill(losange);
+        return losange;
     }
     
     public void dessinerSourceIndividus(Graphics2D p_g, float p_echelle){
         Emplacement emplSourceArtificielle = m_reseau.getEmplacementSourceTemp();
         if(emplSourceArtificielle!=null){
             Point2D.Float posSourceArtificielle = emplSourceArtificielle.calculPosition(p_echelle);
-            dessinerLosange(p_g, posSourceArtificielle, p_echelle, new Color(0, 200, 0), SourceIndividus.LARGEUR);
+            Path2D.Float losange = dessinerLosange(p_g, posSourceArtificielle, p_echelle, new Color(55, 55, 55), SourceIndividus.LARGEUR);
+            p_g.setStroke(new BasicStroke(1/p_echelle));
+            p_g.draw(losange);
         }
         for (Itineraire itineraire: m_reseau.getListItineraire()){
             Point2D.Float origine;
@@ -296,14 +298,17 @@ public class DessinateurBesoins {
             float grossissement = 1.4f;
             if(m_reseau.getPileSelection().contient(itineraire)){
                 
-                dessinerLosange(p_g, origine, p_echelle, 
-                new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+                Path2D.Float losange = dessinerLosange(p_g, origine, p_echelle, 
+                    new Color(50,200,255,200), grossissement*SourceIndividus.LARGEUR);
+                p_g.fill(losange);
             }
             else if(m_reseau.getElementCurseur()==itineraire){
-                dessinerLosange(p_g, origine, p_echelle, 
-                new Color(255,200,0,130), grossissement*SourceIndividus.LARGEUR);
+                Path2D.Float losange = dessinerLosange(p_g, origine, p_echelle, 
+                    new Color(255,200,0,130), grossissement*SourceIndividus.LARGEUR);
+                p_g.fill(losange);
             }
-            dessinerLosange(p_g, origine, p_echelle, new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence), SourceIndividus.LARGEUR);
+            Path2D.Float los = dessinerLosange(p_g, origine, p_echelle, new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence), SourceIndividus.LARGEUR);
+            p_g.fill(los);
         }
                 
     }
