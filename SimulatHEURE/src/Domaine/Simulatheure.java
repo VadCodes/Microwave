@@ -433,8 +433,11 @@ public class Simulatheure implements java.io.Serializable {
             }
             else
             {
+                PaireArretTrajet anciennePaire = circuitSelectionne.getListeArretTrajet().getLast();
+                PaireArretTrajet nouvellePaire = new PaireArretTrajet(arretInitiale, trajet);
+                miseAJourPaireArretTrajetItineraire(circuitSelectionne, anciennePaire, nouvellePaire);
                 circuitSelectionne.getListeArretTrajet().removeLast();
-                circuitSelectionne.getListeArretTrajet().add(new PaireArretTrajet(arretInitiale, trajet));
+                circuitSelectionne.getListeArretTrajet().add(nouvellePaire);
                 circuitSelectionne.getListeArretTrajet().add(new PaireArretTrajet(arretFinale, null));
                 if (circuitSelectionne.getListeArretTrajet().getFirst().getArret() == arretFinale)
                     circuitSelectionne.setPeutBoucler(true);
@@ -1281,11 +1284,13 @@ public class Simulatheure implements java.io.Serializable {
         for(Itineraire itn : m_reseauBesoins.getListItineraire()){
             for(PaireParcours pp : itn.getListPaireParcours()){
                 if(pp.getParcoursBus()!=null){
-                    if(pp.getParcoursBus().getPaireArretDepart()==patAvant){
-                        pp.getParcoursBus().setPaireArretDepart(patApres);
-                    }
-                    if(pp.getParcoursBus().getPaireArretFinal()==patAvant){
-                        pp.getParcoursBus().setPaireArretDepart(patApres);
+                    if(pp.getParcoursBus().getCircuit()==circ){
+                        if(pp.getParcoursBus().getPaireArretDepart()==patAvant){
+                            pp.getParcoursBus().setPaireArretDepart(patApres);
+                        }
+                        if(pp.getParcoursBus().getPaireArretFinal()==patAvant){
+                            pp.getParcoursBus().setPaireArretFinal(patApres);
+                        }
                     }
                 }
             }
