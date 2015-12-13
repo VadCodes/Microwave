@@ -46,8 +46,8 @@ public class ParcoursBus implements java.io.Serializable {
     public void setPaireArretFinal(PaireArretTrajet p_pairearretfinal){
         m_paireArretTrajetFinal = p_pairearretfinal;
     }
-    public void setPaireArretDepart(PaireArretTrajet p_pairearretfinal){
-        m_paireArretTrajetDepart = p_pairearretfinal;
+    public void setPaireArretDepart(PaireArretTrajet p_pairearretdepart){
+        m_paireArretTrajetDepart = p_pairearretdepart;
     }
 
     public LinkedList<Troncon> getTroncons(){
