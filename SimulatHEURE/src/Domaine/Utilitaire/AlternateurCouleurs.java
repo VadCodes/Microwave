@@ -36,12 +36,12 @@ public class AlternateurCouleurs { //SINGLETON ALRIGHT
    
    public static Color getCouleurCircuit(){
        Integer couleur = getCouleur();
-       return new Color(couleur & 0x7F7F7F);
+       return new Color(couleur & 0x888888);
    }
    
    public static Color getCouleurItineraire(){
        Integer couleur = getCouleur();
-       return new Color(couleur);
+       return new Color(couleur | 0x777777);
    }
    
    private static void incrementerCompteur(){
