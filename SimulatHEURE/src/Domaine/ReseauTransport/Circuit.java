@@ -11,6 +11,7 @@ package Domaine.ReseauTransport;
  * @author louis
  */
 import Domaine.ReseauRoutier.Troncon;
+import Domaine.Utilitaire.AlternateurCouleurs;
 import Domaine.Utilitaire.Temps;
 import java.awt.geom.Point2D;
 
@@ -28,7 +29,7 @@ public class Circuit extends ElementTransport{
     private GlyphVector m_representationNom;
     private Boolean m_peutBoucler = false;
     private Boolean m_veutBoucler = false;
-    private Color m_couleur = Color.RED;
+    private Color m_couleur = AlternateurCouleurs.getCouleur();
     
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
     
