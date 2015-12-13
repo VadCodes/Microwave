@@ -1734,7 +1734,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
-        coordonnees.setText(String.format("%.1f", x) + " m  " + String.format("%.1f", y) + " m");
+        coordonnees.setText(String.format("%.1f", 10*x) + " m  " + String.format("%.1f", 10*y) + " m");
         
         this.curseurSurElement(evt);
         
