@@ -196,16 +196,7 @@ public class ReseauRoutier extends Reseau{
     }
     
     public void supprimerSelection()
-    {        
-//        for (ListIterator<ElementRoutier> erIt = m_pileSelection.getListe().listIterator(); erIt.hasNext() ; ){
-//            ElementRoutier er = erIt.next();
-//            if (er.getClass() == Intersection.class){
-//                Intersection inter = (Intersection) er;
-//                inter.getTroncons().clear();
-//            }
-//            erIt.remove();
-//        }
-        
+    {                
         for (ListIterator<Intersection> intersectionIt = m_listeIntersections.listIterator() ; intersectionIt.hasNext() ; )
         {
             Intersection intersection = intersectionIt.next();

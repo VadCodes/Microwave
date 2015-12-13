@@ -398,4 +398,15 @@ public class ReseauBesoins extends Reseau {
     public LinkedList<ElementBesoins> getElementsSelectionnes(){
         return m_pileSelection.getListe();
     }
+    
+    public Boolean supprimerSelection(){
+        for(ListIterator<Itineraire> itnIt = m_listeItineraires.listIterator(); itnIt.hasNext();){
+            Itineraire itn = itnIt.next();
+            if (m_pileSelection.contient(itn))
+            {
+                itnIt.remove();
+            }
+        }
+        return true;
+    }
 }

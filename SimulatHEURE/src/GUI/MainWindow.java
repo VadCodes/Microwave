@@ -642,7 +642,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionBesoins.setText("Sélectionner");
-        selectionBesoins.setEnabled(false);
         selectionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
         selectionBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -662,7 +661,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.add(ajoutBesoin);
 
         suppressionBesoins.setText("Supprimer");
-        suppressionBesoins.setEnabled(false);
         suppressionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
         suppressionBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1260,7 +1258,7 @@ public class MainWindow extends javax.swing.JFrame {
                         case SELECTIONNER:
                             m_controleur.deselectionnerBesoins();
                             ElementBesoins eb = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                         
+
                             break;
 
                         case BESOIN:
@@ -1271,11 +1269,7 @@ public class MainWindow extends javax.swing.JFrame {
                             catch(IllegalArgumentException e) {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
-                            if (besoinConstruit)
-                            {
-                                //miseAjourSelectionCircuitsAjout(); 
-                                //panelItineraire.afficheInfo((Itineraire)m_controleur.getBesoins().getPileSelection().getDessus());
-                            }
+
                             miseAjourSelectionBeoinssAjout();
                             miseAjourSelectionArretsAjout();
                             break;
@@ -1312,7 +1306,7 @@ public class MainWindow extends javax.swing.JFrame {
                 
                 case BESOINS:
                     m_controleur.deselectionnerTout();
-                    ElementBesoins elemBesoins = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, false);
+                    ElementBesoins elemBesoins = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                     if (elemBesoins != null) {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
@@ -1648,7 +1642,7 @@ public class MainWindow extends javax.swing.JFrame {
         boolean suppressionOK = false;
         suppressionOK = m_controleur.supprimerSelectionRoutier();
         if (!suppressionOK){
-            JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "L'élément ne peut pas être supprimé car un élément d'un réseau supérieur en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
         }
 
         miseAjourComboBoxTotal();
@@ -1750,6 +1744,7 @@ public class MainWindow extends javax.swing.JFrame {
                 break;
 
             case BESOINS:
+                suppressionBesoins.doClick();
                 break;
 
             case SIMULATION:
@@ -1871,11 +1866,16 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
-        boolean elementTransportSupprime = false;
+        boolean elementTransportSupprime = true;
 
-        elementTransportSupprime = m_controleur.supprimerSelectionTransport();
-        if (!elementTransportSupprime) {
-            JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+        try{
+            elementTransportSupprime = m_controleur.supprimerSelectionTransport();
+        }
+        catch(IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+        }
+        if(!elementTransportSupprime){
+            JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.WARNING_MESSAGE);
         }
         
         miseAjourComboBoxTotal();
@@ -2149,7 +2149,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxPietonsActionPerformed
 
     private void selectionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionBesoinsActionPerformed
-        // TODO add your handling code here:
+        this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionBesoinsActionPerformed
 
     private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
@@ -2160,7 +2160,13 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutBesoinActionPerformed
 
     private void suppressionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionBesoinsActionPerformed
-        // TODO add your handling code here:
+        boolean suppressionOK = false;
+        suppressionOK = m_controleur.supprimerSelectionBesoins();
+        
+        miseAjourComboBoxTotal();
+        miseAJourPermissionsBoutons();
+        miseAJourPanels();
+        this.afficheurReseau.repaint();
     }//GEN-LAST:event_suppressionBesoinsActionPerformed
 
     private void editerBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerBesoinsActionPerformed

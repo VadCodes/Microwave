@@ -742,6 +742,26 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
         }
+        for(Itineraire itn : m_reseauBesoins.getListItineraire()){
+            for(PaireParcours pat : itn.getListPaireParcours()){
+                if(pat.getTrajet()!=null){
+                    for(Troncon trc : pat.getTrajet().getListeTroncons()){
+                        if (pile.contient(trc) || pile.contient(trc.getOrigine())
+                                    || pile.contient(trc.getDestination())) {
+                            return false;
+                        }
+                    }
+                }
+                if(pat.getParcoursBus()!=null){
+                    for(Troncon trc : pat.getParcoursBus().getTroncons()){
+                        if (pile.contient(trc) || pile.contient(trc.getOrigine())
+                                    || pile.contient(trc.getDestination())) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
 
         m_reseauRoutier.supprimerSelection();
         ajusterDoubleSens();
@@ -751,6 +771,19 @@ public class Simulatheure implements java.io.Serializable {
     }
 
     public Boolean supprimerSelectionTransport() {
+        PileSelectionTransport pile = m_reseauTransport.getPileSelection();
+        for(Itineraire itn : m_reseauBesoins.getListItineraire()){
+            for(PaireParcours pat : itn.getListPaireParcours()){
+                if(pat.getParcoursBus()!=null){
+                    if(pile.contient(pat.getParcoursBus().getArretDepart())
+                            ||pile.contient(pat.getParcoursBus().getArretFinal())
+                            ||pile.contient(pat.getParcoursBus().getCircuit())){
+                        throw new IllegalArgumentException("Un élément de transport ne peut être supprimé car un itinéraire en dépend.", new Throwable("Construction impossible"));
+                        
+                    }
+                }
+            }
+        }
         Boolean supprimee = m_reseauTransport.supprimerSelection();
         
         if (supprimee)
@@ -758,6 +791,16 @@ public class Simulatheure implements java.io.Serializable {
         
         return supprimee;
     }
+    
+     public Boolean supprimerSelectionBesoins() {
+        Boolean supprimee = m_reseauBesoins.supprimerSelection();
+        
+        if (supprimee)
+            m_historique.modifier();                                            // ANNULER-RÉTABLIR
+        
+        return supprimee;
+    }
+
 
     public void ajusterDoubleSens() {
         for (Intersection intrsct : m_reseauRoutier.getIntersections()) {

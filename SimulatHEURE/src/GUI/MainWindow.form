@@ -675,7 +675,6 @@
                             <Component class="javax.swing.JToggleButton" name="selectionBesoins">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="S&#xe9;lectionner"/>
-                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[100, 35]"/>
                                 </Property>
@@ -699,7 +698,6 @@
                             <Component class="javax.swing.JButton" name="suppressionBesoins">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Supprimer"/>
-                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[100, 35]"/>
                                 </Property>

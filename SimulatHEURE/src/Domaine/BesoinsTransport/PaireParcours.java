@@ -35,8 +35,8 @@ public class PaireParcours {
     public void setParcoursBus(ParcoursBus parcoursBus){
         m_parcoursBus = parcoursBus;
     }
-    public LinkedList<Troncon> getTroncons(){
-        return m_parcoursBus.getTroncons();
-    }
+//    public LinkedList<Troncon> getTroncons(){
+//        return m_parcoursBus.getTroncons();
+//    }
 }
     
