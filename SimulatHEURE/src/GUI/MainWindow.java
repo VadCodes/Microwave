@@ -217,35 +217,34 @@ public class MainWindow extends javax.swing.JFrame {
         panneauCommandes = new javax.swing.JPanel();
         boutonsRoutier = new javax.swing.JPanel();
         selectionRoutier = new javax.swing.JToggleButton();
+        suppressionRoutier = new javax.swing.JButton();
         ajoutIntersection = new javax.swing.JToggleButton();
         constructionTroncon = new javax.swing.JToggleButton();
-        editerRoutier = new javax.swing.JToggleButton();
-        suppressionRoutier = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
+        jPanel25 = new javax.swing.JPanel();
+        jPanel26 = new javax.swing.JPanel();
+        jPanel27 = new javax.swing.JPanel();
+        jPanel28 = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
         boutonsTransport = new javax.swing.JPanel();
         selectionTransport = new javax.swing.JToggleButton();
+        suppressionTransport = new javax.swing.JButton();
         ajoutArret = new javax.swing.JToggleButton();
         ajoutCircuit = new javax.swing.JToggleButton();
-        suppressionTransport = new javax.swing.JButton();
-        editerTransport = new javax.swing.JToggleButton();
         checkBoxDijkstra = new javax.swing.JCheckBox();
-        jSeparator6 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jPanel23 = new javax.swing.JPanel();
+        jPanel30 = new javax.swing.JPanel();
         boutonsBesoins = new javax.swing.JPanel();
         selectionBesoins = new javax.swing.JToggleButton();
-        ajoutBesoin = new javax.swing.JToggleButton();
         suppressionBesoins = new javax.swing.JButton();
-        editerBesoins = new javax.swing.JToggleButton();
-        jSeparator11 = new javax.swing.JSeparator();
-        jSeparator12 = new javax.swing.JSeparator();
-        jSeparator13 = new javax.swing.JSeparator();
-        jSeparator14 = new javax.swing.JSeparator();
+        ajoutBesoin = new javax.swing.JToggleButton();
+        jPanel17 = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel29 = new javax.swing.JPanel();
         boutonsSimulation = new javax.swing.JPanel();
         playPauseSimulation = new javax.swing.JToggleButton();
         arreterSimulation = new javax.swing.JButton();
@@ -256,7 +255,7 @@ public class MainWindow extends javax.swing.JFrame {
         time = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         facteurMultiplicatif = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
+        jPanel16 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         defilementAfficheur = new javax.swing.JScrollPane();
         afficheurReseau = new GUI.AfficheurReseau(this);
@@ -477,7 +476,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         panneauCommandes.setMinimumSize(new java.awt.Dimension(1200, 35));
-        panneauCommandes.setPreferredSize(new java.awt.Dimension(1200, 35));
+        panneauCommandes.setPreferredSize(new java.awt.Dimension(1200, 33));
         panneauCommandes.setRequestFocusEnabled(false);
         panneauCommandes.setVerifyInputWhenFocusTarget(false);
         panneauCommandes.setLayout(new java.awt.CardLayout());
@@ -498,7 +497,18 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(selectionRoutier);
 
-        ajoutIntersection.setText("Inter. (for noob)");
+        suppressionRoutier.setText("Supprimer");
+        suppressionRoutier.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        suppressionRoutier.setMinimumSize(new java.awt.Dimension(100, 35));
+        suppressionRoutier.setPreferredSize(new java.awt.Dimension(100, 35));
+        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionRoutierActionPerformed(evt);
+            }
+        });
+        boutonsRoutier.add(suppressionRoutier);
+
+        ajoutIntersection.setText("Intersection");
         ajoutIntersection.setMaximumSize(new java.awt.Dimension(32767, 32767));
         ajoutIntersection.setMinimumSize(new java.awt.Dimension(100, 35));
         ajoutIntersection.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -520,48 +530,70 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsRoutier.add(constructionTroncon);
 
-        editerRoutier.setText("Éditer sélection");
-        editerRoutier.setToolTipText("");
-        editerRoutier.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        editerRoutier.setMinimumSize(new java.awt.Dimension(100, 35));
-        editerRoutier.setPreferredSize(new java.awt.Dimension(100, 35));
-        editerRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(editerRoutier);
+        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
+        jPanel25.setLayout(jPanel25Layout);
+        jPanel25Layout.setHorizontalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel25Layout.setVerticalGroup(
+            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
 
-        suppressionRoutier.setText("Supprimer");
-        suppressionRoutier.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        suppressionRoutier.setMinimumSize(new java.awt.Dimension(100, 35));
-        suppressionRoutier.setPreferredSize(new java.awt.Dimension(100, 35));
-        suppressionRoutier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionRoutierActionPerformed(evt);
-            }
-        });
-        boutonsRoutier.add(suppressionRoutier);
+        boutonsRoutier.add(jPanel25);
 
-        jSeparator1.setMinimumSize(new java.awt.Dimension(100, 35));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(100, 35));
-        boutonsRoutier.add(jSeparator1);
+        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
+        jPanel26.setLayout(jPanel26Layout);
+        jPanel26Layout.setHorizontalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel26Layout.setVerticalGroup(
+            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
 
-        jSeparator2.setMinimumSize(new java.awt.Dimension(100, 35));
-        jSeparator2.setPreferredSize(new java.awt.Dimension(100, 35));
-        boutonsRoutier.add(jSeparator2);
+        boutonsRoutier.add(jPanel26);
 
-        jSeparator3.setMinimumSize(new java.awt.Dimension(100, 35));
-        jSeparator3.setPreferredSize(new java.awt.Dimension(100, 35));
-        boutonsRoutier.add(jSeparator3);
+        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
+        jPanel27.setLayout(jPanel27Layout);
+        jPanel27Layout.setHorizontalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel27Layout.setVerticalGroup(
+            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
 
-        jSeparator4.setMinimumSize(new java.awt.Dimension(100, 35));
-        jSeparator4.setPreferredSize(new java.awt.Dimension(100, 35));
-        boutonsRoutier.add(jSeparator4);
+        boutonsRoutier.add(jPanel27);
 
-        jSeparator5.setMinimumSize(new java.awt.Dimension(100, 35));
-        jSeparator5.setPreferredSize(new java.awt.Dimension(100, 35));
-        boutonsRoutier.add(jSeparator5);
+        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
+        jPanel28.setLayout(jPanel28Layout);
+        jPanel28Layout.setHorizontalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel28Layout.setVerticalGroup(
+            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsRoutier.add(jPanel28);
+
+        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
+        jPanel31.setLayout(jPanel31Layout);
+        jPanel31Layout.setHorizontalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel31Layout.setVerticalGroup(
+            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsRoutier.add(jPanel31);
 
         panneauCommandes.add(boutonsRoutier, "card2");
 
@@ -581,7 +613,17 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(selectionTransport);
 
-        ajoutArret.setText("Arrêt (for noob)");
+        suppressionTransport.setText("Supprimer");
+        suppressionTransport.setEnabled(false);
+        suppressionTransport.setPreferredSize(new java.awt.Dimension(100, 35));
+        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionTransportActionPerformed(evt);
+            }
+        });
+        boutonsTransport.add(suppressionTransport);
+
+        ajoutArret.setText("Arrêt");
         ajoutArret.setToolTipText("");
         ajoutArret.setPreferredSize(new java.awt.Dimension(100, 35));
         ajoutArret.addActionListener(new java.awt.event.ActionListener() {
@@ -600,25 +642,6 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsTransport.add(ajoutCircuit);
 
-        suppressionTransport.setText("Supprimer");
-        suppressionTransport.setEnabled(false);
-        suppressionTransport.setPreferredSize(new java.awt.Dimension(100, 35));
-        suppressionTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(suppressionTransport);
-
-        editerTransport.setText("Éditer sélection");
-        editerTransport.setPreferredSize(new java.awt.Dimension(100, 35));
-        editerTransport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerTransportActionPerformed(evt);
-            }
-        });
-        boutonsTransport.add(editerTransport);
-
         checkBoxDijkstra.setSelected(true);
         checkBoxDijkstra.setText("Optimiser");
         checkBoxDijkstra.setPreferredSize(new java.awt.Dimension(100, 35));
@@ -628,10 +651,58 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsTransport.add(checkBoxDijkstra);
-        boutonsTransport.add(jSeparator6);
-        boutonsTransport.add(jSeparator7);
-        boutonsTransport.add(jSeparator9);
-        boutonsTransport.add(jSeparator10);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsTransport.add(jPanel21);
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsTransport.add(jPanel22);
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsTransport.add(jPanel23);
+
+        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
+        jPanel30.setLayout(jPanel30Layout);
+        jPanel30Layout.setHorizontalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel30Layout.setVerticalGroup(
+            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsTransport.add(jPanel30);
 
         panneauCommandes.add(boutonsTransport, "card3");
 
@@ -642,7 +713,6 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionBesoins.setText("Sélectionner");
-        selectionBesoins.setEnabled(false);
         selectionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
         selectionBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,7 +721,16 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsBesoins.add(selectionBesoins);
 
-        ajoutBesoin.setText("Besoin");
+        suppressionBesoins.setText("Supprimer");
+        suppressionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
+        suppressionBesoins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suppressionBesoinsActionPerformed(evt);
+            }
+        });
+        boutonsBesoins.add(suppressionBesoins);
+
+        ajoutBesoin.setText("Itinéraire");
         ajoutBesoin.setToolTipText("");
         ajoutBesoin.setPreferredSize(new java.awt.Dimension(100, 35));
         ajoutBesoin.addActionListener(new java.awt.event.ActionListener() {
@@ -661,28 +740,83 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsBesoins.add(ajoutBesoin);
 
-        suppressionBesoins.setText("Supprimer");
-        suppressionBesoins.setEnabled(false);
-        suppressionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
-        suppressionBesoins.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suppressionBesoinsActionPerformed(evt);
-            }
-        });
-        boutonsBesoins.add(suppressionBesoins);
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
 
-        editerBesoins.setText("Éditer sélection");
-        editerBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
-        editerBesoins.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editerBesoinsActionPerformed(evt);
-            }
-        });
-        boutonsBesoins.add(editerBesoins);
-        boutonsBesoins.add(jSeparator11);
-        boutonsBesoins.add(jSeparator12);
-        boutonsBesoins.add(jSeparator13);
-        boutonsBesoins.add(jSeparator14);
+        boutonsBesoins.add(jPanel17);
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsBesoins.add(jPanel18);
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsBesoins.add(jPanel19);
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsBesoins.add(jPanel20);
+
+        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
+        jPanel24.setLayout(jPanel24Layout);
+        jPanel24Layout.setHorizontalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel24Layout.setVerticalGroup(
+            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsBesoins.add(jPanel24);
+
+        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
+        jPanel29.setLayout(jPanel29Layout);
+        jPanel29Layout.setHorizontalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        jPanel29Layout.setVerticalGroup(
+            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsBesoins.add(jPanel29);
 
         panneauCommandes.add(boutonsBesoins, "card3");
 
@@ -737,10 +871,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Facteur multiplicatif : ");
+        jLabel2.setText("Vitesse : ");
         boutonsSimulation.add(jLabel2);
         boutonsSimulation.add(facteurMultiplicatif);
-        boutonsSimulation.add(jSeparator8);
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 126, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSimulation.add(jPanel16);
 
         panneauCommandes.add(boutonsSimulation, "card4");
 
@@ -1258,9 +1404,9 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commandeCourante) {
 
                         case SELECTIONNER:
-                            m_controleur.deselectionnerBesoins();
+                            m_controleur.deselectionnerRoutier();
                             ElementBesoins eb = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                         
+
                             break;
 
                         case BESOIN:
@@ -1271,11 +1417,7 @@ public class MainWindow extends javax.swing.JFrame {
                             catch(IllegalArgumentException e) {
                                 JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
                             }
-                            if (besoinConstruit)
-                            {
-                                //miseAjourSelectionCircuitsAjout(); 
-                                //panelItineraire.afficheInfo((Itineraire)m_controleur.getBesoins().getPileSelection().getDessus());
-                            }
+
                             miseAjourSelectionBeoinssAjout();
                             miseAjourSelectionArretsAjout();
                             break;
@@ -1312,7 +1454,7 @@ public class MainWindow extends javax.swing.JFrame {
                 
                 case BESOINS:
                     m_controleur.deselectionnerTout();
-                    ElementBesoins elemBesoins = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, false);
+                    ElementBesoins elemBesoins = m_controleur.selectionnerElementBesoins(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                     if (elemBesoins != null) {
                         jPopupMenu1.show(this.afficheurReseau, evt.getX(), evt.getY());
                     }
@@ -1648,7 +1790,7 @@ public class MainWindow extends javax.swing.JFrame {
         boolean suppressionOK = false;
         suppressionOK = m_controleur.supprimerSelectionRoutier();
         if (!suppressionOK){
-            JOptionPane.showMessageDialog(null, "Un élément ne peut pas être supprimé car un élément du réseau de transports en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "L'élément ne peut pas être supprimé car un élément d'un réseau supérieur en dépend.", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
         }
 
         miseAjourComboBoxTotal();
@@ -1750,6 +1892,7 @@ public class MainWindow extends javax.swing.JFrame {
                 break;
 
             case BESOINS:
+                suppressionBesoins.doClick();
                 break;
 
             case SIMULATION:
@@ -1871,11 +2014,16 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutCircuitActionPerformed
 
     private void suppressionTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionTransportActionPerformed
-        boolean elementTransportSupprime = false;
+        boolean elementTransportSupprime = true;
 
-        elementTransportSupprime = m_controleur.supprimerSelectionTransport();
-        if (!elementTransportSupprime) {
-            JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.ERROR_MESSAGE);
+        try{
+            elementTransportSupprime = m_controleur.supprimerSelectionTransport();
+        }
+        catch(IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), e.getCause().getMessage(), JOptionPane.WARNING_MESSAGE);
+        }
+        if(!elementTransportSupprime){
+            JOptionPane.showMessageDialog(null, "Un arrêt ne peut pas être supprimé car un circuit en dépend", "Suppression impossible", JOptionPane.WARNING_MESSAGE);
         }
         
         miseAjourComboBoxTotal();
@@ -1968,51 +2116,6 @@ public class MainWindow extends javax.swing.JFrame {
          this.afficheurReseau.repaint();
          */
     }                                               
-
-    // private void comboBoxSourcesActionPerformed(java.awt.event.ActionEvent evt) {                                                
-    //     this.setCommande(Commande.SELECTIONNER);
-    //     int index = comboBoxSources.getSelectedIndex();
-    //     String name = comboBoxSources.getItemAt(index);
-    //     m_controleur.deselectionnerTout();
-    //     for (ListIterator<Circuit> circuits = m_controleur.getTransport().getListeCircuits().listIterator(); circuits.hasNext();) {
-    //         Circuit circuit = circuits.next();
-    //         for (ListIterator<SourceAutobus> sources = circuit.getListeSources().listIterator(); sources.hasNext();) {
-    //             SourceAutobus source = sources.next();
-    //             if (source.getNom().equals(name)) {
-    //                 source.changerStatutSelection();
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     this.afficheurReseau.repaint();
-    // }                                               
-
-    // private void comboBoxArretsActionPerformed(java.awt.event.ActionEvent evt) {                                               
-    //     this.setCommande(Commande.SELECTIONNER);
-    //     int index = comboBoxArrets.getSelectedIndex();
-    //     String name = comboBoxArrets.getItemAt(index);
-    //     m_controleur.deselectionnerTout();
-    //     for (ListIterator<Arret> arrets = m_controleur.getTransport().getListeArrets().listIterator(); arrets.hasNext();) {
-    //         Arret arret = arrets.next();
-    //         if (arret.getNom().equals(name)) {
-    //             arret.changerStatutSelection();
-    //             break;
-    //         }
-    //     }
-    //     this.afficheurReseau.repaint();
-    // }                                              
-
-    private void editerRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerRoutierActionPerformed
-        
-        editerRoutier.setSelected(false);  // fix temporaire
-        editerElement();
-    }//GEN-LAST:event_editerRoutierActionPerformed
-
-    private void editerTransportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerTransportActionPerformed
-        
-        editerTransport.setSelected(false);  // fix temporaire
-        editerElement();
-    }//GEN-LAST:event_editerTransportActionPerformed
 
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
         Icon warnIcon = new ImageIcon("src/Icons/play.png");
@@ -2149,7 +2252,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxPietonsActionPerformed
 
     private void selectionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionBesoinsActionPerformed
-        // TODO add your handling code here:
+        this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionBesoinsActionPerformed
 
     private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
@@ -2160,12 +2263,14 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ajoutBesoinActionPerformed
 
     private void suppressionBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionBesoinsActionPerformed
-        // TODO add your handling code here:
+        boolean suppressionOK = false;
+        suppressionOK = m_controleur.supprimerSelectionBesoins();
+        
+        miseAjourComboBoxTotal();
+        miseAJourPermissionsBoutons();
+        miseAJourPanels();
+        this.afficheurReseau.repaint();
     }//GEN-LAST:event_suppressionBesoinsActionPerformed
-
-    private void editerBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editerBesoinsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editerBesoinsActionPerformed
 
     private void comboBoxBesoinsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxBesoinsActionPerformed
         this.setCommande(Commande.SELECTIONNER);
@@ -2519,10 +2624,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton constructionTroncon;
     private javax.swing.JLabel coordonnees;
     private javax.swing.JScrollPane defilementAfficheur;
-    private javax.swing.JToggleButton editerBesoins;
     private javax.swing.JMenuItem editerClicDroit;
-    private javax.swing.JToggleButton editerRoutier;
-    private javax.swing.JToggleButton editerTransport;
     private javax.swing.JLabel facteurMultiplicatif;
     private javax.swing.JMenu fichier;
     private javax.swing.ButtonGroup groupeModes;
@@ -2548,8 +2650,24 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2558,20 +2676,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
-    private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
-    private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton loadButton;

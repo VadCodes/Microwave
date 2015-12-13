@@ -14,13 +14,14 @@ import Domaine.ReseauTransport.Trajet;
 import java.util.LinkedList;
 import Domaine.Utilitaire.Temps;
 import Domaine.Statistiques.StatistiqueBesoin;
+import Domaine.Utilitaire.AlternateurCouleurs;
 import java.awt.Color;
 
 public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
     private SourceIndividus m_source;
     
-    private Color m_couleur = new Color(0,200,0);
+    private Color m_couleur = null;
     
     private LinkedList<Individu> m_listIndividu = new LinkedList<>();
     private StatistiqueBesoin m_stat;
@@ -86,6 +87,9 @@ public class Itineraire extends ElementBesoins {
         m_stat.setNameItineraire(p_nom);
     }
     public Color getCouleur(){
+        if(m_couleur==null){
+            setCouleur(AlternateurCouleurs.getCouleurItineraire());
+        }
         return m_couleur;
     }
     
