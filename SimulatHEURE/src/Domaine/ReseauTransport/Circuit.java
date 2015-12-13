@@ -29,7 +29,7 @@ public class Circuit extends ElementTransport{
     private GlyphVector m_representationNom;
     private Boolean m_peutBoucler = false;
     private Boolean m_veutBoucler = false;
-    private Color m_couleur = AlternateurCouleurs.getCouleur();
+    private Color m_couleur = null;
     
     private LinkedList<SourceAutobus> m_listeSources = new LinkedList<>();
     
@@ -172,6 +172,9 @@ public class Circuit extends ElementTransport{
     }
     
     public Color getCouleur(){
+        if(m_couleur==null){
+            setCouleur(AlternateurCouleurs.getCouleurCircuit());
+        }
         return m_couleur;
     }
     

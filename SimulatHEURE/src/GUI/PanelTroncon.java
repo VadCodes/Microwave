@@ -35,7 +35,7 @@ public class PanelTroncon extends PanelEdition {
         
         jLabel7.setText(m_troncon.getOrigine().getName());
         jLabel9.setText(m_troncon.getDestination().getName());
-        jLabel11.setText(String.valueOf(m_troncon.getLongueurTroncon()));
+        jLabel11.setText(String.format("%.1f", m_troncon.getLongueurTroncon()));
     }
     
     public void setInfo(){
