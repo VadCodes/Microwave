@@ -9,6 +9,6 @@ package Domaine.BesoinsTransport;
  *
  * @author nathaniel
  */
-public class ElementBesoins {
+public class ElementBesoins implements java.io.Serializable {
     
 }

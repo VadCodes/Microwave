@@ -277,7 +277,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
-        comboBoxPietons = new javax.swing.JComboBox();
+        comboBoxPietons = new javax.swing.JComboBox<String>();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboBoxTroncons = new javax.swing.JComboBox<String>();
@@ -2617,7 +2617,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxBesoins;
     private javax.swing.JComboBox<String> comboBoxCircuits;
     private javax.swing.JComboBox<String> comboBoxIntersections;
-    private javax.swing.JComboBox comboBoxPietons;
+    private javax.swing.JComboBox<String> comboBoxPietons;
     private javax.swing.JComboBox<String> comboBoxSources;
     private javax.swing.JComboBox<String> comboBoxStat;
     private javax.swing.JComboBox<String> comboBoxTroncons;

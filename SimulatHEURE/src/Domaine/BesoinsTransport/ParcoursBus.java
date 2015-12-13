@@ -15,7 +15,7 @@ import java.util.ListIterator;
  *
  * @author vadimcote
  */
-public class ParcoursBus {
+public class ParcoursBus implements java.io.Serializable {
     private PaireArretTrajet m_paireArretTrajetDepart;
     private PaireArretTrajet m_paireArretTrajetFinal;
     private Circuit m_circuit;
