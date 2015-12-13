@@ -1275,4 +1275,20 @@ public class Simulatheure implements java.io.Serializable {
             m_reseauBesoins.setElementCurseur(null);
         }
     }
+    
+    private void miseAJourPaireArretTrajetItineraire(Circuit circ, 
+                        PaireArretTrajet patAvant, PaireArretTrajet patApres){
+        for(Itineraire itn : m_reseauBesoins.getListItineraire()){
+            for(PaireParcours pp : itn.getListPaireParcours()){
+                if(pp.getParcoursBus()!=null){
+                    if(pp.getParcoursBus().getPaireArretDepart()==patAvant){
+                        pp.getParcoursBus().setPaireArretDepart(patApres);
+                    }
+                    if(pp.getParcoursBus().getPaireArretFinal()==patAvant){
+                        pp.getParcoursBus().setPaireArretDepart(patApres);
+                    }
+                }
+            }
+        }
+    }
 }

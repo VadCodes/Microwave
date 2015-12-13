@@ -713,6 +713,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionBesoins.setText("Sélectionner");
+        selectionBesoins.setEnabled(false);
         selectionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
         selectionBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1767,6 +1768,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void selectionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionRoutierActionPerformed
+        m_controleur.deselectionnerRoutier();
         this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionRoutierActionPerformed
 
@@ -2256,8 +2258,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_selectionBesoinsActionPerformed
 
     private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
-        //
-        //
         this.setCommande(Commande.BESOIN);
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_ajoutBesoinActionPerformed
@@ -2589,6 +2589,16 @@ public class MainWindow extends javax.swing.JFrame {
             simulation.setEnabled(false);
             if (m_modeCourant == Mode.SIMULATION)
                 transport.doClick();
+        }
+        
+        if (m_controleur.getBesoins().getListItineraire().size() > 0) {
+            selectionBesoins.setEnabled(true);
+            suppressionBesoins.setEnabled(true);
+        } else {
+            selectionBesoins.setEnabled(false);
+            suppressionBesoins.setEnabled(false);
+            if (m_modeCourant == Mode.BESOINS)
+                ajoutBesoin.doClick();
         }
     }
 
