@@ -723,6 +723,7 @@
                             <Component class="javax.swing.JToggleButton" name="selectionBesoins">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="S&#xe9;lectionner"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                                   <Dimension value="[100, 35]"/>
                                 </Property>
@@ -1296,6 +1297,9 @@
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxPietonsActionPerformed"/>
                               </Events>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
                             </Component>
                           </SubComponents>
                         </Container>

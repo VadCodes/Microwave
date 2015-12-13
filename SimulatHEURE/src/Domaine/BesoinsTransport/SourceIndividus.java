@@ -13,7 +13,7 @@ import Domaine.Utilitaire.Temps;
  *
  * @author vadimcote
  */
-public class SourceIndividus {
+public class SourceIndividus implements java.io.Serializable {
     private Emplacement m_emplacement;
     private Itineraire m_itineraire;
     private StatistiqueBesoin m_stat;

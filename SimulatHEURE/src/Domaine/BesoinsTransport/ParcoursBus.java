@@ -15,7 +15,7 @@ import java.util.ListIterator;
  *
  * @author vadimcote
  */
-public class ParcoursBus {
+public class ParcoursBus implements java.io.Serializable {
     private PaireArretTrajet m_paireArretTrajetDepart;
     private PaireArretTrajet m_paireArretTrajetFinal;
     private Circuit m_circuit;
@@ -46,8 +46,8 @@ public class ParcoursBus {
     public void setPaireArretFinal(PaireArretTrajet p_pairearretfinal){
         m_paireArretTrajetFinal = p_pairearretfinal;
     }
-    public void setPaireArretDepart(PaireArretTrajet p_pairearretfinal){
-        m_paireArretTrajetDepart = p_pairearretfinal;
+    public void setPaireArretDepart(PaireArretTrajet p_pairearretdepart){
+        m_paireArretTrajetDepart = p_pairearretdepart;
     }
 
     public LinkedList<Troncon> getTroncons(){

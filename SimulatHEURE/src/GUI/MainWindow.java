@@ -277,7 +277,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
-        comboBoxPietons = new javax.swing.JComboBox();
+        comboBoxPietons = new javax.swing.JComboBox<String>();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboBoxTroncons = new javax.swing.JComboBox<String>();
@@ -713,6 +713,7 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsBesoins.setLayout(new java.awt.GridLayout(1, 0));
 
         selectionBesoins.setText("Sélectionner");
+        selectionBesoins.setEnabled(false);
         selectionBesoins.setPreferredSize(new java.awt.Dimension(100, 35));
         selectionBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1767,6 +1768,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMouseExited
 
     private void selectionRoutierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectionRoutierActionPerformed
+        m_controleur.deselectionnerRoutier();
         this.setCommande(Commande.SELECTIONNER);
     }//GEN-LAST:event_selectionRoutierActionPerformed
 
@@ -2256,8 +2258,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_selectionBesoinsActionPerformed
 
     private void ajoutBesoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutBesoinActionPerformed
-        //
-        //
         this.setCommande(Commande.BESOIN);
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_ajoutBesoinActionPerformed
@@ -2590,6 +2590,16 @@ public class MainWindow extends javax.swing.JFrame {
             if (m_modeCourant == Mode.SIMULATION)
                 transport.doClick();
         }
+        
+        if (m_controleur.getBesoins().getListItineraire().size() > 0) {
+            selectionBesoins.setEnabled(true);
+            suppressionBesoins.setEnabled(true);
+        } else {
+            selectionBesoins.setEnabled(false);
+            suppressionBesoins.setEnabled(false);
+            if (m_modeCourant == Mode.BESOINS)
+                ajoutBesoin.doClick();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2617,7 +2627,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboBoxBesoins;
     private javax.swing.JComboBox<String> comboBoxCircuits;
     private javax.swing.JComboBox<String> comboBoxIntersections;
-    private javax.swing.JComboBox comboBoxPietons;
+    private javax.swing.JComboBox<String> comboBoxPietons;
     private javax.swing.JComboBox<String> comboBoxSources;
     private javax.swing.JComboBox<String> comboBoxStat;
     private javax.swing.JComboBox<String> comboBoxTroncons;

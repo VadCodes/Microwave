@@ -12,7 +12,7 @@ import Domaine.Utilitaire.Temps;
  *
  * @author ns222
  */
-public class StatistiqueBesoin {
+public class StatistiqueBesoin implements java.io.Serializable {
     private double m_precisionGlobalTotal = 0;
     private double m_sommeDesTemps = 0;
     private double m_maxTempsDeplacement =0;
