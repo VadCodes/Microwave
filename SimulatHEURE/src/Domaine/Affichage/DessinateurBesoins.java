@@ -283,7 +283,7 @@ public class DessinateurBesoins {
         Emplacement emplSourceArtificielle = m_reseau.getEmplacementSourceTemp();
         if(emplSourceArtificielle!=null){
             Point2D.Float posSourceArtificielle = emplSourceArtificielle.calculPosition(p_echelle);
-            Path2D.Float losange = dessinerLosange(p_g, posSourceArtificielle, p_echelle, new Color(55, 55, 55), SourceIndividus.LARGEUR);
+            Path2D.Float losange = dessinerLosange(p_g, posSourceArtificielle, p_echelle, new Color(75, 75, 75), SourceIndividus.LARGEUR);
             p_g.setStroke(new BasicStroke(1/p_echelle));
             p_g.draw(losange);
         }

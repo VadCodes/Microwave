@@ -37,7 +37,7 @@ public class AlternateurCouleurs { //SINGLETON ALRIGHT
    }
    
    private static void incrementerCompteur(){
-       m_couleurIndex=m_couleurIndex+1+(int)(Math.random() * (4));
+       m_couleurIndex=m_couleurIndex+1+(int)(Math.random() * (2));
        if(m_couleurIndex>=m_couleurs.length){
            m_couleurIndex = m_couleurIndex%m_couleurs.length;
        }
