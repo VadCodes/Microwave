@@ -1489,7 +1489,7 @@ public class MainWindow extends javax.swing.JFrame {
             conteur++;
                 if (conteur == p_stat) {
                     ListIterator<StatistiqueBesoin> statis = stat.getListeStatistiqueBesoin().listIterator();
-                    String header[] = new String[]{"Itineraire", "Temps minimum", "Temps moyen", "Temps maximum", "Erreur relative"}; 
+                    String header[] = new String[]{"Itineraire", "Temps minimum", "Temps moyen", "Temps maximum", "Temps d'attente aux arrêts"}; 
                     DefaultTableModel model = new DefaultTableModel(header,stat.getListeStatistiqueBesoin().size());
                     while(statis.hasNext()){
                         StatistiqueBesoin besoin = statis.next();  
@@ -1497,14 +1497,15 @@ public class MainWindow extends javax.swing.JFrame {
                         String moyenne = Double.toString(besoin.getMoyenne());
                         String min = Double.toString(besoin.getminTempsDeplacement());
                         String max = Double.toString(besoin.getmaxTempsDeplacement());
-                        String incertitude = Double.toString(besoin.getprecisionGlobal());
+                        double shit = besoin.getMoyenneAttente();
+                        String incertitude = Double.toString(besoin.getMoyenneAttente());
                         
                         
                         jTable1.setValueAt(besoin.getNameItineraire(), x, 0);
                         jTable1.setValueAt(min.concat("  min(s)"), x, 1);
                         jTable1.setValueAt(moyenne.concat("  min(s)"), x, 2);
                         jTable1.setValueAt(max.concat("  min(s)"), x, 3);
-                        jTable1.setValueAt(incertitude.concat("  %"), x, 4);
+                        jTable1.setValueAt(incertitude.concat("  min(s)"), x, 4);
                          x++;
                     }
                 }
