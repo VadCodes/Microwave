@@ -998,8 +998,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionTransport.add(comboBoxSources);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel3.setText("Sélection Circuit:");
+        jLabel3.setText("Circuits :");
+        jLabel3.setToolTipText("");
         boutonsSelectionTransport.add(jLabel3);
 
         comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
