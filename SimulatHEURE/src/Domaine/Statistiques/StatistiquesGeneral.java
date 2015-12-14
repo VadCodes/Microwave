@@ -6,6 +6,7 @@
 package Domaine.Statistiques;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  *
@@ -19,6 +20,14 @@ public class StatistiquesGeneral implements java.io.Serializable {
     public StatistiquesGeneral(StatistiquesGeneral p_stat){
         for (StatistiqueBesoin stat : p_stat.m_statistiques)
            m_statistiques.add(new StatistiqueBesoin(stat));
+    }
+    public void miseAjourApresFin(){
+        for (ListIterator<StatistiqueBesoin> stats = m_statistiques.listIterator(); stats.hasNext();) {
+            StatistiqueBesoin stat = stats.next();
+            if(stat.getmaxTempsDeplacement() == 0){
+                stats.remove();
+            }
+        }
     }
     public LinkedList<StatistiqueBesoin> getListeStatistiqueBesoin(){
         return m_statistiques;

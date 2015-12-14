@@ -1471,6 +1471,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_afficheurReseauMousePressed
     private void miseAjourStatistiqueApresArret(){
           StatistiquesGeneral st = new StatistiquesGeneral(m_controleur.getStatistique());
+          st.miseAjourApresFin();
           m_statistiques.add(st);
     }
     private void miseAjoutComboBoxStat(){
