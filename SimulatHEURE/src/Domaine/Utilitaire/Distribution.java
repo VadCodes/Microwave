@@ -23,11 +23,11 @@ public class Distribution implements java.io.Serializable {
     public Distribution(Type p_type)
     {
         if (p_type == Type.TRONCON)
-            setDistribution(new Temps(5 * 60), new Temps(5 * 60), new Temps(5 * 60));
+            setDistribution(new Temps(3 * 60), new Temps(5 * 60), new Temps(10 * 60));
         else if (p_type == Type.AUTOBUS)
             setDistribution(new Temps(15 * 60), new Temps(15 * 60), new Temps(15 * 60));
         else
-            setDistribution(new Temps(3 * 60), new Temps(3 * 60), new Temps(3 * 60));
+            setDistribution(new Temps(0 * 60), new Temps(1* 60), new Temps(5 * 60));
     }
     
     public final void setDistribution(Temps p_tempsMinimum, Temps p_tempsPlusFrequent, Temps p_tempsMaximum)

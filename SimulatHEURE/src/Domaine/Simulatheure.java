@@ -16,6 +16,16 @@ import java.util.ListIterator;
  */
 public class Simulatheure implements java.io.Serializable {
 
+    public void miseAjoutStatistiqueApresArret() {
+        StatistiquesGeneral st = new StatistiquesGeneral(getStatistique());
+        st.miseAjourApresFin();
+        m_statistiques.add(st);
+    }
+
+    public LinkedList<StatistiquesGeneral> getListStatistique() {
+        return m_statistiques;
+    }
+
     
     public enum Mode {
 
@@ -31,6 +41,8 @@ public class Simulatheure implements java.io.Serializable {
     private ReseauRoutier m_reseauRoutier;
     private LinkedList<Intersection> m_parametresTroncon = new LinkedList<>();
 
+    private LinkedList<StatistiquesGeneral> m_statistiques = new LinkedList<>();
+    
     private ReseauTransport m_reseauTransport;
     private LinkedList<Arret> m_arretsNouveauTrajet = new LinkedList<>();
     private LinkedList<Troncon> m_tronconsNouveauTrajet = new LinkedList<>();
