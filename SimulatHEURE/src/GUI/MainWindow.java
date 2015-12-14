@@ -265,24 +265,24 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         boutonsSelectionTransport = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        comboBoxArrets = new javax.swing.JComboBox<>();
+        comboBoxArrets = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        comboBoxSources = new javax.swing.JComboBox<>();
+        comboBoxSources = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        comboBoxCircuits = new javax.swing.JComboBox<>();
+        comboBoxCircuits = new javax.swing.JComboBox<String>();
         boutonsSelectionBesoins = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        comboBoxBesoins = new javax.swing.JComboBox<>();
+        comboBoxBesoins = new javax.swing.JComboBox<String>();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        comboBoxAutobus = new javax.swing.JComboBox<>();
+        comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
-        comboBoxPietons = new javax.swing.JComboBox<>();
+        comboBoxPietons = new javax.swing.JComboBox<String>();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        comboBoxTroncons = new javax.swing.JComboBox<>();
+        comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        comboBoxIntersections = new javax.swing.JComboBox<>();
+        comboBoxIntersections = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -295,12 +295,16 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        comboBoxStat = new javax.swing.JComboBox<>();
+        comboBoxStat = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
+        annuler = new javax.swing.JMenuItem();
+        retablir = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         sauvegarder = new javax.swing.JMenuItem();
         charger = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         quitter = new javax.swing.JMenuItem();
 
@@ -381,7 +385,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPanel13.add(redoButton);
+
+        zoomInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomInButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(zoomInButton);
+
+        zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOutButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(zoomOutButton);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -963,7 +979,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel8.setText("Arrêts :");
         boutonsSelectionTransport.add(jLabel8);
 
-        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxArrets.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxArrets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxArretsActionPerformed(evt);
@@ -974,7 +990,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel9.setText("Sources :");
         boutonsSelectionTransport.add(jLabel9);
 
-        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxSources.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxSources.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourcesActionPerformed(evt);
@@ -986,7 +1002,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3.setText("Sélection Circuit:");
         boutonsSelectionTransport.add(jLabel3);
 
-        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxCircuits.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxCircuits.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxCircuitsActionPerformed(evt);
@@ -1004,7 +1020,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel7.setToolTipText("");
         boutonsSelectionBesoins.add(jLabel7);
 
-        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxBesoins.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxBesoins.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxBesoinsActionPerformed(evt);
@@ -1021,7 +1037,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel10.setText("Autobus :");
         boutonsSelectionSimulation.add(jLabel10);
 
-        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxAutobus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxAutobus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxAutobusActionPerformed(evt);
@@ -1032,7 +1048,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel11.setText("Piétons :");
         boutonsSelectionSimulation.add(jLabel11);
 
-        comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxPietons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxPietons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxPietonsActionPerformed(evt);
@@ -1049,7 +1065,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setText("Tronçons :");
         boutonsSelectionRoutier.add(jLabel4);
 
-        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxTroncons.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxTroncons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTronconsActionPerformed(evt);
@@ -1060,7 +1076,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5.setText("Intersections :");
         boutonsSelectionRoutier.add(jLabel5);
 
-        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aucun" }));
+        comboBoxIntersections.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Aucun" }));
         comboBoxIntersections.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntersectionsActionPerformed(evt);
@@ -1229,6 +1245,26 @@ public class MainWindow extends javax.swing.JFrame {
 
         fichier.setText("Fichier");
 
+        annuler.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        annuler.setText("Annuler");
+        annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annulerActionPerformed(evt);
+            }
+        });
+        fichier.add(annuler);
+
+        retablir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        retablir.setText("Rétablir");
+        retablir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retablirActionPerformed(evt);
+            }
+        });
+        fichier.add(retablir);
+        fichier.add(jSeparator1);
+
+        sauvegarder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         sauvegarder.setText("Sauvegarder");
         sauvegarder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1237,6 +1273,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         fichier.add(sauvegarder);
 
+        charger.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         charger.setText("Charger");
         charger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1244,8 +1281,9 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         fichier.add(charger);
+        fichier.add(jSeparator2);
 
-        jMenuItem1.setText("Credits");
+        jMenuItem1.setText("Crédits");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -1253,6 +1291,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         fichier.add(jMenuItem1);
 
+        quitter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         quitter.setText("Quitter");
         quitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1716,23 +1755,26 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
+        zoom(evt.getWheelRotation(),evt.getX(),evt.getY());
+    }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
+    private void zoom(int intensite, int evtx, int evty){
         float echelleInitiale = afficheurReseau.getEchelle();
-        afficheurReseau.setEchelle(evt.getWheelRotation());
+        afficheurReseau.setEchelle(intensite);
         float rapportEchelles = afficheurReseau.getEchelle() / echelleInitiale;
 
         int x = defilementAfficheur.getViewport().getViewPosition().x;
-        x = (int) (evt.getX() * (rapportEchelles - 1)) + x;
+        x = (int) (evtx * (rapportEchelles - 1)) + x;
 
         int y = defilementAfficheur.getViewport().getViewPosition().y;
-        y = (int) (evt.getY() * (rapportEchelles - 1)) + y;
+        y = (int) (evty * (rapportEchelles - 1)) + y;
 
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
         zoom.setText(Integer.toString((int) (afficheurReseau.getEchelle() * 100)) + " %");
         
         this.afficheurReseau.repaint();
-    }//GEN-LAST:event_afficheurReseauMouseWheelMoved
-
+    }
+    
     private void afficheurReseauMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseMoved
 
         float x = evt.getX() / afficheurReseau.getEchelle();
@@ -2460,6 +2502,22 @@ public class MainWindow extends javax.swing.JFrame {
         
         this.afficheurReseau.repaint(); 
     }//GEN-LAST:event_undoButtonActionPerformed
+
+    private void annulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_annulerActionPerformed
+        undoButton.doClick();
+    }//GEN-LAST:event_annulerActionPerformed
+
+    private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
+        redoButton.doClick();
+    }//GEN-LAST:event_retablirActionPerformed
+
+    private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
+        zoom(-5,100,100);
+    }//GEN-LAST:event_zoomInButtonActionPerformed
+
+    private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
+        zoom(5,100,100);
+    }//GEN-LAST:event_zoomOutButtonActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2611,6 +2669,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JToggleButton ajoutBesoin;
     private javax.swing.JToggleButton ajoutCircuit;
     private javax.swing.JToggleButton ajoutIntersection;
+    private javax.swing.JMenuItem annuler;
     private javax.swing.JButton arreterSimulation;
     private javax.swing.JButton avancerSimulation;
     private javax.swing.JToggleButton besoins;
@@ -2689,6 +2748,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton loadButton;
@@ -2707,6 +2768,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton ralentirSimulation;
     private javax.swing.JButton recommancerSimulation;
     private javax.swing.JButton redoButton;
+    private javax.swing.JMenuItem retablir;
     private javax.swing.JToggleButton routier;
     private javax.swing.JMenuItem sauvegarder;
     private javax.swing.JButton saveButton;

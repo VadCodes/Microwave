@@ -17,15 +17,16 @@ public class Credits extends javax.swing.JFrame {
      */
     public Credits() {
         initComponents();
-        String texte = "Membres de l'équipe : \n";
+        String texte = "Membres de l'équipe Microwave inc. : \n";
         texte = texte.concat("\t Nathaniel Simard\n");
         texte =texte.concat("\t Louis Fortier-Dubois\n");
         texte =texte.concat("\t Vincent Martel\n");
-        texte =texte.concat("\t Vadim côté\n\n");
-        texte =texte.concat("Les icons ont été prélevés sur Freepik\n");
+        texte =texte.concat("\t Vadim Côté\n\n");
+        texte =texte.concat("Les icônes ont été prélevées sur Freepik\n");
         texte =texte.concat("\n");
-        texte =texte.concat("Le présent logiciel a été créer pour le \n");
-        texte =texte.concat("cours : Génie logiciel orienté-ojet GLO-2004.\n");
+        texte =texte.concat("Le présent logiciel a été créé pour le \n");
+        texte =texte.concat("cours Génie logiciel orienté-objet (GLO-2004).\n\n");
+        texte =texte.concat("Septembre-Décembre 2015");
         creditsTexte.setText(texte);
     }
 
@@ -57,7 +58,7 @@ public class Credits extends javax.swing.JFrame {
         creditsTexte.setRows(5);
         jScrollPane1.setViewportView(creditsTexte);
 
-        jLabel2.setText("Credits");
+        jLabel2.setText("Crédits");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -89,7 +90,7 @@ public class Credits extends javax.swing.JFrame {
 
         jPanel3.setPreferredSize(new java.awt.Dimension(412, 35));
 
-        jButton1.setText("Ok");
+        jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -108,7 +109,7 @@ public class Credits extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1)
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
