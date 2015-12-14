@@ -109,6 +109,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_controleur.getHistorique().viderApresReseauCourant();
         int indexCurseur = this.m_controleur.getHistorique().getCurseur().nextIndex();
         this.m_controleur.getHistorique().clearCurseur();
+        this.m_controleur.setGabarit(null);
         try
         {
             FileOutputStream fileOut = new FileOutputStream (m_fileChoosed.getAbsolutePath());
@@ -124,7 +125,7 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
         this.m_controleur.getHistorique().setCurseur(indexCurseur);    
-        }                                           
+    }                                           
 
     class MyTimerActionListener implements ActionListener {
 
@@ -307,6 +308,9 @@ public class MainWindow extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         quitter = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        chargerGabarit = new javax.swing.JMenuItem();
+        toggleGabarit = new javax.swing.JCheckBoxMenuItem();
 
         groupeModes.add(routier);
         groupeModes.add(transport);
@@ -1301,6 +1305,27 @@ public class MainWindow extends javax.swing.JFrame {
         fichier.add(quitter);
 
         menu.add(fichier);
+
+        jMenu1.setText("Gabarit");
+
+        chargerGabarit.setText("Charger un gabarit");
+        chargerGabarit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargerGabaritActionPerformed(evt);
+            }
+        });
+        jMenu1.add(chargerGabarit);
+
+        toggleGabarit.setSelected(true);
+        toggleGabarit.setText("Afficher le gabarit");
+        toggleGabarit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleGabaritActionPerformed(evt);
+            }
+        });
+        jMenu1.add(toggleGabarit);
+
+        menu.add(jMenu1);
 
         setJMenuBar(menu);
 
@@ -2409,7 +2434,11 @@ public class MainWindow extends javax.swing.JFrame {
     miseAjourComboBoxTotal();
     miseAJourPermissionsBoutons();
     this.afficheurReseau.repaint();
+    
+    checkBoxDijkstra.setSelected(m_controleur.getStatutDijkstra());
+    toggleGabarit.setSelected(m_controleur.getStatutAfficherGabarit());
     }
+    
     private void chargerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerActionPerformed
        Fider fider = new Fider();
        fider.setMainWindow(m_this);
@@ -2500,7 +2529,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_redoButtonActionPerformed
 
     private void undoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonActionPerformed
-       m_controleur.annuler();
+        m_controleur.annuler();
         miseAJourPanels();
         miseAjourComboBoxTotal();
         miseAJourPermissionsBoutons();
@@ -2523,6 +2552,22 @@ public class MainWindow extends javax.swing.JFrame {
     private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
         zoom(5,100,100);
     }//GEN-LAST:event_zoomOutButtonActionPerformed
+    
+    public void chargerGabarit()
+    {
+        this.m_controleur.setCheminGabarit(m_fileChoosed.getAbsolutePath());
+    }
+    private void chargerGabaritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerGabaritActionPerformed
+        Fider fider = new Fider();
+        fider.setMainWindow(m_this);
+        fider.setOption("gabarit");
+        fider.go();
+    }//GEN-LAST:event_chargerGabaritActionPerformed
+
+    private void toggleGabaritActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleGabaritActionPerformed
+        this.m_controleur.changerStatutAfficherGabarit();
+        this.afficheurReseau.repaint(); 
+    }//GEN-LAST:event_toggleGabaritActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2688,6 +2733,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel boutonsSimulation;
     private javax.swing.JPanel boutonsTransport;
     private javax.swing.JMenuItem charger;
+    private javax.swing.JMenuItem chargerGabarit;
     private javax.swing.JCheckBox checkBoxDijkstra;
     private javax.swing.JComboBox<String> comboBoxArrets;
     private javax.swing.JComboBox<String> comboBoxAutobus;
@@ -2719,6 +2765,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2786,6 +2833,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton suppressionTransport;
     private javax.swing.JMenuItem supprimerClicDroit;
     private javax.swing.JLabel time;
+    private javax.swing.JCheckBoxMenuItem toggleGabarit;
     private javax.swing.JToggleButton transport;
     private javax.swing.JButton undoButton;
     private javax.swing.JLabel zoom;

@@ -43,6 +43,9 @@ public class Fider {
             else if(m_option == "save"){
                 m_mainwindow.save();
             }
+            else if (m_option == "gabarit"){
+                m_mainwindow.chargerGabarit();
+            }
         }
     }
 }

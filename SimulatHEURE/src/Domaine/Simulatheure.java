@@ -10,6 +10,8 @@ import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import java.awt.Image;
+
 /**
  *
  * @author vinny
@@ -25,7 +27,6 @@ public class Simulatheure implements java.io.Serializable {
     public LinkedList<StatistiquesGeneral> getListStatistique() {
         return m_statistiques;
     }
-
     
     public enum Mode {
 
@@ -53,7 +54,11 @@ public class Simulatheure implements java.io.Serializable {
     private Boolean m_chercherArretMemeCircuit = false;
     private Arret m_arret1Besoin = null;
     private Itineraire m_itineraireEnConstruction = null;
-
+    
+    private Image m_gabarit;
+    private String m_cheminGabarit = "";
+    private Boolean m_afficherGabarit = true;
+    
     public Simulatheure() {
         initControleur();
     }
@@ -834,6 +839,10 @@ public class Simulatheure implements java.io.Serializable {
         return null;
     }
     
+    public Boolean getStatutDijkstra() {
+        return m_dijkstra;
+    }
+    
     public void changerStatutDijkstra() {
         m_dijkstra = !m_dijkstra;
     }
@@ -1307,5 +1316,35 @@ public class Simulatheure implements java.io.Serializable {
                 }
             }
         }
+    }
+    
+    public void setGabarit(Image p_gabarit)
+    {
+        m_gabarit = p_gabarit;
+    }
+    
+    public Image getGabarit()
+    {
+        return m_gabarit;
+    }
+    
+    public void setCheminGabarit(String p_cheminGabarit)
+    {
+        m_cheminGabarit = p_cheminGabarit;
+    }
+    
+    public String getCheminGabarit()
+    {
+        return m_cheminGabarit;
+    }
+    
+    public void changerStatutAfficherGabarit()
+    {
+        m_afficherGabarit = !m_afficherGabarit;
+    }
+        
+    public Boolean getStatutAfficherGabarit()
+    {
+        return m_afficherGabarit;
     }
 }
