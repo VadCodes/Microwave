@@ -385,7 +385,19 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPanel13.add(redoButton);
+
+        zoomInButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomInButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(zoomInButton);
+
+        zoomOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zoomOutButtonActionPerformed(evt);
+            }
+        });
         jPanel13.add(zoomOutButton);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -1742,23 +1754,26 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }
     private void afficheurReseauMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_afficheurReseauMouseWheelMoved
+        zoom(evt.getWheelRotation(),evt.getX(),evt.getY());
+    }//GEN-LAST:event_afficheurReseauMouseWheelMoved
 
+    private void zoom(int intensite, int evtx, int evty){
         float echelleInitiale = afficheurReseau.getEchelle();
-        afficheurReseau.setEchelle(evt.getWheelRotation());
+        afficheurReseau.setEchelle(intensite);
         float rapportEchelles = afficheurReseau.getEchelle() / echelleInitiale;
 
         int x = defilementAfficheur.getViewport().getViewPosition().x;
-        x = (int) (evt.getX() * (rapportEchelles - 1)) + x;
+        x = (int) (evtx * (rapportEchelles - 1)) + x;
 
         int y = defilementAfficheur.getViewport().getViewPosition().y;
-        y = (int) (evt.getY() * (rapportEchelles - 1)) + y;
+        y = (int) (evty * (rapportEchelles - 1)) + y;
 
         defilementAfficheur.getViewport().setViewPosition(new java.awt.Point(x, y));
         zoom.setText(Integer.toString((int) (afficheurReseau.getEchelle() * 100)) + " %");
         
         this.afficheurReseau.repaint();
-    }//GEN-LAST:event_afficheurReseauMouseWheelMoved
-
+    }
+    
     private void afficheurReseauMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseMoved
 
         float x = evt.getX() / afficheurReseau.getEchelle();
@@ -2494,6 +2509,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void retablirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retablirActionPerformed
         redoButton.doClick();
     }//GEN-LAST:event_retablirActionPerformed
+
+    private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
+        zoom(-5,100,100);
+    }//GEN-LAST:event_zoomInButtonActionPerformed
+
+    private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
+        zoom(5,100,100);
+    }//GEN-LAST:event_zoomOutButtonActionPerformed
     
     /**
      * @param args the command line arguments
