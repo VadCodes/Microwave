@@ -18,6 +18,7 @@ public class StatistiqueBesoin implements java.io.Serializable {
     private double m_maxTempsDeplacement =0;
     private double m_minTempsDeplacement = Double.MAX_VALUE;
     private int m_nombreEchantion = 0;
+    private double m_tempSommeAuArrets = 0;
     private String m_nomItineraire;
     public StatistiqueBesoin(String p_itineraire){
         m_nomItineraire = p_itineraire;
@@ -29,6 +30,7 @@ public class StatistiqueBesoin implements java.io.Serializable {
         m_minTempsDeplacement = p_stat.m_minTempsDeplacement;
         m_nombreEchantion = p_stat.m_nombreEchantion;
         m_nomItineraire = p_stat.m_nomItineraire;
+        m_tempSommeAuArrets = p_stat.m_tempSommeAuArrets;
     }
     public String getNameItineraire(){
         return m_nomItineraire;
@@ -54,10 +56,15 @@ public class StatistiqueBesoin implements java.io.Serializable {
            
         return (double)Math.round(100*(m_sommeDesTemps/m_nombreEchantion)/60)/100;
     }
+       public double getMoyenneAttente(){
+           
+        return (double)Math.round(100*(m_tempSommeAuArrets/m_nombreEchantion)/60)/100;
+    }
 
             
             
-    public void miseAJourStat(Temps p_temps){
+    public void miseAJourStat(Temps p_temps, double p_tempsAuArrets){
+        m_tempSommeAuArrets += p_tempsAuArrets;
         double moyenneActuel = m_sommeDesTemps/m_nombreEchantion;
         m_nombreEchantion++;
         m_sommeDesTemps += p_temps.getTemps();
@@ -76,6 +83,7 @@ public class StatistiqueBesoin implements java.io.Serializable {
     void setDefault() {
        m_precisionGlobalTotal = 0;
         m_sommeDesTemps = 0;
+        m_tempSommeAuArrets = 0;
         m_maxTempsDeplacement =0;
         m_minTempsDeplacement = Double.MAX_VALUE;
         m_nombreEchantion = 0;
