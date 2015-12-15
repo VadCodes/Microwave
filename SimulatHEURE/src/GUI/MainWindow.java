@@ -1395,7 +1395,8 @@ public class MainWindow extends javax.swing.JFrame {
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
                             float x = evt.getX() / afficheurReseau.getEchelle();
                             float y = evt.getY() / afficheurReseau.getEchelle();
-                            this.actualMousePoint = new Point2D.Float(x,y);
+                            if(elemRoutier!=null && elemRoutier.getClass()==Intersection.class)
+                                this.actualMousePoint = new Point2D.Float(x,y);
                             break;
 
                         case INTERSECTION:
