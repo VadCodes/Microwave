@@ -1534,16 +1534,18 @@ public class MainWindow extends javax.swing.JFrame {
         miseAJourPermissionsBoutons();
         this.afficheurReseau.repaint();
     }//GEN-LAST:event_afficheurReseauMousePressed
-    private void miseAjourStatistiqueApresArret(){
-          m_controleur.miseAjoutStatistiqueApresArret();
+    private void miseAjourStatistiqueApresArret(Boolean ajouter){
+        if(ajouter){  
+            m_controleur.miseAjoutStatistiqueApresArret();
+        }
           /*StatistiquesGeneral st = new StatistiquesGeneral(m_controleur.getStatistique());
           st.miseAjourApresFin();
           m_statistiques.add(st);
           */
           m_statistiques = m_controleur.getListStatistique();
     }
-    private void miseAjoutComboBoxStat(){
-        miseAjourStatistiqueApresArret();
+    private void miseAjoutComboBoxStat(Boolean ajouter){
+        miseAjourStatistiqueApresArret(ajouter);
         comboBoxStat.removeAllItems();
         for (int i = 0 ; i < m_statistiques.size(); i++){
             comboBoxStat.addItem(Integer.toString(i+1));
@@ -2207,7 +2209,7 @@ public class MainWindow extends javax.swing.JFrame {
         m_crono.pause();
         m_simulationEstLancer = false;
         m_controleur.arreterSimulation();
-        miseAjoutComboBoxStat();
+        miseAjoutComboBoxStat(true);
         m_precision = -1;
     }
     
@@ -2436,6 +2438,7 @@ public class MainWindow extends javax.swing.JFrame {
     miseAJourPermissionsBoutons();
     this.afficheurReseau.repaint();
     
+    miseAjoutComboBoxStat(false);
     checkBoxDijkstra.setSelected(m_controleur.getStatutDijkstra());
     toggleGabarit.setSelected(m_controleur.getStatutAfficherGabarit());
     }
