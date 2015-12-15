@@ -60,8 +60,9 @@ public class help extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Help :");
+        jLabel1.setText("Aide :");
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
