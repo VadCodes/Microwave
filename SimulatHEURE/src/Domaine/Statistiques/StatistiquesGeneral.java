@@ -18,8 +18,10 @@ public class StatistiquesGeneral implements java.io.Serializable {
     public StatistiquesGeneral() {}
     
     public StatistiquesGeneral(StatistiquesGeneral p_stat){
-        for (StatistiqueBesoin stat : p_stat.m_statistiques)
-           m_statistiques.add(new StatistiqueBesoin(stat));
+        for (StatistiqueBesoin stat : p_stat.m_statistiques){
+            m_statistiques.add(new StatistiqueBesoin(stat));
+        }
+        m_nbJours = p_stat.m_nbJours;
     }
     public void miseAjourApresFin(){
         for (ListIterator<StatistiqueBesoin> stats = m_statistiques.listIterator(); stats.hasNext();) {
@@ -48,7 +50,7 @@ public class StatistiquesGeneral implements java.io.Serializable {
     }
 
     public void ajoutUnJour(StatistiquesGeneral p_stat) {
-        m_nbJours += p_stat.getNbJours();
+        m_nbJours ++;
         for (ListIterator<StatistiqueBesoin> stat1s = m_statistiques.listIterator(); stat1s.hasNext();) {
             StatistiqueBesoin stat1 = stat1s.next();
             for (ListIterator<StatistiqueBesoin> stat2s = p_stat.getListeStatistiqueBesoin().listIterator(); stat2s.hasNext();) {
