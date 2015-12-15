@@ -122,4 +122,10 @@ public class Troncon extends ElementRoutier{
         
         return (clicX-p1.x-pAj.getFloat1())/(p2.x-p1.x);
     }
+    
+    public void miseAJourLongueur(){
+        m_longueur = m_origine.getPosition().distance(m_destination.getPosition());
+        m_tempsTransitPieton = new Temps((3*Intersection.ECHELLE/5)*6*m_longueur/ReseauRoutier.VITESSE_PIETON);
+    }
+        
 }

@@ -16,6 +16,7 @@ import Domaine.Utilitaire.Temps;
 import Domaine.Statistiques.StatistiqueBesoin;
 import Domaine.Utilitaire.AlternateurCouleurs;
 import java.awt.Color;
+import java.awt.geom.Point2D;
 
 public class Itineraire extends ElementBesoins {
     private LinkedList<PaireParcours> m_listPaireParcours;
@@ -95,6 +96,15 @@ public class Itineraire extends ElementBesoins {
     
     public void setCouleur(Color couleur){
         m_couleur = couleur;
+    }
+    
+    public Point2D.Float getPositionFinale(Float p_echelle){
+        if(this.m_listPaireParcours.getLast().getParcoursBus()!=null){
+            return this.m_listPaireParcours.getLast().getParcoursBus().getArretFinal().getEmplacement().calculPosition(p_echelle);
+        }
+        else{
+            return this.m_listPaireParcours.getLast().getTrajet().getEmplacementFinal().calculPosition(p_echelle);
+        }
     }
 }
   

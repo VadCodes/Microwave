@@ -18,19 +18,7 @@ import java.awt.Image;
  */
 public class Simulatheure implements java.io.Serializable {
 
-    public void miseAjoutStatistiqueApresArret() {
-        StatistiquesGeneral st = new StatistiquesGeneral(getStatistique());
-        st.miseAjourApresFin();
-        m_statistiques.add(st);
-    }
     
-    public void mergeStatistiquePlusieurJours( StatistiquesGeneral p_stat){
-        m_reseauBesoins.setStatistiquePlusUnJour(p_stat);
-    }
-
-    public LinkedList<StatistiquesGeneral> getListStatistique() {
-        return m_statistiques;
-    }
     
     public enum Mode {
 
@@ -63,9 +51,29 @@ public class Simulatheure implements java.io.Serializable {
     private String m_cheminGabarit = "";
     private Boolean m_afficherGabarit = true;
     
+    private Intersection m_intersectionDrag = null;
+    
     public Simulatheure() {
         initControleur();
     }
+    
+    public void miseAjoutStatistiqueApresArret() {
+        StatistiquesGeneral st = new StatistiquesGeneral(getStatistique());
+        st.miseAjourApresFin();
+        m_statistiques.add(st);
+    }
+    
+    public void mergeStatistiquePlusieurJours( StatistiquesGeneral p_stat){
+        m_reseauBesoins.setStatistiquePlusUnJour(p_stat);
+    }
+
+    public LinkedList<StatistiquesGeneral> getListStatistique() {
+        return m_statistiques;
+    }
+    public void setListStatistique(LinkedList<StatistiquesGeneral> liste){
+        m_statistiques = liste;
+    }
+    
     public double getPrecisionMax() {
         double precision = -1;
         int nbIterationMin = Integer.MAX_VALUE;
@@ -216,7 +224,10 @@ public class Simulatheure implements java.io.Serializable {
             {
                 m_parametresTroncon.add(intersection);
             } else {
-                m_parametresTroncon.removeFirst();
+                if(m_parametresTroncon.getFirst()!=null){
+                    m_parametresTroncon.removeFirst();
+                }
+                
             }
         }
         
@@ -1349,5 +1360,29 @@ public class Simulatheure implements java.io.Serializable {
     public Boolean getStatutAfficherGabarit()
     {
         return m_afficherGabarit;
+    }
+    
+    public void miseAJourPositionIntersection(Integer p_x, Integer p_y, Float p_echelle, Float deltaX, Float deltaY){
+
+        if(m_intersectionDrag==null){
+            ElementRoutier er = m_reseauRoutier.getPileSelection().getDessus();
+            if(er!=null && er.getClass()==Intersection.class){
+                m_intersectionDrag = (Intersection) er;
+            }
+        }
+        if (m_intersectionDrag!=null){
+            m_intersectionDrag.miseAJourPosition(deltaX, deltaY);
+            for(Intersection inter : m_reseauRoutier.getIntersections()){
+                for(Troncon trc : inter.getTroncons()){
+                    if(trc.getDestination()==m_intersectionDrag || trc.getOrigine()==m_intersectionDrag){
+                        trc.miseAJourLongueur();
+                    } 
+                }
+            }
+        }
+    }
+    
+    public void cancellerDrag(){
+        m_intersectionDrag=null;
     }
 }
