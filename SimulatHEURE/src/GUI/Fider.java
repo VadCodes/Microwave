@@ -5,7 +5,8 @@
  */
 package GUI;
 import javax.swing.JFileChooser;
-import java.io.File; 
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 
 /**
  *
@@ -27,21 +28,33 @@ public class Fider {
     }
     public void go(){
         int returnVal;
-         if(m_option == "save"){
-            returnVal= jFileChooser1.showSaveDialog(m_mainwindow);
-         }
-         else{
+        if(m_option == "save"){
+           jFileChooser1.setFileFilter(new FileNameExtensionFilter("Fichier Microwave", "mw"));
+           returnVal= jFileChooser1.showSaveDialog(m_mainwindow);
+        }
+        else if (m_option == "charger"){
+            jFileChooser1.setFileFilter(new FileNameExtensionFilter("Fichier Microwave", "mw"));
             returnVal = jFileChooser1.showOpenDialog(m_mainwindow);
-         }
+        }
+        else {
+            jFileChooser1.setFileFilter(new FileNameExtensionFilter("Image", "jpg", "png", "bmp", "wbmp"));
+            returnVal = jFileChooser1.showOpenDialog(m_mainwindow);
+        }
          
         if (returnVal == JFileChooser.APPROVE_OPTION)  {
-            File file = jFileChooser1.getSelectedFile();
-            m_mainwindow.m_fileChoosed = file;
-            if(m_option == "charger"){
+            m_mainwindow.m_fileChoosed = jFileChooser1.getSelectedFile();
+            
+            if (m_option == "save"){
+                if (!m_mainwindow.m_fileChoosed.getAbsolutePath().endsWith(".mw"))
+                    m_mainwindow.m_fileChoosed = new File(m_mainwindow.m_fileChoosed.getAbsolutePath()+".mw");
+                
+                m_mainwindow.save();
+            }
+            else if(m_option == "charger"){
                 m_mainwindow.charger();
             }
-            else if(m_option == "save"){
-                m_mainwindow.save();
+            else if (m_option == "gabarit"){
+                m_mainwindow.chargerGabarit();
             }
         }
     }

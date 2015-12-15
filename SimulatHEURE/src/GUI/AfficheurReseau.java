@@ -58,16 +58,18 @@ public class AfficheurReseau extends JPanel implements Serializable {
             DessinateurRoutier dessinateurRoutier = new DessinateurRoutier(m_fenetrePrincipale.m_controleur.getRoutier());
             DessinateurTransport dessinateurTransport = new DessinateurTransport(m_fenetrePrincipale.m_controleur.getTransport(), resTransportTransparent);
             DessinateurSimulation dessinateurSimulation = new DessinateurSimulation(m_fenetrePrincipale.m_controleur.getTransport(), m_fenetrePrincipale.m_controleur.getBesoins());
-            DessinateurChantier dessinateurChantierRoutier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
+            DessinateurChantier dessinateurChantier = new DessinateurChantier(m_fenetrePrincipale.m_controleur);
             DessinateurBesoins dessinateurBesoins = new DessinateurBesoins(m_fenetrePrincipale.m_controleur.getBesoins(), resBesoinsTransparent);
-            
-            if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
-            {
-                dessinateurChantierRoutier.dessiner(graphic2D, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
-            }
             
             if (m_echelle > 1)
             {
+                
+                if (!m_fenetrePrincipale.m_controleur.getCheminGabarit().isEmpty() && m_fenetrePrincipale.m_controleur.getStatutAfficherGabarit())
+                    dessinateurChantier.dessinerGabarit(graphic2D, m_echelle);
+                                
+                if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
+                    dessinateurChantier.dessinerTronconEnConstruction(graphic2D, m_echelle, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
+                
                 dessinateurRoutier.dessinerTroncons(graphic2D, m_echelle);
                 dessinateurTransport.dessinerCircuit(graphic2D, m_echelle);
                 dessinateurBesoins.dessinerItineraire(graphic2D, m_echelle);
@@ -81,6 +83,12 @@ public class AfficheurReseau extends JPanel implements Serializable {
             }
             else
             {
+                if (!m_fenetrePrincipale.m_controleur.getCheminGabarit().isEmpty() && m_fenetrePrincipale.m_controleur.getStatutAfficherGabarit())
+                    dessinateurChantier.dessinerGabarit(graphic2D, 1);
+                
+                if (getMousePosition() != null && !m_fenetrePrincipale.m_controleur.getParametresTroncon().isEmpty())
+                    dessinateurChantier.dessinerTronconEnConstruction(graphic2D, 1, getMousePosition().x / m_echelle, getMousePosition().y / m_echelle);
+                
                 dessinateurRoutier.dessinerTroncons(graphic2D, 1);
                 dessinateurTransport.dessinerCircuit(graphic2D, 1);
                 dessinateurBesoins.dessinerItineraire(graphic2D, 1);

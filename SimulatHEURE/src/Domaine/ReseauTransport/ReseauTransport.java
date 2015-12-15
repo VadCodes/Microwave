@@ -173,6 +173,7 @@ public class ReseauTransport extends Reseau{
     public void ajouterCircuit(Circuit circ){
         circ.setNom("C"+ Integer.toString(m_compteurCircuits));
         m_compteurCircuits++;
+        ajoutSource(circ.getListeArretTrajet().getFirst().getArret().getEmplacement(), circ);
         m_listeCircuits.add(circ);
     }
             
