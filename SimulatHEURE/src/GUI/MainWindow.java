@@ -2314,6 +2314,14 @@ public class MainWindow extends javax.swing.JFrame {
         redoButton.setEnabled(false);
         retablir.setEnabled(false);
         
+        newButton.setEnabled(false);
+        loadButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        nouveau.setEnabled(false);
+        charger.setEnabled(false);
+        sauvegarder.setEnabled(false);
+        chargerGabarit.setEnabled(true);
+        
         recommancerSimulation.setEnabled(true);
         arreterSimulation.setEnabled(true);
         avancerSimulation.setEnabled(true);
@@ -2422,6 +2430,14 @@ public class MainWindow extends javax.swing.JFrame {
             arreterSimulation.setEnabled(false);
             avancerSimulation.setEnabled(false);
             ralentirSimulation.setEnabled(false);
+            
+            newButton.setEnabled(true);
+            loadButton.setEnabled(true);
+            saveButton.setEnabled(true);
+            nouveau.setEnabled(true);
+            charger.setEnabled(true);
+            sauvegarder.setEnabled(true);
+            chargerGabarit.setEnabled(true);
             this.afficheurReseau.repaint();
         }
     }
