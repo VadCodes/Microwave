@@ -1436,6 +1436,7 @@ public class MainWindow extends javax.swing.JFrame {
                             if (circuitConstruit)
                             {
                                 miseAjourSelectionCircuitsAjout();
+                                miseAjourSelectionSourcesAjout();
                                 panelCircuit1.afficheInfo((Circuit)m_controleur.getTransport().getPileSelection().getDessus());
                             }
                             

@@ -374,7 +374,6 @@ public class Simulatheure implements java.io.Serializable {
             Circuit circuitSelectionne = obtenirCircuitSelectionne();
             if (circuitSelectionne != null)
             {
-                // Reste à gérer les culs de sac.. Peut-être modifier canceller circuit pour la cause
                 if (circuitSelectionne.veutBoucler())
                 {
                     m_reseauTransport.getPileSelection().enlever(m_arretsNouveauTrajet.getLast());
