@@ -2546,11 +2546,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_retablirActionPerformed
 
     private void zoomInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomInButtonActionPerformed
-        zoom(-5,100,100);
+        zoom(-5,(int)defilementAfficheur.getViewport().getViewRect().getCenterX(),(int)defilementAfficheur.getViewport().getViewRect().getCenterY());
     }//GEN-LAST:event_zoomInButtonActionPerformed
 
     private void zoomOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zoomOutButtonActionPerformed
-        zoom(5,100,100);
+        zoom(5,(int)defilementAfficheur.getViewport().getViewRect().getCenterX(),(int)defilementAfficheur.getViewport().getViewRect().getCenterY());
     }//GEN-LAST:event_zoomOutButtonActionPerformed
     
     public void chargerGabarit()
