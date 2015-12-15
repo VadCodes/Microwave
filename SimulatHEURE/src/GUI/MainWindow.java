@@ -164,7 +164,12 @@ public class MainWindow extends javax.swing.JFrame {
             for(int i =0; i < nbExe;i++){
                 m_controleur.rafraichirSimulation(new Temps(tmpD));
             }
-            facteurMultiplicatif.setText("X" + m_crono.getFacteurVitesse());
+            double factMult = m_crono.getFacteurVitesse();
+            String factMultString=String.valueOf(factMult);
+            if(factMult<0.01)
+                factMultString=String.format(Locale.US, "%.6f", factMult);
+
+            facteurMultiplicatif.setText("X" + factMultString);
             if (deltatT != 0) {
                 miseAjoutAutobusPietonsComboBox();
             }
