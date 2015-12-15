@@ -54,6 +54,8 @@ public void setMainWindow(MainWindow p_mainWindow){
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        compteur = new javax.swing.JSpinner();
 
         jButton2.setText("jButton2");
 
@@ -100,6 +102,11 @@ public void setMainWindow(MainWindow p_mainWindow){
 
         jCheckBox1.setText("Passer l'affichage");
 
+        jLabel3.setText("Nombre de jours  :");
+
+        compteur.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        compteur.setValue(1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,16 +129,23 @@ public void setMainWindow(MainWindow p_mainWindow){
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jRadioButton1)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
-                                        .addComponent(jRadioButton2)))))
-                        .addGap(0, 36, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRadioButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jCheckBox1)
+                                            .addComponent(jRadioButton2))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(compteur, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(0, 19, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -153,7 +167,11 @@ public void setMainWindow(MainWindow p_mainWindow){
                 .addComponent(jRadioButton2)
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(compteur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(26, 26, 26))
         );
@@ -180,7 +198,9 @@ public double getTempsFin(){
     return m_tempsFinSimulation;
 }
 private void setTemps(){
-
+        m_mainWindow.m_skipAffichage = false;
+        int compt = (int)compteur.getValue();
+        m_mainWindow.m_nbJours = compt;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
         try{
             String s_debut  = jTextField1.getText();
@@ -243,11 +263,13 @@ private void setTemps(){
         jTextField2.setEnabled(false);
         jCheckBox1.setEnabled(false);
         jCheckBox1.setSelected(false);
+        compteur.setEnabled(false);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         jTextField2.setEnabled(true);
         jCheckBox1.setEnabled(true);
+        compteur.setEnabled(true);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
@@ -287,11 +309,13 @@ private void setTemps(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JSpinner compteur;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JSeparator jSeparator1;
