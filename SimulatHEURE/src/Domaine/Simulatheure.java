@@ -1356,9 +1356,11 @@ public class Simulatheure implements java.io.Serializable {
     }
     
     public void miseAJourPositionIntersection(Integer p_x, Integer p_y, Float p_echelle, Float deltaX, Float deltaY){
+
         float xReel;
         float yReel;
         float largeurSelection;
+
         if (p_echelle > 1) {
             xReel = (p_x - Intersection.RAYON) / p_echelle;
             yReel = (p_y - Intersection.RAYON) / p_echelle;

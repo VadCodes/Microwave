@@ -2618,16 +2618,19 @@ public class MainWindow extends javax.swing.JFrame {
             if (SwingUtilities.isLeftMouseButton(evt)) {
                 Float deltaX;
                 Float deltaY;
+                Float echelle = afficheurReseau.getEchelle();
+                Float x = evt.getX()/echelle;
+                Float y = evt.getY()/echelle;
                 try{
-                    deltaX = evt.getX() - this.actualMousePoint.x;
-                    deltaY = evt.getY() - this.actualMousePoint.y;
+                    deltaX = x - this.actualMousePoint.x;
+                    deltaY = y - this.actualMousePoint.y;
                 }
                 catch(NullPointerException e){
                     return;
                 }
                 
-                this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), afficheurReseau.getEchelle(), deltaX, deltaY);
-                this.actualMousePoint = new Point2D.Float(evt.getX(), evt.getY());
+                this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), echelle, deltaX, deltaY);
+                this.actualMousePoint = new Point2D.Float(x, y);
                 this.panelIntersection1.majPosition();
                 this.afficheurReseau.repaint();
             }
