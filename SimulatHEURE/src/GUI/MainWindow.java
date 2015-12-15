@@ -2616,29 +2616,32 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void afficheurReseauMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseDragged
         if(m_modeCourant==Mode.ROUTIER && m_commandeCourante==Commande.SELECTIONNER){
-            if (SwingUtilities.isLeftMouseButton(evt)) {
-                Float deltaX;
-                Float deltaY;
-                Float echelle = afficheurReseau.getEchelle();
-                Float x = evt.getX()/echelle;
-                Float y = evt.getY()/echelle;
-                try{
-                    deltaX = x - this.actualMousePoint.x;
-                    deltaY = y - this.actualMousePoint.y;
+            if(actualMousePoint!=null){
+                if (SwingUtilities.isLeftMouseButton(evt)) {
+                    Float deltaX;
+                    Float deltaY;
+                    Float echelle = afficheurReseau.getEchelle();
+                    Float x = evt.getX()/echelle;
+                    Float y = evt.getY()/echelle;
+                    try{
+                        deltaX = x - this.actualMousePoint.x;
+                        deltaY = y - this.actualMousePoint.y;
+                    }
+                    catch(NullPointerException e){
+                        return;
+                    }
+
+                    this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), echelle, deltaX, deltaY);
+                    this.actualMousePoint = new Point2D.Float(x, y);
+                    this.panelIntersection1.majPosition();
+                    this.afficheurReseau.repaint();
                 }
-                catch(NullPointerException e){
-                    return;
-                }
-                
-                this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), echelle, deltaX, deltaY);
-                this.actualMousePoint = new Point2D.Float(x, y);
-                this.panelIntersection1.majPosition();
-                this.afficheurReseau.repaint();
             }
         }
     }//GEN-LAST:event_afficheurReseauMouseDragged
 
     private void afficheurReseauMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseReleased
+        actualMousePoint=null;
         m_controleur.cancellerDrag();
     }//GEN-LAST:event_afficheurReseauMouseReleased
     
