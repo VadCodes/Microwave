@@ -1357,24 +1357,10 @@ public class Simulatheure implements java.io.Serializable {
     
     public void miseAJourPositionIntersection(Integer p_x, Integer p_y, Float p_echelle, Float deltaX, Float deltaY){
 
-        float xReel;
-        float yReel;
-        float largeurSelection;
-
-        if (p_echelle > 1) {
-            xReel = (p_x - Intersection.RAYON) / p_echelle;
-            yReel = (p_y - Intersection.RAYON) / p_echelle;
-            largeurSelection = 2 * Intersection.RAYON / p_echelle;
-        } else {
-            xReel = p_x / p_echelle - Intersection.RAYON;
-            yReel = p_y / p_echelle - Intersection.RAYON;
-            largeurSelection = 2 * Intersection.RAYON;
-        }
-        
         if(m_intersectionDrag==null){
-            Intersection inter = m_reseauRoutier.obtenirIntersection(xReel, yReel, largeurSelection);
-            if(inter!=null){
-                m_intersectionDrag = inter;
+            ElementRoutier er = m_reseauRoutier.getPileSelection().getDessus();
+            if(er!=null && er.getClass()==Intersection.class){
+                m_intersectionDrag = (Intersection) er;
             }
         }
         if (m_intersectionDrag!=null){
