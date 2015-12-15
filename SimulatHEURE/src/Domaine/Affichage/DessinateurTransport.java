@@ -187,7 +187,7 @@ public class DessinateurTransport {
                     p_g.fill(slosange);
                     
                 }
-                p_g.setColor(new Color(0x70C800C8, m_transparence));
+                p_g.setColor(new Color(0x70FFFFFF & circuit.getCouleur().getRGB(), m_transparence));
                 float y1 = position.y - SourceAutobus.LARGEUR / 2 / p_echelle;
                 float x1 = position.x + SourceAutobus.LARGEUR / 2 / p_echelle;
                 float y2 = y1 + SourceAutobus.LARGEUR / p_echelle;
