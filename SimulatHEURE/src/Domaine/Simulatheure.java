@@ -70,6 +70,10 @@ public class Simulatheure implements java.io.Serializable {
     public LinkedList<StatistiquesGeneral> getListStatistique() {
         return m_statistiques;
     }
+    public void setListStatistique(LinkedList<StatistiquesGeneral> liste){
+        m_statistiques = liste;
+    }
+    
     public double getPrecisionMax() {
         double precision = -1;
         int nbIterationMin = Integer.MAX_VALUE;

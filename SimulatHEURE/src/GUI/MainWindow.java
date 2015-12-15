@@ -198,6 +198,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
+        newButton = new javax.swing.JButton();
         loadButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         undoButton = new javax.swing.JButton();
@@ -276,16 +277,24 @@ public class MainWindow extends javax.swing.JFrame {
         boutonsSelectionBesoins = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         comboBoxBesoins = new javax.swing.JComboBox<String>();
+        jPanel32 = new javax.swing.JPanel();
+        jPanel33 = new javax.swing.JPanel();
+        jPanel34 = new javax.swing.JPanel();
+        jPanel35 = new javax.swing.JPanel();
         boutonsSelectionSimulation = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         comboBoxAutobus = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         comboBoxPietons = new javax.swing.JComboBox<String>();
+        jPanel36 = new javax.swing.JPanel();
+        jPanel37 = new javax.swing.JPanel();
         boutonsSelectionRoutier = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         comboBoxTroncons = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         comboBoxIntersections = new javax.swing.JComboBox<String>();
+        jPanel38 = new javax.swing.JPanel();
+        jPanel39 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         panelArret1 = new GUI.PanelArret();
@@ -302,14 +311,16 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         fichier = new javax.swing.JMenu();
-        annuler = new javax.swing.JMenuItem();
-        retablir = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        nouveau = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         sauvegarder = new javax.swing.JMenuItem();
         charger = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         quitter = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        annuler = new javax.swing.JMenuItem();
+        retablir = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         chargerGabarit = new javax.swing.JMenuItem();
         toggleGabarit = new javax.swing.JCheckBoxMenuItem();
@@ -364,6 +375,13 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel13.setPreferredSize(new java.awt.Dimension(1600, 35));
         jPanel13.setLayout(new java.awt.GridLayout(1, 0));
 
+        newButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newButtonActionPerformed(evt);
+            }
+        });
+        jPanel13.add(newButton);
+
         loadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadButtonActionPerformed(evt);
@@ -412,8 +430,8 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1368, Short.MAX_VALUE))
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1316, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -981,6 +999,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel12.setLayout(new java.awt.BorderLayout());
 
         jPanel14.setPreferredSize(new java.awt.Dimension(150, 250));
+        jPanel14.setLayout(new java.awt.CardLayout());
 
         boutonsSelectionTransport.setAlignmentX(1.0F);
         boutonsSelectionTransport.setAlignmentY(1.0F);
@@ -1022,6 +1041,8 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionTransport.add(comboBoxCircuits);
 
+        jPanel14.add(boutonsSelectionTransport, "card2");
+
         boutonsSelectionBesoins.setAlignmentX(1.0F);
         boutonsSelectionBesoins.setAlignmentY(1.0F);
         boutonsSelectionBesoins.setOpaque(false);
@@ -1039,6 +1060,60 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         boutonsSelectionBesoins.add(comboBoxBesoins);
+
+        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
+        jPanel32.setLayout(jPanel32Layout);
+        jPanel32Layout.setHorizontalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel32Layout.setVerticalGroup(
+            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionBesoins.add(jPanel32);
+
+        javax.swing.GroupLayout jPanel33Layout = new javax.swing.GroupLayout(jPanel33);
+        jPanel33.setLayout(jPanel33Layout);
+        jPanel33Layout.setHorizontalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel33Layout.setVerticalGroup(
+            jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionBesoins.add(jPanel33);
+
+        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
+        jPanel34.setLayout(jPanel34Layout);
+        jPanel34Layout.setHorizontalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel34Layout.setVerticalGroup(
+            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionBesoins.add(jPanel34);
+
+        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
+        jPanel35.setLayout(jPanel35Layout);
+        jPanel35Layout.setHorizontalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel35Layout.setVerticalGroup(
+            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionBesoins.add(jPanel35);
+
+        jPanel14.add(boutonsSelectionBesoins, "card3");
 
         boutonsSelectionSimulation.setAlignmentX(1.0F);
         boutonsSelectionSimulation.setAlignmentY(1.0F);
@@ -1068,6 +1143,34 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionSimulation.add(comboBoxPietons);
 
+        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
+        jPanel36.setLayout(jPanel36Layout);
+        jPanel36Layout.setHorizontalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel36Layout.setVerticalGroup(
+            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionSimulation.add(jPanel36);
+
+        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
+        jPanel37.setLayout(jPanel37Layout);
+        jPanel37Layout.setHorizontalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel37Layout.setVerticalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionSimulation.add(jPanel37);
+
+        jPanel14.add(boutonsSelectionSimulation, "card4");
+
         boutonsSelectionRoutier.setAlignmentX(1.0F);
         boutonsSelectionRoutier.setAlignmentY(1.0F);
         boutonsSelectionRoutier.setOpaque(false);
@@ -1096,52 +1199,33 @@ public class MainWindow extends javax.swing.JFrame {
         });
         boutonsSelectionRoutier.add(comboBoxIntersections);
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(boutonsSelectionBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
+        jPanel38.setLayout(jPanel38Layout);
+        jPanel38Layout.setHorizontalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(boutonsSelectionTransport, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(92, Short.MAX_VALUE)
-                    .addComponent(boutonsSelectionSimulation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                    .addContainerGap(92, Short.MAX_VALUE)
-                    .addComponent(boutonsSelectionRoutier, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel14Layout.createSequentialGroup()
-                    .addGap(132, 132, 132)
-                    .addComponent(boutonsSelectionBesoins, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(52, Short.MAX_VALUE)))
+        jPanel38Layout.setVerticalGroup(
+            jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
         );
+
+        boutonsSelectionRoutier.add(jPanel38);
+
+        javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
+        jPanel39.setLayout(jPanel39Layout);
+        jPanel39Layout.setHorizontalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+        jPanel39Layout.setVerticalGroup(
+            jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 33, Short.MAX_VALUE)
+        );
+
+        boutonsSelectionRoutier.add(jPanel39);
+
+        jPanel14.add(boutonsSelectionRoutier, "card5");
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_END);
 
@@ -1257,24 +1341,15 @@ public class MainWindow extends javax.swing.JFrame {
 
         fichier.setText("Fichier");
 
-        annuler.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-        annuler.setText("Annuler");
-        annuler.addActionListener(new java.awt.event.ActionListener() {
+        nouveau.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        nouveau.setText("Nouveau");
+        nouveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                annulerActionPerformed(evt);
+                nouveauActionPerformed(evt);
             }
         });
-        fichier.add(annuler);
-
-        retablir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        retablir.setText("Rétablir");
-        retablir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retablirActionPerformed(evt);
-            }
-        });
-        fichier.add(retablir);
-        fichier.add(jSeparator1);
+        fichier.add(nouveau);
+        fichier.add(jSeparator3);
 
         sauvegarder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         sauvegarder.setText("Sauvegarder");
@@ -1314,6 +1389,28 @@ public class MainWindow extends javax.swing.JFrame {
 
         menu.add(fichier);
 
+        jMenu2.setText("Édition");
+
+        annuler.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        annuler.setText("Annuler");
+        annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                annulerActionPerformed(evt);
+            }
+        });
+        jMenu2.add(annuler);
+
+        retablir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        retablir.setText("Rétablir");
+        retablir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retablirActionPerformed(evt);
+            }
+        });
+        jMenu2.add(retablir);
+
+        menu.add(jMenu2);
+
         jMenu1.setText("Gabarit");
 
         chargerGabarit.setText("Charger un gabarit");
@@ -1341,8 +1438,11 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitterActionPerformed
-        
-        System.exit(0);
+        int reply = JOptionPane.showConfirmDialog(null, "Les modifications ne seront pas enregistrées. Voulez-vous tout de même quitter?", "Attention", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
     }//GEN-LAST:event_quitterActionPerformed
 
     private void routierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_routierActionPerformed
@@ -2634,6 +2734,7 @@ public class MainWindow extends javax.swing.JFrame {
                     this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), echelle, deltaX, deltaY);
                     this.actualMousePoint = new Point2D.Float(x, y);
                     this.panelIntersection1.majPosition();
+                    coordonnees.setText(String.format("%.3f", Intersection.ECHELLE*x/1000) + " km  " + String.format("%.3f", Intersection.ECHELLE*y/1000) + " km");
                     this.afficheurReseau.repaint();
                 }
             }
@@ -2644,6 +2745,22 @@ public class MainWindow extends javax.swing.JFrame {
         actualMousePoint=null;
         m_controleur.cancellerDrag();
     }//GEN-LAST:event_afficheurReseauMouseReleased
+
+    private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
+        int dialogResult = JOptionPane.showConfirmDialog (null, "Les modifications ne seront pas enregistrées. Voulez-vous tout de même poursuivre?","Attention",JOptionPane.YES_NO_OPTION);
+        if(dialogResult == JOptionPane.YES_OPTION){
+            LinkedList<StatistiquesGeneral> temp = m_controleur.getListStatistique();
+            m_controleur=new Simulatheure();
+            m_controleur.setListStatistique(temp);
+            miseAJourPanels();
+            miseAjourComboBoxTotal();
+            miseAJourPermissionsBoutons();
+        }
+    }//GEN-LAST:event_newButtonActionPerformed
+
+    private void nouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveauActionPerformed
+        newButton.doClick();
+    }//GEN-LAST:event_nouveauActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2842,6 +2959,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -2868,6 +2986,14 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
     private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
+    private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
+    private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2876,13 +3002,15 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton loadButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menu;
+    private javax.swing.JButton newButton;
+    private javax.swing.JMenuItem nouveau;
     private GUI.PanelArret panelArret1;
     private GUI.PanelCircuit panelCircuit1;
     private GUI.PanelIntersection panelIntersection1;
