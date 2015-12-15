@@ -46,4 +46,10 @@ public class Intersection extends ElementRoutier{
         }
         return listeRetour;
     }
+    
+    public void miseAJourPosition(Float deltaX, Float deltaY){
+        if(m_position.x+deltaX>=0 && m_position.y+deltaY>=0){
+            m_position=new Point2D.Float(m_position.x+deltaX, m_position.y+deltaY);
+        }
+    }
 }

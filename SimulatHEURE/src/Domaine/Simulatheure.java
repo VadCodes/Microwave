@@ -18,19 +18,7 @@ import java.awt.Image;
  */
 public class Simulatheure implements java.io.Serializable {
 
-    public void miseAjoutStatistiqueApresArret() {
-        StatistiquesGeneral st = new StatistiquesGeneral(getStatistique());
-        st.miseAjourApresFin();
-        m_statistiques.add(st);
-    }
     
-    public void mergeStatistiquePlusieurJours( StatistiquesGeneral p_stat){
-        m_reseauBesoins.setStatistiquePlusUnJour(p_stat);
-    }
-
-    public LinkedList<StatistiquesGeneral> getListStatistique() {
-        return m_statistiques;
-    }
     
     public enum Mode {
 
@@ -63,8 +51,24 @@ public class Simulatheure implements java.io.Serializable {
     private String m_cheminGabarit = "";
     private Boolean m_afficherGabarit = true;
     
+    private Intersection m_intersectionDrag = null;
+    
     public Simulatheure() {
         initControleur();
+    }
+    
+    public void miseAjoutStatistiqueApresArret() {
+        StatistiquesGeneral st = new StatistiquesGeneral(getStatistique());
+        st.miseAjourApresFin();
+        m_statistiques.add(st);
+    }
+    
+    public void mergeStatistiquePlusieurJours( StatistiquesGeneral p_stat){
+        m_reseauBesoins.setStatistiquePlusUnJour(p_stat);
+    }
+
+    public LinkedList<StatistiquesGeneral> getListStatistique() {
+        return m_statistiques;
     }
     public double getPrecisionMax() {
         double precision = -1;
@@ -1349,5 +1353,42 @@ public class Simulatheure implements java.io.Serializable {
     public Boolean getStatutAfficherGabarit()
     {
         return m_afficherGabarit;
+    }
+    
+    public void miseAJourPositionIntersection(Integer p_x, Integer p_y, Float p_echelle, Float deltaX, Float deltaY){
+        float xReel;
+        float yReel;
+        float largeurSelection;
+        if (p_echelle > 1) {
+            xReel = (p_x - Intersection.RAYON) / p_echelle;
+            yReel = (p_y - Intersection.RAYON) / p_echelle;
+            largeurSelection = 2 * Intersection.RAYON / p_echelle;
+        } else {
+            xReel = p_x / p_echelle - Intersection.RAYON;
+            yReel = p_y / p_echelle - Intersection.RAYON;
+            largeurSelection = 2 * Intersection.RAYON;
+        }
+        
+        if(m_intersectionDrag==null){
+            Intersection inter = m_reseauRoutier.obtenirIntersection(xReel, yReel, largeurSelection);
+            if(inter!=null){
+                m_intersectionDrag = inter;
+            }
+        }
+        if (m_intersectionDrag!=null){
+            m_intersectionDrag.miseAJourPosition(deltaX, deltaY);
+            for(Troncon trc : m_intersectionDrag.getTroncons()){
+                for(Troncon trc2 : trc.getDestination().getTroncons()){
+                    if(trc2.getDestination()==m_intersectionDrag){
+                        trc2.miseAJourLongueur();
+                    }
+                }
+                trc.miseAJourLongueur();
+            }
+        }
+    }
+    
+    public void cancellerDrag(){
+        m_intersectionDrag=null;
     }
 }

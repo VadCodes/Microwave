@@ -22,6 +22,7 @@ import Domaine.Utilitaire.*;
 import Domaine.ReseauRoutier.*;
 import Domaine.ReseauTransport.*;
 import java.awt.Color;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -57,7 +58,7 @@ public class MainWindow extends javax.swing.JFrame {
     boolean m_skipAffichage = false;
     public File m_fileChoosed;
     public int m_nbJours;
-    
+    public Point2D.Float actualMousePoint;
 
     /**
      * Creates new form MainWindow
@@ -905,7 +906,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
 
         boutonsSimulation.add(jPanel16);
@@ -926,6 +927,9 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 afficheurReseauMouseMoved(evt);
             }
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseDragged(evt);
+            }
         });
         afficheurReseau.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
@@ -935,6 +939,9 @@ public class MainWindow extends javax.swing.JFrame {
         afficheurReseau.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 afficheurReseauMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                afficheurReseauMouseReleased(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 afficheurReseauMouseExited(evt);
@@ -1386,7 +1393,9 @@ public class MainWindow extends javax.swing.JFrame {
                     switch (m_commandeCourante) {
                         case SELECTIONNER:
                             ElementRoutier elemRoutier = m_controleur.selectionnerElementRoutier(evt.getX(), evt.getY(), echelle, evt.isControlDown());
-                            
+                            float x = evt.getX() / afficheurReseau.getEchelle();
+                            float y = evt.getY() / afficheurReseau.getEchelle();
+                            this.actualMousePoint = new Point2D.Float(x,y);
                             break;
 
                         case INTERSECTION:
@@ -1815,7 +1824,7 @@ public class MainWindow extends javax.swing.JFrame {
         float x = evt.getX() / afficheurReseau.getEchelle();
         float y = evt.getY() / afficheurReseau.getEchelle();
         coordonnees.setText(String.format("%.3f", Intersection.ECHELLE*x/1000) + " km  " + String.format("%.3f", Intersection.ECHELLE*y/1000) + " km");
-        
+
         this.curseurSurElement(evt);
         
         this.afficheurReseau.repaint();
@@ -2603,6 +2612,31 @@ public class MainWindow extends javax.swing.JFrame {
         this.m_controleur.changerStatutAfficherGabarit();
         this.afficheurReseau.repaint(); 
     }//GEN-LAST:event_toggleGabaritActionPerformed
+
+    private void afficheurReseauMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseDragged
+        if(m_modeCourant==Mode.ROUTIER && m_commandeCourante==Commande.SELECTIONNER){
+            if (SwingUtilities.isLeftMouseButton(evt)) {
+                Float deltaX;
+                Float deltaY;
+                try{
+                    deltaX = evt.getX() - this.actualMousePoint.x;
+                    deltaY = evt.getY() - this.actualMousePoint.y;
+                }
+                catch(NullPointerException e){
+                    return;
+                }
+                
+                this.m_controleur.miseAJourPositionIntersection(evt.getX(), evt.getY(), afficheurReseau.getEchelle(), deltaX, deltaY);
+                this.actualMousePoint = new Point2D.Float(evt.getX(), evt.getY());
+                this.panelIntersection1.majPosition();
+                this.afficheurReseau.repaint();
+            }
+        }
+    }//GEN-LAST:event_afficheurReseauMouseDragged
+
+    private void afficheurReseauMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_afficheurReseauMouseReleased
+        m_controleur.cancellerDrag();
+    }//GEN-LAST:event_afficheurReseauMouseReleased
     
     /**
      * @param args the command line arguments
