@@ -1369,13 +1369,12 @@ public class Simulatheure implements java.io.Serializable {
         }
         if (m_intersectionDrag!=null){
             m_intersectionDrag.miseAJourPosition(deltaX, deltaY);
-            for(Troncon trc : m_intersectionDrag.getTroncons()){
-                for(Troncon trc2 : trc.getDestination().getTroncons()){
-                    if(trc2.getDestination()==m_intersectionDrag){
-                        trc2.miseAJourLongueur();
-                    }
+            for(Intersection inter : m_reseauRoutier.getIntersections()){
+                for(Troncon trc : inter.getTroncons()){
+                    if(trc.getDestination()==m_intersectionDrag){
+                        trc.miseAJourLongueur();
+                    } 
                 }
-                trc.miseAJourLongueur();
             }
         }
     }

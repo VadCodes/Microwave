@@ -307,12 +307,31 @@ public class DessinateurBesoins {
                     new Color(255,200,0,130), grossissement*SourceIndividus.LARGEUR);
                 p_g.fill(losange);
             }
-            Path2D.Float los = dessinerLosange(p_g, origine, p_echelle, new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence), SourceIndividus.LARGEUR);
+            Color couleur = new Color(0x50FFFFFF & itineraire.getCouleur().getRGB(), m_transparence);
+            Path2D.Float los = dessinerLosange(p_g, origine, p_echelle, couleur, SourceIndividus.LARGEUR);
             p_g.fill(los);
-        }
-                
+         
+            dessinerCible(p_g, p_echelle, itineraire, couleur, 1.0f);
+        }     
     }
 
+    private void dessinerCible(Graphics2D p_g, Float p_echelle, Itineraire itineraire, Color couleur, Float grossissement){
+        p_g.setStroke(new BasicStroke(2/p_echelle));
+            
+            Float rayon = 20/p_echelle;
+            p_g.setStroke(new BasicStroke(5/p_echelle));
+            p_g.setColor(couleur);
+            p_g.draw(new Ellipse2D.Float(itineraire.getPositionFinale(p_echelle).x-(rayon-4/p_echelle)/2, itineraire.getPositionFinale(p_echelle).y-(rayon-4/p_echelle)/2, rayon-4/p_echelle, rayon-4/p_echelle));
+            
+//            p_g.setStroke(new BasicStroke(1/p_echelle));
+//            p_g.setColor(new Color(0x05000000, m_transparence));
+//            p_g.draw(new Ellipse2D.Float(itineraire.getPositionFinale(p_echelle).x-rayon/2, itineraire.getPositionFinale(p_echelle).y-rayon/2, rayon, rayon));
+//            p_g.setColor(new Color(0x05000000, m_transparence));
+//            rayon = 12/p_echelle;
+//            p_g.draw(new Ellipse2D.Float(itineraire.getPositionFinale(p_echelle).x-rayon/2, itineraire.getPositionFinale(p_echelle).y-rayon/2, rayon, rayon));
+            
+    }
+    
     private void dessinerItineraireSelectionne(Graphics2D p_g, float p_echelle) {
         
         p_g.setStroke(new BasicStroke(Troncon.LARGEUR*1.35f/p_echelle, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
