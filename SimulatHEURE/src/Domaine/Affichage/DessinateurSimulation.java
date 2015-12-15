@@ -120,7 +120,7 @@ public class DessinateurSimulation {
            if (arret.getPietonsEnAttenteEmbarquer() > 0)
             {
                 Point2D.Float position = arret.getEmplacement().calculPosition(p_echelle);
-                p_g.setColor(Color.LIGHT_GRAY);
+                p_g.setColor(Color.GRAY);
                 double ajX = p_g.getFontMetrics().getStringBounds(Integer.toString(arret.getPietonsEnAttenteEmbarquer()), p_g).getCenterX();
                 double ajY = p_g.getFontMetrics().getStringBounds(Integer.toString(arret.getPietonsEnAttenteEmbarquer()), p_g).getCenterY();
                 p_g.scale(1 / p_echelle, 1 / p_echelle);
