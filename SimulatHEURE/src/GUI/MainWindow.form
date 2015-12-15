@@ -9,12 +9,17 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="groupeRoutier">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionRoutier);&#xa;groupeModes.add(ajoutIntersection);&#xa;groupeModes.add(constructionTroncon);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeRoutier.add(selectionRoutier);&#xa;groupeRoutier.add(ajoutIntersection);&#xa;groupeRoutier.add(constructionTroncon);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.ButtonGroup" name="groupeTransport">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeModes.add(selectionTransport);&#xa;groupeModes.add(ajoutArret);&#xa;groupeModes.add(ajoutCircuit);&#xa;groupeModes.add(suppressionTransport);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeTransport.add(selectionTransport);&#xa;groupeTransport.add(ajoutArret);&#xa;groupeTransport.add(ajoutCircuit);"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="groupeBesoins">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="groupeBesoins.add(selectionBesoins);&#xa;groupeBesoins.add(ajoutBesoin);"/>
       </AuxValues>
     </Component>
     <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
@@ -44,11 +49,6 @@
         </MenuItem>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
-      </Properties>
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fichier">

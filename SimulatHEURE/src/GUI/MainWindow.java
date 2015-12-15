@@ -188,10 +188,10 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes = new javax.swing.ButtonGroup();
         groupeRoutier = new javax.swing.ButtonGroup();
         groupeTransport = new javax.swing.ButtonGroup();
+        groupeBesoins = new javax.swing.ButtonGroup();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         editerClicDroit = new javax.swing.JMenuItem();
         supprimerClicDroit = new javax.swing.JMenuItem();
-        jButton2 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -317,14 +317,16 @@ public class MainWindow extends javax.swing.JFrame {
         groupeModes.add(besoins);
         groupeModes.add(simulation);
 
-        groupeModes.add(selectionRoutier);
-        groupeModes.add(ajoutIntersection);
-        groupeModes.add(constructionTroncon);
+        groupeRoutier.add(selectionRoutier);
+        groupeRoutier.add(ajoutIntersection);
+        groupeRoutier.add(constructionTroncon);
 
-        groupeModes.add(selectionTransport);
-        groupeModes.add(ajoutArret);
-        groupeModes.add(ajoutCircuit);
-        groupeModes.add(suppressionTransport);
+        groupeTransport.add(selectionTransport);
+        groupeTransport.add(ajoutArret);
+        groupeTransport.add(ajoutCircuit);
+
+        groupeBesoins.add(selectionBesoins);
+        groupeBesoins.add(ajoutBesoin);
 
         jPopupMenu1.setName(""); // NOI18N
 
@@ -343,8 +345,6 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.add(supprimerClicDroit);
-
-        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 600));
@@ -2750,10 +2750,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem editerClicDroit;
     private javax.swing.JLabel facteurMultiplicatif;
     private javax.swing.JMenu fichier;
+    private javax.swing.ButtonGroup groupeBesoins;
     private javax.swing.ButtonGroup groupeModes;
     private javax.swing.ButtonGroup groupeRoutier;
     private javax.swing.ButtonGroup groupeTransport;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
