@@ -45,12 +45,14 @@ public class StatistiquesGeneral implements java.io.Serializable {
     }
 
     public void setDefault() {
-       for (StatistiqueBesoin stat : m_statistiques)
+       for (StatistiqueBesoin stat : m_statistiques){
            stat.setDefault();
+       }
+        m_nbJours = 1;
     }
 
     public void ajoutUnJour(StatistiquesGeneral p_stat) {
-        m_nbJours ++;
+        m_nbJours = p_stat.m_nbJours + 1;
         for (ListIterator<StatistiqueBesoin> stat1s = m_statistiques.listIterator(); stat1s.hasNext();) {
             StatistiqueBesoin stat1 = stat1s.next();
             for (ListIterator<StatistiqueBesoin> stat2s = p_stat.getListeStatistiqueBesoin().listIterator(); stat2s.hasNext();) {
