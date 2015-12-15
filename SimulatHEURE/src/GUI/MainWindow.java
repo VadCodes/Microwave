@@ -56,6 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
     private volatile int myY = 0;
     boolean m_skipAffichage = false;
     public File m_fileChoosed;
+    public int m_nbJours;
     
 
     /**
@@ -133,7 +134,7 @@ public class MainWindow extends javax.swing.JFrame {
             boolean finSimulation = false;
             double deltatT = m_crono.getDeltatT();
             if(m_skipAffichage){
-                m_skipAffichage = false;
+                //m_skipAffichage = false;
                 deltatT = (m_tempsFinSimulation - m_tempsDebutSimulation)/1000;
                 finSimulation = true;
                 Date itemDate = new Date((long)(m_tempsDebutSimulation + (deltatT)*1000));
@@ -167,10 +168,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
             m_this.afficheurReseau.repaint();
             if (finSimulation) {
-                
                 Icon warnIcon = new ImageIcon("src/Icons/play.png");
                 playPauseSimulation.setIcon(warnIcon);
-                arreterSimulation.doClick();
+                arreterSimulation();
+                miseAjourBoutonsSimulation();
             }
         }
     }
@@ -1531,7 +1532,7 @@ public class MainWindow extends javax.swing.JFrame {
             conteur++;
                 if (conteur == p_stat) {
                     ListIterator<StatistiqueBesoin> statis = stat.getListeStatistiqueBesoin().listIterator();
-                    String header[] = new String[]{"Nom de l'itineraire", "Temps minimum", "Temps moyen", 
+                    String header[] = new String[]{"Nom de l'itineraire","Nombre de jours", "Temps minimum", "Temps moyen", 
                         "Temps maximum", "Temps moyen d'attente", "Nombre de piétons"}; 
                     DefaultTableModel model = new DefaultTableModel(header,stat.getListeStatistiqueBesoin().size());
                     while(statis.hasNext()){
@@ -1542,14 +1543,15 @@ public class MainWindow extends javax.swing.JFrame {
                         String max = Double.toString(besoin.getmaxTempsDeplacement());
                         String attenteArret = Double.toString(besoin.getMoyenneAttente());
                         String echantillon = Integer.toString(besoin.getNbIteration());
-                        
+                        String nbJours = Integer.toString(stat.getNbJours());
                         
                         jTable1.setValueAt(besoin.getNameItineraire(), x, 0);
-                        jTable1.setValueAt(min.concat("  min(s)"), x, 1);
-                        jTable1.setValueAt(moyenne.concat("  min(s)"), x, 2);
-                        jTable1.setValueAt(max.concat("  min(s)"), x, 3);
-                        jTable1.setValueAt(attenteArret.concat("  min(s)"), x, 4);
-                        jTable1.setValueAt(echantillon.concat("  piétons"), x, 5);
+                        jTable1.setValueAt(nbJours.concat(" jour(s)"), x, 1);
+                        jTable1.setValueAt(min.concat("  min(s)"), x, 2);
+                        jTable1.setValueAt(moyenne.concat("  min(s)"), x, 3);
+                        jTable1.setValueAt(max.concat("  min(s)"), x, 4);
+                        jTable1.setValueAt(attenteArret.concat("  min(s)"), x, 5);
+                        jTable1.setValueAt(echantillon.concat("  piétons"), x, 6);
                          x++;
                     }
                 }
@@ -2172,37 +2174,66 @@ public class MainWindow extends javax.swing.JFrame {
     private void recommancerSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recommancerSimulationActionPerformed
         Icon warnIcon = new ImageIcon("src/Icons/play.png");
         playPauseSimulation.setIcon(warnIcon);
-        arreterSimulation.doClick();
+        m_nbJours = 1;
+        arreterSimulation();
+        miseAjourBoutonsSimulation();
         playPauseSimulation.doClick();
     }//GEN-LAST:event_recommancerSimulationActionPerformed
 
     private void arreterSimulation(){
-        m_timer.stop();
-        m_crono.pause();
-        m_simulationEstLancer = false;
-        m_controleur.arreterSimulation();
-        miseAjoutComboBoxStat();
-        m_precision = -1;
+        if (m_nbJours !=1){
+            m_timer.stop();
+            m_crono.pause();
+            m_simulationEstLancer = false;
+            StatistiquesGeneral stat = new StatistiquesGeneral(m_controleur.getBesoins().getStatistique());
+            m_nbJours--;
+            m_controleur.arreterSimulation();
+            Icon warnIcon = new ImageIcon("src/Icons/pause.png");
+            playPauseSimulation.setIcon(warnIcon);
+            m_simulationEstLancer = true;
+            boutonsSimulation.setVisible(true);
+            m_timer = new Timer(0, new MyTimerActionListener());
+            m_crono = new Chronometre();
+            m_timer.setDelay(1);
+            m_controleur.demarrerSimulation();
+            m_controleur.mergeStatistiquePlusieurJours(stat);
+            m_crono.start();
+            m_timer.start();
+        }
+        else{
+            m_nbJours--;
+            m_timer.stop();
+            m_crono.pause();
+            m_simulationEstLancer = false;
+            m_controleur.arreterSimulation();
+            miseAjoutComboBoxStat();
+        }
+    }
+    
+    private void miseAjourBoutonsSimulation(){
+        if(m_nbJours == 0){
+             Icon warnIcon = new ImageIcon("src/Icons/play.png");
+            playPauseSimulation.setIcon(warnIcon);
+            playPauseSimulation.setSelected(false);
+
+            routier.setEnabled(true);
+            transport.setEnabled(true);
+            besoins.setEnabled(true);
+            undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
+            redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
+
+            recommancerSimulation.setEnabled(false);
+            arreterSimulation.setEnabled(false);
+            avancerSimulation.setEnabled(false);
+            ralentirSimulation.setEnabled(false);
+            this.afficheurReseau.repaint();
+        }
     }
     
     private void arreterSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arreterSimulationActionPerformed
+        m_nbJours = 1;
         arreterSimulation();
-        Icon warnIcon = new ImageIcon("src/Icons/play.png");
-        playPauseSimulation.setIcon(warnIcon);
-        playPauseSimulation.setSelected(false);
-        
-        routier.setEnabled(true);
-        transport.setEnabled(true);
-        besoins.setEnabled(true);
-        undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
-        redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
-        
-        recommancerSimulation.setEnabled(false);
-        arreterSimulation.setEnabled(false);
-        avancerSimulation.setEnabled(false);
-        ralentirSimulation.setEnabled(false);
-        
-        this.afficheurReseau.repaint();
+        miseAjourBoutonsSimulation();
     }//GEN-LAST:event_arreterSimulationActionPerformed
 
     private void checkBoxDijkstraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDijkstraActionPerformed

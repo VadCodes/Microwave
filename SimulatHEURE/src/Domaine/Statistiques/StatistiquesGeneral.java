@@ -16,7 +16,7 @@ public class StatistiquesGeneral implements java.io.Serializable {
     private LinkedList<StatistiqueBesoin> m_statistiques = new LinkedList<>();
     
     public StatistiquesGeneral() {}
-    
+    private int m_nbJours = 1;
     public StatistiquesGeneral(StatistiquesGeneral p_stat){
         for (StatistiqueBesoin stat : p_stat.m_statistiques)
            m_statistiques.add(new StatistiqueBesoin(stat));
@@ -45,6 +45,24 @@ public class StatistiquesGeneral implements java.io.Serializable {
     public void setDefault() {
        for (StatistiqueBesoin stat : m_statistiques)
            stat.setDefault();
+    }
+
+    public void ajoutUnJour(StatistiquesGeneral p_stat) {
+        m_nbJours = p_stat.getNbJours() +1;
+        for (ListIterator<StatistiqueBesoin> stat1s = m_statistiques.listIterator(); stat1s.hasNext();) {
+            StatistiqueBesoin stat1 = stat1s.next();
+            for (ListIterator<StatistiqueBesoin> stat2s = p_stat.getListeStatistiqueBesoin().listIterator(); stat2s.hasNext();) {
+                StatistiqueBesoin stat2 = stat2s.next();
+                if(stat1.getNameItineraire().equals(stat2.getNameItineraire())){
+                    stat1.merge(stat2);
+                }
+            }
+        }
+       
+    }
+
+    public int getNbJours() {
+        return  m_nbJours;
     }
             
 }

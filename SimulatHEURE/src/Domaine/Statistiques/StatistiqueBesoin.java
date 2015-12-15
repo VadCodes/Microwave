@@ -92,4 +92,14 @@ public class StatistiqueBesoin implements java.io.Serializable {
     public int getNbIteration() {
         return m_nombreEchantion;
     }
+
+    void merge(StatistiqueBesoin p_stat) {
+        m_sommeDesTemps = p_stat.m_sommeDesTemps;
+        m_precisionGlobalTotal = p_stat.m_precisionGlobalTotal;
+        m_maxTempsDeplacement = p_stat.m_maxTempsDeplacement;
+        m_minTempsDeplacement = p_stat.m_minTempsDeplacement;
+        m_nombreEchantion = p_stat.m_nombreEchantion;
+        m_nomItineraire = p_stat.m_nomItineraire;
+        m_tempSommeAuArrets = p_stat.m_tempSommeAuArrets;
+    }
 }

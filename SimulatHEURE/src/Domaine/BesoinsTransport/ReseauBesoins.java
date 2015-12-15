@@ -409,4 +409,8 @@ public class ReseauBesoins extends Reseau {
         }
         return true;
     }
+
+    public void setStatistiquePlusUnJour(StatistiquesGeneral p_stat) {
+        m_stat.ajoutUnJour(p_stat);
+    }
 }

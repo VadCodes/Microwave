@@ -21,6 +21,10 @@ public class Simulatheure implements java.io.Serializable {
         st.miseAjourApresFin();
         m_statistiques.add(st);
     }
+    
+    public void mergeStatistiquePlusieurJours( StatistiquesGeneral p_stat){
+        m_reseauBesoins.setStatistiquePlusUnJour(p_stat);
+    }
 
     public LinkedList<StatistiquesGeneral> getListStatistique() {
         return m_statistiques;
