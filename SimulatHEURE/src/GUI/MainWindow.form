@@ -125,6 +125,7 @@
                   <KeyStroke key="Ctrl+Z"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Annuler"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="annulerActionPerformed"/>
@@ -136,6 +137,7 @@
                   <KeyStroke key="Ctrl+Y"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="R&#xe9;tablir"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retablirActionPerformed"/>
@@ -280,11 +282,17 @@
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="undoButton">
+                      <Properties>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="undoButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="redoButton">
+                      <Properties>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="redoButtonActionPerformed"/>
                       </Events>

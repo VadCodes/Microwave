@@ -401,6 +401,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanel13.add(saveButton);
 
+        undoButton.setEnabled(false);
         undoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 undoButtonActionPerformed(evt);
@@ -408,6 +409,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jPanel13.add(undoButton);
 
+        redoButton.setEnabled(false);
         redoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 redoButtonActionPerformed(evt);
@@ -1398,6 +1400,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         annuler.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
         annuler.setText("Annuler");
+        annuler.setEnabled(false);
         annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 annulerActionPerformed(evt);
@@ -1407,6 +1410,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         retablir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         retablir.setText("Rétablir");
+        retablir.setEnabled(false);
         retablir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retablirActionPerformed(evt);
@@ -2262,7 +2266,9 @@ public class MainWindow extends javax.swing.JFrame {
         transport.setEnabled(false);
         besoins.setEnabled(false);
         undoButton.setEnabled(false);
+        annuler.setEnabled(false);
         redoButton.setEnabled(false);
+        retablir.setEnabled(false);
         
         recommancerSimulation.setEnabled(true);
         arreterSimulation.setEnabled(true);
@@ -2363,7 +2369,9 @@ public class MainWindow extends javax.swing.JFrame {
             transport.setEnabled(true);
             besoins.setEnabled(true);
             undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
+            annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
             redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
+            retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
 
             recommancerSimulation.setEnabled(false);
             arreterSimulation.setEnabled(false);
@@ -2852,7 +2860,9 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void miseAJourPermissionsBoutons() {
         undoButton.setEnabled(m_controleur.getHistorique().peutAnnuler());
+        annuler.setEnabled(m_controleur.getHistorique().peutAnnuler());
         redoButton.setEnabled(m_controleur.getHistorique().peutRetablir());
+        retablir.setEnabled(m_controleur.getHistorique().peutRetablir());
         
         if (m_controleur.getRoutier().getIntersections().size() > 1) {
             selectionRoutier.setEnabled(true);
