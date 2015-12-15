@@ -224,7 +224,10 @@ public class Simulatheure implements java.io.Serializable {
             {
                 m_parametresTroncon.add(intersection);
             } else {
-                m_parametresTroncon.removeFirst();
+                if(m_parametresTroncon.getFirst()!=null){
+                    m_parametresTroncon.removeFirst();
+                }
+                
             }
         }
         
@@ -1371,7 +1374,7 @@ public class Simulatheure implements java.io.Serializable {
             m_intersectionDrag.miseAJourPosition(deltaX, deltaY);
             for(Intersection inter : m_reseauRoutier.getIntersections()){
                 for(Troncon trc : inter.getTroncons()){
-                    if(trc.getDestination()==m_intersectionDrag){
+                    if(trc.getDestination()==m_intersectionDrag || trc.getOrigine()==m_intersectionDrag){
                         trc.miseAJourLongueur();
                     } 
                 }
