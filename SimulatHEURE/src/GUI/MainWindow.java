@@ -81,6 +81,9 @@ public class MainWindow extends javax.swing.JFrame {
         Icon iconRedo = new ImageIcon("src/Icons/redo.png");
         Icon iconZoomIn = new ImageIcon("src/Icons/zoomIn.png");
         Icon iconZoomOut = new ImageIcon("src/Icons/zoomOut.png");
+        Icon iconNewFile = new ImageIcon("src/Icons/newFIle.png");
+        
+        newButton.setIcon(iconNewFile);
         loadButton.setIcon(iconLoad);
         saveButton.setIcon(iconSave);
         undoButton.setIcon(iconUndo);
