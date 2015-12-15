@@ -1,0 +1,63 @@
+
+Mode d'emploi du logiciel
+On a quatre modes différents qui ont tous une utilité précise.
+ Bien entendu, la construction d'un réseau de routes est 
+obligatoire avant la construction de circuits, et on doit
+ avoir un minimum d'un circuit d'autobus fonctionnel pour
+ lancer la simulation.
+
+Le mode "Réseau routier" sert à construire les routes (tronçons)
+et les intersections du réseau. Bien qu'il est possible de
+créer des intersections individuelles, il est recommandé 
+d'utiliser la fonction "Tronçon" qui gère automatique l'ajout 
+d'intersections à chaque bout du tronçon si nécessaire. 
+Il est également possible de déplacer les intersections, lorsque
+ le bouton "Sélectionner" est enfoncé. 
+
+Le mode "Réseau transport" sert à construire les circuits 
+d'autobus qui parcourent les tronçons créés dans le mode précédent.
+ Bien qu'il est possible de créer des arrêts individuels, il est
+ recommandé d'utiliser la fonction "Circuit" qui crée un arrêt 
+automatique à l'endroit sélectionné par l'utilisateur et, pour
+ tous les autres arrêts créés, le chemin entre chaque arrêt 
+sera également généré. Donc, pour faire un circuit complet, 
+il suffit de décider quels seront les emplacements des arrêts
+ du circuit et le chemin le plus courts entre chaque arrêt 
+sera calculé automatiquement. Il est également possible de 
+rajouter des sources d'autobus aux endroit voulus sur le circuit.
+
+Le mode "Besoins transport" est semblable à celui de 
+"Réseau transport" à l'exception que ce sont des itinéraires de
+ piétons qui utiliseront les circuits d'autobus créés précédement.
+ Donc on choisit l'origine du parcours, peu importe où sur 
+le réseau routier, puis on sélectionne des paires d'arrêts 
+d'un même circuit que le piéton empruntera. Finalement, on 
+choisit l'emplacement
+final qui peut être sur un arrêt ou directement sur un
+ élément du réseau routier.
+
+Le mode "Simulation" englobe tout ce qui se rapporte au 
+visionnement de la simulation. On peut lancer une simulation
+ avec un temps déterminé sur plusieurs jours. Il est aussi 
+possible de lancer la simulation sans spécifier de durée;
+l'utilisateur doit arrêter la simulation manuellement. 
+À noter que, lorsqu'on demande une durée infinie, les 
+distributions sur les tronçons ne seront pigés qu'une seule
+ fois au début de la simulation. Il est également possible 
+de ne pas visionner la simulation et de directement calculer
+ les statistiques. En tout temps, il est possible de consulter
+ les statistiques des simulations effectuées préalablement.
+
+Pour les trois modes de création, il est possible d'éditer 
+et de consulter les données propres à chacun des éléments.
+ Les éléments sont facilement distingables car il se forme
+ une aura jaune autour d'eux lorsque la souris les pointe.
+ Pour les sélectionner, on peut utiliser le bouton
+ "Sélectionner", les boîtes combinées à droite ou plus 
+simplement le clic droit. Une fois sélectionné, les 
+informations sur l'élément s'affiche dans un panneau à
+ la droite de la fenêtre. 
+
+Enfin, il est possible de charger un gabarit, 
+c'est-à-dire une image d'arrière-plan, grâce au menu 
+contextuel "Gabarit". 

@@ -328,6 +328,7 @@ public class MainWindow extends javax.swing.JFrame {
         charger = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         quitter = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         annuler = new javax.swing.JMenuItem();
@@ -1416,6 +1417,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         fichier.add(jMenuItem1);
+
+        jMenuItem2.setText("Aide");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        fichier.add(jMenuItem2);
 
         quitter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         quitter.setText("Quitter");
@@ -2819,6 +2828,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void nouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveauActionPerformed
         newButton.doClick();
     }//GEN-LAST:event_nouveauActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        help fenetre = new help();
+        fenetre.setResizable(false);
+        fenetre.setLocationRelativeTo(null); //pour centrer
+        fenetre.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fenetre.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -3023,6 +3040,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
